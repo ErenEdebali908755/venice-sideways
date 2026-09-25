@@ -7,3 +7,8 @@ test('old path alias redirects without overriding fragment or query',async()=>{c
 test('private application paths and location uploads are absent',async()=>{for(const p of ['/admin','/.env','/server.mjs','/analytics/collect','/api/location','/%2e%2e/server.mjs'])assert.equal((await fetch(base+p)).status,404,p);assert.equal((await fetch(base+'/api/location',{method:'POST',body:'never-record-this'})).status,405);});
 test('static assets have correct MIME, caching and no gallery runtime',async()=>{const r=await fetch(base+'/walk-map-v5.js');assert.equal(r.status,200);assert.match(r.headers.get('content-type'),/javascript/);const body=await r.text();assert.ok(body.includes('https://venicesideways.com/'));assert.ok(!body.includes('https://erenedebali.com/venice-photography-walk-map'));const cached=await fetch(base+'/walk-map-v5.js',{headers:{'If-None-Match':r.headers.get('etag')}});assert.equal(cached.status,304);});
 test('healthcheck works',async()=>{assert.equal(await (await fetch(base+'/healthz')).text(),'ok');});
+test('branded tab and mobile icons are served',async()=>{
+ for(const [path,type] of [['/favicon.svg','image/svg+xml'],['/favicon.ico','image/x-icon'],['/apple-touch-icon.png','image/png'],['/site.webmanifest','application/manifest+json']]){
+  const r=await fetch(base+path);assert.equal(r.status,200,path);assert.match(r.headers.get('content-type'),new RegExp(type.replace('+','\\+')),path);assert.ok((await r.arrayBuffer()).byteLength>100,path);
+ }
+});

@@ -11,8 +11,8 @@
 .walk-v11 .map-badge{top:calc(var(--walk-stage-height,80px) + 10px);max-width:calc(100% - 84px)}
 .walk-v11 .nearby-controls{top:calc(var(--walk-stage-height,80px) + 95px)}
 .walk-v11 .map-tools{bottom:31px}
-.walk-direction{pointer-events:none!important;background:transparent!important;border:0!important}
-.walk-direction span{display:block;font:bold 18px/18px system-ui;text-shadow:0 0 2px white,0 0 2px white;transform-origin:center}
+
+
 .boarding-label-offset{translate:-25px 22px}
 .boarding-label-offset:after{content:'';position:absolute;left:30px;top:-8px;width:19px;border-top:2px solid #388ccc;transform:rotate(-40deg);transform-origin:left}
 #walk-route-flow{margin:17px 0 20px}#walk-route-flow>h2{font:24px/1.2 Georgia,serif;margin:0 0 7px}
@@ -43,3 +43,8 @@
  .walk-v11 .map-badge{top:calc(var(--walk-stage-height,44px) + 10px);max-width:calc(100% - 250px)}
 }
 @media print{.walk-stage-toolbar,.walk-section-focus{display:none!important}#walk-route-flow{break-inside:avoid}.walk-v11 #map{height:500px}}
+
+.boat-icon{display:inline-block;width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle;flex-shrink:0}
+.transit-marker .boat-icon{width:28px;height:28px}
+.walk-flow-stops b .boat-icon{width:22px;height:22px}
+.boat-parts-group>strong{display:flex;align-items:center;gap:8px}

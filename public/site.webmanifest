@@ -1,0 +1,20 @@
+{
+  "name": "Venice Sideways",
+  "short_name": "Sideways",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fffdf9",
+  "theme_color": "#0b686d",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

@@ -60,7 +60,18 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
    check(page.locator('h1').inner_text()=='Venice Sideways',lang+': branded heading')
    check(page.locator('#walk-language option').count()==8,lang+': all locales and automatic mode')
    check(page.locator('#route option').count()==2,lang+': two walks')
-   check(page.evaluate('stops().length')==15,lang+': preserved current main route')
+   check(page.evaluate('stops().map(p=>p.id)')==['lucia','giacomo','frari','margherita','barnaba','trovaso','zattere','dogana','accademia','trearchi','vino'],lang+': exact revised route')
+   check(page.evaluate('WalkV11.points()[1].map(p=>p.id)')==['land','trearchi','vino'],lang+': no extra Cannaregio stops')
+   check(page.evaluate('WalkV11.transferPoints().map(p=>p.id)')==['board','change','land'],lang+': Ferrovia change represented')
+   check(page.evaluate('WalkV11.journeys.map(j=>j.line)')==['1','5.2'],lang+': two actual boat legs')
+   check(page.locator('#parts a').count()==6,lang+': four walking links plus two boat links')
+   hrefs=page.locator('#parts a').evaluate_all('(xs)=>xs.map(x=>x.href)')
+   check(sum('travelmode=transit' in u for u in hrefs)==2 and sum('travelmode=walking' in u for u in hrefs)==4,lang+': modes stay separate')
+   check('T1' not in page.locator('body').inner_text() and 'T2' not in page.locator('body').inner_text(),lang+': no transfer codes shown')
+   check(page.locator('link[rel=icon][type="image/svg+xml"]').count()==1,lang+': favicon linked')
+   check(page.locator('#my-location span').text_content().strip()!='',lang+': location button label visible')
+   check('arrowFor' not in (ROOT/'public/walk-v12/stages.js').read_text(),lang+': no arrow renderer')
+   check(page.evaluate('stops().length')==11,lang+': preserved current main route')
    check(page.evaluate('shareURL()').startswith('https://venicesideways.com/'),lang+': canonical share domain')
    check(page.evaluate('__geo.calls')==0,lang+': no permission request on load')
    for width,height in [(320,740),(390,844),(844,390),(1440,960)]:
@@ -70,7 +81,7 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
    page.evaluate("changeMode('full')");page.wait_for_timeout(50);check(page.evaluate('stops().length')==28,lang+': preserved full walk')
    page.evaluate("changeMode('main')");page.wait_for_timeout(50)
    page.locator('.guide-dock [data-guide-view="ideas"]').click();page.wait_for_timeout(35)
-   check(page.locator('#stops .photo-prompt').count()==15,lang+': idea cards retained')
+   check(page.locator('#stops .photo-prompt').count()==11,lang+': idea cards retained')
    first=page.locator('#stops .photo-prompt').first
    labels=[]
    for i in range(5):labels.append(first.locator('h4').inner_text());first.locator('.phone-next').click();page.wait_for_timeout(20)

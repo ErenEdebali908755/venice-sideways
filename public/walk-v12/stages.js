@@ -18,7 +18,7 @@ function sections(){
  if(mode==='main'){
   const phases=WalkV11.points();
   return [{id:'walk1',label:'walkOne',info:'walkOneInfo',points:phases[0]},
-   {id:'boat',label:'boatStage',info:'boatInfo',points:[phases[0].at(-1),phases[1][0]]},
+   {id:'boat',label:'boatStage',info:'boatInfo',points:WalkV11.transferPoints()},
    {id:'walk2',label:'walkTwo',info:'walkTwoInfo',points:phases[1]}];
  }
  return [{id:'north',label:'fullNorth',points:all.slice(0,8)},
@@ -28,14 +28,6 @@ function sections(){
 const currentSection=()=>sections().find(s=>s.id===stage);
 function legStage(a,b){return mode==='main'?(b.id==='board'||Number(b.n)<=9?'walk1':'walk2'):(Number(b.n)<=8?'north':Number(b.n)<=20?'centre':'east');}
 function setLayerVisible(layer,visible){if(!map)return;if(visible&&!map.hasLayer(layer))map.addLayer(layer);else if(!visible&&map.hasLayer(layer))map.removeLayer(layer);}
-function arrowFor(path,key){
- if(!map||path.length<3)return;
- const mid=Math.floor(path.length/2);let i=mid-1,j=mid+1;
- while(j<path.length-1&&Math.abs(path[j][0]-path[i][0])+Math.abs(path[j][1]-path[i][1])<0.000025)j++;
- const a=map.options.crs.project(L.latLng(path[i])),b=map.options.crs.project(L.latLng(path[j]));
- const angle=Math.atan2(-(b.y-a.y),b.x-a.x)*180/Math.PI;
- return L.marker(path[mid],{keyboard:false,interactive:false,zIndexOffset:-100,icon:L.divIcon({className:'walk-direction',html:'<span style="transform:rotate('+angle+'deg);color:'+colors[key]+'" aria-hidden="true">➤</span>',iconSize:[18,18],iconAnchor:[9,9]}),walkStage:key,walkArrow:true}).addTo(lines);
-}
 const oldDraw=drawLeg;
 drawLeg=function(path,a,b,real){
  const old=new Set(lines.getLayers()),key=legStage(a,b);oldDraw(path,a,b,real);
@@ -43,7 +35,7 @@ drawLeg=function(path,a,b,real){
   layer.options.walkStage=key;
   if(real&&layer.options.weight===4.5)layer.setStyle({color:colors[key]||layer.options.color});
  }
- if(real)arrowFor(path,key);schedule();
+ schedule();
 };
 function visibleIds(){const sec=currentSection();return sec?new Set(sec.points.map(p=>p.id)):new Set(stops().map(p=>p.id));}
 function applyVisibility(){
@@ -54,14 +46,14 @@ function applyVisibility(){
    if(pin&&p&&p.id!=='vino'&&p.id!=='trearchi')pin.style.setProperty('--c',p.n<=9?colors.walk1:colors.walk2);
   }
  });
- lines?.eachLayer(layer=>setLayerVisible(layer,(stage==='all'||layer.options.walkStage===stage)&&(!layer.options.walkArrow||!wide)));
+ lines?.eachLayer(layer=>setLayerVisible(layer,stage==='all'||layer.options.walkStage===stage));
  const phases=mode==='main'?WalkV11.points():null;
  const board=phases?.[0].at(-1),land=phases?.[1][0];
  // Transfer layers are owned by the mixed-mode engine; tag without removing them from their group.
  map.eachLayer(group=>{if(!(group instanceof L.LayerGroup)||group===lines||group===markers||group===sunLayer||group===otherMarkers)return;
   group.eachLayer(layer=>{
    if(layer.getElement?.()?.classList.contains('transit-marker')||layer.options.walkTransferPoint){
-    const ll=layer.getLatLng();const id=board&&Math.abs(ll.lat-board.lat)<1e-6?'board':'land';layer.options.walkTransferPoint=id;
+    const id=layer.options.walkTransferPoint;
     setLayerVisible(layer,mode==='main'&&(stage==='all'||stage==='boat'||(id==='board'&&stage==='walk1')||(id==='land'&&stage==='walk2')));
     const node=layer.getElement?.();if(node&&id==='board')node.classList.add('boarding-label-offset');
    }else if(layer instanceof L.Polyline&&(layer.options.color==='#479fdd'||layer.options.walkBoat)){
@@ -102,7 +94,7 @@ function renderControls(){
  const groups=sections();
  flow.innerHTML='<h2>'+esc(t('flowTitle'))+'</h2><p class="small-note">'+esc(t('stageHelp'))+'</p>'+groups.map(s=>{
   const info=s.info?t(s.info):s.points[0].name+' → '+s.points.at(-1).name;
-  return '<details class="walk-flow-section"'+(mode==='main'?' open':'')+'><summary><strong>'+esc(t(s.label))+'</strong><small>'+esc(info)+'</small></summary><div class="walk-flow-stops">'+s.points.map(p=>'<button class="btn small" type="button" data-flow-stop="'+p.id+'" data-flow-stage="'+s.id+'"><b>'+p.n+'</b> '+esc(WalkI18n.translate(p.name))+'</button>').join('')+'</div>'+(s.id==='walk1'?'<p class="small-note">'+esc(t('backToBoard'))+'</p>':'')+'<button class="btn small walk-section-focus" type="button" data-focus-stage="'+s.id+'">'+esc(t('showSection'))+'</button></details>';
+  return '<details class="walk-flow-section"'+(mode==='main'?' open':'')+'><summary><strong>'+esc(t(s.label))+'</strong><small>'+esc(info)+'</small></summary><div class="walk-flow-stops">'+s.points.map(p=>'<button class="btn small" type="button" data-flow-stop="'+p.id+'" data-flow-stage="'+s.id+'"><b>'+WalkV11.pointBadge(p)+'</b> '+esc(WalkI18n.translate(p.name))+'</button>').join('')+'</div>'+(s.id==='walk1'?'<p class="small-note">'+esc(t('backToBoard'))+'</p>':'')+'<button class="btn small walk-section-focus" type="button" data-focus-stage="'+s.id+'">'+esc(t('showSection'))+'</button></details>';
  }).join('');
  flow.querySelectorAll('[data-focus-stage]').forEach(b=>b.onclick=()=>chooseStage(b.dataset.focusStage));
  flow.querySelectorAll('[data-flow-stop]').forEach(b=>b.onclick=()=>{
@@ -114,7 +106,9 @@ function renderControls(){
  });
  if(mode==='main'){
   const group=WalkV11.points(),parts=group.map(splitRoute);let count=0;
-  $('parts').innerHTML='<div class="walking-parts-group"><strong>'+esc(t('walkOne'))+'</strong>'+parts[0].map(points=>'<a class="btn small" href="'+esc(googleRoute(points))+'" target="_blank" rel="noopener">'+esc(t('walkPart'))+' '+(++count)+' · '+points[0].n+'–'+points.at(-1).n+' ↗</a>').join('')+'</div><div class="walking-parts-group boat-parts-group"><strong>'+esc(t('boatStage'))+'</strong><a class="btn primary small" href="'+esc(WalkV11.transitURL)+'" target="_blank" rel="noopener">T1 Accademia → T2 San Marcuola ↗</a></div><div class="walking-parts-group"><strong>'+esc(t('walkTwo'))+'</strong>'+parts[1].map(points=>'<a class="btn small" href="'+esc(googleRoute(points))+'" target="_blank" rel="noopener">'+esc(t('walkPart'))+' '+(++count)+' · '+points[0].n+'–'+points.at(-1).n+' ↗</a>').join('')+'</div>';
+  const footGroup=(label,parts)=>'<div class="walking-parts-group"><strong>'+esc(t(label))+'</strong>'+parts.map(points=>'<a class="btn small" href="'+esc(googleRoute(points))+'" target="_blank" rel="noopener">'+esc(t('walkPart'))+' '+(++count)+' · '+points[0].n+'–'+points.at(-1).n+' ↗</a>').join('')+'</div>';
+  const boats='<div class="walking-parts-group boat-parts-group"><strong>'+WalkV11.boatIcon+esc(t('boatStage'))+'</strong>'+WalkV11.journeys.map(j=>'<a class="btn primary small" href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(t(j.label))+' ↗</a>').join('')+'</div>';
+  $('parts').innerHTML=footGroup('walkOne',parts[0])+boats+footGroup('walkTwo',parts[1]);
  }
  wrap.style.setProperty('--walk-stage-height',toolbar.getBoundingClientRect().height+'px');schedule();
 }
@@ -122,8 +116,8 @@ const oldBadge=updateBadge;
 updateBadge=function(){
  oldBadge();
  if(mode==='main'&&stage==='all'){
-  $('badge-title').textContent=WalkI18n.translate('Main Walk')+' · 15'+(routeDistance?' · '+routeDistance+' km':'');
-  $('badge-note').textContent='1–9 · Dorsoduro → T1 / T2 → 10–15 · Cannaregio';
+  $('badge-title').textContent=WalkI18n.translate('Main Walk')+' · 11'+(routeDistance?' · '+routeDistance+' km':'');
+  $('badge-note').textContent=t('boatInfo');
  }
  schedule();
 };
