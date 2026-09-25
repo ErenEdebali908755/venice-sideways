@@ -28,25 +28,23 @@ jobs:
               browser=p.chromium.launch()
               configs=[('custom-mobile-tr',{'viewport':{'width':390,'height':844},'locale':'tr-TR','is_mobile':True,'has_touch':True}),('custom-desktop-windows-ua',{'viewport':{'width':1440,'height':900},'locale':'en-GB','user_agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36'})]
               for name,options in configs:
-                  ctx=browser.new_context(**options);page=ctx.new_page();page.set_default_timeout(15000)
+                  ctx=browser.new_context(**options);page=ctx.new_page();page.set_default_timeout(12000)
                   item={'name':name,'errors':[],'failed_requests':[]}
                   page.on('pageerror',lambda e,r=item:r['errors'].append(str(e)))
                   page.on('requestfailed',lambda e,r=item:r['failed_requests'].append({'url':e.url,'error':e.failure}))
                   try:
                       response=page.goto('https://venicesideways.com/',wait_until='domcontentloaded',timeout=25000)
                       item['status']=response.status
-                      page.wait_for_function('window.WalkI18n?.ready')
-                      page.wait_for_function('typeof map!=="undefined" && !!map && !!document.querySelector(".maplibregl-canvas")',timeout=25000)
-                      page.wait_for_timeout(5000)
-                      item['main_count']=page.evaluate('stops().length');item['language']=page.locator('html').get_attribute('lang')
+                      # Fixed bounded wait avoids Playwright predicate compilation under the site's CSP.
+                      page.wait_for_timeout(12000)
+                      item['application']=page.evaluate('() => ({count:typeof stops==="function"?stops().length:null,language:document.documentElement.lang,ready:window.WalkI18n?.ready,map:typeof map!=="undefined"&&!!map,vector:!!document.querySelector(".maplibregl-canvas"),title:document.title,overflow:document.documentElement.scrollWidth>innerWidth})')
                       item['map_error_visible']=page.locator('#map-error').is_visible()
-                      item['hidden_errors_text']=page.locator('#map-error').text_content()
+                      item['body_preview']=page.locator('body').inner_text()[:1800]
                       page.screenshot(path=str(out/(name+'.png')))
                       selector='#mobile-route' if options.get('is_mobile') else '#route'
-                      page.select_option(selector,'full');item['full_count']=page.locator('#stops>li').count()
-                      page.select_option(selector,'main')
-                      if options.get('is_mobile'):
-                          page.locator('.guide-dock [data-guide-view="ideas"]').click()
+                      page.select_option(selector,'full');page.wait_for_timeout(300);item['full_count']=page.locator('#stops>li').count()
+                      page.select_option(selector,'main');page.wait_for_timeout(300)
+                      if options.get('is_mobile'):page.locator('.guide-dock [data-guide-view="ideas"]').click()
                       before=page.locator('#photo-stop-lucia .prompt-count').text_content()
                       page.locator('#photo-stop-lucia .phone-next').click()
                       item['idea_changed']=before!=page.locator('#photo-stop-lucia .prompt-count').text_content()
