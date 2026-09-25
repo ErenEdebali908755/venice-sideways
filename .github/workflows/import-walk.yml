@@ -1,0 +1,67 @@
+name: Import verified walk assets
+on:
+  push:
+    paths: ['.github/workflows/import-walk.yml']
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download allowlisted public walk files and verify snapshot hashes
+        shell: python
+        run: |
+          import concurrent.futures, hashlib, pathlib, urllib.request
+          rows = '''public/walk-i18n/v9/content.js f28e4591318827cf62d11f3271de3976e2c2f9f8fe4a89ff12efa9f6e74b5568
+          public/walk-i18n/v9/interface.js 1bff873486002fb2dcc393b00c3f88677f35922dc3cbad60cdacd3ee0f8b2fce
+          public/walk-i18n/v9/language.css 5642ed71c786fd6ca21f37ef316f97a6d12e5cb516e63c09ca5015a7cedb9515
+          public/walk-i18n/v9/prompts-fr.js 2da0d19005e0dcaf59b30633ee23d982de6e5eaaa39ae0e96abba0c2ceec995b
+          public/walk-i18n/v9/prompts-ja.js f79a254654f82e87e434d082418b6e4d22c61fff24da5ed27384574aa2f413e4
+          public/walk-i18n/v9/prompts-ko.js 3e42b76240127ea2eabf8b8366014190c7506a058072faaa3639f85e326d1f5a
+          public/walk-i18n/v9/prompts-ru.js 6831e6ad3bb310a24f81cf49ac3a57404718a8c398d0dd1f8065a05c06c5c81c
+          public/walk-i18n/v9/prompts-tr.js c2bbd78feb5ca96a2009f6388fddbc3fc7dd8269da46d875b80ce72f69e6f1a2
+          public/walk-i18n/v9/prompts-zh.js 0797238c493d6c1d1fff09c9420395892db5409f47bc07866c36765c38fe37b9
+          public/walk-i18n/v9/runtime.js 7b620a15ff289355cb8d185df04366f996c425418c13092c25aa506e0f636252
+          public/walk-map-creative-v6.js 1823360af07d36f0c73192a5e0a56b7bd121a82ed4b1d2e383b64326b9a52f19
+          public/walk-map-main-elena-v10.js 0a8ff5cc5fdc5cfb3adb05d54e6591be0bb1159c706ecf5f31b660209297bfb9
+          public/walk-map-mobile-v6.css e9e34406ab829f6d2b5c553483685629b522d5c81d68570120f256f4ab29c889
+          public/walk-map-phone-ideas-v8.js d788b1f007f68a8ca15d91c885e063458d10897c50736fd49f1b89895f272511
+          public/walk-map-update-v7.css 32902c5fe8514d8fb24b935459cf1b6c949cf3c4c0d916a90adea7bfa89e7f77
+          public/walk-map-update-v7.js 0fcd14daefd1411ad89522bca7b12f1fd62d00adc6233a67a2115bd7bdf1b674
+          public/walk-map-v5.css dd514ddb1e8b3e6d4249b0856774353fad2e25e12327d6a1b20565acdb45fbad
+          public/walk-map-v5.js 2e655a9e6a75f815cdb66213c421b71f813910203ede483197f2d8677a395afd
+          public/walk-v11/ideas.js 975ec50c5c43511a1561ee4132ed56a14a737036e714ef4d4d4b98a80a05834f
+          public/walk-v11/locale.js 3ec21d88581d94e7373b05b2735a89c80b06b6f2b2d184b679300fb69c905d0c
+          public/walk-v11/theme.css 1efa01acecd042d11b05b398adcfd74ef6f6fa83fdd8689707adcb3640a5259b
+          public/walk-v12/app.js 0c788ebe4e51422560bbb470e197c3ad2c1c275ee2faaff41b1d5fddba256fea
+          public/walk-v12/copy.js d0407784f50669bf90d2f6adf3b775709eb75d6e7dddbeb82f469e0e707695dc
+          public/walk-v12/stages.css a7a5da84e1d5d87a1a067d9db4b32ec9009bab657be0e517ce2fda1a4d7dae0d
+          public/walk-v12/stages.js dc4e3bb51c96ca1a023c27ddbb1f338a0378d4bd3e11678c9fbcdd47fe8426db
+          public/venice-photography-walk-map.html eb978d9142841bf01c5c1472e970ff348270733433757a38df450aa7d2eb5f3d'''
+          def download(row):
+            name, expected = row.split()
+            url = 'https://erenedebali.com/' + name.removeprefix('public/')
+            req = urllib.request.Request(url, headers={'User-Agent':'VeniceSideways-Migration/1.0'})
+            with urllib.request.urlopen(req, timeout=35) as response:
+              body = response.read(2_000_000)
+            if hashlib.sha256(body).hexdigest() != expected:
+              raise RuntimeError('Source snapshot mismatch: ' + name)
+            return name, body
+          with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            files = list(pool.map(download, [r.strip() for r in rows.splitlines() if r.strip()]))
+          for name, body in files:
+            path = pathlib.Path(name)
+            path.parent.mkdir(parents=True,exist_ok=True)
+            path.write_bytes(body)
+          print('Verified and imported',len(files),'public map assets. No gallery, credentials or upstream Git history copied.')
+      - name: Commit source snapshot without changing existing repository history
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public
+          if ! git diff --cached --quiet; then
+            git commit -m 'Import verified walk-only assets; preserve routes and all seven languages'
+            git push origin HEAD:main
+          fi
