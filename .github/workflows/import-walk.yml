@@ -10,7 +10,7 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-      - name: Download allowlisted public walk files and verify snapshot hashes
+      - name: Import only hash-verified public scripts and styles
         shell: python
         run: |
           import concurrent.futures, hashlib, pathlib, urllib.request
@@ -38,30 +38,31 @@ jobs:
           public/walk-v12/app.js 0c788ebe4e51422560bbb470e197c3ad2c1c275ee2faaff41b1d5fddba256fea
           public/walk-v12/copy.js d0407784f50669bf90d2f6adf3b775709eb75d6e7dddbeb82f469e0e707695dc
           public/walk-v12/stages.css a7a5da84e1d5d87a1a067d9db4b32ec9009bab657be0e517ce2fda1a4d7dae0d
-          public/walk-v12/stages.js dc4e3bb51c96ca1a023c27ddbb1f338a0378d4bd3e11678c9fbcdd47fe8426db
-          public/venice-photography-walk-map.html eb978d9142841bf01c5c1472e970ff348270733433757a38df450aa7d2eb5f3d'''
+          public/walk-v12/stages.js dc4e3bb51c96ca1a023c27ddbb1f338a0378d4bd3e11678c9fbcdd47fe8426db'''
           def download(row):
             name, expected = row.split()
-            url = 'https://erenedebali.com/' + name.removeprefix('public/')
-            req = urllib.request.Request(url, headers={'User-Agent':'VeniceSideways-Migration/1.0'})
-            with urllib.request.urlopen(req, timeout=35) as response:
-              body = response.read(2_000_000)
-            if hashlib.sha256(body).hexdigest() != expected:
-              raise RuntimeError('Source snapshot mismatch: ' + name)
-            return name, body
+            req = urllib.request.Request('https://erenedebali.com/'+name.removeprefix('public/'),headers={'User-Agent':'VeniceSideways-Migration/1.0'})
+            with urllib.request.urlopen(req,timeout=35) as response: body=response.read(2_000_000)
+            if hashlib.sha256(body).hexdigest()!=expected: raise RuntimeError('Snapshot mismatch: '+name)
+            text=body.decode('utf-8')
+            if name=='public/walk-map-v5.js':
+              text=text.replace("const SHARE_URL='https://erenedebali.com/venice-photography-walk-map';", "const SHARE_URL='https://venicesideways.com/';")
+            if name=='public/walk-i18n/v9/runtime.js':
+              text=text.replace('function knownName(s){return Object.values',"function knownName(s){return s==='Venice Sideways'|| Object.values")
+              text=text.replace("function translate(s){if(!s||lang==='en')return s;", "function translate(s){if(s==='Venice Photography Walk Map'||s==='Venice Sideways')return 'Venice Sideways';if(!s||lang==='en')return s;")
+              text=text.replace("document.title=translate('Venice Photography Walk Map');", "document.title='Venice Sideways';")
+            return name,text.encode('utf-8')
           with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
-            files = list(pool.map(download, [r.strip() for r in rows.splitlines() if r.strip()]))
-          for name, body in files:
-            path = pathlib.Path(name)
-            path.parent.mkdir(parents=True,exist_ok=True)
-            path.write_bytes(body)
-          print('Verified and imported',len(files),'public map assets. No gallery, credentials or upstream Git history copied.')
-      - name: Commit source snapshot without changing existing repository history
+            files=list(pool.map(download,[r.strip() for r in rows.splitlines() if r.strip()]))
+          for name,body in files:
+            path=pathlib.Path(name);path.parent.mkdir(parents=True,exist_ok=True);path.write_bytes(body)
+          print('Imported',len(files),'verified map scripts/styles; no private application files.')
+      - name: Commit snapshot
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add public
           if ! git diff --cached --quiet; then
-            git commit -m 'Import verified walk-only assets; preserve routes and all seven languages'
+            git commit -m 'Import verified walk assets with independent Venice Sideways share URLs'
             git push origin HEAD:main
           fi
