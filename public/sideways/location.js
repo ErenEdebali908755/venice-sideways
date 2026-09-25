@@ -1,0 +1,35 @@
+/* Own-device positioning only. No geolocation upload, analytics, persistence or link encoding. */
+(() => {
+'use strict';
+const langs=['en','tr','ru','fr','zh','ja','ko'];
+const t=key=>SidewaysLocationCopy[key][Math.max(0,langs.indexOf(WalkI18n.language))];
+const $=id=>document.getElementById(id);
+let active=false,follow=false,watchId=null,generation=0,last=null,state='ready',layer=null,dot=null,accuracyCircle=null,boundMap=null,permission=null;
+const trigger=document.createElement('button');trigger.id='my-location';trigger.className='btn location-trigger';trigger.type='button';trigger.setAttribute('data-no-translate','');trigger.setAttribute('aria-expanded','false');trigger.setAttribute('aria-controls','location-panel');trigger.textContent='◎';
+const panel=document.createElement('section');panel.id='location-panel';panel.hidden=true;panel.setAttribute('data-no-translate','');panel.setAttribute('aria-labelledby','location-title');
+panel.innerHTML='<div class="location-heading"><h2 id="location-title"></h2><button id="location-close" class="btn small" type="button"></button></div><p id="location-status" role="status" aria-live="polite"></p><p id="location-details"></p><div class="location-actions"><button id="location-start" class="btn primary" type="button"></button><button id="location-stop" class="btn" type="button" hidden></button><button id="location-center" class="btn" type="button" hidden></button></div><label id="location-follow-label"><input id="location-follow" type="checkbox"><span></span></label><p id="location-explanation"></p>';
+const wrap=document.querySelector('.map-wrap');wrap.append(trigger,panel);
+function clearPosition(){last=null;if(layer){layer.clearLayers();}dot=null;accuracyCircle=null;}
+function clearWatcher(){generation++;if(watchId!==null){navigator.geolocation?.clearWatch(watchId);watchId=null;}}
+function statusKey(){if(state==='live'&&last){if(Date.now()-last.timestamp>60000)return 'stale';if(last.accuracy>100)return 'approx';}return state;}
+function render(){trigger.setAttribute('aria-label',t('location'));trigger.title=t('location');trigger.classList.toggle('is-active',active);$('location-title').textContent=t('location');$('location-close').textContent=t('close');$('location-start').textContent=t('start');$('location-stop').textContent=t('stop');$('location-center').textContent=t('recenter');$('location-follow-label').querySelector('span').textContent=t('follow');$('location-explanation').textContent=t('privacy');$('location-status').textContent=t(statusKey());$('location-follow').checked=follow;$('location-follow').disabled=!active;$('location-start').hidden=active;$('location-stop').hidden=!active;$('location-center').hidden=!last||!active;$('location-start').disabled=!map;
+ const detail=$('location-details');detail.textContent='';if(last){const locale=WalkI18n.language==='zh'?'zh-Hans':WalkI18n.language;detail.textContent=t('precision')+': ±'+new Intl.NumberFormat(locale,{maximumFractionDigits:0}).format(last.accuracy)+' m · '+t('updated')+': '+new Intl.DateTimeFormat(locale,{hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(new Date(last.timestamp));}trigger.classList.toggle('location-stale',statusKey()==='stale'||state==='paused');if(dot?.setStyle)dot.setStyle({fillColor:state==='live'&&statusKey()!=='stale'?'#1676d2':'#7c8790'});
+ const privacy=$('location-privacy');if(privacy)privacy.textContent=t('privacy');
+}
+function ensureMap(){if(!map)return false;if(!layer)layer=L.layerGroup().addTo(map);if(boundMap!==map){boundMap=map;map.on('dragstart',()=>{follow=false;render();});}return true;}
+function showPoint(){if(!last||!ensureMap())return;const ll=[last.lat,last.lon];if(!dot){accuracyCircle=L.circle(ll,{radius:last.accuracy,color:'#2379c9',fillColor:'#2379c9',fillOpacity:.09,weight:1,interactive:false}).addTo(layer);dot=L.circleMarker(ll,{radius:7,color:'#fff',weight:3,fillColor:'#1676d2',fillOpacity:1,interactive:false}).addTo(layer);}else{accuracyCircle.setLatLng(ll).setRadius(last.accuracy);dot.setLatLng(ll);}if(follow){map.setView(ll,Math.min(17,Math.max(last.accuracy>250?14:16,map.getZoom())),{animate:false});}}
+function stop(reason='ready'){active=false;follow=false;clearWatcher();clearPosition();state=reason;if(permission){permission.onchange=null;permission=null;}render();}
+function watch(){clearWatcher();if(!active||document.hidden)return;const token=generation;state='waiting';render();try{const id=navigator.geolocation.watchPosition(pos=>{if(!active||token!==generation||document.hidden)return;const c=pos.coords;if(!Number.isFinite(c.latitude)||!Number.isFinite(c.longitude)||!Number.isFinite(c.accuracy)||c.accuracy<0||Math.abs(c.latitude)>90||Math.abs(c.longitude)>180){state='unavailable';render();return;}last={lat:c.latitude,lon:c.longitude,accuracy:c.accuracy,timestamp:Number.isFinite(pos.timestamp)&&pos.timestamp>0?Math.min(Date.now(),pos.timestamp):Date.now()};state='live';showPoint();render();},err=>{if(!active||token!==generation)return;if(err.code===1){stop('denied');return;}state=err.code===3?'timeout':'unavailable';render();},{enableHighAccuracy:true,timeout:20000,maximumAge:10000});
+ if(active&&token===generation)watchId=id;else navigator.geolocation.clearWatch(id);
+ }catch{stop('unsupported');}}
+async function start(){if(!ensureMap()){state='mapwait';render();return;}if(!window.isSecureContext||!navigator.geolocation){state='unsupported';render();return;}active=true;follow=true;watch();const token=generation;try{const p=await navigator.permissions?.query({name:'geolocation'});if(!active||token!==generation||!p)return;permission=p;p.onchange=()=>{if(p.state==='denied')stop('denied');};}catch{}}
+trigger.onclick=()=>{panel.hidden=!panel.hidden;trigger.setAttribute('aria-expanded',String(!panel.hidden));render();};$('location-close').onclick=()=>{panel.hidden=true;trigger.setAttribute('aria-expanded','false');trigger.focus();};$('location-start').onclick=start;$('location-stop').onclick=()=>stop();$('location-follow').onchange=e=>{follow=e.target.checked;if(follow)showPoint();render();};$('location-center').onclick=()=>{follow=true;showPoint();render();};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden){panel.hidden=true;trigger.setAttribute('aria-expanded','false');trigger.focus();}});
+document.addEventListener('visibilitychange',()=>{if(!active)return;if(document.hidden){clearWatcher();state='paused';render();}else watch();});
+window.addEventListener('pagehide',()=>stop());
+window.addEventListener('walklanguagechange',render);
+// This poll observes readiness only; it never requests a device position.
+let checks=0;const readyTimer=setInterval(()=>{if(ensureMap()||++checks>100){clearInterval(readyTimer);if(!map)state='mapwait';render();}},300);
+setInterval(()=>{if(active&&last&&!document.hidden)render();},10000);
+render();
+})();
