@@ -1,28 +1,100 @@
-name: Venice Sideways tests
-on: [push, pull_request]
+name: Venice Sideways live diagnostics
+on:
+  push:
+    branches: ['diagnostics/live-domain-20260925']
 permissions:
   contents: read
 jobs:
-  test:
+  diagnose:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - run: npm test && npm run check
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install playwright==1.55.0 beautifulsoup4==4.13.4
+      - run: pip install requests==2.32.5 dnspython==2.8.0 playwright==1.55.0
       - run: python -m playwright install --with-deps chromium
-      - run: python tests/browser.py
+      - name: Read-only public endpoint checks
+        run: |
+          mkdir -p diagnostics
+          python - <<'PY'
+          import concurrent.futures, datetime, json, pathlib, socket, ssl, subprocess, time
+          import dns.resolver, requests
+          from urllib.parse import urljoin
+          from playwright.sync_api import sync_playwright
+          out=pathlib.Path('diagnostics')
+          main='venicesideways.com'; direct='venice-sideways-production.up.railway.app'
+          report={'started':datetime.datetime.now(datetime.timezone.utc).isoformat(),'dns':[],'tls':[],'http':[],'browser':[]}
+          def dns_probe(item):
+              host,typ,resolver=item
+              r=dns.resolver.Resolver(configure=False);r.nameservers=[resolver];r.timeout=3;r.lifetime=5
+              row={'host':host,'type':typ,'resolver':resolver}
+              try:
+                  a=r.resolve(host,typ);row.update(answer=[str(x) for x in a],ttl=a.rrset.ttl)
+              except Exception as e: row['error']=type(e).__name__+': '+str(e)
+              return row
+          queries=[(h,t,r) for r in ['1.1.1.1','8.8.8.8'] for h,types in [(main,['A','AAAA','NS','DS','CAA']),('www.'+main,['A','AAAA','CNAME']),('_railway-verify.'+main,['TXT']),(direct,['A','AAAA']),('5wf6l2gv.up.railway.app',['A','AAAA'])] for t in types]
+          with concurrent.futures.ThreadPoolExecutor(8) as pool: report['dns']=list(pool.map(dns_probe,queries))
+          def tls_probe(host):
+              row={'host':host}
+              try:
+                  with socket.create_connection((host,443),timeout=12) as raw:
+                      with ssl.create_default_context().wrap_socket(raw,server_hostname=host) as s:
+                          c=s.getpeercert();row.update(version=s.version(),cipher=s.cipher(),issuer=c.get('issuer'),subject=c.get('subject'),names=c.get('subjectAltName'),notBefore=c.get('notBefore'),notAfter=c.get('notAfter'),verified=True)
+              except Exception as e: row.update(verified=False,error=type(e).__name__+': '+str(e))
+              return row
+          with concurrent.futures.ThreadPoolExecutor(3) as pool: report['tls']=list(pool.map(tls_probe,[main,direct,'www.'+main]))
+          urls=['https://'+main+'/','https://'+main+'/healthz','https://'+direct+'/','https://'+direct+'/healthz','http://'+main+'/','https://www.'+main+'/']
+          def http_probe(item):
+              index,url=item;row={'start_url':url,'steps':[]};s=requests.Session();s.headers.update({'User-Agent':'VeniceSideways-Diagnostics/1.0','Cache-Control':'no-cache'})
+              for step in range(6):
+                  start=time.monotonic()
+                  try:
+                      r=s.get(url,timeout=(8,15),allow_redirects=False)
+                      headers={k:v for k,v in r.headers.items() if k.lower() not in ['set-cookie']}
+                      row['steps'].append({'url':url,'status':r.status_code,'seconds':round(time.monotonic()-start,3),'headers':headers,'body_preview':r.text[:1200]})
+                      if step==0: (out/('http-'+str(index)+'.html')).write_text(r.text)
+                      if r.is_redirect: url=urljoin(url,r.headers['Location'])
+                      else: break
+                  except Exception as e:
+                      row['steps'].append({'url':url,'error':type(e).__name__+': '+str(e)});break
+              return row
+          with concurrent.futures.ThreadPoolExecutor(6) as pool: report['http']=list(pool.map(http_probe,enumerate(urls)))
+          # TLS must remain verified. This connects to the Railway target but keeps the custom domain Host and SNI.
+          cmd=['curl','-sS','--connect-timeout','8','--max-time','20','--connect-to',main+':443:5wf6l2gv.up.railway.app:443','-D',str(out/'origin-headers.txt'),'-o',str(out/'origin-body.html'),'-w','%{http_code} %{remote_ip} %{ssl_verify_result}','https://'+main+'/healthz']
+          try:
+              p=subprocess.run(cmd,capture_output=True,text=True,timeout=25);report['origin_tls']={'exit':p.returncode,'result':p.stdout,'stderr':p.stderr,'headers':(out/'origin-headers.txt').read_text() if (out/'origin-headers.txt').exists() else ''}
+          except Exception as e:report['origin_tls']={'error':str(e)}
+          # Browser checks do not ask for location, log in, or submit forms.
+          with sync_playwright() as p:
+              b=p.chromium.launch(headless=True)
+              for label,url,viewport,locale in [('domain-desktop','https://'+main+'/',{'width':1440,'height':900},'en-GB'),('railway-mobile','https://'+direct+'/',{'width':390,'height':844},'tr-TR')]:
+                  ctx=b.new_context(viewport=viewport,locale=locale)
+                  page=ctx.new_page();result={'label':label,'url':url,'errors':[],'failed_requests':[],'bad_responses':[]}
+                  page.on('pageerror',lambda e,r=result:r['errors'].append(str(e)))
+                  page.on('requestfailed',lambda e,r=result:r['failed_requests'].append({'url':e.url,'reason':e.failure}))
+                  page.on('response',lambda e,r=result:r['bad_responses'].append({'url':e.url,'status':e.status}) if e.status>=400 else None)
+                  try:
+                      response=page.goto(url,wait_until='domcontentloaded',timeout=35000)
+                      result['document_status']=response.status if response else None
+                      page.wait_for_timeout(18000)
+                      result['end_url']=page.url;result['title']=page.title();result['body']=page.locator('body').inner_text()[:6500]
+                      result['application']=page.evaluate("() => ({scripts:[...document.scripts].map(s=>s.src).filter(Boolean),bodyClass:document.body.className,cards:document.querySelectorAll('#stops>li').length,language:document.documentElement.lang,localeReady:window.WalkI18n?.ready,leaflet:typeof L!=='undefined',map:typeof map!=='undefined'&&!!map,vector:!!document.querySelector('.maplibregl-canvas'),mapError:document.querySelector('#map-error')?.textContent,status:document.querySelector('#status-title')?.textContent,overflow:document.documentElement.scrollWidth>innerWidth})")
+                  except Exception as e:result['navigation_error']=type(e).__name__+': '+str(e)
+                  try:page.screenshot(path=str(out/(label+'.png')),full_page=False)
+                  except Exception:pass
+                  report['browser'].append(result);ctx.close()
+              b.close()
+          report['finished']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          (out/'report.json').write_text(json.dumps(report,indent=2,ensure_ascii=False))
+          print(json.dumps(report,indent=2,ensure_ascii=False))
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sideways-test-report
-          path: qa-output/
-          retention-days: 7
+          name: sideways-live-diagnostics
+          path: diagnostics/
+          retention-days: 3
