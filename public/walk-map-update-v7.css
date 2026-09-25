@@ -1,0 +1,39 @@
+/* Keyless vector-map and editorial refinements; scoped to the walk page. */
+.walk-v7 .area-nav [hidden]{display:none!important}
+.walk-v7 .guide-heading p{max-width:38em}
+.walk-v7 .free-toggle{margin-top:5px;min-height:44px}
+.walk-v7 .free-toggle[aria-pressed="true"]{background:#193638;color:#fff}
+.walk-v7 .extra-prompt{margin:10px 0 16px;border:1px solid #d9e1dc;border-radius:10px;background:#f0f3ec;padding:0 13px}
+.walk-v7 .extra-prompt summary{font:650 12px/1.5 system-ui;min-height:44px;padding:12px 0;color:#41665f;cursor:pointer}
+.walk-v7 .extra-prompt h4{font:22px/1.25 Georgia,serif;margin:3px 0 9px}
+.walk-v7 .extra-prompt p{font-size:14px;line-height:1.7;margin:0 0 15px}
+.walk-v7.explore-freely .photo-prompt,.walk-v7.explore-freely .extra-prompt,.walk-v7.explore-freely .popup-prompt{display:none}
+.walk-v7 .pause-budget{padding:0 0 7px}
+.walk-v7 #pause-minutes{width:100%;min-height:44px;padding:9px;border:1px solid #d5c19f;background:#fff;border-radius:7px;font-size:16px}
+.walk-v7 .nearby-controls{position:absolute;z-index:600;left:12px;top:92px;width:190px;background:#fffdf9f5;border:1px solid #d9e1dc;border-radius:10px;padding:9px 11px;box-shadow:0 2px 9px #0001}
+.walk-v7 .nearby-controls label{font-size:10px;font-weight:750;letter-spacing:.5px;display:block;margin-bottom:5px}
+.walk-v7 .nearby-controls select{min-height:38px;font-size:12px;background:transparent;border:0;padding:5px 0}
+.walk-v7 .nearby-controls small{display:block;color:#5e7171;font-size:10px;line-height:1.5;margin-top:3px}
+.walk-v7 #place-sheet{position:absolute;z-index:850;left:12px;bottom:77px;max-width:380px;width:calc(100% - 24px);max-height:calc(100% - 155px);overflow:auto;background:#fffdf9;border:1px solid #d9e1dc;box-shadow:0 8px 30px #17363826;border-radius:14px;padding:17px}
+.walk-v7 #close-place{float:right;margin:-4px -4px 8px 9px;min-height:40px}
+.walk-v7 #place-sheet h3{font:25px/1.2 Georgia,serif;margin:10px 0}
+.walk-v7 #place-sheet .eyebrow{font-size:9px}
+.walk-v7.map-wide .guide-marker-target:not(.priority-pin) .pin{width:13px;height:13px;font-size:0;border-width:2px;box-shadow:0 1px 3px #0003}
+.walk-v7 .leaflet-control-attribution{max-width:100%;font-size:9px!important;line-height:1.4}
+.walk-v7 .map-error{top:auto;bottom:140px;right:12px;max-width:440px;max-height:95px;overflow:auto;font-size:11px}
+.walk-v7 .guide-marker-target{display:flex;align-items:center;justify-content:center}
+@media(max-width:900px){
+.walk-v7 .nearby-controls{top:77px;left:10px;width:165px;padding:7px 9px}
+.walk-v7 .nearby-controls select{font-size:16px;min-height:40px;width:147px}
+.walk-v7 .nearby-controls small{font-size:10px}
+.walk-v7 .nearby-controls label{font-size:9px}
+.walk-v7 .map-badge{max-width:calc(100% - 65px);font-size:11px}
+.walk-v7 #place-sheet{bottom:70px;left:10px;width:calc(100% - 20px);max-width:none;max-height:48%;padding:15px}
+.walk-v7 #place-sheet .btn{min-height:44px}
+.walk-v7 .extra-prompt p{font-size:15px}
+.walk-v7 .extra-prompt summary{font-size:13px}
+.walk-v7 .map-tools .btn{min-height:42px}
+.walk-v7 #event-date{font-size:16px}
+}
+@media(max-height:560px) and (orientation:landscape){.walk-v7 .nearby-controls{top:70px;left:auto;right:50px}.walk-v7 .nearby-controls small{display:none}.walk-v7 #place-sheet{bottom:55px;max-height:65%}}
+@media print{.walk-v7 .nearby-controls,.walk-v7 #place-sheet{display:none}}

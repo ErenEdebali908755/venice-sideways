@@ -1,0 +1,67 @@
+/* Theme values are page-scoped. The basemap stays light in every UI theme. */
+body.walk-v11{display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden;--transit:#1c6796}
+.walk-v11>header,.walk-v11>.area-nav,.walk-v11>.mobile-picker,.walk-v11>.walk-language-bar{flex-shrink:0}
+.walk-v11 .layout{flex:1;min-height:0;height:auto!important}
+.walk-v11 .walk-language-bar{display:grid;grid-template-columns:auto minmax(100px,215px) auto minmax(90px,140px);justify-content:start;gap:8px 12px}
+.walk-v11 .walk-language-help{position:absolute;width:1px;height:1px;min-width:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.walk-v11 .walk-language-bar select{width:100%;max-width:100%;min-width:0;font-size:14px}
+.walk-v11 .walk-language-bar .theme-label{margin-left:18px}
+.walk-v11 #walk-language-status{grid-column:1/-1}
+.walk-v11 .transfer-panel,.walk-v11 .card-transfer{padding:15px;margin:14px 0;border:1px solid #afcada;border-left:4px solid #3b9ad4;border-radius:11px;background:#edf5f9;line-height:1.65}
+.walk-v11 .transfer-heading{font-weight:750;font-size:13px;color:#185373;margin-bottom:8px}
+.walk-v11 .transfer-panel p,.walk-v11 .card-transfer p{font-size:13px;margin:8px 0}
+.walk-v11 .transfer-links{display:grid;gap:7px;margin:10px 0}
+.walk-v11 .transfer-links a{min-height:44px;font-size:12px;white-space:normal;text-align:left;justify-content:flex-start;overflow-wrap:anywhere}
+.walk-v11 .transfer-links a.primary,.walk-v11 #parts a.transfer-part{background:#23688e;border-color:#23688e;color:white}
+.walk-v11 #parts .transfer-part{grid-column:1/-1}
+.transit-marker{display:grid;place-items:center;background:#2379a9;border:2px solid white;border-radius:9px;color:white;font:750 13px system-ui;box-shadow:0 2px 7px #0004}
+.walk-v11 .v11-popup-transfer{margin-top:11px}.walk-v11 .v11-popup-transfer .transfer-heading{font-size:11px}
+.walk-v11 #boat-minutes{width:100%;min-height:44px;border:1px solid #c7ba9e;border-radius:7px;background:white;padding:9px;font-size:16px;color:var(--ink)}
+.walk-v11 .guide-card .phone-idea-actions{display:flex;gap:8px}.walk-v11 .phone-next{min-height:44px;flex:1}
+body.walk-v11[data-walk-theme=dark]{--ink:#edf1ed;--muted:#bac8c6;--paper:#142026;--line:#3e5058;--teal:#92d4c7;--transit:#a7d6f5;background:var(--paper);color:var(--ink)}
+.walk-v11[data-walk-theme=dark] header,.walk-v11[data-walk-theme=dark] aside,.walk-v11[data-walk-theme=dark] .area-nav{background:#142026;color:var(--ink);border-color:var(--line)}
+.walk-v11[data-walk-theme=dark] h1,.walk-v11[data-walk-theme=dark] h2,.walk-v11[data-walk-theme=dark] h3,.walk-v11[data-walk-theme=dark] h4{color:#edf1ed}
+.walk-v11[data-walk-theme=dark] a{color:#9bddcf}
+.walk-v11[data-walk-theme=dark] .btn,.walk-v11[data-walk-theme=dark] select,.walk-v11[data-walk-theme=dark] input{background:#223139;color:#edf1ed;border-color:#51666e}
+.walk-v11[data-walk-theme=dark] .btn.primary,.walk-v11[data-walk-theme=dark] .area-nav .active,.walk-v11[data-walk-theme=dark] .free-toggle[aria-pressed=true]{background:#28685f;color:#fff;border-color:#5c9e92}
+.walk-v11[data-walk-theme=dark] .guide-card{background:#1d2b32;border-color:#42565e;box-shadow:none}
+.walk-v11[data-walk-theme=dark] .photo-prompt,.walk-v11[data-walk-theme=dark] .popup-prompt{background:#30342e;border-color:#655e48;color:#f2efe2}
+.walk-v11[data-walk-theme=dark] .prompt-text,.walk-v11[data-walk-theme=dark] .photo-prompt h4,.walk-v11[data-walk-theme=dark] .popup-prompt>b{color:#f2efe2}
+.walk-v11[data-walk-theme=dark] .prompt-tip,.walk-v11[data-walk-theme=dark] .prompt-tip b,.walk-v11[data-walk-theme=dark] .prompt-count,.walk-v11[data-walk-theme=dark] .prompt-theme,.walk-v11[data-walk-theme=dark] .phone-popup-count{color:#e1d1ae;border-color:#74694f}
+.walk-v11[data-walk-theme=dark] .photo-prompt .change-idea{background:#454033;color:#fff1d0;border-color:#8e7b52}
+.walk-v11[data-walk-theme=dark] .place-about,.walk-v11[data-walk-theme=dark] .guide-heading p,.walk-v11[data-walk-theme=dark] .small-note,.walk-v11[data-walk-theme=dark] .muted,.walk-v11[data-walk-theme=dark] .tag,.walk-v11[data-walk-theme=dark] .eyebrow,.walk-v11[data-walk-theme=dark] .fineprint,.walk-v11[data-walk-theme=dark] .source-link,.walk-v11[data-walk-theme=dark] .status small,.walk-v11[data-walk-theme=dark] .finish-note{color:#bac8c6}
+.walk-v11[data-walk-theme=dark] .leg-link,.walk-v11[data-walk-theme=dark] .status{background:#203d3b;color:#d5f0e8;border-color:#47675f}
+.walk-v11[data-walk-theme=dark] .guide-tabs,.walk-v11[data-walk-theme=dark] .mobile-picker,.walk-v11[data-walk-theme=dark] .walk-language-bar,.walk-v11[data-walk-theme=dark] .guide-dock{background:#1c2c33;border-color:#42565e}
+.walk-v11[data-walk-theme=dark] .guide-tabs button,.walk-v11[data-walk-theme=dark] .guide-dock button{color:#c5d4d1}
+.walk-v11[data-walk-theme=dark] .guide-tabs button[aria-pressed=true],.walk-v11[data-walk-theme=dark] .guide-dock button[aria-pressed=true]{background:#315750;color:#fff}
+.walk-v11[data-walk-theme=dark] .export-box,.walk-v11[data-walk-theme=dark] .pill,.walk-v11[data-walk-theme=dark] .map-badge,.walk-v11[data-walk-theme=dark] .nearby-controls,.walk-v11[data-walk-theme=dark] #place-sheet{background:#1d2b32;color:#e8efed;border-color:#4b616a}
+.walk-v11[data-walk-theme=dark] .nearby-controls small,.walk-v11[data-walk-theme=dark] .map-badge small,.walk-v11[data-walk-theme=dark] .fineprint summary{color:#bac8c6}
+.walk-v11[data-walk-theme=dark] .sun-box{background:#393326;border-color:#806c45;color:#f1e4c7}
+.walk-v11[data-walk-theme=dark] .sun-times>div{background:#282a23;border-color:#706142;color:#f2e5c7}
+.walk-v11[data-walk-theme=dark] .sun-times small,.walk-v11[data-walk-theme=dark] .sun-box .eyebrow{color:#e1c792}
+.walk-v11[data-walk-theme=dark] #pause-minutes,.walk-v11[data-walk-theme=dark] #boat-minutes,.walk-v11[data-walk-theme=dark] #event-date{background:#242f32;color:#eef1ea;border-color:#827355}
+.walk-v11[data-walk-theme=dark] .transfer-panel,.walk-v11[data-walk-theme=dark] .card-transfer{background:#1b3443;border-color:#557c96;border-left-color:#66b7ec}
+.walk-v11[data-walk-theme=dark] .transfer-heading{color:#bce4ff}
+.walk-v11[data-walk-theme=dark] .leaflet-popup-content-wrapper,.walk-v11[data-walk-theme=dark] .leaflet-popup-tip,.walk-v11[data-walk-theme=dark] .leaflet-tooltip{background:#203039;color:#edf1ed;border-color:#536b76}
+.walk-v11[data-walk-theme=dark] .leaflet-container a.leaflet-popup-close-button{color:#eef4f2}
+.walk-v11[data-walk-theme=dark] .leaflet-bar a{background:#23353d;color:#f1f4f1;border-color:#5c737d}
+.walk-v11[data-walk-theme=dark] .leaflet-control-attribution{background:#17262ce8;color:#c7d6d2}
+.walk-v11[data-walk-theme=dark] .leaflet-control-attribution a{color:#9adace}
+.walk-v11[data-walk-theme=dark] .leaflet-control-scale-line{background:#17262cd9;color:#e5eeec;border-color:#bed0cf}
+.walk-v11[data-walk-theme=dark] .sun-label{background:#4c4027!important;color:#ffe3a9!important;border-color:#b48c42!important}
+.walk-v11[data-walk-theme=dark] .map-error,.walk-v11[data-walk-theme=dark] #walk-language-status{background:#403725;color:#ffe5b5;border-color:#a48753}
+.walk-v11[data-walk-theme=dark] .toast{background:#d9ece5;color:#142620}
+/* Neither the vector canvas nor fallback tiles follow the dark page theme. */
+.walk-v11 #map{background:#e5edeb;color-scheme:light}
+.walk-v11 img.leaflet-tile{filter:none}
+@media(max-width:900px){
+ .walk-v11 .walk-language-bar{grid-template-columns:auto minmax(80px,1fr) auto minmax(75px,.7fr);gap:6px;padding:6px 12px}
+ .walk-v11 .walk-language-bar .theme-label{margin:0;font-size:11px}
+ .walk-v11 .walk-language-bar label{font-size:11px}.walk-v11 .walk-language-bar select{font-size:16px;padding:7px 4px;min-height:44px}
+ .walk-v11 .transfer-links a{font-size:13px;min-height:46px}
+ .walk-v11 .map-badge small{font-size:10px;line-height:1.4}.walk-v11 .map-badge{max-width:calc(100% - 75px)}
+ .walk-v11 .nearby-controls{top:124px;max-width:165px}
+ .walk-v11 .transfer-panel p,.walk-v11 .card-transfer p{font-size:14px}
+}
+@media(max-width:900px) and (max-height:550px){.walk-v11 .nearby-controls{top:12px;left:auto;right:62px;width:155px}.walk-v11 .nearby-controls small{display:none}.walk-v11 .map-badge{max-width:calc(100% - 245px);max-height:68px;overflow:auto}.walk-v11 .map-badge small{display:none}.walk-v11 .walk-language-bar{padding-top:2px;padding-bottom:2px}.walk-v11 .walk-language-bar select{min-height:38px}}
+@media print{body.walk-v11{height:auto;overflow:visible;display:block}.walk-v11 .transfer-panel,.walk-v11 .card-transfer{break-inside:avoid}.walk-v11 .walk-language-bar{display:none!important}}

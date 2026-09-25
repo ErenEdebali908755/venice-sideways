@@ -1,0 +1,45 @@
+/* Only route legibility: existing cards, theme, language and mobile dock are retained. */
+.walk-v11 .map-wrap{display:flex;flex-direction:column}
+.walk-v11 #map{flex:1;min-height:0;height:auto;width:100%}
+.walk-stage-toolbar{flex-shrink:0;background:#f8f7f3;border-bottom:1px solid #d9e1dc;padding:7px 10px;z-index:700}
+.walk-stage-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+.walk-stage-tabs .btn{font-size:11px;line-height:1.35;min-height:44px;padding:6px 5px;white-space:normal;text-align:center;overflow-wrap:anywhere}
+.walk-stage-tabs .btn[aria-pressed=true]{background:#087d80;color:white;border-color:#087d80}
+.walk-line-key{display:flex;gap:7px 14px;flex-wrap:wrap;margin-top:6px;color:#4b6262;font-size:10px;line-height:1.4}
+.walk-line-key span{display:inline-flex;align-items:center;gap:6px}.walk-line-key i{display:inline-block;width:20px;min-width:20px;border-top:3px solid #087d80}
+.walk-line-key .walk-key-boat{border-top:3px dashed #388ccc}
+.walk-v11 .map-badge{top:calc(var(--walk-stage-height,80px) + 10px);max-width:calc(100% - 84px)}
+.walk-v11 .nearby-controls{top:calc(var(--walk-stage-height,80px) + 95px)}
+.walk-v11 .map-tools{bottom:31px}
+.walk-direction{pointer-events:none!important;background:transparent!important;border:0!important}
+.walk-direction span{display:block;font:bold 18px/18px system-ui;text-shadow:0 0 2px white,0 0 2px white;transform-origin:center}
+.boarding-label-offset{translate:-25px 22px}
+.boarding-label-offset:after{content:'';position:absolute;left:30px;top:-8px;width:19px;border-top:2px solid #388ccc;transform:rotate(-40deg);transform-origin:left}
+#walk-route-flow{margin:17px 0 20px}#walk-route-flow>h2{font:24px/1.2 Georgia,serif;margin:0 0 7px}
+.walk-flow-section{border:1px solid #d9e1dc;border-radius:10px;margin:9px 0;background:#fff;padding:0 10px 9px}
+.walk-flow-section summary{cursor:pointer;min-height:48px;padding:11px 2px;line-height:1.5}.walk-flow-section summary small{display:block;color:#526764;margin-left:16px;font-size:11px}
+.walk-flow-stops{display:flex;flex-wrap:wrap;gap:5px;margin:0 0 8px}.walk-flow-stops .btn{font-size:11px;text-align:left;line-height:1.4;min-height:38px;gap:6px;padding:6px 8px}
+.walk-flow-stops b{display:inline-block;color:#087d80;flex-shrink:0}.walk-section-focus{width:100%;min-height:42px}
+.walk-v11 #parts{display:block}.walking-parts-group{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;padding:10px 0;border-top:1px solid #d9e1dc}.walking-parts-group>strong{flex-basis:100%;font-size:12px}
+.walk-v11[data-walk-theme=dark] .walk-stage-toolbar{background:#142026;border-color:#485b63}
+.walk-v11[data-walk-theme=dark] .walk-stage-tabs .btn{background:#223139;color:#edf1ed;border-color:#51666e}
+.walk-v11[data-walk-theme=dark] .walk-stage-tabs .btn[aria-pressed=true]{background:#347f79;color:white;border-color:#72b9ab}
+.walk-v11[data-walk-theme=dark] .walk-line-key{color:#c1d4d0}.walk-v11[data-walk-theme=dark] .walk-key-solid{border-color:#70c7b8}
+.walk-v11[data-walk-theme=dark] .walk-flow-section{background:#1d2b32;border-color:#485b63}
+.walk-v11[data-walk-theme=dark] .walk-flow-section summary small{color:#bcd0ca}.walk-v11[data-walk-theme=dark] .walk-flow-stops b{color:#9fddd0}
+.walk-v11[data-walk-theme=dark] .walking-parts-group{border-color:#485b63}
+@media(max-width:900px){
+ .walk-v11[data-guide-view=map] .map-wrap{display:flex}
+ .walk-v11:not([data-guide-view=map]) .map-wrap{display:none}
+ .walk-stage-toolbar{padding:6px 8px}.walk-stage-tabs .btn{font-size:10.5px;min-height:44px}
+ .walk-v11 .walk-flow-stops .btn{min-height:44px;font-size:12px}
+ .walk-v11 .nearby-controls{top:calc(var(--walk-stage-height,80px) + 90px)}
+ .walk-v11 #parts{display:block}.walk-v11 .walking-parts-group .btn{min-height:44px}
+}
+@media(max-width:359px){.walk-stage-tabs .btn{font-size:9.5px;padding:6px 2px}.walk-line-key{font-size:9px}.walk-v11 .nearby-controls{width:150px}}
+@media(max-height:550px) and (orientation:landscape){
+ .walk-line-key{display:none}.walk-stage-tabs .btn{min-height:38px}.walk-stage-toolbar{padding:3px 8px}
+ .walk-v11 .nearby-controls{top:calc(var(--walk-stage-height,44px) + 10px);left:auto;right:65px}
+ .walk-v11 .map-badge{top:calc(var(--walk-stage-height,44px) + 10px);max-width:calc(100% - 250px)}
+}
+@media print{.walk-stage-toolbar,.walk-section-focus{display:none!important}#walk-route-flow{break-inside:avoid}.walk-v11 #map{height:500px}}
