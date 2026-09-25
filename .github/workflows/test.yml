@@ -1,13 +1,13 @@
-name: Venice Sideways browser isolation
+name: Venice Sideways live health review
 on:
   push:
     branches: ['diagnostics/live-domain-20260925']
 permissions:
   contents: read
 jobs:
-  browser:
+  health:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
         with:
@@ -15,53 +15,93 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: pip install playwright==1.55.0
+      - run: pip install playwright==1.55.0 requests==2.32.5
       - run: python -m playwright install --with-deps chromium
-      - name: Custom domain browser isolation
+      - name: Read-only public-site checks
         run: |
           mkdir -p diagnostics
           python - <<'PY'
-          import datetime,json,pathlib
+          import datetime,json,pathlib,socket,concurrent.futures
+          from urllib.parse import urlparse,parse_qs
+          import requests
           from playwright.sync_api import sync_playwright
-          out=pathlib.Path('diagnostics');report={'time':datetime.datetime.now(datetime.timezone.utc).isoformat(),'browsers':[]}
+          root=pathlib.Path('diagnostics');base='https://venicesideways.com'
+          report={'started':datetime.datetime.now(datetime.timezone.utc).isoformat(),'http':[],'browsers':[],'scope':'Read-only requests; simulated location; no server writes or real participant coordinates.'}
+          def checkurl(path):
+              row={'path':path}
+              try:
+                  r=requests.get(base+path,timeout=(6,12),headers={'User-Agent':'VeniceSideways-HealthCheck/1.1'})
+                  row.update(status=r.status_code,final_url=r.url,redirects=[x.status_code for x in r.history],content_type=r.headers.get('content-type'),body_sample=r.text[:180],permissions=r.headers.get('permissions-policy'))
+              except Exception as e:row['error']=str(e)
+              return row
+          with concurrent.futures.ThreadPoolExecutor(3) as pool:report['http']=list(pool.map(checkurl,['/','/healthz','/robots.txt','/sitemap.xml','/favicon.ico']))
+          try:report['www_dns']=[r[4][0] for r in socket.getaddrinfo('www.venicesideways.com',443)]
+          except Exception as e:report['www_dns_error']=str(e)
           with sync_playwright() as p:
               browser=p.chromium.launch()
-              configs=[('custom-mobile-tr',{'viewport':{'width':390,'height':844},'locale':'tr-TR','is_mobile':True,'has_touch':True}),('custom-desktop-windows-ua',{'viewport':{'width':1440,'height':900},'locale':'en-GB','user_agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36'})]
-              for name,options in configs:
-                  ctx=browser.new_context(**options);page=ctx.new_page();page.set_default_timeout(12000)
-                  item={'name':name,'errors':[],'failed_requests':[]}
+              for name,options in [('desktop',{'viewport':{'width':1440,'height':960},'locale':'en-GB'}),('mobile-tr',{'viewport':{'width':390,'height':844},'locale':'tr-TR','is_mobile':True,'has_touch':True})]:
+                  options.update(geolocation={'latitude':45.438,'longitude':12.328,'accuracy':18},permissions=['geolocation'])
+                  ctx=browser.new_context(**options)
+                  ctx.add_init_script("window.__geoWatchCalls=0;window.__geoClears=0;const geo=navigator.geolocation;const watch=geo.watchPosition.bind(geo),clear=geo.clearWatch.bind(geo);geo.watchPosition=(...a)=>{window.__geoWatchCalls++;return watch(...a)};geo.clearWatch=(...a)=>{window.__geoClears++;return clear(...a)};")
+                  page=ctx.new_page();page.set_default_timeout(12000)
+                  item={'name':name,'errors':[],'bad_responses':[],'failed_requests':[],'writes':[],'checks':{}}
                   page.on('pageerror',lambda e,r=item:r['errors'].append(str(e)))
-                  page.on('requestfailed',lambda e,r=item:r['failed_requests'].append({'url':e.url,'error':e.failure}))
+                  page.on('requestfailed',lambda e,r=item:r['failed_requests'].append({'url':e.url,'reason':e.failure}))
+                  page.on('response',lambda e,r=item:r['bad_responses'].append({'url':e.url,'status':e.status}) if e.status>=400 else None)
+                  page.on('request',lambda e,r=item:r['writes'].append({'url':e.url,'method':e.method}) if e.method not in ['GET','HEAD','OPTIONS'] else None)
+                  def view(v):
+                      selector=('.guide-dock' if options.get('is_mobile') else '.guide-tabs')+' [data-guide-view="'+v+'"]'
+                      if page.locator(selector).count():page.locator(selector).click()
                   try:
-                      response=page.goto('https://venicesideways.com/',wait_until='domcontentloaded',timeout=25000)
-                      item['status']=response.status
-                      # Fixed bounded wait avoids Playwright predicate compilation under the site's CSP.
-                      page.wait_for_timeout(12000)
-                      item['application']=page.evaluate('() => ({count:typeof stops==="function"?stops().length:null,language:document.documentElement.lang,ready:window.WalkI18n?.ready,map:typeof map!=="undefined"&&!!map,vector:!!document.querySelector(".maplibregl-canvas"),title:document.title,overflow:document.documentElement.scrollWidth>innerWidth})')
-                      item['map_error_visible']=page.locator('#map-error').is_visible()
-                      item['body_preview']=page.locator('body').inner_text()[:1800]
-                      page.screenshot(path=str(out/(name+'.png')))
+                      response=page.goto(base+'/#route=main&view=route',wait_until='domcontentloaded',timeout=30000);item['document_status']=response.status
+                      page.wait_for_timeout(16000)
+                      item['initial']=page.evaluate('() => ({route:typeof mode!=="undefined"?mode:null,stops:typeof stops==="function"?stops().map(p=>({id:p.id,name:p.name})):[],language:document.documentElement.lang,ready:window.WalkI18n?.ready,map:typeof map!=="undefined"&&!!map,vector:!!document.querySelector(".maplibregl-canvas"),routing:window.WalkV11?.audit(),stages:window.WalkStages?.audit(),noindex:document.querySelector("meta[name=robots]")?.content,geolocationCalls:window.__geoWatchCalls})')
+                      item['checks']['no_location_on_load']=page.evaluate('window.__geoWatchCalls===0')
+                      item['checks']['no_map_error']=not page.locator('#map-error').is_visible()
+                      item['checks']['no_overflow']=page.evaluate('document.documentElement.scrollWidth<=innerWidth+1')
+                      view('ideas');page.wait_for_timeout(150)
+                      seen=[]
+                      for i in range(5):
+                          seen.append(page.locator('#photo-stop-lucia h4').inner_text());page.locator('#photo-stop-lucia .phone-next').click();page.wait_for_timeout(60)
+                      item['checks']['five_unique_ideas']=len(set(seen))==5
+                      item['checks']['idea_wraps']=page.locator('#photo-stop-lucia h4').inner_text()==seen[0]
+                      view('plan');page.wait_for_timeout(100)
+                      item['exports']=[{'mode':parse_qs(urlparse(h).query).get('travelmode'),'waypoints':len(parse_qs(urlparse(h).query).get('waypoints',[''])[0].split('|')) if 'waypoints=' in h else 0} for h in page.locator('#parts a').evaluate_all('(a)=>a.map(x=>x.href)')]
+                      page.fill('#event-date','2026-09-27');page.locator('#event-date').dispatch_event('change');page.wait_for_timeout(100)
+                      item['sunset_text']=page.locator('#sun-times').inner_text()
+                      item['checks']['share_has_date']='2026-09-27' in page.evaluate('shareURL()')
                       selector='#mobile-route' if options.get('is_mobile') else '#route'
-                      page.select_option(selector,'full');page.wait_for_timeout(300);item['full_count']=page.locator('#stops>li').count()
-                      page.select_option(selector,'main');page.wait_for_timeout(300)
-                      if options.get('is_mobile'):page.locator('.guide-dock [data-guide-view="ideas"]').click()
-                      before=page.locator('#photo-stop-lucia .prompt-count').text_content()
-                      page.locator('#photo-stop-lucia .phone-next').click()
-                      item['idea_changed']=before!=page.locator('#photo-stop-lucia .prompt-count').text_content()
-                      item['end_url']=page.url
-                  except Exception as e:item['error']=str(e)
+                      page.select_option(selector,'full');page.wait_for_timeout(400)
+                      item['checks']['full_28']=page.locator('#stops>li').count()==28
+                      item['checks']['full_seven_parts']=page.locator('#parts a').count()==7
+                      page.select_option(selector,'main');page.wait_for_timeout(500)
+                      page.select_option('#walk-theme','dark');page.wait_for_timeout(100)
+                      item['checks']['dark_page']=page.locator('body').get_attribute('data-walk-theme')=='dark'
+                      item['map_background']=page.evaluate('getComputedStyle(document.getElementById("map")).backgroundColor')
+                      page.select_option('#walk-theme','light')
+                      if options.get('is_mobile'):view('map')
+                      page.locator('#my-location').click();page.locator('#location-start').click();page.wait_for_timeout(1200)
+                      item['location_text']=page.locator('#location-status').inner_text()
+                      item['checks']['location_started']=page.evaluate('window.__geoWatchCalls>0')
+                      item['checks']['location_has_fix']=page.locator('#location-center').is_visible()
+                      page.locator('#location-stop').click();page.wait_for_timeout(100)
+                      item['checks']['location_stopped']=page.evaluate('window.__geoClears>0') and page.locator('#location-center').is_hidden()
+                      page.locator('#location-close').click()
+                      if name=='desktop':
+                          item['locales']={}
+                          for language in ['tr','ru','fr','zh','ja','ko','en']:
+                              page.select_option('#walk-language',language);page.wait_for_timeout(1600)
+                              item['locales'][language]=page.evaluate('() => ({language:WalkI18n.language,ready:WalkI18n.ready,missing:WalkI18n.audit().missing.length})')
+                      page.screenshot(path=str(root/(name+'-health.png')))
+                  except Exception as e:item['test_error']=str(e)
                   report['browsers'].append(item);ctx.close()
-              ctx=browser.new_context();page=ctx.new_page();console=[]
-              page.on('console',lambda e:console.append({'type':e.type,'text':e.text}))
-              page.set_content('<!doctype html><html><body><h1>Embedding diagnostic only</h1><iframe title="site" src="https://venicesideways.com/" width="1000" height="650"></iframe></body></html>')
-              page.wait_for_timeout(4000)
-              report['embedded']={'console':console,'frame_urls':[f.url for f in page.frames],'explanation':'A generic iframe test only; this does not establish whether the user opened an iframe.'}
-              page.screenshot(path=str(out/'embedded-policy.png'));ctx.close();browser.close()
-          (out/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps(report,ensure_ascii=False,indent=2))
+              browser.close()
+          report['finished']=datetime.datetime.now(datetime.timezone.utc).isoformat()
+          (root/'report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2));print(json.dumps(report,ensure_ascii=False,indent=2))
           PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: sideways-browser-isolation
+          name: sideways-health-review
           path: diagnostics/
           retention-days: 3
