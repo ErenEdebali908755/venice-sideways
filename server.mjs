@@ -1,4 +1,5 @@
-/** Small dependency-free static server. No database, analytics, POST or location endpoint. */
+import {communityProxy} from './community-proxy.mjs';
+/** Static website with fixed, consent-based Sideways service endpoints. */
 import http from 'node:http';
 import {readPublishedRoute} from './published-routes.mjs';
 import {readFile,readdir} from 'node:fs/promises';
@@ -29,6 +30,7 @@ export async function createServer(){
   res.setHeader('X-Frame-Options','DENY');
   res.setHeader('Permissions-Policy','geolocation=(self), camera=(), microphone=(), payment=()');
   res.setHeader('Cache-Control','no-cache');
+  if(req.url?.startsWith('/api/community/')){let path;try{path=new URL(req.url,'http://localhost').pathname;}catch{res.writeHead(400);res.end();return;}await communityProxy(req,res,path);return;}
   if(req.method!=='GET'&&req.method!=='HEAD'){res.setHeader('Allow','GET, HEAD');res.writeHead(405);res.end('Method not allowed');return;}
   let url;try{url=new URL(req.url,'http://localhost');}catch{res.writeHead(400);res.end('Invalid request');return;}
   if(url.pathname==='/healthz'){res.setHeader('Content-Type','text/plain');res.writeHead(200);res.end(req.method==='HEAD'?undefined:'ok');return;}

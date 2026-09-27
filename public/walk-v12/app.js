@@ -27,7 +27,7 @@ const baseStops=stops;
 stops=function(){return baseStops().map(p=>{if(mode!=='main')return p;if(p.id==='lucia')return {...p,lat:45.44085,lon:12.32145,query:'45.44085,12.32145'};return p.id==='dogana'?{...p,source:'https://www.pinaultcollection.com/palazzograssi/en/punta-della-dogana'}:p;});};
 const phasePoints=()=>{const all=stops();return [[...all.slice(0,9),BOARD],[LAND,...all.slice(9)]];};
 const aLink=(href,label,classes='btn small')=>'<a class="'+classes+'" href="'+esc(href)+'" target="_blank" rel="noopener">'+esc(label)+' ↗</a>';
-function transferHTML(compact=false){const bridge=stops().find(p=>p.id==='accademia');return '<div class="transfer-heading">'+esc(text('transfer'))+'</div>'+(compact?'':'<p>'+esc(text('transferInfo'))+'</p>')+'<div class="transfer-links">'+aLink(googleRoute([bridge,BOARD]),text('walkBoard'))+transitLinks()+aLink(googleRoute([LAND,POINTS.trearchi]),text('walkAfter'))+aLink(ACTV,text('currentActv'))+'</div>'+(compact?'':'<p class="small-note">'+esc(text('waterbusPhoto'))+'</p>');}
+function transferHTML(compact=false){const bridge=stops().find(p=>p.id==='accademia');return '<div class="transfer-heading">'+esc(text('transfer'))+'</div>'+(compact?'':'<p>'+esc(text('transferInfo'))+'</p>')+'<div class="transfer-links">'+aLink(googleRoute([bridge,BOARD]),text('walkBoard'))+transitLinks()+aLink(googleRoute([LAND,POINTS.trearchi]),text('walkAfter'))+aLink(ACTV,text('currentActv'))+'</div><p class="small-note">ACTV GTFS · 25.09.2026 · 1: Accademia B → Ferrovia E · 5.2: Ferrovia D → Tre Archi</p>'+(compact?'':'<p class="small-note">'+esc(text('waterbusPhoto'))+'</p>');}
 const transferPanel=document.createElement('section');transferPanel.id='mixed-transfer';transferPanel.className='transfer-panel';transferPanel.setAttribute('data-no-translate','');
 document.querySelector('.export-box').after(transferPanel);
 const boatField=document.createElement('div');boatField.id='boat-budget-field';boatField.className='pause-budget';boatField.setAttribute('data-no-translate','');boatField.innerHTML='<label class="field-label" for="boat-minutes"></label><input id="boat-minutes" type="number" min="10" max="180" step="5" value="70">';$('pause-minutes').closest('.pause-budget').after(boatField);
@@ -97,10 +97,9 @@ themeSelect.onchange=()=>{theme=themeSelect.value;try{localStorage.setItem(THEME
 function doganaPriority(){if(mode==='main')markerById.get('dogana')?.getElement?.()?.classList.add('priority-pin');}
 function drawTransfer(){
  if(!map)return;if(!transferLayer)transferLayer=L.layerGroup().addTo(map);transferLayer.clearLayers();if(mode!=='main')return;
- // Approximate connections following the canals, split at the required Ferrovia change.
- const first=[[BOARD.lat,BOARD.lon],[45.43310,12.32740],[45.43435,12.32665],[45.43545,12.32755],[45.43580,12.33010],[45.43645,12.33275],[45.43802,12.33565],[45.4394,12.3349],[45.44055,12.3329],[45.44140,12.3307],[45.4421,12.3281],[45.4416,12.3257],[45.4406,12.3241],[CHANGE.lat,CHANGE.lon]];
- const second=[[CHANGE.lat,CHANGE.lon],[45.4406,12.3241],[45.4418,12.3258],[45.4425,12.3257],[45.4435,12.3241],[45.44455,12.3224],[45.4456,12.3207],[LAND.lat,LAND.lon]];
- [first,second].forEach((path,i)=>L.polyline(path,{color:'#479fdd',weight:3,opacity:.9,dashArray:'9 9',walkBoat:true,walkStage:'boat'}).addTo(transferLayer).bindTooltip(text(journeys[i].label)).on('click',()=>window.open(journeys[i].url,'_blank','noopener')));
+ // Official ACTV GTFS water paths, two separate trips; no straight sailing line between transfer piers.
+ const paths=window.SidewaysWaterPaths?.legs||[];
+ paths.forEach((leg,i)=>L.polyline(leg.coordinates.map(p=>[p[1],p[0]]),{color:i===0?'#237bc2':'#6854bc',weight:4,opacity:.95,dashArray:'10 5',walkBoat:true,walkStage:'boat'}).addTo(transferLayer).bindTooltip('ACTV '+leg.line+' · '+leg.fromName+' → '+leg.toName).on('click',()=>window.open(journeys[i].url,'_blank','noopener')));
  for(const [p,k] of [[BOARD,'boarding'],[CHANGE,'interchange'],[LAND,'landing']]){
   const marker=L.marker(xy(p),{title:text(k),walkTransferPoint:p.id,icon:L.divIcon({className:'transit-marker',html:boatIcon,iconSize:[40,40],iconAnchor:[20,20]})}).addTo(transferLayer);
   marker.bindTooltip(text(k)).bindPopup('<div data-no-translate><b>'+esc(text(k))+'</b><p>'+esc(text('transferInfo'))+'</p>'+transitLinks()+'</div>');
