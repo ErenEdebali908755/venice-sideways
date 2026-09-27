@@ -1,5 +1,6 @@
 /** Small dependency-free static server. No database, analytics, POST or location endpoint. */
 import http from 'node:http';
+import {readPublishedRoute} from './published-routes.mjs';
 import {readFile,readdir} from 'node:fs/promises';
 import {join,extname,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -21,7 +22,7 @@ async function filesIn(dir,prefix=''){
 }
 export async function createServer(){
  const files=await filesIn(ROOT);
- return http.createServer((req,res)=>{
+ return http.createServer(async(req,res)=>{
   res.setHeader('Content-Security-Policy',CSP);
   res.setHeader('X-Content-Type-Options','nosniff');
   res.setHeader('Referrer-Policy','strict-origin-when-cross-origin');
@@ -39,6 +40,12 @@ export async function createServer(){
   if(aliases.has(url.pathname)){res.writeHead(308,{Location:'/'+url.search});res.end();return;}
   let path;try{path=decodeURIComponent(url.pathname);}catch{res.writeHead(400);res.end('Invalid path');return;}
   if(path.includes('\\')||path.includes('\0')||path.split('/').some(s=>s.startsWith('.'))){res.writeHead(404);res.end('Not found');return;}
+  if(path.startsWith('/api/routes/')){
+   const result=await readPublishedRoute(path.slice('/api/routes/'.length));
+   res.setHeader('Content-Type','application/json; charset=utf-8');
+   res.setHeader('Cache-Control',result.status===200?'public, max-age=60':'no-store');
+   res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||JSON.stringify({message:'Published route unavailable'}));return;
+  }
   const file=files.get(path==='/'?'/index.html':path);
   if(!file){res.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});res.end('Not found');return;}
   res.setHeader('Content-Type',file.type);res.setHeader('ETag',file.etag);
