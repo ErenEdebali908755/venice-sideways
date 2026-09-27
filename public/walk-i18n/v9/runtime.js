@@ -3,9 +3,9 @@
 (() => {
   'use strict';
   const ROOT='/walk-i18n/v9/', KEY='walk-guide-language-v9';
-  const codes=['tr','ru','fr','zh','ja','ko'];
-  const names={en:'English',tr:'Türkçe',ru:'Русский',fr:'Français',zh:'简体中文',ja:'日本語',ko:'한국어'};
-  const locales={en:'en-GB',tr:'tr-TR',ru:'ru-RU',fr:'fr-FR',zh:'zh-Hans',ja:'ja-JP',ko:'ko-KR'};
+  const codes=['tr','ru','fr','zh','ja','ko','it'];
+  const names={en:'English',tr:'Türkçe',ru:'Русский',fr:'Français',zh:'简体中文',ja:'日本語',ko:'한국어',it:'Italiano'};
+  const locales={en:'en-GB',tr:'tr-TR',ru:'ru-RU',fr:'fr-FR',zh:'zh-Hans',ja:'ja-JP',ko:'ko-KR',it:'it-IT'};
   const dictionaries={},templates={},stopPacks={},promptPacks={},loads=new Map();
   const texts=new WeakMap(), attributes=new WeakMap(), missing=new Set(), glBound=new WeakSet();
   let lang='en',selection='auto',sequence=0,ready=false,englishIdeas=null,scheduled=false,busy=false,observer,activeMap;
@@ -13,13 +13,13 @@
   const base=s=>{const c=String(s||'').toLowerCase().split(/[-_]/)[0];return Object.hasOwn(names,c)?c:null;};
   const $=id=>document.getElementById(id);
   for(const c of codes){dictionaries[c]=new Map();templates[c]={};stopPacks[c]={};}
-  function rows(raw,fn){for(const line of raw.trim().split('\n')){if(!line.trim())continue;const f=line.split('|');if(f.length!==7||f.some(v=>!v.trim()))throw Error('Invalid locale row: '+f[0]);fn(f[0],f.slice(1));}}
+  function rows(raw,fn){for(const line of raw.trim().split('\n')){if(!line.trim())continue;const f=line.split('|');if(![7,8].includes(f.length)||f.some(v=>!v.trim()))throw Error('Invalid locale row: '+f[0]);fn(f[0],f.slice(1));}}
   function parsePrompts(raw){let id='',out={};for(const row of raw.trim().split('\n')){const line=row.trim();if(!line)continue;if(/^\[[a-z]+\]$/.test(line)){id=line.slice(1,-1);out[id]=[];}else{const f=line.split('|');if(!id||f.length!==4||f.some(x=>!x.trim()))throw Error('Invalid prompt row');out[id].push(f);}}const expected=Object.keys(POINTS);if(Object.keys(out).length!==expected.length||expected.some(k=>out[k]?.length!==5||new Set(out[k].map(v=>v[0])).size!==5))throw Error('Incomplete five-idea pack');return out;}
   function add(c,source,target){dictionaries[c].set(norm(source),target);}
   window.WalkI18n={
-    registerUI(raw){rows(raw,(key,values)=>codes.forEach((c,i)=>add(c,key,values[i])));},
-    registerTemplates(raw){rows(raw,(key,values)=>codes.forEach((c,i)=>templates[c][key]=values[i]));},
-    registerStops(raw){rows(raw,(id,values)=>codes.forEach((c,i)=>stopPacks[c][id]=values[i]));},
+    registerUI(raw){rows(raw,(key,values)=>codes.forEach((c,i)=>values[i]&&add(c,key,values[i])));},
+    registerTemplates(raw){rows(raw,(key,values)=>codes.forEach((c,i)=>values[i]&&(templates[c][key]=values[i])));},
+    registerStops(raw){rows(raw,(id,values)=>codes.forEach((c,i)=>values[i]&&(stopPacks[c][id]=values[i])));},
     registerPrompts(c,raw){if(!codes.includes(c))throw Error('Unknown locale');const pack=parsePrompts(raw);
       // Review corrections, applied before any translated content is displayed.
       if(c==='tr')pack.lucia[4][0]='Bir arkadaşının ilk izleniminden yola çık';
@@ -49,13 +49,13 @@
   function preferred(){return explicitLanguage()||stored()||'auto';}
   function template(key,values){let text=templates[lang]?.[key]||'';for(const [k,v] of Object.entries(values))text=text.replaceAll('{'+k+'}',String(v));return text;}
   const suffixes={
-    'Dorsoduro side':['Dorsoduro tarafı','сторона Dorsoduro','côté Dorsoduro','Dorsoduro一侧','Dorsoduro側','Dorsoduro 쪽'],
-    'San Polo side':['San Polo tarafı','сторона San Polo','côté San Polo','San Polo一侧','San Polo側','San Polo 쪽'],
-    'northern approach':['kuzey yaklaşımı','северный подход','approche nord','北侧桥头','北側の通路','북쪽 진입부'],
-    'view from the quay':['kıyıdan bakış','вид с набережной','vue depuis le quai','从岸边观看','岸からの眺め','물가 길에서 보기'],
-    'squero surroundings':['tekne atölyesi çevresi','окрестности верфи','abords du chantier naval','船厂周边','造船所周辺','조선소 주변'],
-    'Biennale exterior':['Biennale dış alanı','снаружи Биеннале','extérieur de la Biennale','双年展外部','ビエンナーレの外','비엔날레 바깥'],
-    'outside':['dış alan','снаружи','extérieur','外部','外側','바깥']
+    'Dorsoduro side':['Dorsoduro tarafı','сторона Dorsoduro','côté Dorsoduro','Dorsoduro一侧','Dorsoduro側','Dorsoduro 쪽','lato Dorsoduro'],
+    'San Polo side':['San Polo tarafı','сторона San Polo','côté San Polo','San Polo一侧','San Polo側','San Polo 쪽','lato San Polo'],
+    'northern approach':['kuzey yaklaşımı','северный подход','approche nord','北侧桥头','北側の通路','북쪽 진입부','accesso settentrionale'],
+    'view from the quay':['kıyıdan bakış','вид с набережной','vue depuis le quai','从岸边观看','岸からの眺め','물가 길에서 보기','vista dalla fondamenta'],
+    'squero surroundings':['tekne atölyesi çevresi','окрестности верфи','abords du chantier naval','船厂周边','造船所周辺','조선소 주변','dintorni dello squero'],
+    'Biennale exterior':['Biennale dış alanı','снаружи Биеннале','extérieur de la Biennale','双年展外部','ビエンナーレの外','비엔날레 바깥','esterno della Biennale'],
+    'outside':['dış alan','снаружи','extérieur','外部','外側','바깥','esterno']
   };
   function place(s){let result=s;for(const [en,values] of Object.entries(suffixes))result=result.replaceAll(en,values[codes.indexOf(lang)]||en);return result;}
   function number(n){return new Intl.NumberFormat(locales[lang],{maximumFractionDigits:1}).format(Number(n));}
@@ -63,6 +63,7 @@
   function translate(s){if(s==='Venice Photography Walk Map'||s==='Venice Sideways')return 'Venice Sideways';if(!s||lang==='en')return s;const dict=dictionaries[lang];if(dict?.has(s))return dict.get(s);if(s==='Venice photography walk map')return dict.get('Venice Photography Walk Map');
     let m;
     if((m=s.match(/^(Main Walk|Full 28-Stop Walk) · (\d+) stops · (\d+) optional phone-friendly ideas$/)))return template('caption',{route:translate(m[1]),n:m[2],total:m[3]});
+    if((m=s.match(/^Open entire route · (\d+) stops in Google Maps ↗$/)))return translate('Open in Google Maps ↗')+' · '+template('stops',{n:m[1]});
     if((m=s.match(/^Idea ([1-5]) of 5$/)))return template('idea',{n:m[1]});
     if((m=s.match(/^Phone-friendly · idea ([1-5]) of 5$/)))return template('phoneIdea',{n:m[1]});
     if((m=s.match(/^(Next|Previous) photo idea for (.+)$/)))return template(m[1]==='Next'?'nextIdea':'prevIdea',{place:place(m[2])});

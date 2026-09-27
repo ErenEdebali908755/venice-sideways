@@ -1,7 +1,7 @@
 /* Own-device positioning only. No geolocation upload, analytics, persistence or link encoding. */
 (() => {
 'use strict';
-const langs=['en','tr','ru','fr','zh','ja','ko'];
+const langs=['en','tr','ru','fr','zh','ja','ko','it'];
 const t=key=>SidewaysLocationCopy[key][Math.max(0,langs.indexOf(WalkI18n.language))];
 const $=id=>document.getElementById(id);
 let active=false,follow=false,watchId=null,generation=0,last=null,state='ready',layer=null,dot=null,accuracyCircle=null,boundMap=null,permission=null;

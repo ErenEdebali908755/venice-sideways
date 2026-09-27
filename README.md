@@ -33,8 +33,9 @@ Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or
 
 ## Preserved features
 
-- The source's current 15-stop main walk (Punta della Dogana, a waterbus transfer, Cannaregio finish) and full 28-stop walk.
-- Five phone-friendly ideas for each place; seven languages with automatic and manual selection.
+- The source's current 11-stop main walk (Punta della Dogana, a waterbus transfer, Cannaregio finish) and full 28-stop walk.
+- Five phone-friendly ideas for each place; eight languages (English, Turkish, Russian, French, Chinese, Japanese, Korean and Italian) with automatic and manual selection.
+- On phones, settings and nearby-place filters open in separate panels; route and location controls sit below the map.
 - Dark page controls with a permanently light basemap.
 - Separate walking and waterbus navigation; all stops retained across exported links.
 - OpenFreeMap / OpenStreetMap / MapLibre.

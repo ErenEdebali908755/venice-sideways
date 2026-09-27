@@ -11,7 +11,10 @@ OUT=ROOT/'qa-output';OUT.mkdir(exist_ok=True)
 BASE='https://venicesideways.test'
 report={'checks':[],'issues':[],'external_services':'blocked; real source loaded into an isolated DOM fixture, not live hosting','geolocation':'mocked secure context, browser API, storage and map; no real user position'}
 def check(v,name):
- if not v:raise AssertionError(name)
+ if not v:
+  page.screenshot(path=str(OUT/'failure.png'))
+  print(page.evaluate("[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1&&e.getBoundingClientRect().width>0).map(e=>[e.tagName,e.id,e.className,e.getBoundingClientRect().toJSON()]).slice(0,15)"))
+  raise AssertionError(name)
  report['checks'].append(name)
 GEO=r'''window.__geo={calls:0,clear:[],success:null,error:null,oldSuccess:null};Object.defineProperty(navigator,'geolocation',{configurable:true,value:{watchPosition(ok,fail,opts){__geo.calls++;__geo.oldSuccess=__geo.success;__geo.success=ok;__geo.error=fail;return __geo.calls;},clearWatch(id){__geo.clear.push(id);}}});'''
 MAP=r'''(() => {
@@ -23,7 +26,7 @@ window.__localMap={group:{layers:[]},handlers:{},centers:[],getZoom:()=>16,on(e,
 try:
  with sync_playwright() as pw:
   browser=pw.chromium.launch(executable_path=shutil.which('chromium'),headless=True,args=['--no-sandbox'])
-  for lang,locale in [('en','en-GB'),('tr','tr-TR'),('ru','ru-RU'),('fr','fr-FR'),('zh','zh-CN'),('ja','ja-JP'),('ko','ko-KR')]:
+  for lang,locale in [('en','en-GB'),('tr','tr-TR'),('ru','ru-RU'),('fr','fr-FR'),('zh','zh-CN'),('ja','ja-JP'),('ko','ko-KR'),('it','it-IT')]:
    ctx=browser.new_context(locale=locale,viewport={'width':390,'height':844},color_scheme='dark')
    ctx.add_init_script(GEO);page=ctx.new_page();errors=[];requests=[]
    page.on('pageerror',lambda e:errors.append(str(e)))
@@ -58,7 +61,7 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
    page.wait_for_timeout(150)
    check(page.title()=='Venice Sideways',lang+': branded title')
    check(page.locator('h1').inner_text()=='Venice Sideways',lang+': branded heading')
-   check(page.locator('#walk-language option').count()==8,lang+': all locales and automatic mode')
+   check(page.locator('#walk-language option').count()==9,lang+': all locales and automatic mode')
    check(page.locator('#route option').count()==2,lang+': two walks')
    check(page.evaluate('stops().map(p=>p.id)')==['lucia','giacomo','frari','margherita','barnaba','trovaso','zattere','dogana','accademia','trearchi','vino'],lang+': exact revised route')
    check(page.evaluate('WalkV11.points()[1].map(p=>p.id)')==['land','trearchi','vino'],lang+': no extra Cannaregio stops')
@@ -69,7 +72,7 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
    check(sum('travelmode=transit' in u for u in hrefs)==2 and sum('travelmode=walking' in u for u in hrefs)==4,lang+': modes stay separate')
    check('T1' not in page.locator('body').inner_text() and 'T2' not in page.locator('body').inner_text(),lang+': no transfer codes shown')
    check(page.locator('link[rel=icon][type="image/svg+xml"]').count()==1,lang+': favicon linked')
-   check(page.locator('#my-location span').text_content().strip()!='',lang+': location button label visible')
+   check(page.locator('#my-location span:visible').text_content().strip()!='',lang+': location button label visible')
    check('arrowFor' not in (ROOT/'public/walk-v12/stages.js').read_text(),lang+': no arrow renderer')
    check(page.evaluate('stops().length')==11,lang+': preserved current main route')
    check(page.evaluate('shareURL()').startswith('https://venicesideways.com/'),lang+': canonical share domain')
@@ -78,11 +81,46 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
     page.set_viewport_size({'width':width,'height':height});page.wait_for_timeout(35)
     check(page.evaluate('document.documentElement.scrollWidth<=innerWidth+1'),lang+': no horizontal overflow '+str(width))
    page.set_viewport_size({'width':390,'height':844})
+   page.wait_for_timeout(100)
+   check(page.locator('#map').bounding_box()['height']>400,lang+': map retains useful mobile height')
+   for control in ['#mobile-nearby','#fit','#my-location']:
+    check(page.locator(control).bounding_box()['y']>=page.locator('#map').bounding_box()['y']+page.locator('#map').bounding_box()['height']-1,lang+': control outside map '+control)
+   page.locator('#mobile-settings').click()
+   check(page.locator('#walk-language').is_visible(),lang+': language available in settings')
+   check(page.locator('#mobile-settings').get_attribute('aria-expanded')=='true',lang+': settings expanded state')
+   page.locator('#mobile-preferences-close').click()
+   page.locator('#mobile-nearby').click()
+   check(page.locator('.nearby-controls').is_visible(),lang+': nearby filters available')
+   page.locator('#mobile-places-close').click()
+   page.locator('#mobile-settings').click()
+   page.evaluate("document.getElementById('place-sheet').hidden=false")
+   page.wait_for_timeout(35)
+   check(not page.locator('#mobile-preferences').is_visible(),lang+': place details close other panels')
+   check(page.locator('#place-sheet').bounding_box()['y']>=page.locator('#map').bounding_box()['y']+page.locator('#map').bounding_box()['height']-1,lang+': place details outside map')
+   page.locator('#close-place').click()
+   check(page.locator('#mobile-nearby').evaluate('(e)=>e===document.activeElement'),lang+': place close returns focus to visible control')
+   if lang=='it':
+    check(page.locator('#mobile-settings').inner_text()=='Impostazioni','Italian mobile labels')
+    check(page.evaluate("WalkI18n.pack('it')&&Object.values(WalkI18n.pack('it')).reduce((n,p)=>n+p.length,0)")==155,'Italian 155 photo ideas')
+    page.screenshot(path=str(OUT/'italian-mobile-map.png'))
+    page.locator('#mobile-settings').click()
+    page.locator('#walk-language').select_option('en')
+    page.wait_for_function("WalkI18n.language==='en'")
+    check(page.locator('#mobile-settings').inner_text()=='Settings','Italian switches back to English')
+    page.locator('#walk-language').select_option('it')
+    page.wait_for_function("WalkI18n.language==='it'")
+    check(page.evaluate("localStorage.getItem('walk-guide-language-v9')")=='it','Italian manual preference remembered')
+    check('lang=it' in page.evaluate('shareURL()'),'Shared link carries Italian')
+    page.locator('#walk-theme').select_option('light')
+    page.screenshot(path=str(OUT/'italian-mobile-settings.png'))
+    page.locator('#walk-theme').select_option('dark')
+    page.locator('#mobile-preferences-close').click()
    page.evaluate("changeMode('full')");page.wait_for_timeout(50);check(page.evaluate('stops().length')==28,lang+': preserved full walk')
    page.evaluate("changeMode('main')");page.wait_for_timeout(50)
    page.locator('.guide-dock [data-guide-view="ideas"]').click();page.wait_for_timeout(35)
    check(page.locator('#stops .photo-prompt').count()==11,lang+': idea cards retained')
    first=page.locator('#stops .photo-prompt').first
+   if lang=='it':page.screenshot(path=str(OUT/'italian-mobile-ideas.png'))
    labels=[]
    for i in range(5):labels.append(first.locator('h4').inner_text());first.locator('.phone-next').click();page.wait_for_timeout(20)
    check(len(set(labels))==5,lang+': five distinct translated ideas')
@@ -120,6 +158,8 @@ document.head.appendChild=intercept;document.head.append=(...ns)=>ns.forEach(int
    page.locator('#location-start').click();page.evaluate('__geo.error({code:1})')
    check(page.locator('#location-start').is_visible(),lang+': denied permission gracefully stops')
    if lang=='tr':page.screenshot(path=str(OUT/'turkish-location-permission.png'))
+   if lang=='it':
+    (OUT/'italian-audit.json').write_text(json.dumps(page.evaluate('WalkI18n.audit()'),ensure_ascii=False,indent=2))
    check(not errors,lang+': no JS errors '+repr(errors))
    ctx.close()
   browser.close()

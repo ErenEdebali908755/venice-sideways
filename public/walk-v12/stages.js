@@ -1,8 +1,8 @@
 /* Presentation-only stage views. The selected route and its stop order never change. */
 (() => {
 'use strict';
-WalkI18n.registerUI(`The detailed vector map is unavailable. Showing the standard map. Google Maps links and all photo ideas remain available.|Ayrıntılı vektör harita kullanılamıyor. Standart harita gösteriliyor. Google Maps bağlantıları ve tüm fotoğraf fikirleri kullanılabilir durumda.|Подробная векторная карта недоступна. Показана стандартная карта. Ссылки Google Maps и все фотоидеи остаются доступны.|La carte vectorielle détaillée est indisponible. La carte standard est affichée. Les liens Google Maps et toutes les idées photo restent accessibles.|详细矢量地图暂不可用，现显示标准地图。Google Maps链接和全部摄影创意仍可使用。|詳細なベクター地図を利用できないため、標準地図を表示しています。Google Mapsリンクとすべての撮影アイデアは引き続き利用できます。|상세 벡터 지도를 사용할 수 없어 기본 지도를 표시합니다. Google Maps 링크와 모든 촬영 아이디어는 계속 이용할 수 있습니다.`);
-const $=id=>document.getElementById(id),langs=['en','tr','ru','fr','zh','ja','ko'];
+WalkI18n.registerUI(`The detailed vector map is unavailable. Showing the standard map. Google Maps links and all photo ideas remain available.|Ayrıntılı vektör harita kullanılamıyor. Standart harita gösteriliyor. Google Maps bağlantıları ve tüm fotoğraf fikirleri kullanılabilir durumda.|Подробная векторная карта недоступна. Показана стандартная карта. Ссылки Google Maps и все фотоидеи остаются доступны.|La carte vectorielle détaillée est indisponible. La carte standard est affichée. Les liens Google Maps et toutes les idées photo restent accessibles.|详细矢量地图暂不可用，现显示标准地图。Google Maps链接和全部摄影创意仍可使用。|詳細なベクター地図を利用できないため、標準地図を表示しています。Google Mapsリンクとすべての撮影アイデアは引き続き利用できます。|상세 벡터 지도를 사용할 수 없어 기본 지도를 표시합니다. Google Maps 링크와 모든 촬영 아이디어는 계속 이용할 수 있습니다.|La mappa vettoriale dettagliata non è disponibile. Viene mostrata la mappa standard. I collegamenti Google Maps e tutti gli spunti fotografici restano disponibili.`);
+const $=id=>document.getElementById(id),langs=['en','tr','ru','fr','zh','ja','ko','it'];
 const t=key=>{const values=WalkV11Copy[key];return values?.[Math.max(0,langs.indexOf(WalkI18n.language))]||values?.[0]||key;};
 const wrap=document.querySelector('.map-wrap');
 const toolbar=document.createElement('div');toolbar.className='walk-stage-toolbar';toolbar.setAttribute('data-no-translate','');
@@ -77,7 +77,7 @@ fitBounds=function(){
  const sec=currentSection(),pts=(sec?sec.points:stops()).map(xy);
  if(stage==='boat')pts.push([45.43802,12.33565],[45.43435,12.32665]);
  map.stop();map.closePopup();map.invalidateSize({pan:false});
- map.fitBounds(L.latLngBounds(pts),{paddingTopLeft:[26,110],paddingBottomRight:[38,78],maxZoom:16,animate:false});
+ map.fitBounds(L.latLngBounds(pts),{paddingTopLeft:matchMedia('(max-width:900px)').matches?[20,20]:[26,110],paddingBottomRight:matchMedia('(max-width:900px)').matches?[58,32]:[38,78],maxZoom:16,animate:false});
 };
 function chooseStage(value){
  stage=sections().some(s=>s.id===value)?value:'all';

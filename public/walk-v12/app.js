@@ -2,13 +2,13 @@
    No paid API, credentials, new domain, or gallery changes. */
 (() => {
 'use strict';
-const $=id=>document.getElementById(id), LANG=['en','tr','ru','fr','zh','ja','ko'];
+const $=id=>document.getElementById(id), LANG=['en','tr','ru','fr','zh','ja','ko','it'];
 const C=window.WalkV11Copy,P=window.WalkV11Ideas;
 const currentLang=()=>window.WalkI18n?.language||'en';
 const text=(key,pack=C)=>pack[key]?.[Math.max(0,LANG.indexOf(currentLang()))]||pack[key]?.[0]||key;
 const english=key=>C[key][0];
 WalkI18n.registerUI(Object.values(C).map(row=>row.join('|')).join('\n'));
-for(const name of ['Punta della Dogana','Accademia · ACTV','Ferrovia · ACTV','Tre Archi · ACTV'])WalkI18n.registerUI(Array(7).fill(name).join('|'));
+for(const name of ['Punta della Dogana','Accademia · ACTV','Ferrovia · ACTV','Tre Archi · ACTV'])WalkI18n.registerUI(Array(8).fill(name).join('|'));
 const MAIN=['lucia','giacomo','frari','margherita','barnaba','trovaso','zattere','dogana','accademia','trearchi','vino'];
 const BOARD={id:'board',n:'⛴',name:'Accademia · ACTV',lat:45.43164,lon:12.32871,area:'core',query:'Accademia B vaporetto, Venice, Italy'};
 const LAND={id:'land',n:'⛴',name:'Tre Archi · ACTV',lat:45.44613,lon:12.31985,area:'north',query:'Tre Archi vaporetto, Venice, Italy'};
