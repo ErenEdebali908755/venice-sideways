@@ -90,7 +90,7 @@ function renderControls(){
  nav.setAttribute('aria-label',t('stageNav'));
  nav.innerHTML=[{id:'all',label:'allView'},...sections()].map(s=>'<button class="btn small" type="button" data-stage="'+s.id+'" aria-pressed="'+(stage===s.id)+'">'+esc(t(s.label))+'</button>').join('');
  nav.querySelectorAll('button').forEach(b=>b.onclick=()=>chooseStage(b.dataset.stage));
- legend.innerHTML='<span><i class="walk-key-solid" aria-hidden="true"></i>'+esc(t('walkSolid'))+'</span>'+(mode==='main'?'<span><i class="walk-key-boat" aria-hidden="true"></i>'+esc(t('boatDashed'))+'</span>':'');
+ legend.innerHTML='<span><i class="walk-key-solid" aria-hidden="true"></i>'+esc(t('walkSolid'))+'</span>'+(mode==='main'?'<span><i class="walk-key-boat" aria-hidden="true" style="border-color:#237bc2"></i>ACTV 1 · Accademia → Ferrovia</span><span><i class="walk-key-boat" aria-hidden="true" style="border-color:#9a3f99"></i>ACTV 5.2 · Ferrovia → Tre Archi</span>':'');
  const groups=sections();
  flow.innerHTML='<h2>'+esc(t('flowTitle'))+'</h2><p class="small-note">'+esc(t('stageHelp'))+'</p>'+groups.map(s=>{
   const info=s.info?t(s.info):s.points[0].name+' → '+s.points.at(-1).name;

@@ -99,7 +99,7 @@ function drawTransfer(){
  if(!map)return;if(!transferLayer)transferLayer=L.layerGroup().addTo(map);transferLayer.clearLayers();if(mode!=='main')return;
  // Official ACTV GTFS water paths, two separate trips; no straight sailing line between transfer piers.
  const paths=window.SidewaysWaterPaths?.legs||[];
- paths.forEach((leg,i)=>L.polyline(leg.coordinates.map(p=>[p[1],p[0]]),{color:i===0?'#237bc2':'#6854bc',weight:4,opacity:.95,dashArray:'10 5',walkBoat:true,walkStage:'boat'}).addTo(transferLayer).bindTooltip('ACTV '+leg.line+' · '+leg.fromName+' → '+leg.toName).on('click',()=>window.open(journeys[i].url,'_blank','noopener')));
+ paths.forEach((leg,i)=>L.polyline(leg.coordinates.map(p=>[p[1],p[0]]),{color:i===0?'#237bc2':'#9a3f99',weight:4,opacity:.95,dashArray:'10 5',walkBoat:true,walkStage:'boat'}).addTo(transferLayer).bindTooltip('ACTV '+leg.line+' · '+leg.fromName+' → '+leg.toName,{sticky:true}).on('click',()=>window.open(journeys[i].url,'_blank','noopener')));
  for(const [p,k] of [[BOARD,'boarding'],[CHANGE,'interchange'],[LAND,'landing']]){
   const marker=L.marker(xy(p),{title:text(k),walkTransferPoint:p.id,icon:L.divIcon({className:'transit-marker',html:boatIcon,iconSize:[40,40],iconAnchor:[20,20]})}).addTo(transferLayer);
   marker.bindTooltip(text(k)).bindPopup('<div data-no-translate><b>'+esc(text(k))+'</b><p>'+esc(text('transferInfo'))+'</p>'+transitLinks()+'</div>');

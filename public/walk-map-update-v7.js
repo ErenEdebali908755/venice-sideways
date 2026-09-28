@@ -64,7 +64,7 @@
     vino:['A picture you changed your mind about','Revisit a photograph you nearly dismissed earlier. Has the walk changed what you notice in it? Sharing a photograph, explaining it and buying a drink are all optional.']
   };
   const metrics = new Map();
-  let freeMode = false, nearby = 'cafes', vectorLayer, gl, vectorReady=false, upgrading=false, unavailable=false, vectorGeneration=0, mapClickBound=false;
+  let freeMode = false, nearby = 'none', vectorLayer, gl, vectorReady=false, upgrading=false, unavailable=false, vectorGeneration=0, mapClickBound=false;
   try { freeMode = localStorage.getItem('walk-free-exploration') === '1'; } catch {}
   document.body.classList.add('walk-v7');
   const explore = document.createElement('button');
@@ -130,9 +130,10 @@
     document.body.classList.toggle('map-wide',wide);
     markerById.forEach((marker,id)=>{const node=marker.getElement?.();if(node)node.classList.toggle('priority-pin',id===all[0].id||id===last||id==='trearchi');});
   }
-  const controls=document.createElement('div');controls.className='nearby-controls';
-  controls.innerHTML='<label for="nearby-kind">Nearby places</label><select id="nearby-kind" aria-describedby="nearby-hint"><option value="cafes">Coffee & food</option><option value="shops">Shops</option><option value="essentials">Useful places</option><option value="all">All mapped places</option><option value="none">Hide places</option></select><small id="nearby-hint">Zoom in for place names.</small>';
+  const controls=document.createElement('details');controls.className='nearby-controls';
+  controls.innerHTML='<summary>Nearby places</summary><label for="nearby-kind">Nearby places</label><select id="nearby-kind" aria-describedby="nearby-hint"><option value="cafes">Coffee & food</option><option value="shops">Shops</option><option value="essentials">Useful places</option><option value="all">All mapped places</option><option value="none" selected>Hide places</option></select><small id="nearby-hint">Zoom in for place names.</small>';
   document.querySelector('.map-wrap').append(controls);
+  controls.addEventListener('toggle',()=>{map?.invalidateSize?.({pan:false});});
   const sheet=document.createElement('section');sheet.id='place-sheet';sheet.hidden=true;sheet.setAttribute('aria-label','Mapped place details');sheet.innerHTML='<button id="close-place" class="btn small" type="button" aria-label="Close place details">Close ×</button><div id="place-details"></div>';
   document.querySelector('.map-wrap').append(sheet);
   $('close-place').onclick=()=>{sheet.hidden=true;$('nearby-kind').focus({preventScroll:true});};

@@ -55,3 +55,9 @@
  .walk-v11 .guide-dock{padding-block:1px}.walk-v11 .guide-dock button{min-height:44px}
  .mobile-panel,.walk-v11 #location-panel,.walk-v11 #place-sheet{max-height:40dvh}
 }
+
+@media(max-width:900px){
+ .walk-v11 .walk-line-key{display:flex;font-size:10px;gap:3px 10px;margin:3px 0}
+ .walk-v11 .mobile-panel .nearby-controls>summary{display:none}
+ .walk-v11 .mobile-panel .nearby-controls label{display:block}
+}

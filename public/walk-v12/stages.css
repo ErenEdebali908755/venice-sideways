@@ -48,3 +48,15 @@
 .transit-marker .boat-icon{width:28px;height:28px}
 .walk-flow-stops b .boat-icon{width:22px;height:22px}
 .boat-parts-group>strong{display:flex;align-items:center;gap:8px}
+/* Optional POIs live in a collapsed row outside the canvas. */
+.walk-v11 .nearby-controls{position:static;order:3;flex-shrink:0;width:auto;max-width:none;padding:0 12px;border-radius:0;box-shadow:none;z-index:auto;border:0;border-top:1px solid #b9c5c1;background:#f8f7f3}
+.walk-v11 .nearby-controls summary{min-height:44px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:650;cursor:pointer}
+.walk-v11 .nearby-controls summary:before{content:'＋';font-size:18px}.walk-v11 .nearby-controls[open] summary:before{content:'−'}
+.walk-v11 .nearby-controls label{display:none}.walk-v11 .nearby-controls select{width:100%;min-height:44px}.walk-v11 .nearby-controls small{margin:0 0 8px}
+.walk-v11[data-walk-theme=dark] .nearby-controls{background:#242a30;color:#f5f6f7;border-color:#66717d}
+.walk-v11[data-walk-theme=dark] .nearby-controls select{background:#242a30;color:#fff}
+.walk-v11[data-walk-theme=dark] .leaflet-control-zoom a,.walk-v11[data-walk-theme=dark] .maplibregl-ctrl-group button{background:#242a30!important;color:#fff!important;border-color:#66717d!important;min-width:40px;min-height:40px}
+.walk-v11[data-walk-theme=dark] .maplibregl-ctrl-group .maplibregl-ctrl-icon{filter:invert(1)}
+.walk-v11[data-walk-theme=dark] .maplibregl-ctrl-group,.walk-v11[data-walk-theme=dark] .leaflet-control-zoom{background:#242a30;border:1px solid #66717d}
+.walk-v11[data-walk-theme=dark] .leaflet-control-zoom a:hover,.walk-v11[data-walk-theme=dark] .maplibregl-ctrl-group button:hover{background:#414b56!important}
+.walk-v11 .map-badge{pointer-events:none}.walk-v11 .map-badge #badge-note{display:none}
