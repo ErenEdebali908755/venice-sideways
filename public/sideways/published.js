@@ -10,7 +10,7 @@ ru:['Показать маршрут','Моё местоположение','О�
 zh:['显示路线','我的位置','停靠点 ↑','地图 ↓','摄影想法','在 Google Maps 中打开','步行路线','水上巴士 · 示意','无法获取位置，仍可浏览地图。','位置仅保存在此设备上。','关闭定位'],
 ja:['ルートを表示','現在地','スポット ↑','地図 ↓','撮影のアイデア','Google Maps で開く','徒歩ルート','ヴァポレット・概略図','現在地を取得できません。地図は利用できます。','位置情報はこの端末内に保持されます。','位置情報を停止'],
 ko:['경로 보기','내 위치','장소 ↑','지도 ↓','사진 아이디어','Google Maps에서 열기','도보 경로','바포레토 · 개략도','위치를 확인할 수 없습니다. 지도는 계속 이용할 수 있습니다.','위치는 이 기기에만 유지됩니다.','위치 끄기']});
-const transitColor=line=>({'1':'#237bc2','5.2':'#9a3f99','5.1':'#b85c14','2':'#42662b','4.1':'#7952b3','4.2':'#ac3945'}[line]||['#237bc2','#9a3f99','#b85c14','#42662b'][[...line].reduce((a,c)=>a+c.charCodeAt(0),0)%4]);
+const transitColor=line=>({"1": "#237bc2", "5.2": "#9a3f99", "5.1": "#b85c14", "2": "#42662b", "4.1": "#7952b3", "4.2": "#ac3945", "11": "#3155a3", "13": "#a65074", "15": "#826518", "17": "#447477", "20": "#803c22", "7": "#555a91", "6": "#b53c67", "3": "#737119", "N": "#253747", "NLN": "#644e69", "NMU": "#555a37", "9": "#a74e08", "22": "#715046", "14": "#28635a", "10": "#555555", "12": "#925d3c", "2/": "#426984", "SA": "#914620"}[line]||['#237bc2','#9a3f99','#b85c14','#42662b'][[...line].reduce((a,c)=>a+c.charCodeAt(0),0)%4]);
 const text=i=>(ui[lang]||ui.en)[i],copy=rows=>rows?.find(c=>c.locale===lang)||rows?.find(c=>c.locale==='en')||rows?.[0]||{};
 $('route').replaceChildren(...keys.map((k,i)=>{const o=document.createElement('option');o.value=k;o.textContent=names[i];return o;}));$('route').value=key;$('language').value=lang;
 $('route').onchange=()=>location.assign((['main','full'].includes($('route').value)?'/':'/published.html')+'?lang='+encodeURIComponent(lang)+'#route='+$('route').value+'&view=route');
