@@ -1,5 +1,6 @@
 /* Explicit sharing only: no coordinates in URLs, storage, analytics or console output. */
 (async()=>{
+if(location.pathname.startsWith('/field-guide/preview'))return;
 const own=location.hostname==='erenedebali.com';
 const endpoint=own?'/api/sideways/':'/api/community/';
 if(own){try{const r=await fetch(endpoint+'share-access',{credentials:'same-origin'});if(!r.ok||!(await r.json()).allowed)return;}catch{return;}}
@@ -32,5 +33,6 @@ function initial(){if(!measured&&$('#stats').checked&&!document.hidden){measured
 $('#stats').onchange=()=>{try{localStorage.setItem('sideways-measurement',$('#stats').checked?'yes':'no');}catch{}initial();};
 let previous=route();function changed(){const next=route();if(next!==previous){previous=next;void measure('route_open');}}
 addEventListener('hashchange',changed);addEventListener('sidewaysroutechange',changed);document.addEventListener('visibilitychange',()=>{if(!document.hidden)initial();});
+document.addEventListener('walklanguagechange',()=>{tr=document.documentElement.lang==='tr';$('select').value=tr?'tr':'en';render();});
 render();initial();
 })();
