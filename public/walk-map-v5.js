@@ -61,7 +61,7 @@ function stops(){return routeIds().map((id,i)=>({...POINTS[id],n:i+1}));}
 function stateHash(route=mode,all=overview){const p=new URLSearchParams({route,view:all?'all':'route'});if(route==='short'&&withRialto)p.set('rialto','1');if(eventDate)p.set('date',eventDate);return '#'+p.toString();}
 function shareURL(){return SHARE_URL+stateHash();}
 function updateShare(){el('whatsapp').href='https://wa.me/?text='+encodeURIComponent('Venice Photography Walk Map 📷\n'+ROUTES[mode].label+'\n'+shareURL());}
-function saveState(){try{history.replaceState(null,'',location.pathname+location.search+stateHash());}catch{}updateShare();}
+function saveState(){try{history.replaceState(null,'',location.pathname+location.search+stateHash());}catch{}updateShare();window.dispatchEvent(new Event('sidewaysroutechange'));}
 function googleRoute(points){if(points.length<2||points.length>11)throw Error('Directions links support 2–11 points.');const p=new URLSearchParams({api:'1',origin:points[0].query,destination:points.at(-1).query,travelmode:'walking',avoid:'ferries'});if(points.length>2)p.set('waypoints',points.slice(1,-1).map(s=>s.query).join('|'));const u='https://www.google.com/maps/dir/?'+p;if(u.length>2048)throw Error('Directions link too long.');return u;}
 function googlePlace(p){return 'https://www.google.com/maps/search/?'+new URLSearchParams({api:'1',query:p.query});}
 function splitRoute(all){const parts=[];for(let i=0;i<all.length-1;i+=4)parts.push(all.slice(i,i+5));return parts;}

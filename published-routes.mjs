@@ -1,7 +1,7 @@
-const slugs=new Set(['main','full','short','cannaregio','castello','biennale']);
+const validSlug=slug=>/^[a-z][a-z0-9-]{0,79}$/.test(slug);
 const cache=new Map();
 export async function readPublishedRoute(slug,fetcher=fetch){
- if(!slugs.has(slug))return {status:404};
+ if(!validSlug(slug))return {status:404};
  const now=Date.now(),old=cache.get(slug);
  if(old&&now-old.at<60000)return {status:200,body:old.body};
  try{
@@ -17,4 +17,10 @@ export async function readPublishedRoute(slug,fetcher=fetch){
   const body=JSON.stringify({schemaVersion:1,key:data.key,revision:data.revision,publishedAt:data.publishedAt,copy:data.copy,visits:data.visits,segments:data.segments,places:data.places,sunsetVisitKey:data.sunsetVisitKey,sunsetOffsetMinutes:data.sunsetOffsetMinutes});
   cache.set(slug,{at:now,body});return {status:200,body};
  }catch{return old&&now-old.at<86400000?{status:200,body:old.body}:{status:503};}
+}
+
+let catalogCache;
+export async function readRouteCatalog(fetcher=fetch){
+ if(catalogCache&&Date.now()-catalogCache.at<60000)return {status:200,body:catalogCache.body};
+ try{const r=await fetcher('https://erenedebali.com/api/sideways/catalog',{headers:{Accept:'application/json'},signal:AbortSignal.timeout(6000),redirect:'error'});if(!r.ok)throw Error();const d=await r.json();if(!Array.isArray(d.routes)||d.routes.length>100)throw Error();const routes=d.routes.filter(r=>validSlug(r.key)&&typeof r.title==='string').map(r=>({key:r.key,title:r.title.slice(0,120),published:r.published===true}));const body=JSON.stringify({routes});catalogCache={at:Date.now(),body};return {status:200,body};}catch{return {status:503};}
 }

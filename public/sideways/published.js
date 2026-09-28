@@ -1,6 +1,7 @@
 /* Public release renderer. Location is opt-in, memory-only and never uploaded. */
-(async()=>{'use strict';const $=id=>document.getElementById(id),keys=['main','full','short','cannaregio','castello','biennale'],names=['Main Walk','Full exploration','Dorsoduro','Cannaregio','Castello & Biennale','Biennale → Vino Vero'];
-const params=new URLSearchParams(location.hash.slice(1)),key=keys.includes(params.get('route'))?params.get('route'):'main';
+(async()=>{'use strict';const $=id=>document.getElementById(id);let catalog;try{const r=await fetch('/api/route-catalog',{credentials:'omit'});if(!r.ok)throw Error();catalog=(await r.json()).routes;}catch{$('description').textContent='Route list unavailable. Please try again.';return;}
+const keys=catalog.map(r=>r.key),names=catalog.map(r=>r.title);
+const params=new URLSearchParams(location.hash.slice(1)),key=params.get('route')||'main';if(!keys.includes(key)){location.replace('/');return;}
 let lang=new URLSearchParams(location.search).get('lang')||'en';if(!['en','tr','it','fr','ru','zh','ja','ko'].includes(lang))lang='en';
 const ui={en:['Fit route','My location','Stops ↑','Map ↓','Photo ideas','Open in Google Maps','Walking path','Vaporetto · schematic','Location unavailable; you can still browse.','Your position stays on this device.','Stop location'],tr:['Rotayı göster','Konumum','Duraklar ↑','Harita ↓','Fotoğraf fikirleri','Google Maps’te aç','Yürüyüş yolu','Vaporetto · şematik','Konum alınamadı; haritayı kullanabilirsin.','Konumun yalnızca bu cihazda kalır.','Konumu kapat'],it:['Mostra percorso','La mia posizione','Tappe ↑','Mappa ↓','Idee fotografiche','Apri in Google Maps','Percorso a piedi','Vaporetto · schematico','Posizione non disponibile; puoi usare la mappa.','La posizione rimane su questo dispositivo.','Disattiva posizione']};
 Object.assign(ui,{
@@ -10,8 +11,8 @@ zh:['显示路线','我的位置','停靠点 ↑','地图 ↓','摄影想法','�
 ja:['ルートを表示','現在地','スポット ↑','地図 ↓','撮影のアイデア','Google Maps で開く','徒歩ルート','ヴァポレット・概略図','現在地を取得できません。地図は利用できます。','位置情報はこの端末内に保持されます。','位置情報を停止'],
 ko:['경로 보기','내 위치','장소 ↑','지도 ↓','사진 아이디어','Google Maps에서 열기','도보 경로','바포레토 · 개략도','위치를 확인할 수 없습니다. 지도는 계속 이용할 수 있습니다.','위치는 이 기기에만 유지됩니다.','위치 끄기']});
 const text=i=>(ui[lang]||ui.en)[i],copy=rows=>rows?.find(c=>c.locale===lang)||rows?.find(c=>c.locale==='en')||rows?.[0]||{};
-$('route').innerHTML=keys.map((k,i)=>`<option value="${k}">${names[i]}</option>`).join('');$('route').value=key;$('language').value=lang;
-$('route').onchange=()=>location.assign('/?lang='+encodeURIComponent(lang)+'#route='+$('route').value+'&view=route');
+$('route').replaceChildren(...keys.map((k,i)=>{const o=document.createElement('option');o.value=k;o.textContent=names[i];return o;}));$('route').value=key;$('language').value=lang;
+$('route').onchange=()=>location.assign((['main','full'].includes($('route').value)?'/':'/published.html')+'?lang='+encodeURIComponent(lang)+'#route='+$('route').value+'&view=route');
 let release;try{const r=await fetch('/api/routes/'+key,{credentials:'omit',signal:AbortSignal.timeout(7000)});if(!r.ok)throw Error();release=await r.json();if(release.schemaVersion!==1||release.key!==key||!release.visits?.length||!release.segments?.length)throw Error();}catch{$('description').textContent='This published route is temporarily unavailable. Please return to all routes.';return;}
 const ordered=()=>[...release.segments].sort((a,b)=>a.order-b.order).flatMap(s=>release.visits.filter(v=>v.segmentKey===s.key&&v.visible).sort((a,b)=>a.order-b.order));
 let map,pins=[],watch=null,locationPin=null,threeD=false;

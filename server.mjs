@@ -1,7 +1,7 @@
 import {communityProxy} from './community-proxy.mjs';
 /** Static website with fixed, consent-based Sideways service endpoints. */
 import http from 'node:http';
-import {readPublishedRoute} from './published-routes.mjs';
+import {readPublishedRoute,readRouteCatalog} from './published-routes.mjs';
 import {readFile,readdir} from 'node:fs/promises';
 import {join,extname,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -42,6 +42,7 @@ export async function createServer(){
   if(aliases.has(url.pathname)){res.writeHead(308,{Location:'/'+url.search});res.end();return;}
   let path;try{path=decodeURIComponent(url.pathname);}catch{res.writeHead(400);res.end('Invalid path');return;}
   if(path.includes('\\')||path.includes('\0')||path.split('/').some(s=>s.startsWith('.'))){res.writeHead(404);res.end('Not found');return;}
+  if(path==='/api/route-catalog'){const result=await readRouteCatalog();res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||'{}');return;}
   if(path.startsWith('/api/routes/')){
    const result=await readPublishedRoute(path.slice('/api/routes/'.length));
    res.setHeader('Content-Type','application/json; charset=utf-8');
