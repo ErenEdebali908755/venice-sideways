@@ -7,9 +7,9 @@ import {join,extname,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 
-export const CSP="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' data:; img-src 'self' data: blob: https://tile.openstreetmap.org https://tiles.openfreemap.org https://unpkg.com https://cdn.jsdelivr.net; connect-src 'self' https://routing.openstreetmap.de https://tiles.openfreemap.org; worker-src 'self' blob:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'";
+export const CSP="default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; font-src 'self' data:; img-src 'self' data: blob: https://erenedebali.com https://tile.openstreetmap.org https://tiles.openfreemap.org https://unpkg.com https://cdn.jsdelivr.net; connect-src 'self' https://routing.openstreetmap.de https://tiles.openfreemap.org; worker-src 'self' blob:; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'";
 const ROOT=join(dirname(fileURLToPath(import.meta.url)),'public');
-const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.webmanifest':'application/manifest+json'};
+const mime={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.json':'application/json; charset=utf-8','.txt':'text/plain; charset=utf-8','.woff2':'font/woff2','.webp':'image/webp','.jpg':'image/jpeg','.svg':'image/svg+xml','.png':'image/png','.ico':'image/x-icon','.webmanifest':'application/manifest+json'};
 const aliases=new Set(['/index.html','/venice-photography-walk-map','/venice-photography-walk-map/','/venice-photography-walk-map.html','/venedik-yuruyusu.html']);
 async function filesIn(dir,prefix=''){
  const files=new Map();

@@ -4,6 +4,13 @@
   "private": true,
   "description": "Independent multilingual Venice photography walk guide",
   "type": "module",
-  "engines": {"node": ">=22"},
-  "scripts": {"start": "node server.mjs", "test": "node --test tests/server.test.mjs", "check": "node tools/check.mjs"}
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/server.test.mjs",
+    "check": "node tools/check.mjs",
+    "dev": "node tools/dev-server.mjs"
+  }
 }
