@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+<title id="title">Venice Sideways — Bakış 2: Yana</title>
+<desc id="desc">Açık göz çizgileri ve sağa kayan odak noktası.</desc>
+<path d="M50 180C114 78 226 81 308 180" fill="none" stroke="#831D4F" stroke-width="25" stroke-linecap="round"/>
+<path d="M54 188C122 282 229 271 302 185" fill="none" stroke="#007E78" stroke-width="18" stroke-linecap="round"/>
+<circle cx="216" cy="177" r="38" fill="#F18A3C"/>
+<circle cx="227" cy="166" r="10" fill="#FFF7EA"/>
+<text x="365" y="157" fill="#472038" font-family="Georgia,serif" font-style="italic" font-size="79">Venice</text>
+<text x="363" y="248" fill="#831D4F" font-family="Georgia,serif" font-weight="700" font-size="82">Sideways</text>
+</svg>

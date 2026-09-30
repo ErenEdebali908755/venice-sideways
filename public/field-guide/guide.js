@@ -1,11 +1,24 @@
 /* Shared visitor presentation: public releases and private in-memory admin previews. */
-const DEFAULT_COVER = {
-  url: "/field-guide/venice-illustration.png",
-  alt: "Imagined Venetian canal illustration, not a stop photograph",
-  altTr: "Hayalî Venedik kanalı illüstrasyonu; durak fotoğrafı değildir",
-  credit: "AI illustration · Yapay zekâ illüstrasyonu",
-  x: 50,
-  y: 50,
+const THEME_KEY = "sideways-field-guide-theme";
+const THEME_LABELS = {
+  en: ["Theme", "System", "Light", "Dark"],
+  tr: ["Tema", "Sistem", "Açık", "Koyu"],
+  it: ["Tema", "Sistema", "Chiaro", "Scuro"],
+  fr: ["Thème", "Système", "Clair", "Sombre"],
+  ru: ["Тема", "Система", "Светлая", "Тёмная"],
+  zh: ["主题", "跟随系统", "浅色", "深色"],
+  ja: ["テーマ", "システム", "ライト", "ダーク"],
+  ko: ["테마", "시스템", "라이트", "다크"],
+};
+const PREFERENCE_LABELS = {
+  en: ["Settings", "Language"],
+  tr: ["Ayarlar", "Dil"],
+  it: ["Impostazioni", "Lingua"],
+  fr: ["Réglages", "Langue"],
+  ru: ["Настройки", "Язык"],
+  zh: ["设置", "语言"],
+  ja: ["設定", "言語"],
+  ko: ["설정", "언어"],
 };
 export const orderedVisits = (route) =>
   [...route.segments]
@@ -73,10 +86,20 @@ export class FieldGuide {
     this.started = false;
     this.threeD = false;
     this.watch = null;
+    this.themePreference = "system";
+    try {
+      const stored = localStorage.getItem(THEME_KEY);
+      if (["system", "light", "dark"].includes(stored))
+        this.themePreference = stored;
+    } catch {}
+    this.systemTheme = matchMedia("(prefers-color-scheme: dark)");
+    this.themeChange = () => this.applyTheme();
+    this.systemTheme.addEventListener("change", this.themeChange);
     root.className = "fg";
     root.innerHTML =
-      '<header class="fg-header"></header><div class="fg-body"><section class="fg-editorial"></section><section class="fg-map-shell" aria-label="Map"><div class="fg-map"></div><div class="fg-map-tools"></div><p class="fg-map-status" role="status"></p></section></div><dialog class="fg-dialog"></dialog>';
+      '<header class="fg-header"></header><div class="fg-body"><section class="fg-editorial"></section><section class="fg-map-shell" aria-label="Map"><div class="fg-map-tools"></div><div class="fg-map"></div><p class="fg-map-status" role="status"></p></section></div><dialog class="fg-dialog"></dialog>';
     this.el = (s) => root.querySelector(s);
+    this.applyTheme();
     this.render();
     this.initMap();
     this.observer = new ResizeObserver(() => this.map?.resize());
@@ -92,6 +115,13 @@ export class FieldGuide {
   t(en, tr) {
     return this.lang === "tr" ? tr : en;
   }
+  applyTheme() {
+    const dark =
+      this.themePreference === "dark" ||
+      (this.themePreference === "system" && this.systemTheme.matches);
+    this.root.dataset.theme = dark ? "dark" : "light";
+    document.documentElement.style.colorScheme = dark ? "dark" : "light";
+  }
   text(rows) {
     return copyFor(rows, this.lang);
   }
@@ -99,12 +129,12 @@ export class FieldGuide {
     return this.text(route?.copy).title || route?.key || "";
   }
   photo(photo, kind = "stop") {
-    if (!photo?.url)
-      return `<div class="fg-photo-missing">${this.t(kind === "cover" ? "Route photograph not yet selected" : "No verified photograph for this stop", kind === "cover" ? "Rota fotoğrafı henüz seçilmedi" : "Bu durağın doğrulanmış fotoğrafı henüz yok")}</div>`;
-    const url = safeURL(photo.url);
-    return url
-      ? `<figure class="fg-photo"><img src="${escape(url)}" alt="${escape(this.lang === "tr" ? photo.altTr || photo.alt : photo.alt)}" style="object-position:${Number(photo.x ?? 50)}% ${Number(photo.y ?? 50)}%" loading="lazy"><figcaption>${escape(photo.credit || "")}</figcaption></figure>`
-      : "";
+    const url = photo?.url ? safeURL(photo.url) : "";
+    if (!url || new URL(url).pathname === "/field-guide/venice-illustration.png")
+      return kind === "cover"
+        ? `<div class="fg-cover-empty" role="img" aria-label="${this.t("Space reserved for a route photograph", "Rota fotoğrafı için ayrılmış boş alan")}"></div>`
+        : `<div class="fg-photo-missing">${this.t("No verified photograph for this stop", "Bu durağın doğrulanmış fotoğrafı henüz yok")}</div>`;
+    return `<figure class="fg-photo"><img src="${escape(url)}" alt="${escape(this.lang === "tr" ? photo.altTr || photo.alt : photo.alt)}" style="object-position:${Number(photo.x ?? 50)}% ${Number(photo.y ?? 50)}%" loading="lazy"><figcaption>${escape(photo.credit || "")}</figcaption></figure>`;
   }
   update({ routes, lang, visitKey, view } = {}) {
     const key = this.route?.key,
@@ -152,13 +182,22 @@ export class FieldGuide {
       "aria-label",
       t("Route map", "Rota haritası"),
     );
+    const [settingsName, languageName] =
+      PREFERENCE_LABELS[this.lang] || PREFERENCE_LABELS.en;
+    const [themeName, systemName, lightName, darkName] =
+      THEME_LABELS[this.lang] || THEME_LABELS.en;
+    const languages = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
+    const languageNames = ["English", "Türkçe", "Italiano", "Français", "Русский", "中文", "日本語", "한국어"];
+    const languageSelect = `<select class="fg-language" aria-label="${escape(languageName)}">${languages.map((lang, i) => `<option value="${lang}" ${lang === this.lang ? "selected" : ""}>${languageNames[i]}</option>`).join("")}</select>`;
+    const themeSelect = `<select class="fg-theme" aria-label="${escape(themeName)}">${[["system", systemName], ["light", lightName], ["dark", darkName]].map(([value, label]) => `<option value="${value}" ${value === this.themePreference ? "selected" : ""}>${escape(label)}</option>`).join("")}</select>`;
+    const preferences = `<label class="fg-language-control"><span>${escape(languageName)}</span>${languageSelect}</label><label class="fg-theme-control"><span>${escape(themeName)}</span>${themeSelect}</label>`;
     this.el(".fg-header").innerHTML =
-      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}">Venice <i>Sideways</i><small>${t("A photographic field guide", "Fotoğrafik bir kent rehberi")}</small></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">←</button>` : ""}${this.view === "walk" ? `<select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<select class="fg-language" aria-label="${t("Language", "Dil")}">${["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"].map((l, i) => `<option value="${l}" ${l === this.lang ? "selected" : ""}>${["English", "Türkçe", "Italiano", "Français", "Русский", "中文", "日本語", "한국어"][i]}</option>`).join("")}</select></div>`;
+      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong><small>${t("A photographic field guide", "Fotoğrafik bir kent rehberi")}</small></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">←</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}</div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}</div></details></div>`;
     const panel = this.el(".fg-editorial");
     if (!this.routes.length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
     else if (this.view === "explore")
-      panel.innerHTML = `<div class="fg-intro">${this.photo(this.route?.photo || DEFAULT_COVER, "cover")}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ↓</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.routes
+      panel.innerHTML = `<div class="fg-intro">${this.photo(this.route?.photo, "cover")}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ↓</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.routes
         .filter((r) => this.preview || ["main", "full"].includes(r.key))
         .map((r) => this.routeCard(r))
         .join("")}</section>`;
@@ -175,7 +214,7 @@ export class FieldGuide {
     else
       panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.photo(step.photo)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><p>${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
     this.el(".fg-map-tools").innerHTML =
-      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
+      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
     this.root
       .querySelectorAll("[data-route]")
       .forEach((b) => (b.onclick = () => this.choose(b.dataset.route)));
@@ -193,11 +232,25 @@ export class FieldGuide {
     this.root
       .querySelectorAll("[data-action]")
       .forEach((b) => (b.onclick = () => this.action(b.dataset.action)));
-    this.el(".fg-language").onchange = (e) => {
-      this.lang = e.target.value;
-      this.render();
-      this.draw();
-    };
+    this.root.querySelectorAll(".fg-language").forEach((select) => {
+      select.onchange = (e) => {
+        this.lang = e.target.value;
+        this.render();
+        this.draw();
+      };
+    });
+    this.root.querySelectorAll(".fg-theme").forEach((select) => {
+      select.onchange = (e) => {
+        this.themePreference = e.target.value;
+        this.root.querySelectorAll(".fg-theme").forEach((other) => {
+          other.value = this.themePreference;
+        });
+        try {
+          localStorage.setItem(THEME_KEY, this.themePreference);
+        } catch {}
+        this.applyTheme();
+      };
+    });
     const select = this.el(".fg-route-switch");
     if (select) select.onchange = (e) => this.choose(e.target.value);
     panel.querySelectorAll("img").forEach(
@@ -233,12 +286,14 @@ export class FieldGuide {
       this.view = "explore";
       this.list = false;
       this.render();
+      this.draw();
     }
     if (action === "list" || action === "close-list") {
       this.list = action === "list";
       this.render();
     }
     if (action === "fit") this.fit();
+    if (action === "focus") this.focus();
     if (action === "start") {
       this.started = true;
       this.render();
@@ -339,7 +394,6 @@ export class FieldGuide {
         zoom: 13.5,
         attributionControl: { compact: true },
       });
-      this.map.on("moveend", () => this.clusterPins());
       this.map.on("error", () => {
         this.error = this.t(
           "Map could not fully load. Stops and directions remain available.",
@@ -365,7 +419,7 @@ export class FieldGuide {
           type: "line",
           source: "fg-route",
           filter: ["==", ["get", "boat"], false],
-          paint: { "line-color": "#12655e", "line-width": 4 },
+          paint: { "line-color": "#831d4f", "line-width": 4 },
         });
         this.map.addLayer({
           id: "fg-boat",
@@ -448,97 +502,52 @@ export class FieldGuide {
       ?.setData({ type: "FeatureCollection", features });
     this.pins.forEach((p) => p.remove());
     this.pins = [];
-    this.steps().forEach((s, i) => {
-      const points = s.boat ? s.transitStops : [s];
-      points.forEach((p) => {
-        const b = document.createElement("button");
-        b.className =
-          "fg-pin" +
-          (this.view === "walk" && i === this.index ? " selected" : "");
-        b.textContent = s.boat ? "⛴" : s.n || "·";
-        b.title = s.boat ? p.name : this.text(s.copy).title;
-        b.setAttribute("aria-label", `${b.textContent} · ${b.title}`);
-        const activate = () => {
-          this.index = i;
-          this.view = "walk";
-          this.started = true;
-          this.list = false;
-          this.render();
-          this.draw();
-          this.focus();
-        };
-        b.onclick = activate;
-        b.guideActivate = activate;
-        b.guideNumber = b.textContent;
-        b.guideLabel = b.getAttribute("aria-label");
-        this.pins.push(
-          new maplibregl.Marker({ element: b })
-            .setLngLat([p.longitude, p.latitude])
-            .addTo(this.map),
-        );
-      });
+    if (this.view !== "walk") return;
+    const step = this.steps()[this.index];
+    if (!step) return;
+    const points = step.boat ? step.transitStops : [step];
+    points.forEach((point) => {
+      if (!Number.isFinite(point.longitude) || !Number.isFinite(point.latitude))
+        return;
+      const anchor = document.createElement("div");
+      anchor.className = "fg-pin-anchor";
+      const pin = document.createElement("button");
+      pin.className = "fg-pin selected" + (step.boat ? " fg-pin-boat" : "");
+      pin.textContent = step.boat ? "⛴" : step.n || "·";
+      pin.title = step.boat ? point.name : this.text(step.copy).title;
+      pin.setAttribute("aria-label", `${pin.textContent} · ${pin.title}`);
+      pin.onclick = () => this.focus();
+      anchor.append(pin);
+      const marker = new maplibregl.Marker({ element: anchor })
+        .setLngLat([point.longitude, point.latitude])
+        .addTo(this.map);
+      anchor.removeAttribute("role");
+      anchor.removeAttribute("tabindex");
+      anchor.removeAttribute("aria-label");
+      this.pins.push(marker);
     });
-    this.clusterPins();
-  }
-  clusterPins() {
-    if (!this.ready) return;
-    const groups = [];
-    for (const pin of this.pins) {
-      const el = pin.getElement();
-      el.style.display = "";
-      el.textContent = el.guideNumber;
-      el.setAttribute("aria-label", el.guideLabel);
-      el.onclick = el.guideActivate;
-      el.classList.remove("fg-cluster");
-      const point = this.map.project(pin.getLngLat());
-      const group = groups.find(
-        (g) => Math.hypot(g.point.x - point.x, g.point.y - point.y) < 42,
-      );
-      if (group) group.pins.push(pin);
-      else groups.push({ point, pins: [pin] });
-    }
-    for (const group of groups) {
-      if (group.pins.length < 2) continue;
-      const selected = group.pins.find((p) =>
-        p.getElement().classList.contains("selected"),
-      );
-      const leader = selected || group.pins[0],
-        el = leader.getElement();
-      group.pins
-        .filter((p) => p !== leader)
-        .forEach((p) => (p.getElement().style.display = "none"));
-      el.textContent = group.pins.length;
-      el.classList.add("fg-cluster");
-      el.setAttribute(
-        "aria-label",
-        this.t("Nearby stops: ", "Yakın duraklar: ") +
-          group.pins.map((p) => p.getElement().guideLabel).join(", "),
-      );
-      el.onclick = () => {
-        if (this.map.getZoom() > 18) {
-          this.list = true;
-          this.view = "walk";
-          this.render();
-          return;
-        }
-        const bounds = new maplibregl.LngLatBounds();
-        group.pins.forEach((p) => bounds.extend(p.getLngLat()));
-        this.map.fitBounds(bounds, {
-          padding: 70,
-          maxZoom: Math.min(19, this.map.getZoom() + 2),
-          duration: reduced() ? 0 : 220,
-        });
-      };
-    }
   }
   fit() {
     if (!this.ready || !this.route) return;
-    const visits = orderedVisits(this.route);
-    if (!visits.length) return;
     const bounds = new maplibregl.LngLatBounds();
-    visits.forEach((v) => bounds.extend([v.longitude, v.latitude]));
+    let hasPoint = false;
+    const extend = (longitude, latitude) => {
+      if (!Number.isFinite(longitude) || !Number.isFinite(latitude)) return;
+      bounds.extend([longitude, latitude]);
+      hasPoint = true;
+    };
+    orderedVisits(this.route).forEach((v) => extend(v.longitude, v.latitude));
+    this.route.segments.forEach((segment) => {
+      segment.geometry?.forEach(([longitude, latitude]) =>
+        extend(longitude, latitude),
+      );
+      segment.transitStops?.forEach((stop) =>
+        extend(stop.longitude, stop.latitude),
+      );
+    });
+    if (!hasPoint) return;
     this.map.fitBounds(bounds, {
-      padding: 55,
+      padding: 36,
       maxZoom: 16,
       duration: reduced() ? 0 : 250,
     });
@@ -609,6 +618,7 @@ export class FieldGuide {
     this.observer.disconnect();
     this.map?.remove();
     document.removeEventListener("visibilitychange", this.visibility);
+    this.systemTheme.removeEventListener("change", this.themeChange);
     removeEventListener("online", this.online);
     removeEventListener("offline", this.online);
   }

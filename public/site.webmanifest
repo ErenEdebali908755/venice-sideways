@@ -3,8 +3,8 @@
   "short_name": "Sideways",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#fffdf9",
-  "theme_color": "#0b686d",
+  "background_color": "#fff7ea",
+  "theme_color": "#831d4f",
   "icons": [
     {
       "src": "/favicon.svg",
