@@ -1,36 +1,72 @@
-/* Explicit sharing only: no coordinates in URLs, storage, analytics or console output. */
-(async()=>{
-const own=location.hostname==='erenedebali.com';
-const endpoint=own?'/api/sideways/':'/api/community/';
-if(own){try{const r=await fetch(endpoint+'share-access',{credentials:'same-origin'});if(!r.ok||!(await r.json()).allowed)return;}catch{return;}}
-const host=document.createElement('div');host.id='sideways-community';const root=host.attachShadow({mode:'open'});document.body.append(host);
-root.innerHTML=`<style>:host{display:block;flex-shrink:0;max-height:40dvh;overflow:auto;position:relative;font-family:Arial,sans-serif;color:#e9f1f4;background:#172b35;padding:14px 20px;border-top:1px solid #49616d;font-size:14px;line-height:1.5;z-index:2}button,select{font:inherit;padding:9px 12px;min-height:42px;color:#effaff;background:#23434e;border:1px solid #73919c;border-radius:7px;cursor:pointer}summary{cursor:pointer;font-weight:bold;min-height:30px}p{max-width:850px}label{display:flex;gap:10px;align-items:center;margin:12px 0}input{width:20px;height:20px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}a{color:#9de3e5}</style><details><summary id="title"></summary><div class="row"><select aria-label="Language"><option value="en">English</option><option value="tr">Türkçe</option></select></div><p id="explain"></p><button id="share"></button><p id="status" role="status"></p><label id="stats-label"><input type="checkbox" id="stats"><span></span></label><p id="stats-explain"></p></details>`;
-let tr=(typeof WalkI18n!=='undefined'?WalkI18n.language:document.documentElement.lang)==='tr',active=false,watch=null,token=null,generation=0,last=null,timer=null,deadline=0,status='',measured=false;
-const $=s=>root.querySelector(s),t=(en,turkish)=>tr?turkish:en;
-$('select').value=tr?'tr':'en';$('select').onchange=()=>{tr=$('select').value==='tr';render();};
-const privacy=()=>navigator.doNotTrack==='1'||navigator.globalPrivacyControl===true;
-function render(){
- $('#title').textContent=t('Location sharing & privacy','Konum paylaşımı ve gizlilik');
- $('#explain').textContent=t('Optional: share your precise location with authorised Venice Sideways admins for up to 15 minutes while this page is visible. Other visitors cannot see it. Only the latest position is kept temporarily; it expires after 90 seconds without an update. Stop at any time. This is separate from My location, which stays on your device.','İsteğe bağlı: Bu sayfa açık ve görünürken konumunu en fazla 15 dakika boyunca yetkili Venice Sideways yöneticileriyle paylaş. Diğer ziyaretçiler göremez. Yalnızca son konum geçici olarak tutulur; güncellenmezse 90 saniyede silinir. İstediğin zaman durdurabilirsin. Bu özellik, yalnızca cihazında çalışan Konumum seçeneğinden ayrıdır.');
- $('#share').textContent=active?t('Stop sharing','Paylaşımı durdur'):t('Share my location with admins','Konumumu yöneticilerle paylaş');
- $('#share').setAttribute('aria-pressed',String(active));$('#status').textContent=status;
- $('#stats-label').hidden=own;$('#stats-explain').hidden=own;
- $('#stats-label span').textContent=t('Allow anonymous usage counts','Anonim kullanım sayımına izin ver');
- $('#stats-explain').textContent=privacy()?t('Your browser privacy preference disables measurement.','Tarayıcının gizlilik tercihi nedeniyle ölçüm kapalı.'):t('Counts page views and route selections by language and screen size. No GPS, names, persistent visitor ID or browsing history. Aggregate counts are kept for 180 days. Uncheck to stop future measurement.','Dil ve ekran boyutuna göre sayfa görüntüleme ve rota seçimlerini sayar. GPS, isim, kalıcı ziyaretçi kimliği veya gezinme geçmişi içermez. Toplu sayılar 180 gün tutulur. İzni kaldırarak sonraki ölçümleri durdurabilirsin.');
- $('#stats').disabled=privacy();
-}
-const random=n=>Array.from(crypto.getRandomValues(new Uint8Array(n)),b=>b.toString(16).padStart(2,'0')).join('');
-async function post(path,data,keepalive=false){const r=await fetch(endpoint+path,{method:'POST',headers:{'Content-Type':'application/json'},credentials:own?'same-origin':'omit',body:JSON.stringify(data),keepalive});if(!r.ok)throw Error();return r.json();}
-function stop(message=''){const old=token;active=false;generation++;token=null;last=null;if(watch!==null)navigator.geolocation.clearWatch(watch);watch=null;clearInterval(timer);timer=null;if(old)post('presence',{token:old,stop:true},true).catch(()=>{});status=message;render();}
-async function send(g){if(!active||g!==generation||document.hidden||!last)return;if(Date.now()>deadline){stop(t('Sharing ended after 15 minutes.','15 dakikalık paylaşım sona erdi.'));return;}if(Date.now()-last.at>45000||last.at>Date.now()+5000){status=t('Waiting for a fresh position; old positions expire automatically.','Yeni konum bekleniyor; eski konum otomatik olarak kaldırılır.');render();return;}try{const result=await post('presence',{token,consent:true,latitude:last.latitude,longitude:last.longitude,accuracy:last.accuracy,timestamp:last.at});if(g!==generation)return;if(!result.ok)throw Error();status=t('Sharing with admins','Yöneticilerle paylaşılıyor')+' · ±'+Math.round(last.accuracy)+' m';render();}catch{if(g===generation){stop(t('Could not share. Check your connection and try again.','Paylaşılamadı. Bağlantını kontrol edip tekrar dene.'));}}}
-$('#share').onclick=()=>{if(active){stop(t('Sharing stopped.','Paylaşım durduruldu.'));return;}if(!navigator.geolocation||!isSecureContext){status=t('Location is unavailable in this browser.','Bu tarayıcıda konum kullanılamıyor.');render();return;}active=true;token=random(32);const g=++generation;deadline=Date.now()+900000;status=t('Waiting for location permission…','Konum izni bekleniyor…');render();watch=navigator.geolocation.watchPosition(p=>{if(!active||g!==generation||document.hidden)return;const first=!last;last={latitude:p.coords.latitude,longitude:p.coords.longitude,accuracy:p.coords.accuracy,at:p.timestamp};if(first)void send(g);},()=>{if(g===generation)stop(t('Location permission was denied or location is unavailable.','Konum izni verilmedi veya konum alınamadı.'));},{enableHighAccuracy:true,maximumAge:0,timeout:20000});timer=setInterval(()=>void send(g),15000);};
-addEventListener('pagehide',()=>stop());document.addEventListener('visibilitychange',()=>{if(document.hidden)stop(t('Sharing stopped because the page is no longer visible.','Sayfa görünür olmadığı için paylaşım durduruldu.'));});
-function route(){const key=new URLSearchParams(location.hash.slice(1)).get('route')||'main';return /^[a-z][a-z0-9-]{0,79}$/.test(key)?key:'home';}
-async function measure(metric){if(own||!$('#stats').checked||privacy()||document.hidden)return;const current=route();if(await window.SidewaysRouteReady)return;if(current!==route()||document.hidden||!$('#stats').checked)return;let language=typeof WalkI18n!=='undefined'?WalkI18n.language:(new URLSearchParams(location.search).get('lang')||document.documentElement.lang);language=['en','tr','it','ru','fr','zh','ja','ko'].includes(language)?language:'other';const data={consent:true,event:random(16),metric,route:current,language,device:innerWidth<900?'mobile':'desktop'};for(let attempt=0;attempt<2;attempt++){if(!$('#stats').checked||privacy())return;try{await post('statistics',data);return;}catch{if(!attempt)await new Promise(resolve=>setTimeout(resolve,1000));}}}
-try{$('#stats').checked=!privacy()&&localStorage.getItem('sideways-measurement')==='yes';}catch{}
-function initial(){if(!measured&&$('#stats').checked&&!document.hidden){measured=true;void measure('page_view');void measure('route_open');}}
-$('#stats').onchange=()=>{try{localStorage.setItem('sideways-measurement',$('#stats').checked?'yes':'no');}catch{}initial();};
-let previous=route();function changed(){const next=route();if(next!==previous){previous=next;void measure('route_open');}}
-addEventListener('hashchange',changed);addEventListener('sidewaysroutechange',changed);document.addEventListener('visibilitychange',()=>{if(!document.hidden)initial();});
-render();initial();
+/* Optional anonymous usage counts. Device location is never read or shared here. */
+(() => {
+  const host = document.createElement('div');
+  host.id = 'sideways-community';
+  const root = host.attachShadow({mode: 'open'});
+  document.body.append(host);
+  root.innerHTML = `<style>:host{display:block;flex-shrink:0;max-height:40dvh;overflow:auto;position:relative;font-family:Arial,sans-serif;color:#e9f1f4;background:#172b35;padding:14px 20px;border-top:1px solid #49616d;font-size:14px;line-height:1.5;z-index:2}select{font:inherit;padding:9px 12px;min-height:42px;color:#effaff;background:#23434e;border:1px solid #73919c;border-radius:7px;cursor:pointer}summary{cursor:pointer;font-weight:bold;min-height:30px}p{max-width:850px}label{display:flex;gap:10px;align-items:center;margin:12px 0}input{width:20px;height:20px}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}</style><details><summary id="title"></summary><div class="row"><select aria-label="Language"><option value="en">English</option><option value="tr">Türkçe</option></select></div><label><input type="checkbox" id="stats"><span id="stats-label"></span></label><p id="stats-explain"></p></details>`;
+
+  let tr = (typeof WalkI18n !== 'undefined' ? WalkI18n.language : document.documentElement.lang) === 'tr';
+  let measured = false;
+  const $ = selector => root.querySelector(selector);
+  const t = (en, turkish) => tr ? turkish : en;
+  const privacy = () => navigator.doNotTrack === '1' || navigator.globalPrivacyControl === true;
+  const random = count => Array.from(crypto.getRandomValues(new Uint8Array(count)), byte => byte.toString(16).padStart(2, '0')).join('');
+
+  function render() {
+    $('#title').textContent = t('Privacy & anonymous statistics', 'Gizlilik ve anonim istatistikler');
+    $('#stats-label').textContent = t('Allow anonymous usage counts', 'Anonim kullanım sayımına izin ver');
+    $('#stats-explain').textContent = privacy()
+      ? t('Your browser privacy preference disables measurement.', 'Tarayıcının gizlilik tercihi nedeniyle ölçüm kapalı.')
+      : t('Counts page views and route selections by language and screen size. No GPS, names, persistent visitor ID or browsing history. Aggregate counts are kept for 180 days. Uncheck to stop future measurement.', 'Dil ve ekran boyutuna göre sayfa görüntüleme ve rota seçimlerini sayar. GPS, isim, kalıcı ziyaretçi kimliği veya gezinme geçmişi içermez. Toplu sayılar 180 gün tutulur. İzni kaldırarak sonraki ölçümleri durdurabilirsin.');
+    $('#stats').disabled = privacy();
+  }
+
+  $('select').value = tr ? 'tr' : 'en';
+  $('select').onchange = () => { tr = $('select').value === 'tr'; render(); };
+  function route() {
+    const key = new URLSearchParams(location.hash.slice(1)).get('route') || 'main';
+    return /^[a-z][a-z0-9-]{0,79}$/.test(key) ? key : 'home';
+  }
+  async function measure(metric) {
+    if (!$('#stats').checked || privacy() || document.hidden) return;
+    const current = route();
+    if (await window.SidewaysRouteReady) return;
+    if (current !== route() || document.hidden || !$('#stats').checked) return;
+    let language = typeof WalkI18n !== 'undefined' ? WalkI18n.language : (new URLSearchParams(location.search).get('lang') || document.documentElement.lang);
+    language = ['en', 'tr', 'it', 'ru', 'fr', 'zh', 'ja', 'ko'].includes(language) ? language : 'other';
+    const data = {consent: true, event: random(16), metric, route: current, language, device: innerWidth < 900 ? 'mobile' : 'desktop'};
+    for (let attempt = 0; attempt < 2; attempt++) {
+      if (!$('#stats').checked || privacy()) return;
+      try {
+        const response = await fetch('/api/community/statistics', {method: 'POST', headers: {'Content-Type': 'application/json'}, credentials: 'omit', body: JSON.stringify(data)});
+        if (!response.ok) throw Error();
+        return;
+      } catch {
+        if (!attempt) await new Promise(resolve => setTimeout(resolve, 1000));
+      }
+    }
+  }
+  try { $('#stats').checked = !privacy() && localStorage.getItem('sideways-measurement') === 'yes'; } catch {}
+  function initial() {
+    if (!measured && $('#stats').checked && !document.hidden) {
+      measured = true;
+      void measure('page_view');
+      void measure('route_open');
+    }
+  }
+  $('#stats').onchange = () => {
+    try { localStorage.setItem('sideways-measurement', $('#stats').checked ? 'yes' : 'no'); } catch {}
+    initial();
+  };
+  let previous = route();
+  function changed() {
+    const next = route();
+    if (next !== previous) { previous = next; void measure('route_open'); }
+  }
+  addEventListener('hashchange', changed);
+  addEventListener('sidewaysroutechange', changed);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) initial(); });
+  render();
+  initial();
 })();
