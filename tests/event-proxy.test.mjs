@@ -48,3 +48,14 @@ test('unknown paths and wrong origins never reach the private service',async()=>
     assert.equal(res.status,expected);
   }
 });
+
+test('a shared hosting proxy address does not impose a 15-person registration ceiling',async()=>{
+  for(let i=0;i<20;i++){
+    const req=Readable.from([Buffer.from(JSON.stringify({firstName:'Ada',lastName:'Lovelace',phone:'+393123456789',idempotencyKey:'12345678-1234-1234-1234-123456789abc'}))]);
+    req.method='POST';req.headers={origin:'https://venicesideways.com','content-type':'application/json'};
+    req.socket={remoteAddress:'10.0.0.1'};
+    const res=response();
+    await eventProxy(req,res,'/api/events/main-walk-2026-10-11/register',()=>Response.json({result:'registered',event},{status:201}));
+    assert.equal(res.status,201);
+  }
+});

@@ -1,12 +1,12 @@
 const allowedSlug = value => /^[a-z][a-z0-9-]{0,79}$/.test(value);
-const hits = new Map();
-function limit(identity) {
+let bucket = { count: 0, until: 0 };
+function limit() {
   const now = Date.now();
-  for (const [key, bucket] of hits) if (bucket.until < now) hits.delete(key);
-  const bucket = hits.get(identity) || { count: 0, until: now + 60000 };
+  if (bucket.until <= now) bucket = { count: 0, until: now + 60000 };
   bucket.count++;
-  hits.set(identity, bucket);
-  return bucket.count <= 15;
+  // The socket address may be the hosting proxy shared by many visitors.
+  // The upstream separately enforces a strict global and per-phone limit.
+  return bucket.count <= 450;
 }
 function response(res, status, body) {
   res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -23,7 +23,7 @@ export async function eventProxy(req, res, path, fetcher = fetch) {
   if (registering && (req.headers.origin !== 'https://venicesideways.com' ||
       !req.headers['content-type']?.startsWith('application/json')))
     return response(res, 403, { error: 'origin' });
-  if (registering && !limit(String(req.socket?.remoteAddress || 'unknown')))
+  if (registering && !limit())
     return response(res, 429, { error: 'rate_limit' });
   const upstream = list ? '/api/sideways/public-events' :
     `/api/sideways/events/${match[1]}${registering ? '/register' : ''}`;
