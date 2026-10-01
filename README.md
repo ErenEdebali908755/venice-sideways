@@ -2,7 +2,7 @@
 
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
-This repository contains only the walk guide. It has no dependency on the personal gallery deployment, Payload CMS, Neon database, Resend, application secrets or the source repository's private Git history. The link to Eren's archive is an ordinary outbound link.
+This repository contains the walk guide and the public event registration page. The Node server relays only fixed public route, anonymous statistics and event endpoints to the separate Sideways service in the Payload application. It has no database credentials, admin session, personal gallery data or private Git history. The link to Eren's archive is an ordinary outbound link.
 
 ## Run and test
 
@@ -19,7 +19,7 @@ Browser checks: `pip install playwright==1.55.0 beautifulsoup4==4.13.4`, `python
 
 ## Hosting
 
-`public/` can run on a static host with the supplied `_headers` and `_redirects`. The dependency-free Node/Docker server provides equivalent headers on Railway. Healthcheck: `/healthz`; port: platform-provided `PORT`. No database or gallery environment variables are needed.
+The event form and current public route/statistics services require the dependency-free Node/Docker server; serving `public/` alone does not provide these API routes. Railway runs that server with the supplied headers. Healthcheck: `/healthz`; port: platform-provided `PORT`. No database or gallery environment variables are needed in this repository.
 
 Deploy this repository's main branch independently from the personal site. Railway compute/bandwidth is usage-based; this is not a promise of free hosting. The map does not use a paid Google Maps API.
 

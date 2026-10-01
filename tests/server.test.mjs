@@ -12,3 +12,8 @@ test('branded tab and mobile icons are served',async()=>{
   const r=await fetch(base+path);assert.equal(r.status,200,path);assert.match(r.headers.get('content-type'),new RegExp(type.replace('+','\\+')),path);assert.ok((await r.arrayBuffer()).byteLength>100,path);
  }
 });
+test('event links resolve to the form without exposing private files',async()=>{
+ const r=await fetch(base+'/events/main-walk-2026-10-11?lang=tr');
+ assert.equal(r.status,200);assert.match(await r.text(),/events\/events.js/);
+ assert.equal((await fetch(base+'/events/invalid.slug')).status,404);
+});
