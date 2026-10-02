@@ -66,6 +66,7 @@ export class FieldGuide {
       preview = false,
       onEdit = () => {},
       water = null,
+      events = [],
     } = {},
   ) {
     this.root = root;
@@ -74,6 +75,7 @@ export class FieldGuide {
     this.preview = preview;
     this.onEdit = onEdit;
     this.water = water;
+    this.events = events;
     this.route = routes[0];
     this.view = "explore";
     this.index = 0;
@@ -213,6 +215,21 @@ export class FieldGuide {
     else if (step.boat) panel.innerHTML = this.transfer(step);
     else
       panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.photo(step.photo)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><p>${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
+    if (!this.preview) {
+      const labels = {en:"Join the event",tr:"Etkinliğe katıl",it:"Partecipa all'evento",fr:"Participer à l'événement",ru:"Участвовать в событии",zh:"参加活动",ja:"イベントに参加",ko:"행사 참가"};
+      for (const event of this.events) {
+        if (!/^[a-z][a-z0-9-]{0,79}$/.test(event.slug)) continue;
+        const target = this.view === "explore"
+          ? [...panel.querySelectorAll(".fg-route-card")].find(card => card.querySelector("[data-route]")?.dataset.route === event.routeKey)?.querySelector("div")
+          : event.routeKey === this.route?.key ? panel.querySelector(".fg-stop-copy") : null;
+        if (!target) continue;
+        const link = document.createElement("a");
+        link.className = "fg-event-link";
+        link.href = `/events/${event.slug}?lang=${encodeURIComponent(this.lang)}`;
+        link.textContent = `${labels[this.lang] || labels.en} · ${event.eventDate} ↗`;
+        target.append(link);
+      }
+    }
     this.el(".fg-map-tools").innerHTML =
       `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
     this.root
@@ -235,6 +252,7 @@ export class FieldGuide {
     this.root.querySelectorAll(".fg-language").forEach((select) => {
       select.onchange = (e) => {
         this.lang = e.target.value;
+        try { localStorage.setItem("sideways-language", this.lang); } catch {}
         this.render();
         this.draw();
       };

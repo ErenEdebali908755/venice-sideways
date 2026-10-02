@@ -88,6 +88,7 @@ body {
   color: var(--accent);
   text-underline-offset: 4px;
 }
+.fg-event-link {display:inline-flex;min-height:44px;align-items:center;margin-top:14px;padding:9px 13px;border:1px solid var(--accent);border-radius:8px;text-decoration:none;font-weight:700}
 .fg :is(button, select, a, summary):focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;

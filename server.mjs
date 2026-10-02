@@ -1,4 +1,5 @@
 import {communityProxy} from './community-proxy.mjs';
+import {eventProxy} from './event-proxy.mjs';
 /** Static website with fixed, consent-based Sideways service endpoints. */
 import http from 'node:http';
 import {readPublishedRoute,readRouteCatalog} from './published-routes.mjs';
@@ -31,6 +32,7 @@ export async function createServer(){
   res.setHeader('Permissions-Policy','geolocation=(self), camera=(), microphone=(), payment=()');
   res.setHeader('Cache-Control','no-cache');
   if(req.url?.startsWith('/api/community/')){let path;try{path=new URL(req.url,'http://localhost').pathname;}catch{res.writeHead(400);res.end();return;}await communityProxy(req,res,path);return;}
+  if(req.url?.startsWith('/api/events')){let path;try{path=new URL(req.url,'http://localhost').pathname;}catch{res.writeHead(400);res.end();return;}await eventProxy(req,res,path);return;}
   if(req.method!=='GET'&&req.method!=='HEAD'){res.setHeader('Allow','GET, HEAD');res.writeHead(405);res.end('Method not allowed');return;}
   let url;try{url=new URL(req.url,'http://localhost');}catch{res.writeHead(400);res.end('Invalid request');return;}
   if(url.pathname==='/healthz'){res.setHeader('Content-Type','text/plain');res.writeHead(200);res.end(req.method==='HEAD'?undefined:'ok');return;}
@@ -49,7 +51,7 @@ export async function createServer(){
    res.setHeader('Cache-Control',result.status===200?'public, max-age=60':'no-store');
    res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||JSON.stringify({message:'Published route unavailable'}));return;
   }
-  const file=files.get(path==='/'?'/index.html':path);
+  const file=files.get(path==='/'?'/index.html':/^\/events\/[a-z][a-z0-9-]{0,79}\/?$/.test(path)?'/events.html':path);
   if(!file){res.writeHead(404,{'Content-Type':'text/plain; charset=utf-8'});res.end('Not found');return;}
   res.setHeader('Content-Type',file.type);res.setHeader('ETag',file.etag);
   if(req.headers['if-none-match']===file.etag){res.writeHead(304);res.end();return;}

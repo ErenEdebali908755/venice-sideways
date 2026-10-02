@@ -14,6 +14,12 @@ jobs:
         with:
           node-version: '22'
       - run: npm test && npm run check
+      - name: Build and smoke-test the exact Railway Dockerfile
+        run: |
+          docker build --tag venice-sideways-smoke .
+          docker run --detach --name venice-sideways-smoke --publish 127.0.0.1:32999:3000 venice-sideways-smoke
+          trap 'docker logs venice-sideways-smoke; docker rm --force venice-sideways-smoke' EXIT
+          node tests/docker-image-smoke.mjs http://127.0.0.1:32999
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
