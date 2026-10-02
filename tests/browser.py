@@ -25,6 +25,13 @@ def serve(route):
     if url.path == "/api/events":
         route.fulfill(json={"events": []})
         return
+    if url.path == "/api/events/main-walk-2026-10-11":
+        route.fulfill(status=404, json={"error": "not_found"})
+        return
+    if url.path == "/events/main-walk-2026-10-11":
+        route.fulfill(status=200, body=(PUBLIC / "events.html").read_bytes(),
+                      content_type="text/html")
+        return
     if url.path == "/field-guide/maplibre.js":
         # The external basemap is tested separately; this fixture checks the UI without tiles.
         route.fulfill(status=200, content_type="application/javascript", body="window.maplibregl=undefined;")
@@ -91,6 +98,29 @@ with sync_playwright() as playwright:
                   f"{language}/{width}: dark theme no overflow")
             check(page.evaluate("window.__geoCalls") == 0, f"{language}/{width}: no GPS after navigation")
             context.close()
+    unavailable = {
+        "en": "This event is unavailable.",
+        "tr": "Bu etkinlik şu an kullanılamıyor.",
+        "it": "Evento non disponibile.",
+        "fr": "Événement indisponible.",
+        "ru": "Событие недоступно.",
+        "zh": "此活动暂不可用。",
+        "ja": "イベントを表示できません。",
+        "ko": "행사를 이용할 수 없습니다.",
+    }
+    context = browser.new_context(viewport={"width": 375, "height": 900})
+    page = context.new_page()
+    page.route("**/*", serve)
+    page.goto(f"{BASE}/events/main-walk-2026-10-11?lang=en", wait_until="domcontentloaded")
+    note = page.locator(".event-note")
+    page.get_by_text(unavailable["en"], exact=True).wait_for()
+    for language in LANGUAGES:
+        page.locator(".event-header-tools select").first.select_option(language)
+        check(note.inner_text() == unavailable[language], f"{language}: draft notice changes language")
+    page.locator(".event-header-tools select").nth(1).select_option("dark")
+    check(page.locator("#event-app").get_attribute("data-theme") == "dark", "event: dark theme")
+    check(page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"), "event: no horizontal overflow")
+    context.close()
     browser.close()
 
 print(json.dumps({"checks": checks, "issues": issues}, ensure_ascii=False))

@@ -20,7 +20,7 @@ let lang = languages.includes(query) ? query : languages.includes(saved) ? saved
   (navigator.languages || [navigator.language]).map(value => value.toLowerCase().split('-')[0]).find(value => languages.includes(value)) || 'en';
 let theme; try { theme = localStorage.getItem('sideways-field-guide-theme'); } catch {}
 theme = ['light','dark','system'].includes(theme) ? theme : 'system';
-let event = null, state = '', error = '', idempotencyKey = crypto.randomUUID(), pending = !!slug;
+let event = null, state = '', idempotencyKey = crypto.randomUUID(), pending = !!slug;
 const media = matchMedia('(prefers-color-scheme: dark)');
 const t = key => labels[lang][key];
 function applyTheme() {
@@ -71,7 +71,7 @@ function render() {
   }
   const card = el('section','event-card'); main.append(card);
   card.append(el('h2','',t('join')));
-  if (!event) card.append(el('p','event-note',pending ? loadingLabels[lang] : error || t('unavailable')));
+  if (!event) card.append(el('p','event-note',pending ? loadingLabels[lang] : t('unavailable')));
   else if (state === 'registered' || state === 'already_registered') card.append(el('p','event-note',`${t(state === 'registered' ? 'success' : 'duplicate')} ${event.translations?.[lang]?.title || event.translations?.en?.title} · ${dateLabel(event.eventDate)}`));
   else if (event.state !== 'open') card.append(el('p','event-note',t(event.state)));
   else {
@@ -86,7 +86,7 @@ function render() {
     const genderLabel = el('label','',t('gender')); genderLabel.append(el('small','',t('optional')));
     const gender = el('select'); gender.name = 'gender'; for (const [value,key] of [['','choose'],['woman','woman'],['man','man'],['nonbinary','nonbinary'],['prefer_not_to_say','prefer']]) gender.add(new Option(t(key),value)); gender.value = values.gender || ''; genderLabel.append(gender); form.append(genderLabel);
     const privacy = el('p','event-privacy',t('privacy') + ' '); const contact = el('a','',event.privacyContact); contact.href = 'mailto:' + event.privacyContact; privacy.append(contact); form.append(privacy);
-    const status = el('p','event-error',error); status.setAttribute('role','alert'); form.append(status);
+    const status = el('p','event-error',''); status.setAttribute('role','alert'); form.append(status);
     const submit = el('button','',t('submit')); submit.type = 'submit'; form.append(submit);
     form.addEventListener('input', () => { idempotencyKey = crypto.randomUUID(); status.textContent = ''; });
     form.onsubmit = async e => {
@@ -99,7 +99,7 @@ function render() {
       try {
         const response = await fetch('/api/events/' + event.slug + '/register', {method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',body:JSON.stringify({firstName:first.value,lastName:last.value,phone:phone.value,email:email.value,gender:gender.value,idempotencyKey})});
         if (!response.ok) { const data = await response.json().catch(() => null); status.textContent = t(labels[lang][data?.error] ? data.error : 'error'); return; }
-        const result = await response.json(); state = result.result; error = ''; render();
+        const result = await response.json(); state = result.result; render();
       } catch { status.textContent = t('error'); }
       finally { submit.disabled = false; submit.textContent = t('submit'); }
     };
@@ -107,4 +107,4 @@ function render() {
   wrap.append(el('footer','event-footer','Venice Sideways · Venezia'));
 }
 render();
-if (slug) fetch('/api/events/' + slug,{credentials:'omit',cache:'no-store'}).then(async response => { if (!response.ok) throw Error(); event = await response.json(); pending = false; render(); }).catch(() => { pending = false; error = t('unavailable'); render(); });
+if (slug) fetch('/api/events/' + slug,{credentials:'omit',cache:'no-store'}).then(async response => { if (!response.ok) throw Error(); event = await response.json(); pending = false; render(); }).catch(() => { pending = false; render(); });
