@@ -59,3 +59,14 @@ test('a shared hosting proxy address does not impose a 15-person registration ce
     assert.equal(res.status,201);
   }
 });
+
+test('the visitor proxy caps registrations at 450 requests per minute per process',async()=>{
+  const {eventProxy: isolatedProxy}=await import('../event-proxy.mjs?isolated-rate-test');
+  for(let i=0;i<451;i++){
+    const req=Readable.from([Buffer.from(JSON.stringify({firstName:'Ada',lastName:'Lovelace',phone:'+393123456789',idempotencyKey:'12345678-1234-1234-1234-123456789abc'}))]);
+    req.method='POST';req.headers={origin:'https://venicesideways.com','content-type':'application/json'};
+    const res=response();
+    await isolatedProxy(req,res,'/api/events/main-walk-2026-10-11/register',()=>Response.json({result:'registered',event},{status:201}));
+    assert.equal(res.status,i<450?201:429);
+  }
+});

@@ -5,7 +5,7 @@ function limit() {
   if (bucket.until <= now) bucket = { count: 0, until: now + 60000 };
   bucket.count++;
   // The socket address may be the hosting proxy shared by many visitors.
-  // The upstream separately enforces a strict global and per-phone limit.
+  // The upstream separately limits eligible new registrations, without a phone quota.
   return bucket.count <= 450;
 }
 function response(res, status, body) {
