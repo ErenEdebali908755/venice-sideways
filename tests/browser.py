@@ -79,10 +79,10 @@ with sync_playwright() as playwright:
             check(page.locator(".fg-stop-copy h1").is_visible(),
                   f"{language}/{width}: last stop selection")
 
-            theme = page.locator(".fg-desktop-preferences .fg-theme" if width >= 768
-                                 else ".fg-mobile-settings .fg-theme")
-            if width < 768:
+            theme = page.locator(".fg-desktop-preferences .fg-theme")
+            if not theme.is_visible():
                 page.locator(".fg-mobile-settings summary").click()
+                theme = page.locator(".fg-mobile-settings .fg-theme")
             theme.select_option("dark")
             check(root.get_attribute("data-theme") == "dark", f"{language}/{width}: manual dark theme")
             check(page.locator(".fg-map-shell").evaluate("e=>getComputedStyle(e).backgroundColor") == map_background,
