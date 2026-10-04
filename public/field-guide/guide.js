@@ -94,7 +94,8 @@ export class FieldGuide {
     this.pins = [];
     this.map = null;
     this.ready = false;
-    this.error = "";
+    this.mapError = "";
+    this.locationStatus = "";
     this.detail = false;
     this.list = false;
     this.started = false;
@@ -420,7 +421,7 @@ export class FieldGuide {
           "Offline · loaded stops remain available. Maps and directions need a connection.",
           "Çevrimdışı · yüklenen duraklar açık. Harita ve yol tarifi bağlantı gerektirir.",
         )
-      : this.error ||
+      : this.mapError || this.locationStatus ||
         (!this.ready
           ? this.t(
               "Loading the map… You can already browse the stops.",
@@ -430,7 +431,7 @@ export class FieldGuide {
     const status = this.el(".fg-map-status");
     status.textContent = message;
     status.hidden = !message;
-    if (this.error) {
+    if (this.mapError) {
       const retry = document.createElement("button");
       retry.textContent = this.t("Retry map", "Haritayı yeniden dene");
       retry.onclick = () => this.initMap();
@@ -440,7 +441,7 @@ export class FieldGuide {
   async initMap() {
     const generation = (this.mapGeneration = (this.mapGeneration || 0) + 1);
     if (!window.maplibregl) {
-      this.error = this.t(
+      this.mapError = this.t(
         "Map unavailable. Use the stop list and directions.",
         "Harita yüklenemedi. Durak listesini ve yol tarifini kullan.",
       );
@@ -453,7 +454,7 @@ export class FieldGuide {
     clearTimeout(this.mapFailureTimer);
     this.pins = [];
     this.ready = false;
-    this.error = "";
+    this.mapError = "";
     this.renderStatus();
     let style = BASE_STYLE;
     try {
@@ -476,7 +477,7 @@ export class FieldGuide {
       // Style availability, rather than individual tile events, determines usability.
       this.mapFailureTimer = setTimeout(() => {
         if (this.ready || generation !== this.mapGeneration) return;
-        this.error = this.t(
+        this.mapError = this.t(
           "Map could not load. Stops and directions remain available.",
           "Harita yüklenemedi. Duraklar ve yol tarifi kullanılabilir.",
         );
@@ -554,19 +555,19 @@ export class FieldGuide {
           }
         }
         this.ready = true;
-        this.error = "";
+        this.mapError = "";
         this.render();
         this.draw();
         this.fit();
         } catch (error) {
           console.error("Field-guide route layers could not be installed", error);
           this.ready = false;
-          this.error = this.t("Map unavailable. Use the stop list and directions.", "Harita yüklenemedi. Durak listesini ve yol tarifini kullan.");
+          this.mapError = this.t("Map unavailable. Use the stop list and directions.", "Harita yüklenemedi. Durak listesini ve yol tarifini kullan.");
           this.renderStatus();
         }
       });
     } catch {
-      this.error = this.t(
+      this.mapError = this.t(
         "Map unavailable. Use the stop list.",
         "Harita yüklenemedi. Durak listesini kullan.",
       );
@@ -680,10 +681,15 @@ export class FieldGuide {
       return;
     }
     if (!navigator.geolocation || !this.ready) {
-      this.error = this.t(
-        "Location requires an available map. Browsing still works.",
-        "Konum için haritanın yüklenmesi gerekiyor. Duraklara bakabilirsin.",
-      );
+      this.locationStatus = !navigator.geolocation
+        ? this.t(
+            "Location is unavailable on this device. You can keep browsing.",
+            "Konum bu cihazda kullanılamıyor. Duraklara bakmaya devam edebilirsin.",
+          )
+        : this.t(
+            "Location requires an available map. Browsing still works.",
+            "Konum için haritanın yüklenmesi gerekiyor. Duraklara bakabilirsin.",
+          );
       this.renderStatus();
       return;
     }
@@ -696,27 +702,40 @@ export class FieldGuide {
       )
     )
       return;
+    this.locationStatus = "";
     const generation = ++this.locationGeneration;
-    this.watch = navigator.geolocation.watchPosition(
-      (p) => {
-        if (generation !== this.locationGeneration || this.watch === null || !this.map) return;
-        const coordinates = [p.coords.longitude, p.coords.latitude];
-        if (!this.locationPin)
-          this.locationPin = new maplibregl.Marker({ color: "#275c94" })
-            .setLngLat(coordinates).addTo(this.map);
-        else this.locationPin.setLngLat(coordinates);
-      },
-      () => {
-        if (generation !== this.locationGeneration) return;
+    try {
+      this.watch = navigator.geolocation.watchPosition(
+        (p) => {
+          if (generation !== this.locationGeneration || this.watch === null || !this.map) return;
+          const coordinates = [p.coords.longitude, p.coords.latitude];
+          if (!this.locationPin)
+            this.locationPin = new maplibregl.Marker({ color: "#275c94" })
+              .setLngLat(coordinates).addTo(this.map);
+          else this.locationPin.setLngLat(coordinates);
+          this.locationStatus = "";
+          this.renderStatus();
+        },
+        () => {
+          if (generation !== this.locationGeneration) return;
+          this.stopLocation();
+          this.locationStatus = this.t(
+            "Location unavailable. You can keep browsing.",
+            "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
+          );
+          this.render();
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+      );
+    } catch {
+      if (generation === this.locationGeneration) {
         this.stopLocation();
-        this.error = this.t(
+        this.locationStatus = this.t(
           "Location unavailable. You can keep browsing.",
           "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
         );
-        this.render();
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-    );
+      }
+    }
     this.render();
   }
   stopLocation() {
@@ -725,6 +744,7 @@ export class FieldGuide {
     this.watch = null;
     this.locationPin?.remove();
     this.locationPin = null;
+    this.locationStatus = "";
   }
   destroy() {
     this.mapGeneration = (this.mapGeneration || 0) + 1;

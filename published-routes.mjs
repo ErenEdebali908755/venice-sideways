@@ -13,8 +13,20 @@ export async function readPublishedRoute(slug,fetcher=fetch){
   try{for(;;){const part=await reader.read();if(part.done)break;size+=part.value.length;if(size>2000000){await reader.cancel();throw Error('Oversized release');}chunks.push(part.value);}}finally{reader.releaseLock();}
   const data=JSON.parse(Buffer.concat(chunks).toString('utf8'));
   if(data.schemaVersion!==1||data.key!==slug||!Array.isArray(data.visits)||!Array.isArray(data.segments)||!data.visits.some(v=>v.visible))throw Error('Invalid release');
+  // Releases predating source-language support were authored in English.
+  const sourceLanguage=Object.hasOwn(data,'sourceLanguage')?data.sourceLanguage:'en';
+  if(sourceLanguage!=='en'&&sourceLanguage!=='tr')throw Error('Invalid source language');
+  // Older snapshots may still contain draft translations. Keep them out of the public response.
+  const reviewed=rows=>Array.isArray(rows)?rows.filter(row=>row?.needsReview!==true):rows;
+  data.copy=reviewed(data.copy);
+  for(const segment of data.segments)if(segment&&typeof segment==='object')segment.copy=reviewed(segment.copy);
+  for(const visit of data.visits)if(visit&&typeof visit==='object'){
+   visit.copy=reviewed(visit.copy);
+   if(Array.isArray(visit.ideas))for(const idea of visit.ideas)if(idea&&typeof idea==='object')idea.copy=reviewed(idea.copy);
+  }
+  if(Array.isArray(data.places))for(const place of data.places)if(place&&typeof place==='object')place.copy=reviewed(place.copy);
   // Explicit public projection also prevents future upstream metadata from leaking.
-  const body=JSON.stringify({schemaVersion:1,key:data.key,revision:data.revision,publishedAt:data.publishedAt,copy:data.copy,photo:data.photo,visits:data.visits,segments:data.segments,places:data.places,sunsetVisitKey:data.sunsetVisitKey,sunsetOffsetMinutes:data.sunsetOffsetMinutes});
+  const body=JSON.stringify({schemaVersion:1,key:data.key,revision:data.revision,publishedAt:data.publishedAt,sourceLanguage,copy:data.copy,photo:data.photo,visits:data.visits,segments:data.segments,places:data.places,sunsetVisitKey:data.sunsetVisitKey,sunsetOffsetMinutes:data.sunsetOffsetMinutes});
   cache.set(slug,{at:now,body});return {status:200,body};
  }catch{return old&&now-old.at<86400000?{status:200,body:old.body}:{status:503};}
 }
