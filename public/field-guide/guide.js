@@ -8,6 +8,9 @@ import {
   setWatercolorLandmarks,
   watercolorStyle,
 } from "./map-art.js";
+import { uiCopy } from "./ui-copy.js";
+import { galleryForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js";
+import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js";
 const THEME_KEY = "sideways-field-guide-theme";
 const THEME_LABELS = {
   en: ["Theme", "System", "Light", "Dark"],
@@ -55,7 +58,7 @@ const escape = (v) =>
 const safeURL = (value) => {
   try {
     const u = new URL(value, location.origin);
-    return ["https:", "http:"].includes(u.protocol) ? u.href : "";
+    return ["https:", "http:"].includes(u.protocol) && !u.username && !u.password ? u.href : "";
   } catch {
     return "";
   }
@@ -79,12 +82,18 @@ export class FieldGuide {
       onEdit = () => {},
       water = null,
       events = [],
+      publicLocation = false,
+      localTestLocation = false,
+      referencePhotos = [],
     } = {},
   ) {
     this.root = root;
     this.routes = routes;
     this.lang = lang;
     this.preview = preview;
+    this.publicLocation = publicLocation;
+    this.localTestLocation = localTestLocation;
+    this.referencePhotos = referencePhotos;
     this.onEdit = onEdit;
     this.water = water;
     this.events = events;
@@ -100,8 +109,13 @@ export class FieldGuide {
     this.list = false;
     this.started = false;
     this.threeD = false;
-    this.watch = null;
-    this.locationGeneration = 0;
+    this.inspectedVisit = null;
+    this.selectedPhoto = null;
+    this.modalMode = "";
+    this.cameraMode = "free";
+    this.locationState = "off";
+    this.overlayID = `field-guide-${Math.random().toString(36).slice(2)}`;
+    this.disposed = false;
     this.themePreference = "system";
     try {
       const stored = localStorage.getItem(THEME_KEY);
@@ -115,21 +129,45 @@ export class FieldGuide {
     root.innerHTML =
       '<header class="fg-header"></header><div class="fg-body"><section class="fg-editorial"></section><section class="fg-map-shell" aria-label="Map"><div class="fg-map-tools"></div><div class="fg-map"></div><p class="fg-map-status" role="status"></p></section></div><dialog class="fg-dialog"></dialog>';
     this.el = (s) => root.querySelector(s);
+    this.locationEngine = new LocationEngine({
+      allowed: () => this.locationAllowed() && this.ready && this.mapVisible() && !document.hidden && !this.disposed,
+      onState: state => { this.locationState = state; this.renderLocation(); },
+      onFix: (fix, map) => this.paintLocation(fix, map),
+      onClear: () => this.clearLocationPresentation(),
+    });
+    this.el(".fg-dialog").addEventListener("cancel", event => { event.preventDefault(); this.closeOverlay(); });
+    this.dialogKeyboard = event => {
+      if (event.key !== "Tab") return;
+      const dialog = this.el(".fg-dialog");
+      const controls = [...dialog.querySelectorAll('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex]:not([tabindex="-1"])')].filter(control => control.getClientRects().length);
+      const first = controls[0], last = controls.at(-1);
+      if (!first) { event.preventDefault(); dialog.focus(); return; }
+      if (event.shiftKey && (document.activeElement === first || !dialog.contains(document.activeElement))) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && (document.activeElement === last || !dialog.contains(document.activeElement))) { event.preventDefault(); first.focus(); }
+    };
+    this.el(".fg-dialog").addEventListener("keydown", this.dialogKeyboard);
+    this.popstate = event => this.restoreOverlay(event.state?.sidewaysOverlay);
+    addEventListener("popstate", this.popstate);
     this.applyTheme();
     this.render();
     this.initMap();
-    this.observer = new ResizeObserver(() => this.map?.resize());
-    this.observer.observe(this.el(".fg-map-shell"));
+    this.observer = new ResizeObserver(() => this.scheduleResize());
+    this.observer.observe(this.el(".fg-map"));
     this.visibility = () => {
-      if (document.hidden) this.stopLocation();
+      if (document.hidden && this.locationEngine.active) this.stopLocation("suspended");
+      else this.scheduleResize();
     };
     document.addEventListener("visibilitychange", this.visibility);
     this.online = () => this.renderStatus();
     addEventListener("online", this.online);
     addEventListener("offline", this.online);
+    this.pagehide = () => { if (this.locationEngine.active) this.stopLocation("suspended"); };
+    this.pageshow = () => this.scheduleResize();
+    addEventListener("pagehide", this.pagehide);
+    addEventListener("pageshow", this.pageshow);
   }
   t(en, tr) {
-    return this.lang === "tr" ? tr : en;
+    return uiCopy(en, this.lang, tr);
   }
   applyTheme() {
     const dark =
@@ -145,12 +183,31 @@ export class FieldGuide {
     return this.text(route?.copy, route).title || route?.key || "";
   }
   photo(photo, kind = "stop") {
-    const url = photo?.url ? safeURL(photo.url) : "";
-    if (!url || new URL(url).pathname === "/field-guide/venice-illustration.png")
-      return kind === "cover"
-        ? `<div class="fg-cover-empty" role="img" aria-label="${this.t("Space reserved for a route photograph", "Rota fotoğrafı için ayrılmış boş alan")}"></div>`
-        : `<div class="fg-photo-missing">${this.t("No photograph yet", "Henüz fotoğraf yok")}</div>`;
-    return `<figure class="fg-photo"><img src="${escape(url)}" alt="${escape(this.lang === "tr" ? photo.altTr || photo.alt : photo.alt)}" style="object-position:${Number(photo.x ?? 50)}% ${Number(photo.y ?? 50)}%" loading="lazy"><figcaption>${escape(photo.credit || "")}</figcaption></figure>`;
+    const items = galleryForVisit({ photo });
+    if (!items.length) return kind === "cover" ? "" : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
+    return this.galleryImage(items[0], { cover: kind === "cover", eager: kind === "cover" });
+  }
+  galleryImage(photo, { cover = false, thumbnail = false, eager = false, full = false } = {}) {
+    const selected = imageVariant(photo, thumbnail ? 400 : full ? 1600 : 900), url = safeURL(selected?.url);
+    if (!url) return `<p class="fg-photo-missing">${this.t("Photograph unavailable")}</p>`;
+    const copy = galleryText(photo, this.lang);
+    const variants = (photo.derivatives || []).filter(item => item.width > 0 && safeURL(item.url));
+    const source = variants.map(item => `${escape(safeURL(item.url))} ${item.width}w`).join(", ");
+    const dimensions = selected.width > 0 && selected.height > 0 ? `width="${selected.width}" height="${selected.height}"` : "";
+    const focal = photo.focalPoint || { x: 50, y: 50 };
+    return `<figure class="fg-photo ${cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}"><img src="${escape(url)}" ${source ? `srcset="${source}" sizes="${thumbnail ? "80px" : full ? "95vw" : "(max-width: 900px) 92vw, 650px"}"` : ""} ${dimensions} alt="${escape(copy.alt || "")}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${Math.max(0, Math.min(100, Number(focal.x) || 0))}% ${Math.max(0, Math.min(100, Number(focal.y) || 0))}%">${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${escape(photo.credit || "")}</figcaption>` : ""}</figure>`;
+  }
+  visitPhotos(visit) {
+    const photos = galleryForVisit(visit);
+    return photos.length ? photos : this.referencePhotos;
+  }
+  galleryLabel(visit) {
+    const photos = this.visitPhotos(visit);
+    return `${this.t(photos.some(photo => photo.referenceOnly) ? "Temporary photo selection" : "Photos at this stop")} · ${photos.length}`;
+  }
+  cover(visit) {
+    const photo = coverPhoto(this.visitPhotos(visit));
+    return photo ? this.galleryImage(photo, { cover: true }) : "";
   }
   update({ routes, lang, visitKey, view } = {}) {
     const key = this.route?.key,
@@ -166,6 +223,12 @@ export class FieldGuide {
     if (view) this.view = view;
     this.render();
     this.draw();
+    this.refreshOverlay();
+  }
+  refreshOverlay() {
+    if (this.modalMode === "places") this.renderPlaces();
+    else if (this.modalMode === "place") this.renderPlace(this.placeKey);
+    else if (this.modalMode) this.renderOverlay();
   }
   steps() {
     if (!this.route) return [];
@@ -213,7 +276,7 @@ export class FieldGuide {
     if (!this.routes.length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
     else if (this.view === "explore")
-      panel.innerHTML = `<div class="fg-intro">${this.photo(this.route?.photo, "cover")}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ↓</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.routes
+      panel.innerHTML = `<div class="fg-intro">${this.route?.photo?.url ? this.photo(this.route.photo, "cover") : this.referencePhotos[0] ? this.galleryImage(this.referencePhotos[0], {cover:true,eager:true}) + `<p class="fg-reference-note">${this.t("Temporary photo selection")} · Eren Edebali</p>` : ""}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ↓</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.routes
         .filter((r) => this.preview || ["main", "full"].includes(r.key))
         .map((r) => this.routeCard(r))
         .join("")}</section>`;
@@ -221,14 +284,14 @@ export class FieldGuide {
       panel.innerHTML = `<div class="fg-panel-head"><h2>${t("Your walk", "Yürüyüşün")}</h2><button data-action="close-list">${t("Back to map", "Haritaya dön")} ×</button></div><ol class="fg-stop-list">${this.steps()
         .map(
           (s, i) =>
-            `<li><button data-step="${i}" aria-current="${i === this.index ? "step" : "false"}"><span>${s.boat ? "⛴" : s.n || "·"}</span>${escape(s.boat ? t("Vaporetto transfer", "Vaporetto aktarması") : this.text(s.copy).title)}</button></li>`,
+            `<li><button data-step="${i}" aria-current="${i === this.index ? "step" : "false"}"><span>${s.boat ? "⛴" : s.n || "·"}</span>${escape(s.boat ? t("Vaporetto transfer", "Vaporetto aktarması") : this.text(s.copy).title)}</button>${s.boat ? "" : `<button class="fg-list-gallery" data-inspect="${escape(s.key)}">${escape(this.galleryLabel(s))} ↗</button>`}</li>`,
         )
         .join("")}</ol>`;
     else if (!step)
       panel.innerHTML = `<h2>${t("No stops yet", "Henüz durak yok")}</h2>`;
     else if (step.boat) panel.innerHTML = this.transfer(step);
     else
-      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.photo(step.photo)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><p>${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
+      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.cover(step)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><p>${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
     if (!this.preview) {
       const labels = {en:"Join the event",tr:"Etkinliğe katıl",it:"Partecipa all'evento",fr:"Participer à l'événement",ru:"Участвовать в событии",zh:"参加活动",ja:"イベントに参加",ko:"행사 참가"};
       for (const event of this.events) {
@@ -245,7 +308,10 @@ export class FieldGuide {
       }
     }
     this.el(".fg-map-tools").innerHTML =
-      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="places">${t("Places on the map", "Haritadaki yerler")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
+      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="places">${t("Places on the map", "Haritadaki yerler")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button><div class="fg-location-controls"></div>`;
+    this.locationControlsSignature = "";
+    this.renderLocation();
+    this.root.querySelectorAll("[data-inspect]").forEach(button => { button.onclick = () => this.openDetail(button.dataset.inspect, button); });
     this.root
       .querySelectorAll("[data-route]")
       .forEach((b) => (b.onclick = () => this.choose(b.dataset.route)));
@@ -269,6 +335,7 @@ export class FieldGuide {
         try { localStorage.setItem("sideways-language", this.lang); } catch {}
         this.render();
         this.draw();
+        this.refreshOverlay();
       };
     });
     this.root.querySelectorAll(".fg-theme").forEach((select) => {
@@ -295,7 +362,7 @@ export class FieldGuide {
         }),
     );
     this.renderStatus();
-    requestAnimationFrame(() => this.map?.resize());
+    this.scheduleResize();
   }
   transfer(s) {
     const t = (en, tr) => this.t(en, tr),
@@ -351,6 +418,8 @@ export class FieldGuide {
     if (action === "detail") this.openDetail();
     if (action === "places") this.openPlaces();
     if (action === "location") this.locate();
+    if (action === "location-off") this.stopLocation();
+    if (action === "location-return") this.returnToLocation();
     if (action === "dimension" && this.ready) {
       this.threeD = !this.threeD;
       this.map.easeTo({
@@ -369,48 +438,174 @@ export class FieldGuide {
       this.render();
     }
   }
-  openDetail() {
-    const s = this.steps()[this.index],
-      dialog = this.el(".fg-dialog"),
-      t = (a, b) => this.t(a, b);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${escape(this.title())} · ${s.n || "·"}</span><h1>${escape(this.text(s.copy).title)}</h1>${this.photo(s.photo)}<p>${escape(this.text(s.copy).text)}</p><h2>${t("Five ways to look", "Bakmanın beş yolu")}</h2>${(
-      s.ideas || []
-    )
-      .sort((a, b) => a.order - b.order)
-      .map(
-        (i) =>
-          `<article><h3>${escape(this.text(i.copy).title)}</h3><p>${escape(this.text(i.copy).text)}</p><small>${escape(this.text(i.copy).phoneTip)}</small></article>`,
-      )
-      .join("")}`;
-    dialog.querySelector("button").onclick = () => dialog.close();
-    dialog.showModal();
+  cameraSnapshot() {
+    if (!this.ready) return null;
+    const center = this.map.getCenter();
+    return { center: [center.lng, center.lat], zoom: this.map.getZoom(), bearing: this.map.getBearing(), pitch: this.map.getPitch() };
+  }
+  overlayState(mode = this.modalMode) {
+    return { id: this.overlayID, mode, routeKey: this.route.key, visitKey: this.inspectedVisit, photoID: this.selectedPhoto };
+  }
+  pushOverlay(mode) {
+    history.pushState({ ...history.state, sidewaysOverlay: this.overlayState(mode) }, "");
+  }
+  beginOverlay(opener = document.activeElement) {
+    if (!this.modalMode) { this.map?.stop(); this.savedCamera = this.cameraSnapshot(); this.overlayOpener = opener; this.overlayFocusKey = opener?.dataset.inspect || opener?.dataset.visitKey; }
+    this.cameraMode = "free";
+    this.cameraTouched = true;
+  }
+  openDetail(key = this.steps()[this.index]?.key, opener = document.activeElement) {
+    const visit = this.steps().find(item => !item.boat && item.key === key);
+    if (!visit) return;
+    const wasOpen = !!this.modalMode;
+    this.beginOverlay(opener);
+    this.inspectedVisit = visit.key;
+    this.selectedPhoto = coverPhoto(this.visitPhotos(visit))?.assetID || null;
+    this.modalMode = "detail";
+    if (!wasOpen) this.pushOverlay("detail");
+    else history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState("detail") }, "");
+    this.renderOverlay();
+  }
+  openLightbox() {
+    if (this.modalMode !== "detail" || !this.selectedPhoto) return;
+    this.modalMode = "lightbox"; this.photoZoom = false;
+    this.pushOverlay("lightbox"); this.renderOverlay();
+  }
+  closeOverlay() {
+    if (history.state?.sidewaysOverlay?.id === this.overlayID) history.back();
+    else this.restoreOverlay(null);
+  }
+  restoreOverlay(state) {
+    if (state?.id === this.overlayID && state.routeKey === this.route?.key && ["detail", "lightbox", "places", "place"].includes(state.mode)) {
+      this.modalMode = state.mode; this.inspectedVisit = state.visitKey; this.selectedPhoto = state.photoID;
+      this.photoZoom = false;
+      if (state.mode === "places") this.renderPlaces();
+      else if (state.mode === "place") this.renderPlace(this.placeKey);
+      else this.renderOverlay();
+      return;
+    }
+    this.modalMode = ""; this.inspectedVisit = null; this.selectedPhoto = null;
+    const dialog = this.el(".fg-dialog");
+    if (dialog.open) dialog.close();
+    dialog.classList.remove("fg-lightbox", "fg-photo-zoomed");
+    this.cameraMode = "free";
+    if (this.ready && this.savedCamera) this.map.jumpTo(this.savedCamera);
+    this.savedCamera = null;
+    const matching = [...this.root.querySelectorAll('[data-inspect],[data-visit-key]')].find(control => control.dataset.inspect === this.overlayFocusKey || control.dataset.visitKey === this.overlayFocusKey);
+    const opener = this.overlayOpener?.isConnected ? this.overlayOpener : matching || this.root.querySelector('[data-action="detail"]') || this.root.querySelector('[data-action="focus"]');
+    opener?.focus({ preventScroll: true }); this.overlayOpener = null; this.overlayFocusKey = null;
+  }
+  renderOverlay() {
+    const visit = this.steps().find(item => item.key === this.inspectedVisit && !item.boat);
+    if (!visit) { this.restoreOverlay(null); return; }
+    const photos = this.visitPhotos(visit);
+    const photo = photos.find(item => item.assetID === this.selectedPhoto) || coverPhoto(photos);
+    this.selectedPhoto = photo?.assetID || null;
+    const index = photos.indexOf(photo), dialog = this.el(".fg-dialog"), lightbox = this.modalMode === "lightbox";
+    const t = value => this.t(value);
+    const temporary = photos.some(item => item.referenceOnly);
+    dialog.classList.toggle("fg-lightbox", lightbox);
+    dialog.classList.toggle("fg-photo-zoomed", lightbox && !!this.photoZoom);
+    dialog.setAttribute("aria-labelledby", "fg-dialog-title");
+    const gallery = photo ? `<section class="fg-gallery" aria-label="${escape(this.galleryLabel(visit))}"><div class="fg-gallery-stage"><button class="fg-open-photo" data-open-photo aria-label="${escape(t("Open full photograph"))}">${this.galleryImage(photo, { full: lightbox })}</button></div><div class="fg-gallery-controls"><button data-photo-previous aria-label="${escape(t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>←</button><span role="status">${index + 1} / ${photos.length}</span><button data-photo-next aria-label="${escape(t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>→</button>${lightbox ? `<button data-photo-zoom aria-pressed="${!!this.photoZoom}">${escape(t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph"))}</button>` : ""}</div><div class="fg-thumbnails">${photos.map((item, number) => `<button data-photo-id="${escape(item.assetID)}" aria-pressed="${item === photo}" aria-label="${escape(t("Select photograph"))} ${number + 1}">${this.galleryImage(item, { thumbnail: true })}</button>`).join("")}</div></section>` : `<p class="fg-photo-missing">${t("No photographs at this stop yet.")}</p>`;
+    const editorial = lightbox ? "" : `<p>${escape(this.text(visit.copy).text)}</p><h2>${t("Five ways to look")}</h2>${[...(visit.ideas || [])].sort((a, b) => a.order - b.order).map(idea => `<article><h3>${escape(this.text(idea.copy).title)}</h3><p>${escape(this.text(idea.copy).text)}</p><small>${escape(this.text(idea.copy).phoneTip)}</small></article>`).join("")}`;
+    dialog.innerHTML = `<button class="fg-close">← ${t(lightbox ? "Back to stop" : "Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${visit.n || "·"}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${temporary ? `<p class="fg-reference-note">${t("Temporary photographs by Eren Edebali; their connection to this stop has not been verified.")}</p>` : ""}${gallery}${editorial}`;
+    dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
+    dialog.querySelector("[data-open-photo]")?.addEventListener("click", () => { if (performance.now() < (this.ignorePhotoClickUntil || 0)) return; lightbox ? this.togglePhotoZoom() : this.openLightbox(); });
+    dialog.querySelector("[data-photo-zoom]")?.addEventListener("click", () => this.togglePhotoZoom());
+    dialog.querySelector("[data-photo-previous]")?.addEventListener("click", () => this.selectPhoto(-1));
+    dialog.querySelector("[data-photo-next]")?.addEventListener("click", () => this.selectPhoto(1));
+    dialog.querySelectorAll("[data-photo-id]").forEach(button => { button.onclick = () => this.selectPhoto(button.dataset.photoId); });
+    dialog.onkeydown = event => {
+      if (event.target.matches("input,select,textarea")) return;
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") { event.preventDefault(); this.selectPhoto(event.key === "ArrowLeft" ? -1 : 1); }
+    };
+    let touch;
+    const stage = dialog.querySelector(".fg-gallery-stage");
+    stage?.addEventListener("touchstart", event => { if (event.touches.length === 1 && !this.photoZoom) touch = [event.touches[0].clientX, event.touches[0].clientY]; }, { passive: true });
+    stage?.addEventListener("touchend", event => {
+      if (!touch || !event.changedTouches.length || this.photoZoom) return;
+      const deltaX = event.changedTouches[0].clientX - touch[0], deltaY = event.changedTouches[0].clientY - touch[1]; touch = null;
+      if (Math.abs(deltaX) > 55 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) { this.ignorePhotoClickUntil = performance.now() + 400; this.selectPhoto(deltaX > 0 ? -1 : 1); }
+    }, { passive: true });
+    this.bindPhotoErrors(dialog);
+    if (!dialog.open) dialog.showModal();
+    dialog.querySelector(".fg-close").focus({ preventScroll: true });
+  }
+  togglePhotoZoom() {
+    if (this.modalMode !== "lightbox") return;
+    this.photoZoom = !this.photoZoom;
+    this.el(".fg-dialog").classList.toggle("fg-photo-zoomed", this.photoZoom);
+    const button = this.el("[data-photo-zoom]");
+    button?.setAttribute("aria-pressed", String(this.photoZoom));
+    if (button) button.textContent = this.t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph");
+  }
+  selectPhoto(selection) {
+    const visit = this.steps().find(item => item.key === this.inspectedVisit), photos = this.visitPhotos(visit);
+    if (!photos.length) return;
+    const current = Math.max(0, photos.findIndex(item => item.assetID === this.selectedPhoto));
+    const next = typeof selection === "number" ? photos[(current + selection + photos.length) % photos.length] : photos.find(item => item.assetID === selection);
+    if (!next) return;
+    const focused = document.activeElement?.dataset.photoId;
+    const direction = document.activeElement?.hasAttribute("data-photo-next") ? "[data-photo-next]" : document.activeElement?.hasAttribute("data-photo-previous") ? "[data-photo-previous]" : "";
+    this.selectedPhoto = next.assetID; this.photoZoom = false;
+    this.el(".fg-dialog").classList.remove("fg-photo-zoomed");
+    history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState() }, "");
+    this.renderOverlay();
+    (direction ? this.el(direction) : focused ? [...this.root.querySelectorAll("[data-photo-id]")].find(button => button.dataset.photoId === next.assetID) : null)?.focus({ preventScroll: true });
+  }
+  bindPhotoErrors(container) {
+    container.querySelectorAll("img").forEach(image => { image.onerror = () => {
+      const message = document.createElement("p"); message.className = "fg-photo-missing"; message.textContent = this.t("Photograph unavailable"); image.replaceWith(message);
+    }; });
   }
   openPlaces() {
+    const wasOpen = !!this.modalMode;
+    this.beginOverlay(); this.modalMode = "places";
+    if (!wasOpen) this.pushOverlay("places");
+    else history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState("places") }, "");
+    this.renderPlaces();
+  }
+  renderPlaces() {
     const t = (en, tr) => this.t(en, tr);
     const dialog = this.el(".fg-dialog");
+    dialog.classList.remove("fg-lightbox", "fg-photo-zoomed");
+    dialog.onkeydown = null;
+    dialog.setAttribute("aria-labelledby", "fg-dialog-title");
     const keys = this.route?.key === "main"
       ? [...MAIN_LANDMARKS.map((place) => place.key), ...GARDENS.map((place) => place.key)]
       : GARDENS.map((place) => place.key);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1>${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} →</button>`).join("")}</div>`;
-    dialog.querySelector(".fg-close").onclick = () => dialog.close();
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1 id="fg-dialog-title">${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} →</button>`).join("")}</div>`;
+    dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelectorAll("[data-place]").forEach((button) => {
       button.onclick = () => this.openPlace(button.dataset.place);
     });
     if (!dialog.open) dialog.showModal();
   }
   openPlace(key) {
+    if (this.route?.visits.some(visit => visit.key === key)) { this.openDetail(key); return; }
+    const wasOpen = !!this.modalMode;
+    this.beginOverlay(); this.placeKey = key; this.modalMode = "place";
+    if (!wasOpen) this.pushOverlay("place");
+    else history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState("place") }, "");
+    this.renderPlace(key);
+  }
+  renderPlace(key) {
     const place = placeCopy(key, this.lang);
     if (!place) return;
     const t = (en, tr) => this.t(en, tr);
     const dialog = this.el(".fg-dialog");
+    dialog.classList.remove("fg-lightbox", "fg-photo-zoomed");
+    dialog.onkeydown = null;
+    dialog.setAttribute("aria-labelledby", "fg-dialog-title");
     const garden = GARDENS.find((item) => item.key === key);
     const stop = this.route?.visits?.find((item) => item.key === key);
     const focus = garden?.focus || (stop ? [stop.longitude, stop.latitude] : null);
     const englishFallback = !["en", "tr"].includes(this.lang);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1>${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows the Main Walk stop coordinates.", "Özgün Venice Sideways çizimi; haritadaki yaklaşık konum Ana Yürüyüş durağının koordinatlarını izler.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
-    dialog.querySelector(".fg-close").onclick = () => dialog.close();
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows the Main Walk stop coordinates.", "Özgün Venice Sideways çizimi; haritadaki yaklaşık konum Ana Yürüyüş durağının koordinatlarını izler.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
+    dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelector("[data-focus-place]")?.addEventListener("click", () => {
-      dialog.close();
+      this.savedCamera = null; this.closeOverlay();
       if (this.ready && focus) this.map.easeTo({ center: focus, zoom: 16, duration: reduced() ? 0 : 250 });
     });
     if (!dialog.open) dialog.showModal();
@@ -421,7 +616,7 @@ export class FieldGuide {
           "Offline · loaded stops remain available. Maps and directions need a connection.",
           "Çevrimdışı · yüklenen duraklar açık. Harita ve yol tarifi bağlantı gerektirir.",
         )
-      : this.mapError || this.locationStatus ||
+      : this.mapError || this.locationStatus || this.mapResourceWarning ||
         (!this.ready
           ? this.t(
               "Loading the map… You can already browse the stops.",
@@ -454,7 +649,7 @@ export class FieldGuide {
     clearTimeout(this.mapFailureTimer);
     this.pins = [];
     this.ready = false;
-    this.mapError = "";
+    this.mapError = ""; this.mapResourceWarning = "";
     this.renderStatus();
     let style = BASE_STYLE;
     try {
@@ -474,6 +669,8 @@ export class FieldGuide {
         zoom: 13.5,
         attributionControl: { compact: true },
       });
+      for (const event of ["dragstart", "zoomstart", "rotatestart", "pitchstart"]) this.map.on(event, action => { if (action.originalEvent) { this.cameraMode = "free"; this.cameraTouched = true; } });
+      this.map.on("error", () => { if (generation === this.mapGeneration && this.ready) { this.mapResourceWarning = this.t("Some map details could not load. Stops and directions remain available."); this.renderStatus(); } });
       // Style availability, rather than individual tile events, determines usability.
       this.mapFailureTimer = setTimeout(() => {
         if (this.ready || generation !== this.mapGeneration) return;
@@ -502,7 +699,7 @@ export class FieldGuide {
           type: "line",
           source: "fg-route",
           filter: ["==", ["get", "boat"], false],
-          paint: { "line-color": "#831d4f", "line-width": 4 },
+          paint: { "line-color": "#2454d4", "line-width": 4 },
         });
         this.map.addLayer({
           id: "fg-boat",
@@ -625,8 +822,9 @@ export class FieldGuide {
       pin.className = "fg-pin selected" + (step.boat ? " fg-pin-boat" : "");
       pin.textContent = step.boat ? "⛴" : step.n || "·";
       pin.title = step.boat ? point.name : this.text(step.copy).title;
+      if (!step.boat) pin.dataset.visitKey = step.key;
       pin.setAttribute("aria-label", `${pin.textContent} · ${pin.title}`);
-      pin.onclick = () => this.focus();
+      pin.onclick = () => step.boat ? this.focus() : this.openDetail(step.key, pin);
       anchor.append(pin);
       const marker = new maplibregl.Marker({ element: anchor })
         .setLngLat([point.longitude, point.latitude])
@@ -656,6 +854,7 @@ export class FieldGuide {
       );
     });
     if (!hasPoint) return;
+    this.cameraMode = "free"; this.cameraTouched = true;
     this.map.fitBounds(bounds, {
       padding: 36,
       maxZoom: 16,
@@ -664,6 +863,7 @@ export class FieldGuide {
   }
   focus() {
     if (!this.ready || this.view !== "walk") return;
+    this.cameraMode = "free"; this.cameraTouched = true;
     const s = this.steps()[this.index],
       p = s?.boat ? s.transitStops[0] : s;
     if (p)
@@ -673,80 +873,92 @@ export class FieldGuide {
         duration: reduced() ? 0 : 220,
       });
   }
+  get walkingStep() { return this.steps()[this.index]?.key || null; }
+  get watch() { return this.locationEngine?.watch ?? null; }
+  locationAllowed() {
+    return locationCapability({ publicLocation: this.publicLocation, preview: this.preview, localTest: this.localTestLocation });
+  }
+  mapVisible() {
+    const rectangle = this.el(".fg-map").getBoundingClientRect();
+    return rectangle.width > 0 && rectangle.height > 0;
+  }
+  scheduleResize() {
+    if (this.resizeFrame || this.disposed) return;
+    this.resizeFrame = requestAnimationFrame(() => {
+      this.resizeFrame = null;
+      if (this.disposed) return;
+      const rectangle = this.el(".fg-map").getBoundingClientRect();
+      const size = `${Math.round(rectangle.width)}:${Math.round(rectangle.height)}`;
+      if (!rectangle.width || !rectangle.height) { if (this.locationEngine.active) this.stopLocation("suspended"); this.lastMapSize = size; return; }
+      if (size !== this.lastMapSize) { this.lastMapSize = size; this.map?.resize(); }
+    });
+  }
+  renderLocation() {
+    const controls = this.el(".fg-location-controls");
+    const state = this.locationState;
+    const messages = {
+      requesting: "Finding your location…", tracking: "Location is on", stale: "Location is out of date. Return to the map or restart location.", suspended: "Location paused. Start it again when you are ready.", denied: "Location permission denied. Allow location in your browser's site settings, then try again.", unavailable: "Location unavailable. You can keep browsing.", timeout: "Location timed out. Try again when you are ready.", unsupported: "Location is unavailable in this context. You can keep browsing.",
+    };
+    const active = this.locationEngine?.active;
+    const fix = this.locationEngine?.fix;
+    this.root.dataset.location = state;
+    this.locationStatus = state === "off" ? "" : this.t(messages[state] || "");
+    if (fix && state === "tracking") this.locationStatus = fix.outside ? this.t("You are outside Venice. Your real position is available with Return to my location; the route stays here.") : `${this.t("Location is on")} · ${this.t("Accuracy")} ±${Math.round(fix.accuracy)} m`;
+    const signature = `${this.lang}:${!!active}:${this.ready}:${this.locationAllowed()}`;
+    if (controls && signature !== this.locationControlsSignature) {
+      this.locationControlsSignature = signature;
+      controls.innerHTML = !this.locationAllowed() ? "" : `${active ? `<button data-action="location-return" ${!fix ? "disabled" : ""}>${this.t("Return to my location")}</button><button data-action="location-off">${this.t("Turn location off")}</button>` : `<button data-action="location" ${!this.ready ? "disabled" : ""}>${this.t("Show my location")}</button>`}<span class="fg-location-copy">${this.t("Your position stays on this device; it is not sent to the organiser.")}</span>`;
+      controls.querySelectorAll("[data-action]").forEach(button => { button.onclick = () => this.action(button.dataset.action); });
+    }
+    controls?.querySelector('[data-action="location-return"]')?.toggleAttribute("disabled", !fix || state === "stale");
+    this.renderStatus();
+  }
   locate() {
-    if (this.preview) return;
-    if (this.watch !== null) {
-      this.stopLocation();
-      this.render();
-      return;
-    }
-    if (!navigator.geolocation || !this.ready) {
-      this.locationStatus = !navigator.geolocation
-        ? this.t(
-            "Location is unavailable on this device. You can keep browsing.",
-            "Konum bu cihazda kullanılamıyor. Duraklara bakmaya devam edebilirsin.",
-          )
-        : this.t(
-            "Location requires an available map. Browsing still works.",
-            "Konum için haritanın yüklenmesi gerekiyor. Duraklara bakabilirsin.",
-          );
-      this.renderStatus();
-      return;
-    }
-    if (
-      !confirm(
-        this.t(
-          "Show your position only on this device? It is not sent to the organiser.",
-          "Konumun yalnızca bu cihazda gösterilsin mi? Organizatöre gönderilmez.",
-        ),
-      )
-    )
-      return;
-    this.locationStatus = "";
-    const generation = ++this.locationGeneration;
-    try {
-      this.watch = navigator.geolocation.watchPosition(
-        (p) => {
-          if (generation !== this.locationGeneration || this.watch === null || !this.map) return;
-          const coordinates = [p.coords.longitude, p.coords.latitude];
-          if (!this.locationPin)
-            this.locationPin = new maplibregl.Marker({ color: "#275c94" })
-              .setLngLat(coordinates).addTo(this.map);
-          else this.locationPin.setLngLat(coordinates);
-          this.locationStatus = "";
-          this.renderStatus();
-        },
-        () => {
-          if (generation !== this.locationGeneration) return;
-          this.stopLocation();
-          this.locationStatus = this.t(
-            "Location unavailable. You can keep browsing.",
-            "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
-          );
-          this.render();
-        },
-        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-      );
-    } catch {
-      if (generation === this.locationGeneration) {
-        this.stopLocation();
-        this.locationStatus = this.t(
-          "Location unavailable. You can keep browsing.",
-          "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
-        );
-      }
-    }
-    this.render();
+    if (this.preview || this.disposed || this.locationEngine.active) return;
+    this.cameraMode = "free"; this.cameraTouched = !!this.modalMode; this.locationFirstFix = true;
+    this.locationEngine.start(this.map);
   }
-  stopLocation() {
-    this.locationGeneration++;
-    if (this.watch !== null) navigator.geolocation.clearWatch(this.watch);
-    this.watch = null;
-    this.locationPin?.remove();
-    this.locationPin = null;
-    this.locationStatus = "";
+  paintLocation(fix, map) {
+    if (this.disposed || !this.locationEngine.active || map !== this.map || !this.ready || !this.mapVisible()) { if (this.locationEngine.active) this.stopLocation("suspended"); return; }
+    if (!this.locationPin) {
+      const element = document.createElement("div"); element.className = "fg-location-dot"; element.setAttribute("aria-label", this.t("Location is on"));
+      this.locationPin = new maplibregl.Marker({ element }).setLngLat(fix.coordinates).addTo(map);
+    } else this.locationPin.setLngLat(fix.coordinates);
+    const data = accuracyGeometry(fix);
+    if (!map.getSource("fg-gps-accuracy")) {
+      map.addSource("fg-gps-accuracy", { type: "geojson", data });
+      map.addLayer({ id: "fg-gps-accuracy-fill", type: "fill", source: "fg-gps-accuracy", paint: { "fill-color": "#2454d4", "fill-opacity": 0.1 } });
+      map.addLayer({ id: "fg-gps-accuracy-line", type: "line", source: "fg-gps-accuracy", paint: { "line-color": "#2454d4", "line-opacity": 0.5, "line-width": 1 } });
+    } else map.getSource("fg-gps-accuracy").setData(data);
+    if (!this.modalMode && (this.cameraMode === "follow" || (this.locationFirstFix && !this.cameraTouched && !fix.outside && !map.getBounds().contains(fix.coordinates)))) this.focusLocation(fix);
+    this.locationFirstFix = false;
+    this.renderLocation();
   }
+  focusLocation(fix) {
+    const zoom = fix.accuracy > 1000 ? 12 : fix.accuracy > 200 ? 14 : fix.accuracy > 70 ? 15 : 16;
+    this.map.easeTo({ center: fix.coordinates, zoom, duration: reduced() ? 0 : 250 });
+  }
+  returnToLocation() {
+    const fix = this.locationEngine.fix;
+    if (!fix || this.locationState !== "tracking" || !this.ready || this.modalMode) return;
+    this.cameraMode = "follow"; this.focusLocation(fix);
+  }
+  clearLocationPresentation() {
+    this.cameraMode = "free";
+    this.locationPin?.remove(); this.locationPin = null;
+    if (!this.map) return;
+    for (const id of ["fg-gps-accuracy-line", "fg-gps-accuracy-fill"]) if (this.map.getLayer(id)) this.map.removeLayer(id);
+    if (this.map.getSource("fg-gps-accuracy")) this.map.removeSource("fg-gps-accuracy");
+  }
+  stopLocation(state = "off") { this.locationEngine.stop(state); }
   destroy() {
+    this.disposed = true;
+    this.el(".fg-dialog").removeEventListener("keydown", this.dialogKeyboard);
+    if (this.el(".fg-dialog").open) this.el(".fg-dialog").close();
+    cancelAnimationFrame(this.resizeFrame);
+    removeEventListener("popstate", this.popstate);
+    removeEventListener("pagehide", this.pagehide);
+    removeEventListener("pageshow", this.pageshow);
     this.mapGeneration = (this.mapGeneration || 0) + 1;
     clearTimeout(this.mapFailureTimer);
     this.stopLocation();

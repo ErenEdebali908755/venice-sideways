@@ -80,9 +80,9 @@ with sync_playwright() as playwright:
             check(page.locator('[data-action="focus"]').count() == 1,
                   f"{language}/{width}: active stop control")
             page.locator('[data-action="list"]').click()
-            check(page.locator(".fg-stop-list button").count() >= 11,
+            check(page.locator(".fg-stop-list [data-step]").count() >= 11,
                   f"{language}/{width}: all stops remain selectable")
-            page.locator(".fg-stop-list button").last.click()
+            page.locator(".fg-stop-list [data-step]").last.click()
             check(page.locator(".fg-stop-copy h1").is_visible(),
                   f"{language}/{width}: last stop selection")
 

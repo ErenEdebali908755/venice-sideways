@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
   <title id="title">Venice Sideways · Yana</title>
-  <rect x="1" y="1" width="62" height="62" rx="14" fill="#fff7ea"/>
-  <path d="M8 33.5C21 14 43 14 56 33.5" fill="none" stroke="#831d4f" stroke-width="5" stroke-linecap="round"/>
-  <path d="M8 35C21 53 43 53 56 35" fill="none" stroke="#007e78" stroke-width="5" stroke-linecap="round"/>
-  <circle cx="39" cy="33" r="9" fill="#f18a3c"/>
-  <circle cx="42" cy="30" r="2.5" fill="#fff7ea"/>
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#f4f2ed"/>
+  <path d="M8 33.5C21 14 43 14 56 33.5" fill="none" stroke="#222222" stroke-width="5" stroke-linecap="round"/>
+  <path d="M8 35C21 53 43 53 56 35" fill="none" stroke="#222222" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="39" cy="33" r="9" fill="#222222"/>
+  <circle cx="42" cy="30" r="2.5" fill="#f4f2ed"/>
 </svg>

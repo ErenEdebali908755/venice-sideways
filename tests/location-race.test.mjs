@@ -1,106 +1,54 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {FieldGuide} from '../public/field-guide/guide.js';
-
-test('a stopped location watch cannot recreate a pin or interrupt a newer watch',()=>{
-  const previous=new Map(['navigator','confirm','maplibregl'].map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
-  const watches=[];
-  const cleared=[];
-  let created=0,removed=0;
-  class Marker {
-    constructor(){created++}
-    addTo(){assert.ok(this.coordinates,'setLngLat must precede addTo');return this}
-    setLngLat(value){this.coordinates=value;return this}
-    remove(){removed++}
-  }
-  try {
-    Object.defineProperty(globalThis,'navigator',{configurable:true,value:{geolocation:{
-      watchPosition(success,error){watches.push({success,error});return watches.length},
-      clearWatch(id){cleared.push(id)},
-    }}});
-    Object.defineProperty(globalThis,'confirm',{configurable:true,value:()=>true});
-    Object.defineProperty(globalThis,'maplibregl',{configurable:true,value:{Marker}});
-    const guide=Object.assign(Object.create(FieldGuide.prototype),{
-      preview:false,ready:true,watch:null,locationGeneration:0,locationPin:null,map:{},
-      t:(english)=>english,render:()=>{},renderStatus:()=>{},mapError:'',locationStatus:'',
-    });
-    guide.locate();
-    assert.equal(guide.watch,1);
-    guide.stopLocation();
-    watches[0].success({coords:{longitude:12.32,latitude:45.44}});
-    assert.equal(guide.locationPin,null,'late success cannot reveal a stopped position');
-    assert.equal(created,0);
-
-    guide.locate();
-    assert.equal(guide.watch,2);
-    watches[0].error();
-    assert.equal(guide.watch,2,'late error cannot stop a new watch');
-    assert.equal(guide.mapError,'');
-    assert.equal(guide.locationStatus,'');
-    watches[1].success({coords:{longitude:12.33,latitude:45.43}});
-    assert.deepEqual(guide.locationPin.coordinates,[12.33,45.43]);
-    guide.stopLocation();
-    watches[1].success({coords:{longitude:12.34,latitude:45.42}});
-    assert.equal(guide.locationPin,null);
-    assert.equal(created,1);
-    assert.equal(removed,1);
-    assert.deepEqual(cleared,[1,2]);
-  } finally {
-    for(const [name,descriptor] of previous)
-      if(descriptor)Object.defineProperty(globalThis,name,descriptor);
-      else delete globalThis[name];
-  }
+import {LocationEngine,locationCapability,validFix,accuracyGeometry} from '../public/field-guide/location-engine.js';
+function fixture(extra={}){
+ let time=1790000000000,seq=0;const jobs=new Map(),calls=[],cleared=[],fixes=[],states=[];
+ const timers={setTimeout(fn,delay){const id=++seq;jobs.set(id,{fn,at:time+delay});return id},clearTimeout(id){jobs.delete(id)}};
+ const geolocation={watchPosition(success,error,options){calls.push({success,error,options});return calls.length},clearWatch(id){cleared.push(id)}};
+ const engine=new LocationEngine({allowed:()=>true,geolocation,timers,now:()=>time,onFix:(fix,id)=>fixes.push({fix,id}),onState:state=>states.push(state),...extra});
+ const position=(longitude=12.33,accuracy=20,timestamp=time)=>({coords:{longitude,latitude:45.44,accuracy},timestamp});
+ const tick=duration=>{time+=duration;for(const [id,job]of[...jobs])if(job.at<=time){jobs.delete(id);job.fn()}};
+ return {engine,jobs,calls,cleared,fixes,states,position,tick,now:()=>time};
+}
+test('capability requires public context and exact host; archive, preview and lookalike hosts are excluded',()=>{
+ const base={publicLocation:true,preview:false,secure:true,supported:true};
+ assert.equal(locationCapability({...base,host:'venicesideways.com'}),true);
+ for(const host of ['erenedebali.com','admin.venicesideways.com','venicesideways.com.evil.test','venicesideways.test','localhost'])assert.equal(locationCapability({...base,host}),false,host);
+ assert.equal(locationCapability({...base,host:'localhost',secure:false,localTest:true}),true);
+ for(const change of [{publicLocation:false},{preview:true},{secure:false},{supported:false}])assert.equal(locationCapability({...base,host:'venicesideways.com',...change}),false);
 });
-
-test('GPS denial, timeout and unsupported location leave a working map without map retry',()=>{
-  const names=['navigator','document','confirm'];
-  const previous=new Map(names.map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
-  const watches=[];
-  const map={};
-  const status={
-    message:'',children:[],hidden:false,
-    set textContent(value){this.message=value;this.children=[]},
-    get textContent(){return this.message},
-    append(child){this.children.push(child)},
-  };
-  try {
-    Object.defineProperty(globalThis,'navigator',{configurable:true,value:{online:true,onLine:true,geolocation:{
-      watchPosition(success,error){watches.push({success,error});return watches.length},
-      clearWatch(){},
-    }}});
-    Object.defineProperty(globalThis,'document',{configurable:true,value:{createElement:()=>({})}});
-    Object.defineProperty(globalThis,'confirm',{configurable:true,value:()=>true});
-    const guide=Object.assign(Object.create(FieldGuide.prototype),{
-      preview:false,ready:true,watch:null,locationGeneration:0,locationPin:null,
-      map,mapError:'',locationStatus:'',t:(english)=>english,
-      el:()=>status,
-    });
-    guide.render=()=>guide.renderStatus();
-    for(const code of [1,2,3]){
-      guide.locate();
-      assert.equal(guide.watch,watches.length);
-      watches.at(-1).error({code});
-      assert.equal(guide.watch,null);
-      assert.equal(guide.ready,true);
-      assert.equal(guide.map,map);
-      assert.match(status.message,/Location unavailable/);
-      assert.equal(status.children.length,0,'GPS error must not offer map retry');
-      assert.equal(guide.mapError,'');
-    }
-    globalThis.navigator.geolocation=undefined;
-    guide.locate();
-    assert.match(status.message,/Location is unavailable on this device/);
-    assert.equal(status.children.length,0,'unsupported GPS must not offer map retry');
-    assert.equal(guide.ready,true);
-    assert.equal(guide.map,map);
-
-    guide.mapError='Map unavailable';
-    guide.renderStatus();
-    assert.equal(status.children.length,1,'an actual map error still offers retry');
-    assert.equal(status.children[0].textContent,'Retry map');
-  } finally {
-    for(const [name,descriptor] of previous)
-      if(descriptor)Object.defineProperty(globalThis,name,descriptor);
-      else delete globalThis[name];
-  }
+test('explicit start owns one watch; stop clears coordinates, timers and late callbacks without interrupting a new watch',()=>{
+ const f=fixture(),oldMap={},newMap={};assert.equal(f.calls.length,0);
+ f.engine.start(oldMap);f.engine.start(oldMap);assert.equal(f.calls.length,1);assert.equal(f.calls[0].options.enableHighAccuracy,false);
+ f.engine.stop();f.calls[0].success(f.position());assert.equal(f.fixes.length,0);assert.equal(f.engine.fix,null);assert.equal(f.jobs.size,0);
+ f.engine.start(newMap);f.calls[0].error({code:1});assert.equal(f.engine.state,'requesting');
+ f.calls[1].success(f.position());assert.equal(f.fixes.length,1);assert.equal(f.fixes[0].id,newMap);assert.deepEqual(f.fixes[0].fix.coordinates,[12.33,45.44]);
+ f.engine.stop('suspended');f.calls[1].success(f.position(12.4));assert.equal(f.fixes.length,1);
+ assert.equal(f.engine.fix,null);assert.equal(f.engine.pending,null);assert.equal(f.jobs.size,0);assert.deepEqual(f.cleared,[1,2]);assert.equal(f.engine.state,'suspended');
+});
+test('invalid, old, reversed and future fixes are rejected; coalescing preserves the newest fix and stale state is truthful',()=>{
+ const f=fixture();f.engine.start({});
+ for(const p of [f.position(NaN),f.position(181),f.position(12.33,0),f.position(12.33,100001),f.position(12.33,20,f.now()-30001),f.position(12.33,20,f.now()+5001)])f.calls[0].success(p);
+ assert.equal(f.fixes.length,0);f.calls[0].success(f.position());assert.equal(f.fixes.length,1);
+ f.tick(100);f.calls[0].success(f.position(12.34));f.tick(100);f.calls[0].success(f.position(12.35));f.calls[0].success(f.position(12.36,20,f.now()-100));assert.equal(f.fixes.length,1);
+ f.tick(800);assert.equal(f.fixes.length,2);assert.deepEqual(f.fixes.at(-1).fix.coordinates,[12.35,45.44]);
+ f.tick(30000);assert.equal(f.engine.state,'stale');f.calls[0].success(f.position(12.37));assert.equal(f.engine.state,'tracking');f.engine.stop();
+});
+test('denied/unavailable/timeout are GPS states; absent or throwing Permission API does not block start',()=>{
+ for(const [code,state]of [[1,'denied'],[2,'unavailable'],[3,'timeout']]){const f=fixture();f.engine.start({});f.calls[0].error({code});assert.equal(f.engine.state,state);assert.equal(f.engine.watch,null);assert.equal(f.jobs.size,0)}
+ const bounded=fixture();bounded.engine.start({});bounded.tick(16000);assert.equal(bounded.engine.state,'timeout');assert.equal(bounded.engine.watch,null);
+ const unavailable=fixture({allowed:()=>false});unavailable.engine.start({});assert.equal(unavailable.engine.state,'unsupported');assert.equal(unavailable.calls.length,0);
+ const optional=fixture({permissions:{query(){throw Error('not supported')}}});optional.engine.start({});assert.equal(optional.engine.state,'requesting');assert.equal(optional.calls.length,1);optional.engine.stop();
+});
+test('synchronous denial cannot leave a watcher running',()=>{
+ const cleared=[];const engine=new LocationEngine({allowed:()=>true,geolocation:{watchPosition(success,error){error({code:1});return 42},clearWatch(id){cleared.push(id)}}});
+ engine.start({});assert.equal(engine.state,'denied');assert.equal(engine.watch,null);assert.deepEqual(cleared,[42]);
+});
+test('a hidden or removed map can stop during paint without leaving a timer or touching the cleared fix',()=>{
+ const f=fixture();f.engine.onFix=()=>f.engine.stop('suspended');f.engine.start({});
+ assert.doesNotThrow(()=>f.calls[0].success(f.position()));assert.equal(f.engine.state,'suspended');assert.equal(f.engine.fix,null);assert.equal(f.jobs.size,0);assert.deepEqual(f.cleared,[1]);
+});
+test('outside Venice stays truthful and the accuracy circle uses longitude then latitude',()=>{
+ const fix=validFix({coords:{longitude:28.97,latitude:41.01,accuracy:50},timestamp:100000},100000);assert.equal(fix.outside,true);assert.deepEqual(fix.coordinates,[28.97,41.01]);
+ const ring=accuracyGeometry(fix).geometry.coordinates[0];assert.deepEqual(ring[0],ring.at(-1));assert.ok(Math.abs(ring[0][0]-28.97)<.001);
 });
