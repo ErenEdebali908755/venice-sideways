@@ -765,6 +765,7 @@ body {
 }
 
 /* Gallery and map share one guide; a single native dialog owns modal focus. */
+.fg[data-view="walk"] .fg-dialog .fg-photo-missing { display:block; font-size:14px; }
 .fg-photo-full img { width:auto; max-width:100%; margin-inline:auto; aspect-ratio: auto; height: auto; max-height: 62dvh; object-fit: contain; }
 .fg-photo-cover img { aspect-ratio: 4 / 3; object-fit: cover; }
 .fg .fg-open-photo { display:block; width:100%; padding:0; border:0; border-radius:0; background:transparent; text-align:left; }

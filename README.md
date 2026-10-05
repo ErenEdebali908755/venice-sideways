@@ -2,7 +2,20 @@
 
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
-**Yayın durumu, 5 Ekim 2026:** [GitHub PR #5](https://github.com/ErenEdebali908755/venice-sideways/pull/5) CI `37241092165` geçtikten sonra `6d3d365078f1a8b1475e0f570fe6895c644309b7` olarak ana dala birleşti. Railway `a58d3f86-3994-46a1-ac1d-84545a7111ae` SUCCESS; gerçek canlı Main/Full dört soğuk açılış, gerçek karolar, üç yapı/iki bahçe, 11/28 fotoğraf durağı, sekiz dil, tema, konum reddi ve dosya/önbellek doğrulaması 7/7 geçti. Admin de `b952dd21` ile gerçek Chrome owner/Sideways kabulünden geçti. Kod dağıtımı, adminin rota snapshot'ını veya 11 Ekim taslak etkinliğini yayımlamaz. [Türkçe sistem rehberi](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VENICE-SIDEWAYS-SYSTEM.md), [güncel durum](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) ve [sonuç raporu](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/SIDEWAYS-RELEASE-20261005.md).
+## Birleşik güncelleme — 5 Ekim 2026
+
+Arşiv ölçümü/About ve Sideways nötr galeri/medya/GPS çalışmasının esas kaydı [birleşik sonuç raporudur](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/COMBINED-RELEASE-20261005.md). [Belge dizini](docs/README.md), iki sitenin tek [CURRENT-STATE kaydı](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) ve [admin belge dizini](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/README.md) bu aşamayı birlikte izler. Aşağıdaki eski dağıtım kimlikleri bu yeni çalışmanın canlı kabulü değildir.
+
+| Alan | 5 Ekim yerel/test durumu | Yeni canlı kabul |
+| --- | --- | --- |
+| Venice Sideways | 36 test, 37 JS syntax/privacy kontrolü, 633 galeri kontrolü; observer/permission eklenmiş ayrı yerel çalışmada 597 kontrol. Shared renderer admin ile eşit. | Bekliyor. Commit: **PENDING**; deployment: **PENDING**; canlı kabul raporu/tarihi: **PENDING**. |
+| Arşiv/admin | Birleşik raporda kayıtlı 342 test, TypeScript/tam üretim derlemesi, ayrı PostgreSQL/media ve gerçek React/Chrome kabulü geçti. | Bekliyor. Admin dağıtım/migration/gerçek oturum kapısı esas CURRENT-STATE ve birleşik raporda doldurulur. |
+| İçerik | Geçici gerçek public photo 3/6/18 seçkisi yalnız görsel referanstır; ilgili Venedik durağında çekildiği doğrulanmış değildir. | Rota/etkinlik yayımlama ve kayıt açma ayrı işlemdir. |
+| Cihaz ve fotoğraf kapsamı | Gerçek seçki portredir. Yatay/panorama yalnız açıkça etiketli sentetik geometri fixture'larıdır. | Fiziksel iPhone/Android GPS ve batarya ile gerçek yatay/panorama seçki kabulü bekliyor. |
+
+[Ziyaretçi uygulama ve beş önizleme kanıtı](docs/2026-10-05-gallery-location.md). Canlı çalıştırıcı bu aşamada kapalıdır; yeni kimlikler ve gerçek sonuçlar release kapısından sonra doldurulur.
+
+**Önceki yayın, 5 Ekim 2026:** [GitHub PR #5](https://github.com/ErenEdebali908755/venice-sideways/pull/5) CI `37241092165` geçtikten sonra `6d3d365078f1a8b1475e0f570fe6895c644309b7` olarak ana dala birleşti. Railway `a58d3f86-3994-46a1-ac1d-84545a7111ae` SUCCESS; gerçek canlı Main/Full dört soğuk açılış, gerçek karolar, üç yapı/iki bahçe, 11/28 fotoğraf durağı, sekiz dil, tema, konum reddi ve dosya/önbellek doğrulaması 7/7 geçti. Admin de `b952dd21` ile gerçek Chrome owner/Sideways kabulünden geçti. Kod dağıtımı, adminin rota snapshot'ını veya 11 Ekim taslak etkinliğini yayımlamaz. [Türkçe sistem rehberi](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VENICE-SIDEWAYS-SYSTEM.md), [tarihsel sonuç raporu](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/SIDEWAYS-RELEASE-20261005.md).
 
 This repository contains the walk guide and the public event registration page. The Node server relays only fixed public route, opt-in anonymous statistics and event endpoints to the separate Sideways service in the Payload application. It has no database credentials, admin session, personal gallery data or private Git history. The link to Eren's archive is an ordinary outbound link. Main Walk has 11 photo stops and Full Walk has 28; both use five photo ideas per stop and eight UI/content locales (`en`, `tr`, `it`, `ru`, `fr`, `zh`, `ja`, `ko`).
 
@@ -31,7 +44,7 @@ Attach `venicesideways.com` and use the exact DNS records returned by the host. 
 
 ## Own location only
 
-Location starts **off**. A visitor explicitly selects **My location / Konumum**, confirms that it is device-only, and grants browser permission. The live guide draws only that device's marker; **Stop location / Konumu kapat** clears its watcher and marker. Hidden pages stop tracking; a late position callback cannot restart a stopped watcher. Denial or timeout leaves map and stop browsing usable. The location-error versus map-error correction passed the shared-renderer sync and live denial check: the map stayed ready with no location pin or map-retry control.
+Location starts **off**. A visitor explicitly selects **Show my location / Konumumu göster** and grants browser permission. The device-only explanation is beside the control. The guide draws one marker and an accuracy circle; **Turn location off / Konumu kapat** clears its watcher, marker, circle and temporary fix. Hidden pages and hidden maps stop tracking; returning does not restart it. Late callbacks cannot revive a stopped watcher. Denial or timeout leaves browsing usable. Gallery inspection and manual pan suspend camera following; only **Return to my location / Konumuma dön** resumes it. Local lifecycle/denial tests passed; current release live and physical-device acceptance remains in the table above.
 
 Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or other visitors. There is no organiser dashboard or location endpoint. Normal map-tile requests can reveal the area displayed to the map provider; browser/OS services may perform their own lookups. HTTPS and user permission are required. Background/lock-screen tracking is not guaranteed.
 
@@ -42,7 +55,7 @@ Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or
 - On phones, settings and nearby-place filters open in separate panels; route and location controls sit below the map.
 - Dark page controls with a permanently light basemap.
 - Separate walking and waterbus navigation; all stops retained across exported links.
-- OpenFreeMap / OpenStreetMap / MapLibre. The live design includes three original landmark drawings and two attributed OSM garden polygons; photo cards without an owned photo remain empty.
+- OpenFreeMap / OpenStreetMap / MapLibre, three original landmark drawings and two attributed OSM garden polygons. A curated stop gallery takes precedence; otherwise the authorized temporary selection is explicitly labeled. The empty-gallery state is separately tested.
 
 ## Migration safety
 

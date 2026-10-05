@@ -58,6 +58,11 @@ try{
   check(await page.evaluate(()=>__gpsCalls.length===0),label+': gallery/language/theme do not start GPS');
   if(language==='tr'&&width===390){await page.locator('[data-inspect]').first().click();await page.screenshot({path:resolve(output,'gallery-mobile-tr.png')});await page.keyboard.press('Escape');await page.waitForFunction(()=>!guide.modalMode)}
   if(language==='en'&&width===1440){await page.locator('[data-inspect]').first().click();await page.screenshot({path:resolve(output,'gallery-desktop-en.png')});await page.keyboard.press('Escape');await page.waitForFunction(()=>!guide.modalMode)}
+  await page.evaluate(()=>{guide.referencePhotos=[];const visit=guide.route.visits.find(v=>v.key===guide.walkingStep);visit.gallery=[];guide.openDetail(visit.key)});
+  check(await page.locator('.fg-dialog .fg-photo-missing').isVisible(),label+': empty gallery message is visible');
+  await page.evaluate(()=>{const visit=guide.route.visits.find(v=>v.key===guide.walkingStep);visit.gallery=[{assetID:'fixture-image-error',order:0,sourceLanguage:'en',copy:[{locale:'en',alt:'QA unavailable image fixture'}],derivatives:[{variant:'r900',url:location.origin+'/test/unavailable-gallery-image.jpg',width:900,height:600}]}];guide.openDetail(visit.key)});
+  await page.locator('.fg-gallery-stage .fg-photo-missing').waitFor({state:'visible'});
+  check(await page.locator('.fg-gallery-stage .fg-photo-missing').isVisible(),label+': failed image message is visible');
   await context.close();
  }
  const {page,context}=await open('en',1440,900);const payloads=[];page.on('request',request=>payloads.push({url:request.url(),body:request.postData()}));
@@ -83,7 +88,7 @@ try{
  await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));check(await page.evaluate(()=>guide.locationState==='suspended'&&guide.locationEngine.fix===null&&guide.watch===null),'GPS: BFCache pagehide clears tracking');
  const count=await page.evaluate(()=>__gpsCalls.length);await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));check(await page.evaluate(()=>__gpsCalls.length)===count,'GPS: BFCache pageshow does not restart');
  await page.evaluate(()=>{guide.referencePhotos=[];const visit=guide.route.visits.find(v=>v.key===guide.walkingStep);visit.gallery=[];guide.openDetail(visit.key)});
- check(await page.locator('.fg-dialog .fg-photo-missing').count()===1,'Gallery: zero photos has concise empty text');
+ check(await page.locator('.fg-dialog .fg-photo-missing').isVisible(),'Gallery: zero photos has visible concise empty text');
  await page.keyboard.press('Escape');await page.waitForFunction(()=>!guide.modalMode);
  await page.evaluate(()=>{const visit=guide.route.visits.find(v=>v.key===guide.walkingStep);visit.gallery=[{assetID:'fixture-landscape',order:1,cover:true,sourceLanguage:'en',copy:[{locale:'en',alt:'QA landscape geometry fixture'}],derivatives:[{variant:'r1600',url:location.origin+'/test/frame/landscape.svg',width:1800,height:1200}]}];guide.openDetail(visit.key)});
  check(await page.locator('.fg-thumbnails button').count()===1,'Gallery: single photo has one choice');
