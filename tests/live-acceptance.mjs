@@ -11,7 +11,7 @@ const locales=['en','tr','it','fr','ru','zh','ja','ko'];
 const draftSlug='main-walk-2026-10-11';
 const plan={target, cases:32, languages:locales, widths:[390,1440], routes:['main','full'],
   reads:['cold public pages','real provider style/tiles','route and event projections','owned public photo derivatives','draft event QR target'],
-  interactions:['manual gallery','browser Back','Escape and focus','native browser geolocation denial'],
+  interactions:['native mobile map tools','3D and 2D','fit route and return to active stop','manual gallery','browser Back','Escape and focus','native browser geolocation denial'],
   performance:'Observed startup requests, JS/image wire transfer and cache flags, gallery derivative loading, and any LCP entry; headless Chrome desktop lab, with no speed threshold or physical-mobile claim.',
   writes:'All browser methods except GET/HEAD are aborted; no form is filled or submitted.',
   gates:['SIDEWAYS_LIVE_ACCEPTANCE=approved-read-only','SIDEWAYS_EVENT_GET_VERIFIED_READ_ONLY=1'],
@@ -121,6 +121,32 @@ async function mapReady(page) {
   await page.waitForFunction(()=>window.__acceptanceMaps[0].loaded(),null,{timeout:25000});
   await page.evaluate(()=>window.__acceptanceMaps[0].stop());
 }
+async function mapControls(page,label,width) {
+  const active=await page.locator('.fg-pin').getAttribute('data-visit-key');
+  async function control(action) {
+    const button=page.locator(`[data-action="${action}"]`);
+    if(!await button.isVisible())await page.locator('.fg-map-options > summary').click();
+    check(await button.isVisible()&&await button.isEnabled(),label+': map '+action+' control is reachable');
+    return button;
+  }
+  await (await control('dimension')).click();
+  await page.waitForFunction(()=>document.querySelector('[data-action="dimension"]')?.getAttribute('aria-pressed')==='true'&&__acceptanceMaps[0].getPitch()>=49);
+  check(await page.evaluate(()=>__acceptanceMaps.length===1&&__acceptanceGPSStarts===0&&document.querySelectorAll('.fg-pin').length===1),label+': 3D keeps one map, active pin and zero GPS');
+  await (await control('dimension')).click();
+  await page.waitForFunction(()=>document.querySelector('[data-action="dimension"]')?.getAttribute('aria-pressed')==='false'&&__acceptanceMaps[0].getPitch()<0.1);
+  check(await page.evaluate(()=>__acceptanceMaps[0].getLayoutProperty('fg-landmark-overview','visibility')==='visible'&&__acceptanceMaps[0].getLayoutProperty('fg-landmark-detail','visibility')==='visible'),label+': 2D restores illustrated landmark layers');
+  await (await control('fit')).click();
+  await page.waitForFunction(()=>!__acceptanceMaps[0].isMoving());
+  check(await page.evaluate(active=>__acceptanceMaps.length===1&&__acceptanceGPSStarts===0&&__acceptanceMaps[0].getZoom()<=16.01&&document.querySelectorAll('.fg-pin').length===1&&document.querySelector('.fg-pin')?.dataset.visitKey===active,active),label+': fit frames route without showing hidden stops');
+  await (await control('focus')).click();
+  await page.waitForFunction(()=>!__acceptanceMaps[0].isMoving()&&__acceptanceMaps[0].getZoom()>=16.4);
+  check(await page.locator('.fg-pin').getAttribute('data-visit-key')===active&&await page.locator('.fg-pin').count()===1,label+': focus returns to the same active stop');
+  if(width<=900) {
+    const options=page.locator('.fg-map-options');
+    if(await options.getAttribute('open')!==null)await options.locator('summary').click();
+    check(await options.getAttribute('open')===null,label+': native mobile map tools close');
+  }
+}
 async function facts(page) {
   return page.evaluate(async()=>{
     const map=window.__acceptanceMaps[0],style=map.getStyle();
@@ -187,8 +213,10 @@ try {
       const response=await page.goto(`${target}/?lang=${language}#route=${routeKey}`,{waitUntil:'domcontentloaded',timeout:30000});
       check(response?.status()===200,label+': cold page');
       check(/geolocation=\(self\)/.test(response?.headers()['permissions-policy']||''),label+': own-origin permission policy');
-      await mapReady(page);check(await page.locator('.fg-offline-banner').count()===0,label+': published route loaded');
+      await mapReady(page);
+      check(await page.locator('.fg-offline-banner').count()===0&&await page.locator('.fg-bundled-notice').count()===0,label+': published route loaded without bundled fallback');
       record.startup=await measurements.snapshot();
+      await mapControls(page,label,width);
       await page.locator('[data-action="list"]').click();const state=await facts(page);
       record.facts=state;check(state.language===language,label+': selected language');check(state.paper==='rgb(244, 242, 237)',label+': neutral paper');
       check(state.maps===1&&state.gps===0,label+': one map and zero initial GPS');
