@@ -1,6 +1,37 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
+export const ART_ASSETS = [
+  {
+    "kind": "station",
+    "url": "/field-guide/art/santa-lucia-0c26a4e5d8a5.png",
+    "width": 272,
+    "height": 92,
+    "pixelRatio": 2
+  },
+  {
+    "kind": "bridge",
+    "url": "/field-guide/art/accademia-b7311850aa62.png",
+    "width": 272,
+    "height": 106,
+    "pixelRatio": 2
+  },
+  {
+    "kind": "dogana",
+    "url": "/field-guide/art/punta-della-dogana-469b12b37835.png",
+    "width": 272,
+    "height": 240,
+    "pixelRatio": 2
+  },
+  {
+    "kind": "garden-leaves",
+    "url": "/field-guide/art/botanical-pattern-d8e4508b8432.png",
+    "width": 128,
+    "height": 128,
+    "pixelRatio": 1
+  }
+];
+
 export const MAIN_LANDMARKS = [
   { key: "lucia", icon: "station", coordinatesFrom: "lucia" },
   { key: "accademia", icon: "bridge", coordinatesFrom: "accademia" },
@@ -47,13 +78,13 @@ export function watercolorStyle(base) {
   style.name = "Venice Sideways · watercolor field guide";
   style.metadata = { ...style.metadata, "venice-sideways:base": BASE_STYLE };
   const colors = {
-    background: { "background-color": "#f8f1e6" },
-    park: { "fill-color": "#bfd8bc" },
+    background: { "background-color": "#F4F2ED" },
+    park: { "fill-color": "#CBD6BC" },
     landcover_wood: { "fill-color": "#a6c8ac" },
     landuse_residential: { "fill-color": "#f2e9db" },
-    water: { "fill-color": "#b7d7e2" },
+    water: { "fill-color": "#B7DBE8" },
     waterway: { "line-color": "#8ab8cb" },
-    building: { "fill-color": "#ead8c4", "fill-outline-color": "#d8bfa8" },
+    building: { "fill-color": "#E6D9C9", "fill-outline-color": "#d8bfa8" },
     road_area_pier: { "fill-color": "#fcf7ed" },
     road_pier: { "line-color": "#fcf7ed" },
     highway_path: { "line-color": "#fffaf2" },
@@ -61,9 +92,9 @@ export function watercolorStyle(base) {
     highway_major_inner: { "line-color": "#fffaf2" },
     highway_motorway_inner: { "line-color": "#fffaf2" },
     highway_motorway_bridge_inner: { "line-color": "#fffaf2" },
-    water_name_line_label: { "text-color": "#406f86", "text-halo-color": "#f8f1e6" },
-    water_name_point_label: { "text-color": "#406f86", "text-halo-color": "#f8f1e6" },
-    label_other: { "text-color": "#59493f", "text-halo-color": "#f8f1e6" },
+    water_name_line_label: { "text-color": "#406f86", "text-halo-color": "#F4F2ED" },
+    water_name_point_label: { "text-color": "#406f86", "text-halo-color": "#F4F2ED" },
+    label_other: { "text-color": "#59493f", "text-halo-color": "#F4F2ED" },
   };
   for (const layer of style.layers) {
     if (colors[layer.id]) layer.paint = { ...layer.paint, ...colors[layer.id] };
@@ -110,7 +141,7 @@ function illustration(kind) {
   ctx.beginPath();
   ctx.ellipse(48, 52, 39, 32, -0.1, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = "#b7d7e288";
+  ctx.fillStyle = "#B7DBE888";
   ctx.beginPath();
   ctx.ellipse(48, 72, 35, 9, 0, 0, Math.PI * 2);
   ctx.fill();
@@ -178,12 +209,53 @@ function gardenIcon() {
   return ctx.getImageData(0, 0, 64, 64);
 }
 
+// Optional illustration failures never decide route or GPS readiness. Each style
+// has its own source identity; a late image cannot mutate a replacement style.
+const artworkState = new WeakMap();
+function assetSizedFallback(image, asset) {
+  const source = document.createElement("canvas");
+  source.width = image.width; source.height = image.height;
+  source.getContext("2d").putImageData(image, 0, 0);
+  const target = document.createElement("canvas");
+  target.width = asset.width; target.height = asset.height;
+  const scale = Math.min(asset.width / image.width, asset.height / image.height);
+  const width = image.width * scale, height = image.height * scale;
+  target.getContext("2d").drawImage(source, (asset.width - width) / 2, asset.height - height, width, height);
+  return target.getContext("2d").getImageData(0, 0, asset.width, asset.height);
+}
+export function loadWatercolorImages(map, kinds) {
+  let state = artworkState.get(map);
+  if (!state || state.source !== map.getSource("fg-landmarks")) {
+    state = { source: map.getSource("fg-landmarks"), pending: new Map() };
+    artworkState.set(map, state);
+  }
+  if (!state.source || typeof map.loadImage !== "function") return Promise.resolve([]);
+  return Promise.all(kinds.map(kind => {
+    if (state.pending.has(kind)) return state.pending.get(kind);
+    const asset = ART_ASSETS.find(item => item.kind === kind);
+    if (!asset) return Promise.resolve(false);
+    const id = kind === "garden-leaves" ? "fg-garden-leaves" : `fg-art-${kind}`;
+    const task = map.loadImage(asset.url).then(image => {
+      if (artworkState.get(map) !== state || map.getSource("fg-landmarks") !== state.source || !map.hasImage(id)) return false;
+      // updateImage requires the same dimensions as its registered fallback.
+      if (image.data.width !== asset.width || image.data.height !== asset.height) return false;
+      map.updateImage(id, image.data);
+      return true;
+    }).catch(() => false);
+    state.pending.set(kind, task);
+    return task;
+  }));
+}
+
 export function addWatercolorLayers(map) {
   const style = map.getStyle();
   if (!style?.sources?.openmaptiles || map.getSource("fg-landmarks")) return false;
-  for (const kind of ["station", "bridge", "dogana"])
-    map.addImage(`fg-art-${kind}`, illustration(kind), { pixelRatio: 2 });
-  map.addImage("fg-garden-leaves", gardenPattern());
+  for (const kind of ["station", "bridge", "dogana"]) {
+    const asset = ART_ASSETS.find(item => item.kind === kind);
+    map.addImage(`fg-art-${kind}`, assetSizedFallback(illustration(kind), asset), { pixelRatio: asset.pixelRatio });
+  }
+  const pattern = ART_ASSETS.find(item => item.kind === "garden-leaves");
+  map.addImage("fg-garden-leaves", assetSizedFallback(gardenPattern(), pattern), { pixelRatio: pattern.pixelRatio });
   map.addImage("fg-garden-icon", gardenIcon(), { pixelRatio: 2 });
   map.addSource("fg-landmarks", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
   map.addSource("fg-gardens", {
@@ -215,12 +287,17 @@ export function addWatercolorLayers(map) {
   ]) map.addLayer({
     id, type: "symbol", source: "fg-landmarks", minzoom, maxzoom, filter,
     layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
-      "icon-size": 1, "icon-anchor": "bottom", "icon-allow-overlap": true,
+      "icon-size": 0.75, "icon-anchor": "bottom", "icon-allow-overlap": false,
       "icon-ignore-placement": false, "symbol-sort-key": 10 },
   });
+  // Route strokes are above decoration even after a provider style reset.
+  for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-garden-label"])
+    if (map.getLayer("fg-halo")) map.moveLayer(id, "fg-halo");
+  void loadWatercolorImages(map, ["garden-leaves"]);
   return true;
 }
 
 export function setWatercolorLandmarks(map, route) {
   map.getSource("fg-landmarks")?.setData({ type: "FeatureCollection", features: landmarkFeatures(route) });
+  if (route?.key === "main") void loadWatercolorImages(map, ["station", "bridge", "dogana"]);
 }

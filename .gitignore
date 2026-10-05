@@ -1,4 +1,5 @@
 node_modules/
 .env*
 qa-output/
+docs/qa-gallery/
 __pycache__/

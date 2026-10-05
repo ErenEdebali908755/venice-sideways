@@ -3,9 +3,11 @@
   "short_name": "Sideways",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#fff7ea",
-  "theme_color": "#831d4f",
+  "background_color": "#f4f2ed",
+  "theme_color": "#222222",
   "icons": [
+    {"src":"/android-chrome-192x192.png","sizes":"192x192","type":"image/png"},
+    {"src":"/android-chrome-512x512.png","sizes":"512x512","type":"image/png"},
     {
       "src": "/favicon.svg",
       "sizes": "any",

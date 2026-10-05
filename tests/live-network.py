@@ -70,7 +70,7 @@ try:
                 if urlparse(request.url).netloc == urlparse(base).netloc else None)
         if not remote:
             page.route("**/*", fixture)
-        response = page.goto(base + "/?lang=tr", wait_until="domcontentloaded", timeout=45000)
+        response = page.goto(base + ("/?lang=tr" if remote else "/?lang=tr&gps-test=1"), wait_until="domcontentloaded", timeout=45000)
         check(response.status == 200, "Main document returns 200")
         page.locator(".fg-route-card").first.wait_for()
         check(page.locator(".fg-route-card").count() == 2, "Main and Full Walk available")
@@ -84,7 +84,16 @@ try:
               "Main Walk opens")
         check(page.locator(".fg-pin").count() == 1, "Only active stop has a map marker")
         check(page.locator(".fg-stop-copy h1").is_visible(), "Active stop copy visible")
-        page.locator('[data-action="fit"]').click()
+        map_options = page.locator('.fg-map-options')
+        fit = page.locator('[data-action="fit"]')
+        if not fit.is_visible():
+            map_options.locator('summary').click()
+        check(fit.is_visible(), "Whole route control is reachable through mobile map tools")
+        fit.click()
+        if map_options.locator('summary').is_visible() and map_options.get_attribute('open') is not None:
+            map_options.locator('summary').click()
+        check(map_options.get_attribute('open') is None,
+              "Mobile map tools can close after fitting the route")
         page.evaluate("""() => {
             const canvas=document.querySelector('.maplibregl-canvas');
             canvas.dispatchEvent(new WheelEvent('wheel',{deltaY:200,bubbles:true}));
@@ -92,14 +101,14 @@ try:
         page.wait_for_timeout(200)
         check(page.locator(".fg-pin").count() == 1, "Fit and zoom keep one active marker")
         page.locator('[data-action="list"]').click()
-        check(page.locator(".fg-stop-list button").count() >= 11, "All stops remain selectable")
-        page.locator(".fg-stop-list button").last.click()
+        check(page.locator(".fg-stop-list [data-step]").count() >= 11, "All stops remain selectable")
+        page.locator(".fg-stop-list [data-step]").last.click()
         check(page.locator(".fg-pin").count() == 1, "Selecting another stop replaces marker")
         check(page.evaluate("window.__geoRequests") == 0, "Browsing never asks for GPS")
         page.locator('[data-action="location"]').click()
         check(poll(page, "() => window.__geoRequests === 1", 10),
               "Own position starts only after explicit action")
-        page.locator('[data-action="location"]').click()
+        page.locator('[data-action="location-off"]').click()
         check(page.evaluate("window.__geoRequests") == 1, "Own position can be stopped")
         for asset in ("/favicon.ico", "/favicon.svg", "/apple-touch-icon.png", "/site.webmanifest"):
             check(context.request.get(base + asset).status == 200, "Icon served: " + asset)
