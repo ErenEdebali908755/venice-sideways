@@ -2,14 +2,27 @@
 
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
-## Birleşik güncelleme — 5 Ekim 2026
+## Görsel ve mobil entegrasyon — 5 Ekim 2026
+
+**Yeni sürüm canlıya alınmadı.** Son çalışma iki ZIP paketindeki uygun native varlıkları mevcut rehbere entegre etti; üç mobil panel durumu, küçük/yatay ekran, Ayarlar, fotoğraf yeniden deneme, manuel bitiş, harita toparlanması ve etkinlik formu tamamlandı. Mevcut tek MapLibre/galeri/GPS ve ortak admin renderer korundu. [Yeni ziyaretçi raporu](docs/2026-10-05-visual-mobile.md), [güncel ortak uygulama raporu](https://github.com/ErenEdebali908755/eren-visual-archive/blob/feat/sideways-visual-mobile/docs/VISUAL-MOBILE-INTEGRATION-20261005.md) ve [varlık/kaynak kaydı](docs/watercolor-map-sources.md) ayrıntıları taşır.
+
+| Kapı | Güncel yerel/kontrollü kanıt | Canlı durum |
+| --- | --- | --- |
+| Ziyaretçi | 43 test; 38 syntax/privacy kontrolü; sekiz dil/56 viewport bağlamında 1473 galeri/mobil kontrol; ayrı lifecycle 21 ve etkinlik/boot 683 kontrolü geçti. | PR #6 final admin SUCCESS ve kimliği doğrulanmış canlı kabulü bekliyor. Yeni visitor sürümü yayımlanmadı; 32 canlı soğuk açılış bekliyor. |
+| Ortak admin | 344 test, TypeScript ve tam üretim derlemesi geçti. Güncel yedekten ayrı restore üzerinde Insights 32 kontrol, dört rol grubu ve medya/galeri doğrulaması geçti. | Aktif `c00e7974` / Railway `c40ddf4b-7bdf-4ec8-a1f4-7930065e6273`; düzeltme ve bu yeni tasarımın son canlı kabulü yok. |
+| Ortak renderer/varlıklar | 27 dosya aynı; digest `2d639ad71910f122d6c9e8b3cbef539b309ffa4634016a581ec9219399b57bde`, cache sürümü `20261005-mobile`. | Final dağıtımda served revision/cache eşleşmesi doğrulanacak. |
+| Yayın engeli | Railway son denemesi `9e3d0dff-d7e4-42a4-ac9a-533acf888539`, `SNAPSHOT_CODE`, `canRedeploy=false`: GitHub App depo erişimi reddedildi. Genel incident çözüldü; bu repo erişiminin düzeldiği kanıtlanmadı. | Güncel GitHub Installed App ekranında Railway ve mevcut “All repositories” seçimi görünür. Aynı servis/private admin depo/main bağlantısını yenileme işlemi kalıcı kaynak yapılandırmasını değiştirebilir ve deploy tetikleyebilir; otomatik onay incelemesi bu işlemi reddetti. Gerekli en küçük kullanıcı adımı aynı bağlantının yenilenmesine açık onaydır. Başarılı snapshot/deployment ve admin kabulü hâlâ doğrulanmadı. |
+
+Fotoğraflar filtresiz; 3/6/18 geçici kullanıcı fotoğraflarının durak ilişkisi doğrulanmadı. Paketin 20/44 fotoğrafları kullanılmadı. Google çeviri üretimi pasif; fiziksel telefon/GPS/batarya, native klavye/tarayıcı çubuğu ve gerçek yatay/panorama seçki kabulü yapılmadı. Rota/etkinlik açma işlemi yapılmadı. Yeni şema veya ikinci sistem eklenmedi.
+
+## Tarihsel birleşik aşama — 5 Ekim 2026, 15:55 UTC
 
 Arşiv ölçümü/About ve Sideways nötr galeri/medya/GPS çalışmasının esas kaydı [birleşik sonuç raporudur](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/COMBINED-RELEASE-20261005.md). [Belge dizini](docs/README.md), iki sitenin tek [CURRENT-STATE kaydı](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) ve [admin belge dizini](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/README.md) bu aşamayı birlikte izler. Aşağıdaki eski dağıtım kimlikleri bu yeni çalışmanın canlı kabulü değildir.
 
 | Alan | 5 Ekim yerel/test durumu | Yeni canlı kabul |
 | --- | --- | --- |
 | Venice Sideways | 36 test, 37 JS syntax/privacy kontrolü, 633 galeri kontrolü; observer/permission eklenmiş ayrı yerel çalışmada 597 kontrol. Shared renderer admin ile eşit. Yeni read-only canlı kabul gözlemcileri izole fixture'da geçti. | PR #6 ürün kaynağı `a76bb10c9cdf1813f3f5ffb69ccf05eb91b5308d`; Başarılı son CI `37335751873`, doğrulanmış head `87f370d5` (ardından yalnız belge düzeltmesi). Son yönetim kabulünü bekler; yeni visitor deployment ve gerçek canlı kabul yok. |
-| Arşiv/admin | 342 test, TypeScript/tam üretim derlemesi, gerçek restore/Payload rapor ve medya testleri geçti. İki migration üretimde birer kez/batch 21. Doğal ingestion/cleanup doğrulandı. | Düzeltme PR #9 merge `85cb7b22`, Railway `9e3d0dff-d7e4-42a4-ac9a-533acf888539` FAILED (SNAPSHOT_CODE: GitHub App repo erişimi reddedildi). Sağlayıcı GitHub build olayını araştırıyor; son owner/Sideways/preview kabulü bekliyor. Esas CURRENT-STATE ve birleşik rapor ayrıntıları taşır. |
+| Arşiv/admin | 342 test, TypeScript/tam üretim derlemesi, gerçek restore/Payload rapor ve medya testleri geçti. İki migration üretimde birer kez/batch 21. Doğal ingestion/cleanup doğrulandı. | Düzeltme PR #9 merge `85cb7b22`, Railway `9e3d0dff-d7e4-42a4-ac9a-533acf888539` FAILED (SNAPSHOT_CODE: GitHub App repo erişimi reddedildi). Bu tarihsel kesitte sağlayıcı GitHub build olayını araştırıyordu; güncel engel yukarıdaki yeni bölümde kayıtlıdır. Esas CURRENT-STATE ve birleşik rapor ayrıntıları taşır. |
 | İçerik | Geçici gerçek public photo 3/6/18 seçkisi yalnız görsel referanstır; ilgili Venedik durağında çekildiği doğrulanmış değildir. | Rota/etkinlik yayımlama ve kayıt açma ayrı işlemdir. |
 | Cihaz ve fotoğraf kapsamı | Gerçek seçki portredir. Yatay/panorama yalnız açıkça etiketli sentetik geometri fixture'larıdır. | Fiziksel iPhone/Android GPS ve batarya ile gerçek yatay/panorama seçki kabulü bekliyor. |
 
@@ -52,10 +65,10 @@ Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or
 
 - The source's 11-stop Main Walk (Punta della Dogana, a waterbus transfer, Cannaregio finish) and 28-stop Full Walk.
 - Five phone-friendly ideas for each place; eight languages (English, Turkish, Russian, French, Chinese, Japanese, Korean and Italian) with automatic and manual selection.
-- On phones, settings and nearby-place filters open in separate panels; route and location controls sit below the map.
+- On phones, a compact/standard/expanded stop panel uses the same map; map options and explicit location controls stay above the canvas. Settings contain the existing language/theme preferences. Expanding until the map is hidden stops GPS; returning does not restart it.
 - Dark page controls with a permanently light basemap.
 - Separate walking and waterbus navigation; all stops retained across exported links.
-- OpenFreeMap / OpenStreetMap / MapLibre, three original landmark drawings and two attributed OSM garden polygons. A curated stop gallery takes precedence; otherwise the authorized temporary selection is explicitly labeled. The empty-gallery state is separately tested.
+- OpenFreeMap / OpenStreetMap / MapLibre, three user-supplied illustrative PNG derivatives and two attributed OSM garden polygons. A curated stop gallery takes precedence; otherwise the authorized temporary selection is explicitly labeled. The empty-gallery state is separately tested.
 
 ## Migration safety
 

@@ -206,9 +206,18 @@ try {
         await page.locator('[data-step="0"]').click();await page.locator('[data-action="list"]').click();
       }
       record.galleryLoading=await gallery(page,label,measurements);
+      if(width<=900)await page.locator('.fg-mobile-settings summary').click();
       const theme=page.locator('.fg-theme').filter({visible:true}).first();
-      // Select the visible preference control without opening a second map.
-      if(await theme.count()){await theme.selectOption('dark');check(await page.evaluate(()=>__acceptanceMaps.length===1&&__acceptanceGPSStarts===0),label+': theme keeps map/GPS');await theme.selectOption('light')}
+      const waterColor=await page.evaluate(()=>__acceptanceMaps[0].getPaintProperty('water','fill-color'));
+      await theme.selectOption('dark');
+      check(await page.evaluate(()=>document.querySelector('#field-guide').dataset.theme==='dark'&&__acceptanceMaps.length===1&&__acceptanceGPSStarts===0),label+': explicit dark keeps map/GPS');
+      check(await page.evaluate(expected=>__acceptanceMaps[0].getPaintProperty('water','fill-color')===expected,waterColor),label+': dark does not recolor basemap');
+      await theme.selectOption('system');await page.emulateMedia({colorScheme:'dark'});
+      check(await page.evaluate(()=>document.querySelector('#field-guide').dataset.theme==='dark'),label+': system follows dark OS');
+      await page.emulateMedia({colorScheme:'light'});
+      check(await page.evaluate(()=>document.querySelector('#field-guide').dataset.theme==='light'),label+': system follows light OS');
+      await theme.selectOption('light');
+      if(width<=900)await page.locator('.fg-settings-close').click();
       if(language==='en'&&width===1440&&routeKey==='main') {
         check(await page.evaluate(async()=> (await navigator.permissions.query({name:'geolocation'})).state==='denied'),label+': native permission is denied');
         await page.locator('[data-action="location"]').click();

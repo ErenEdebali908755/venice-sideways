@@ -7,7 +7,7 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE || '/Users/erenedebali/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..'), publicRoot=resolve(root,'public');
-const output=resolve(root,'../combined-20261005/visitor-gallery');await mkdir(output,{recursive:true});
+const output=resolve(process.env.GUIDE_QA_OUTPUT || resolve(root,'../visual-integration-20261005/mobile-guide'));await mkdir(output,{recursive:true});
 const photographs=resolve(root,'../combined-20261005/photo-selection');
 const types={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.svg':'image/svg+xml','.png':'image/png','.woff2':'font/woff2'};
 const base='https://venicesideways.com';let checks=0;const issues=[];const pageErrors=[];
@@ -37,11 +37,30 @@ async function open(language,width=390,height=844,preview=false,host=base,scale=
  await page.waitForFunction(()=>window.guide.ready);return {page,context};
 }
 try{
- for(const language of ['en','tr','it','fr','ru','zh','ja','ko'])for(const [width,height,scale]of [[375,812,1],[390,844,1],[1440,900,1],[844,390,1],[720,450,2]]){
+ for(const language of ['en','tr','it','fr','ru','zh','ja','ko'])for(const [width,height,scale]of [[320,568,1],[375,812,1],[390,844,1],[430,932,1],[1440,900,1],[844,390,1],[720,450,2]]){
   const {page,context}=await open(language,width,height,false,base,scale);const label=`${language}/${width}x${height}/${scale}`;
   check(await page.evaluate(()=>__gpsCalls.length===0),label+': zero initial GPS');
   check(await page.evaluate(()=>getComputedStyle(guide.root).backgroundColor==='rgb(244, 242, 237)'),label+': neutral paper');
   await page.locator('[data-route="main"]').click();const initial=await page.evaluate(()=>guide.walkingStep);
+  const sameMap=await page.evaluate(()=>guide.mapGeneration);
+  if(width<=900){
+   await page.locator('[data-sheet="collapsed"]').click();await page.waitForTimeout(40);
+   check(await page.locator('[data-action="start"]').isVisible(),label+': compact sheet retains explicit walking action');
+   check(await page.locator('.fg-map').evaluate(map=>map.getBoundingClientRect().height>=100),label+': compact sheet retains useful map');
+   if(language==='tr'&&[320,390,844].includes(width))await page.screenshot({path:resolve(output,`sheet-compact-tr-${width}.png`)});
+   await page.locator('[data-sheet="expanded"]').click();check(!await page.locator('.fg-map-shell').isVisible(),label+': expanded sheet really hides map');
+   check(await page.locator('.fg-sheet-story article').count()===5,label+': expanded actual five photo ideas');
+   if(language==='tr'&&width===390)await page.screenshot({path:resolve(output,'sheet-expanded-tr-390.png')});
+   await page.locator('[data-sheet="standard"]').click();await page.waitForTimeout(40);
+   check(await page.evaluate(()=>guide.mapGeneration)===sameMap,label+': all sheet states preserve map instance');
+   check(await page.locator('.fg-sheet-controls button').first().evaluate(button=>button.getBoundingClientRect().height>=44),label+': sheet touch target');
+   await page.locator('.fg-mobile-settings summary').click();await page.locator('.fg-mobile-settings .fg-theme').selectOption('dark');
+   check(await page.evaluate(()=>guide.root.dataset.theme==='dark'),label+': manual dark theme');
+   check(await page.locator('.fg-map-shell').evaluate(map=>getComputedStyle(map).backgroundColor==='rgb(248, 241, 230)'),label+': map stays light');
+   if(language==='tr'&&width===320)await page.screenshot({path:resolve(output,'settings-dark-tr-320.png')});
+   await page.keyboard.press('Escape');check(await page.locator('.fg-mobile-settings').evaluate(settings=>!settings.open&&document.activeElement===settings.querySelector('summary')),label+': settings Escape returns focus');
+   await page.evaluate(()=>{guide.themePreference='light';guide.applyTheme()});
+  }
   await page.locator('[data-action="list"]').click();await page.locator('[data-inspect]').last().click();
   check(await page.evaluate(()=>guide.walkingStep)===initial,label+': inspecting another gallery preserves walking step');
   check(await page.locator('.fg-dialog[open]').count()===1,label+': one modal');
@@ -49,6 +68,10 @@ try{
   check(await page.locator('.fg-thumbnails button').count()===3,label+': three manual choices');
   check(await page.locator('.fg-gallery .fg-photo-full img').first().evaluate(image=>getComputedStyle(image).filter==='none'&&getComputedStyle(image).objectFit==='contain'),label+': full frame without tonal filter');
   await page.locator('[data-open-photo]').click();check(await page.evaluate(()=>guide.modalMode==='lightbox'),label+': large photo');
+  await page.locator('[data-photo-zoom]').click();const zoomPhoto=await page.evaluate(()=>guide.selectedPhoto);await page.keyboard.press('ArrowRight');
+  check(await page.evaluate(()=>guide.selectedPhoto)===zoomPhoto,label+': zoom keyboard pans without photo switch');
+  check(await page.locator('.fg-gallery-stage img').evaluate(image=>getComputedStyle(image).maxWidth==='none'),label+': actual mobile photo zoom is not overridden by full-frame CSS');
+  await page.locator('[data-photo-zoom]').click();
   await page.keyboard.press('ArrowRight');check(await page.evaluate(()=>guide.selectedPhoto==='reference-eren-6'),label+': manual keyboard next');
   await page.goBack();await page.waitForFunction(()=>guide.modalMode==='detail');
   await page.keyboard.press('Escape');await page.waitForFunction(()=>!guide.modalMode);
@@ -63,6 +86,8 @@ try{
   await page.evaluate(()=>{const visit=guide.route.visits.find(v=>v.key===guide.walkingStep);visit.gallery=[{assetID:'fixture-image-error',order:0,sourceLanguage:'en',copy:[{locale:'en',alt:'QA unavailable image fixture'}],derivatives:[{variant:'r900',url:location.origin+'/test/unavailable-gallery-image.jpg',width:900,height:600}]}];guide.openDetail(visit.key)});
   await page.locator('.fg-gallery-stage .fg-photo-missing').waitFor({state:'visible'});
   check(await page.locator('.fg-gallery-stage .fg-photo-missing').isVisible(),label+': failed image message is visible');
+  check(await page.locator('.fg-gallery-stage .fg-photo-error button').isVisible(),label+': failed photograph offers independent retry');
+  if(language==='tr'&&width===320)await page.screenshot({path:resolve(output,'photo-error-retry-tr-320.png')});
   await context.close();
  }
  const {page,context}=await open('en',1440,900);const payloads=[];page.on('request',request=>payloads.push({url:request.url(),body:request.postData()}));
@@ -106,4 +131,4 @@ try{
  for(const preview of [true,false]){const {page,context}=await open('en',390,844,preview,preview?base:'archive');await page.evaluate(()=>guide.locate());check(await page.evaluate(()=>__gpsCalls.length===0),preview?'Preview: zero GPS even on explicit call':'Archive capability: zero GPS');await context.close()}
  check(pageErrors.length===0,'No uncaught browser errors: '+pageErrors.join('; '));
 }finally{await browser.close()}
-const report={checks,issues,pageErrors,scope:'Real MapLibre, isolated basemap fixture, real owned sample thumbnails, simulated GPS; 720x450@2 covers the equivalent CSS viewport of a 1440x900 display at 200% zoom. Physical device/live media/release are separate gates.'};await writeFile(resolve(output,'browser-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));if(issues.length)process.exitCode=1;
+ const report={checks,issues,pageErrors,scope:'Actual shared renderer/MapLibre with isolated basemap fixture, real owned temporary samples, simulated GPS; eight languages at320/375/390/430/1440/844landscape/720x450@2 equivalent CSS viewport for200%zoom. No physical device/live media/release acceptance.'};await writeFile(resolve(output,'browser-report.json'),JSON.stringify(report,null,2));console.log(JSON.stringify(report));if(issues.length)process.exitCode=1;

@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "source": "User supplied visual-materials-2026-10-05.zip; original AI editorial candidates, not surveyed geometry",
+  "selected": [
+    {
+      "kind": "station",
+      "file": "art/santa-lucia-0c26a4e5d8a5.png",
+      "width": 272,
+      "height": 92,
+      "pixelRatio": 2,
+      "sourceFile": "watercolor/santa-lucia.png",
+      "sourceHash": "0087606e7f71e58681ca0e4c63f7ed3107ed2a3cec5e0dd1e0a8d394220962a8",
+      "derivativeHash": "0c26a4e5d8a5d9b2ac57720ded5054ee68051539c4317bf9e96e892a58cb7bd0",
+      "bytes": 47422,
+      "sourceBounds": {
+        "left": 19,
+        "top": 468,
+        "width": 1219,
+        "height": 364
+      },
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+    },
+    {
+      "kind": "bridge",
+      "file": "art/accademia-b7311850aa62.png",
+      "width": 272,
+      "height": 106,
+      "pixelRatio": 2,
+      "sourceFile": "watercolor/accademia.png",
+      "sourceHash": "dad29d7d3fae60c1a01818ef53428445d022f4220c21c7f1f4dce868b21aa313",
+      "derivativeHash": "b7311850aa6243d9c3f132aea57c5da59d9015bf1a34d7e0dfebdd44942747aa",
+      "bytes": 49481,
+      "sourceBounds": {
+        "left": 9,
+        "top": 448,
+        "width": 1239,
+        "height": 435
+      },
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+    },
+    {
+      "kind": "dogana",
+      "file": "art/punta-della-dogana-469b12b37835.png",
+      "width": 272,
+      "height": 240,
+      "pixelRatio": 2,
+      "sourceFile": "watercolor/punta-della-dogana.png",
+      "sourceHash": "85c45c2b3226bc5e660640a30f584f9c9e3e1ea75c70b0483981f1061421b3b4",
+      "derivativeHash": "469b12b3783517d55a45e1acac1bfb1a26af59d46a96bccbbdcdee2fb0c15210",
+      "bytes": 99210,
+      "sourceBounds": {
+        "left": 81,
+        "top": 123,
+        "width": 1114,
+        "height": 973
+      },
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+    },
+    {
+      "kind": "garden-leaves",
+      "file": "art/botanical-pattern-d8e4508b8432.png",
+      "width": 128,
+      "height": 128,
+      "pixelRatio": 1,
+      "sourceFile": "watercolor/botanical-pattern.png",
+      "sourceHash": "c908e17810d64c4df1866f68577212a79ff753a34d9504f38b56a6e31a839bc3",
+      "derivativeHash": "d8e4508b8432349307d9b6e7ebf3f069bdd7211937cfd04c08bd2cbd018085b5",
+      "bytes": 3373,
+      "sourceBounds": {
+        "left": 197,
+        "top": 270,
+        "width": 902,
+        "height": 774
+      },
+      "anchor": "polygon clipped"
+    }
+  ]
+}
