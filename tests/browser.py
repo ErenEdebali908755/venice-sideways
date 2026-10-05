@@ -71,7 +71,7 @@ with sync_playwright() as playwright:
             check(page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"),
                   f"{language}/{width}: no horizontal overflow")
             map_background = page.locator(".fg-map-shell").evaluate("e=>getComputedStyle(e).backgroundColor")
-            check(map_background == "rgb(232, 236, 229)", f"{language}/{width}: light map background")
+            check(map_background == "rgb(248, 241, 230)", f"{language}/{width}: light watercolor map background")
             check(page.evaluate("window.__geoCalls") == 0, f"{language}/{width}: no GPS on load")
 
             page.locator('[data-route="main"]').click()

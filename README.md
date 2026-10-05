@@ -2,7 +2,11 @@
 
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
-This repository contains the walk guide and the public event registration page. The Node server relays only fixed public route, anonymous statistics and event endpoints to the separate Sideways service in the Payload application. It has no database credentials, admin session, personal gallery data or private Git history. The link to Eren's archive is an ordinary outbound link.
+**Yayın durumu, 5 Ekim 2026:** Canlı ziyaretçi kodu `4aa1bc3` tabanındadır. `34c9e91` üzerindeki MapLibre/suluboya rehber ve ilgili düzeltmeler bekleyen ziyaretçi PR'ındadır; adminin canlı rota editörü kabul kapısı geçmeden bu sürümü canlı saymayın. Kod dağıtımı ile adminin bir rotayı içerik olarak yayımlaması ayrı işlemlerdir. İki depoyu birlikte anlatan [Türkçe sistem rehberi](../eren-visual-archive/docs/VENICE-SIDEWAYS-SYSTEM.md) ve [güncel durum](../eren-visual-archive/docs/CURRENT-STATE.md) bu README'nin işletme devamıdır.
+
+This repository contains the walk guide and the public event registration page. The Node server relays only fixed public route, opt-in anonymous statistics and event endpoints to the separate Sideways service in the Payload application. It has no database credentials, admin session, personal gallery data or private Git history. The link to Eren's archive is an ordinary outbound link. Main Walk has 11 photo stops and Full Walk has 28; both use five photo ideas per stop and eight UI/content locales (`en`, `tr`, `it`, `ru`, `fr`, `zh`, `ja`, `ko`).
+
+The catalog always permits bundled Main/Full. When an admin snapshot is actually published, the Node server reads its explicit public projection; `published:false` means the bundled guide remains the content source. If publication status cannot be checked, the guide offers an explicit bundled-mode choice rather than presenting it silently as current. The pending branch's watercolor map uses local MapLibre assets with an OpenFreeMap/OSM base; the page theme can be dark while the map stays light. See [map provenance](docs/watercolor-map-sources.md) and the [rollout checklist](docs/MIGRATION.md).
 
 ## Run and test
 
@@ -27,21 +31,21 @@ Attach `venicesideways.com` and use the exact DNS records returned by the host. 
 
 ## Own location only
 
-Location starts **off**. A visitor clicks the location control, then Show my location, and grants the browser permission. The blue point and accuracy circle are local to that page. Dragging stops automatic centring; Centre on me resumes it. Stop clears the watcher and point. Hidden pages suspend updates.
+Location starts **off**. A visitor explicitly selects **My location / Konumum**, confirms that it is device-only, and grants browser permission. The pending guide draws only that device's marker; **Stop location / Konumu kapat** clears its watcher and marker. Hidden pages stop tracking; a late position callback cannot restart a stopped watcher. Denial or timeout leaves map and stop browsing usable. The location-error versus map-error correction passed the branch's local browser check and shared-renderer sync; it still requires live verification after release.
 
 Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or other visitors. There is no organiser dashboard or location endpoint. Normal map-tile requests can reveal the area displayed to the map provider; browser/OS services may perform their own lookups. HTTPS and user permission are required. Background/lock-screen tracking is not guaranteed.
 
 ## Preserved features
 
-- The source's current 11-stop main walk (Punta della Dogana, a waterbus transfer, Cannaregio finish) and full 28-stop walk.
+- The source's 11-stop Main Walk (Punta della Dogana, a waterbus transfer, Cannaregio finish) and 28-stop Full Walk.
 - Five phone-friendly ideas for each place; eight languages (English, Turkish, Russian, French, Chinese, Japanese, Korean and Italian) with automatic and manual selection.
 - On phones, settings and nearby-place filters open in separate panels; route and location controls sit below the map.
 - Dark page controls with a permanently light basemap.
 - Separate walking and waterbus navigation; all stops retained across exported links.
-- OpenFreeMap / OpenStreetMap / MapLibre.
+- OpenFreeMap / OpenStreetMap / MapLibre. The pending design adds three original landmark drawings and two attributed OSM garden polygons; photo cards without an owned photo remain empty.
 
 ## Migration safety
 
-Keep erenedebali.com unchanged until the new domain passes HTTPS, language, route and location checks. Only then redirect former walk URLs; do not redirect the personal homepage, gallery or admin. Preferences and location permissions belong to each origin and do not silently migrate.
+The domains already have separate roles. For this release, validate the compatible Payload admin/API and migration first; then merge and deploy the visitor PR and check real Main/Full, tiles, language, mobile, event draft/privacy and location denial. Do not publish unreviewed geometry to make a release test pass. Former walk URLs may redirect only after the destination is verified; the personal homepage, gallery and admin remain on erenedebali.com. Preferences and location permissions belong to each origin and do not silently migrate.
 
 The repository was created **public** by its owner. No new open-source licence is granted to the owner's photography or text. Third-party notices remain in source. No personal media library, credentials or private-gallery history is included.

@@ -1,4 +1,13 @@
 /* Shared visitor presentation: public releases and private in-memory admin previews. */
+import {
+  BASE_STYLE,
+  GARDENS,
+  MAIN_LANDMARKS,
+  addWatercolorLayers,
+  placeCopy,
+  setWatercolorLandmarks,
+  watercolorStyle,
+} from "./map-art.js";
 const THEME_KEY = "sideways-field-guide-theme";
 const THEME_LABELS = {
   en: ["Theme", "System", "Light", "Dark"],
@@ -28,10 +37,13 @@ export const orderedVisits = (route) =>
         .filter((v) => v.visible && v.segmentKey === s.key)
         .sort((a, b) => a.order - b.order),
     );
-export const copyFor = (rows, lang) =>
-  rows?.find((c) => c.locale === lang) ||
-  rows?.find((c) => c.locale === "en") ||
-  {};
+export const copyFor = (rows, lang, sourceLanguage = "en") => {
+  const reviewed = rows?.filter((row) => row?.needsReview !== true) || [];
+  return reviewed.find((row) => row.locale === lang) ||
+    reviewed.find((row) => row.locale === "en") ||
+    reviewed.find((row) => row.locale === sourceLanguage) ||
+    {};
+};
 const escape = (v) =>
   String(v ?? "").replace(
     /[&<>"']/g,
@@ -82,12 +94,14 @@ export class FieldGuide {
     this.pins = [];
     this.map = null;
     this.ready = false;
-    this.error = "";
+    this.mapError = "";
+    this.locationStatus = "";
     this.detail = false;
     this.list = false;
     this.started = false;
     this.threeD = false;
     this.watch = null;
+    this.locationGeneration = 0;
     this.themePreference = "system";
     try {
       const stored = localStorage.getItem(THEME_KEY);
@@ -124,18 +138,18 @@ export class FieldGuide {
     this.root.dataset.theme = dark ? "dark" : "light";
     document.documentElement.style.colorScheme = dark ? "dark" : "light";
   }
-  text(rows) {
-    return copyFor(rows, this.lang);
+  text(rows, route = this.route) {
+    return copyFor(rows, this.lang, route?.sourceLanguage || "en");
   }
   title(route = this.route) {
-    return this.text(route?.copy).title || route?.key || "";
+    return this.text(route?.copy, route).title || route?.key || "";
   }
   photo(photo, kind = "stop") {
     const url = photo?.url ? safeURL(photo.url) : "";
     if (!url || new URL(url).pathname === "/field-guide/venice-illustration.png")
       return kind === "cover"
         ? `<div class="fg-cover-empty" role="img" aria-label="${this.t("Space reserved for a route photograph", "Rota fotoğrafı için ayrılmış boş alan")}"></div>`
-        : `<div class="fg-photo-missing">${this.t("No verified photograph for this stop", "Bu durağın doğrulanmış fotoğrafı henüz yok")}</div>`;
+        : `<div class="fg-photo-missing">${this.t("No photograph yet", "Henüz fotoğraf yok")}</div>`;
     return `<figure class="fg-photo"><img src="${escape(url)}" alt="${escape(this.lang === "tr" ? photo.altTr || photo.alt : photo.alt)}" style="object-position:${Number(photo.x ?? 50)}% ${Number(photo.y ?? 50)}%" loading="lazy"><figcaption>${escape(photo.credit || "")}</figcaption></figure>`;
   }
   update({ routes, lang, visitKey, view } = {}) {
@@ -173,7 +187,7 @@ export class FieldGuide {
     const known =
       walking.length &&
       walking.every((s) => s.routingReviewed && s.distanceMeters > 0);
-    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2><p>${escape(this.text(r.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy).title || "—")}</dd></div></dl><p class="fg-muted">${known ? new Intl.NumberFormat(this.lang, { maximumFractionDigits: 1 }).format(walking.reduce((sum, s) => sum + s.distanceMeters, 0) / 1000) + " km · " + this.t("walking distance; duration not verified", "yaya mesafesi; süre doğrulanmadı") : this.t("Distance and duration awaiting verification", "Mesafe ve süre doğrulanmayı bekliyor")}</p><button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} <span aria-hidden="true">↗</span></button></div></article>`;
+    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2><p>${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl><p class="fg-muted">${known ? new Intl.NumberFormat(this.lang, { maximumFractionDigits: 1 }).format(walking.reduce((sum, s) => sum + s.distanceMeters, 0) / 1000) + " km · " + this.t("walking distance; duration not verified", "yaya mesafesi; süre doğrulanmadı") : this.t("Distance and duration awaiting verification", "Mesafe ve süre doğrulanmayı bekliyor")}</p><button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} <span aria-hidden="true">↗</span></button></div></article>`;
   }
   render() {
     const t = (en, tr) => this.t(en, tr),
@@ -194,7 +208,7 @@ export class FieldGuide {
     const themeSelect = `<select class="fg-theme" aria-label="${escape(themeName)}">${[["system", systemName], ["light", lightName], ["dark", darkName]].map(([value, label]) => `<option value="${value}" ${value === this.themePreference ? "selected" : ""}>${escape(label)}</option>`).join("")}</select>`;
     const preferences = `<label class="fg-language-control"><span>${escape(languageName)}</span>${languageSelect}</label><label class="fg-theme-control"><span>${escape(themeName)}</span>${themeSelect}</label>`;
     this.el(".fg-header").innerHTML =
-      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong><small>${t("A photographic field guide", "Fotoğrafik bir kent rehberi")}</small></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">←</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}</div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}</div></details></div>`;
+      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">←</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}</div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}</div></details></div>`;
     const panel = this.el(".fg-editorial");
     if (!this.routes.length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
@@ -231,7 +245,7 @@ export class FieldGuide {
       }
     }
     this.el(".fg-map-tools").innerHTML =
-      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
+      `<button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="places">${t("Places on the map", "Haritadaki yerler")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button>${!this.preview ? `<button data-action="location">${this.watch === null ? t("My location", "Konumum") : t("Stop location", "Konumu kapat")}</button>` : ""}`;
     this.root
       .querySelectorAll("[data-route]")
       .forEach((b) => (b.onclick = () => this.choose(b.dataset.route)));
@@ -335,6 +349,7 @@ export class FieldGuide {
     }
     if (action === "edit") this.onEdit(this.steps()[this.index]?.key);
     if (action === "detail") this.openDetail();
+    if (action === "places") this.openPlaces();
     if (action === "location") this.locate();
     if (action === "dimension" && this.ready) {
       this.threeD = !this.threeD;
@@ -348,6 +363,9 @@ export class FieldGuide {
           "visibility",
           this.threeD ? "visible" : "none",
         );
+      for (const id of ["fg-landmark-overview", "fg-landmark-detail"])
+        if (this.map.getLayer(id))
+          this.map.setLayoutProperty(id, "visibility", this.threeD ? "none" : "visible");
       this.render();
     }
   }
@@ -367,13 +385,43 @@ export class FieldGuide {
     dialog.querySelector("button").onclick = () => dialog.close();
     dialog.showModal();
   }
+  openPlaces() {
+    const t = (en, tr) => this.t(en, tr);
+    const dialog = this.el(".fg-dialog");
+    const keys = this.route?.key === "main"
+      ? [...MAIN_LANDMARKS.map((place) => place.key), ...GARDENS.map((place) => place.key)]
+      : GARDENS.map((place) => place.key);
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1>${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} →</button>`).join("")}</div>`;
+    dialog.querySelector(".fg-close").onclick = () => dialog.close();
+    dialog.querySelectorAll("[data-place]").forEach((button) => {
+      button.onclick = () => this.openPlace(button.dataset.place);
+    });
+    if (!dialog.open) dialog.showModal();
+  }
+  openPlace(key) {
+    const place = placeCopy(key, this.lang);
+    if (!place) return;
+    const t = (en, tr) => this.t(en, tr);
+    const dialog = this.el(".fg-dialog");
+    const garden = GARDENS.find((item) => item.key === key);
+    const stop = this.route?.visits?.find((item) => item.key === key);
+    const focus = garden?.focus || (stop ? [stop.longitude, stop.latitude] : null);
+    const englishFallback = !["en", "tr"].includes(this.lang);
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1>${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows the Main Walk stop coordinates.", "Özgün Venice Sideways çizimi; haritadaki yaklaşık konum Ana Yürüyüş durağının koordinatlarını izler.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
+    dialog.querySelector(".fg-close").onclick = () => dialog.close();
+    dialog.querySelector("[data-focus-place]")?.addEventListener("click", () => {
+      dialog.close();
+      if (this.ready && focus) this.map.easeTo({ center: focus, zoom: 16, duration: reduced() ? 0 : 250 });
+    });
+    if (!dialog.open) dialog.showModal();
+  }
   renderStatus() {
     const message = !navigator.onLine
       ? this.t(
           "Offline · loaded stops remain available. Maps and directions need a connection.",
           "Çevrimdışı · yüklenen duraklar açık. Harita ve yol tarifi bağlantı gerektirir.",
         )
-      : this.error ||
+      : this.mapError || this.locationStatus ||
         (!this.ready
           ? this.t(
               "Loading the map… You can already browse the stops.",
@@ -383,16 +431,17 @@ export class FieldGuide {
     const status = this.el(".fg-map-status");
     status.textContent = message;
     status.hidden = !message;
-    if (this.error) {
+    if (this.mapError) {
       const retry = document.createElement("button");
       retry.textContent = this.t("Retry map", "Haritayı yeniden dene");
       retry.onclick = () => this.initMap();
       status.append(retry);
     }
   }
-  initMap() {
+  async initMap() {
+    const generation = (this.mapGeneration = (this.mapGeneration || 0) + 1);
     if (!window.maplibregl) {
-      this.error = this.t(
+      this.mapError = this.t(
         "Map unavailable. Use the stop list and directions.",
         "Harita yüklenemedi. Durak listesini ve yol tarifini kullan.",
       );
@@ -401,27 +450,43 @@ export class FieldGuide {
     }
     this.stopLocation();
     this.map?.remove();
+    this.map = null;
+    clearTimeout(this.mapFailureTimer);
     this.pins = [];
     this.ready = false;
-    this.error = "";
+    this.mapError = "";
+    this.renderStatus();
+    let style = BASE_STYLE;
+    try {
+      const response = await fetch(BASE_STYLE, { credentials: "omit", signal: AbortSignal.timeout(8000) });
+      if (!response.ok) throw new Error("base map style unavailable");
+      style = watercolorStyle(await response.json());
+    } catch {
+      // Keep the readable original style if the decorative transform cannot load.
+      style = BASE_STYLE;
+    }
+    if (generation !== this.mapGeneration) return;
     try {
       this.map = new maplibregl.Map({
         container: this.el(".fg-map"),
-        style: "https://tiles.openfreemap.org/styles/positron",
+        style,
         center: [12.335, 45.438],
         zoom: 13.5,
         attributionControl: { compact: true },
       });
-      this.map.on("error", () => {
-        this.error = this.t(
-          "Map could not fully load. Stops and directions remain available.",
-          "Harita tam yüklenemedi. Duraklar ve yol tarifi kullanılabilir.",
+      // Style availability, rather than individual tile events, determines usability.
+      this.mapFailureTimer = setTimeout(() => {
+        if (this.ready || generation !== this.mapGeneration) return;
+        this.mapError = this.t(
+          "Map could not load. Stops and directions remain available.",
+          "Harita yüklenemedi. Duraklar ve yol tarifi kullanılabilir.",
         );
         this.renderStatus();
-      });
-      this.map.on("load", () => {
-        this.ready = true;
-        this.error = "";
+      }, 12000);
+      this.map.on("style.load", () => {
+        if (generation !== this.mapGeneration || this.map.getSource("fg-route")) return;
+        clearTimeout(this.mapFailureTimer);
+        try {
         this.map.addSource("fg-route", {
           type: "geojson",
           data: { type: "FeatureCollection", features: [] },
@@ -471,12 +536,38 @@ export class FieldGuide {
               "fill-extrusion-opacity": 0.65,
             },
           });
+        if (typeof style !== "string") {
+          try {
+            if (addWatercolorLayers(this.map)) {
+              for (const id of ["fg-landmark-overview", "fg-landmark-detail"])
+                this.map.on("click", id, (event) => this.openPlace(event.features?.[0]?.properties?.key));
+              for (const id of ["fg-garden-wash", "fg-garden-label"])
+                this.map.on("click", id, (event) => {
+                  this.openPlace(event.features?.[0]?.properties?.key);
+                });
+              for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-garden-wash", "fg-garden-label"]) {
+                this.map.on("mouseenter", id, () => { this.map.getCanvas().style.cursor = "pointer"; });
+                this.map.on("mouseleave", id, () => { this.map.getCanvas().style.cursor = ""; });
+              }
+            }
+          } catch (error) {
+            console.warn("Optional field-guide artwork unavailable", error);
+          }
+        }
+        this.ready = true;
+        this.mapError = "";
         this.render();
         this.draw();
         this.fit();
+        } catch (error) {
+          console.error("Field-guide route layers could not be installed", error);
+          this.ready = false;
+          this.mapError = this.t("Map unavailable. Use the stop list and directions.", "Harita yüklenemedi. Durak listesini ve yol tarifini kullan.");
+          this.renderStatus();
+        }
       });
     } catch {
-      this.error = this.t(
+      this.mapError = this.t(
         "Map unavailable. Use the stop list.",
         "Harita yüklenemedi. Durak listesini kullan.",
       );
@@ -518,6 +609,7 @@ export class FieldGuide {
     this.map
       .getSource("fg-route")
       ?.setData({ type: "FeatureCollection", features });
+    setWatercolorLandmarks(this.map, this.route);
     this.pins.forEach((p) => p.remove());
     this.pins = [];
     if (this.view !== "walk") return;
@@ -589,10 +681,15 @@ export class FieldGuide {
       return;
     }
     if (!navigator.geolocation || !this.ready) {
-      this.error = this.t(
-        "Location requires an available map. Browsing still works.",
-        "Konum için haritanın yüklenmesi gerekiyor. Duraklara bakabilirsin.",
-      );
+      this.locationStatus = !navigator.geolocation
+        ? this.t(
+            "Location is unavailable on this device. You can keep browsing.",
+            "Konum bu cihazda kullanılamıyor. Duraklara bakmaya devam edebilirsin.",
+          )
+        : this.t(
+            "Location requires an available map. Browsing still works.",
+            "Konum için haritanın yüklenmesi gerekiyor. Duraklara bakabilirsin.",
+          );
       this.renderStatus();
       return;
     }
@@ -605,33 +702,53 @@ export class FieldGuide {
       )
     )
       return;
-    this.watch = navigator.geolocation.watchPosition(
-      (p) => {
-        if (!this.locationPin)
-          this.locationPin = new maplibregl.Marker({ color: "#275c94" }).addTo(
-            this.map,
+    this.locationStatus = "";
+    const generation = ++this.locationGeneration;
+    try {
+      this.watch = navigator.geolocation.watchPosition(
+        (p) => {
+          if (generation !== this.locationGeneration || this.watch === null || !this.map) return;
+          const coordinates = [p.coords.longitude, p.coords.latitude];
+          if (!this.locationPin)
+            this.locationPin = new maplibregl.Marker({ color: "#275c94" })
+              .setLngLat(coordinates).addTo(this.map);
+          else this.locationPin.setLngLat(coordinates);
+          this.locationStatus = "";
+          this.renderStatus();
+        },
+        () => {
+          if (generation !== this.locationGeneration) return;
+          this.stopLocation();
+          this.locationStatus = this.t(
+            "Location unavailable. You can keep browsing.",
+            "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
           );
-        this.locationPin.setLngLat([p.coords.longitude, p.coords.latitude]);
-      },
-      () => {
+          this.render();
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
+      );
+    } catch {
+      if (generation === this.locationGeneration) {
         this.stopLocation();
-        this.error = this.t(
+        this.locationStatus = this.t(
           "Location unavailable. You can keep browsing.",
           "Konum alınamadı. Duraklara bakmaya devam edebilirsin.",
         );
-        this.render();
-      },
-      { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 },
-    );
+      }
+    }
     this.render();
   }
   stopLocation() {
+    this.locationGeneration++;
     if (this.watch !== null) navigator.geolocation.clearWatch(this.watch);
     this.watch = null;
     this.locationPin?.remove();
     this.locationPin = null;
+    this.locationStatus = "";
   }
   destroy() {
+    this.mapGeneration = (this.mapGeneration || 0) + 1;
+    clearTimeout(this.mapFailureTimer);
     this.stopLocation();
     this.observer.disconnect();
     this.map?.remove();

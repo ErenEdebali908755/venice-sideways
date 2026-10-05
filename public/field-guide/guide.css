@@ -253,7 +253,7 @@ body {
   grid-template-rows: auto minmax(0, 1fr);
   min-width: 0;
   min-height: 0;
-  background: #e8ece5;
+  background: #f8f1e6;
   color: var(--ink);
 }
 .fg-map-tools {
@@ -532,6 +532,21 @@ body {
 .fg-dialog article {
   padding: 5px 0 19px;
   border-top: 1px solid var(--line);
+}
+.fg-place-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+.fg .fg-place-list button {
+  width: 100%;
+  text-align: left;
+  border-color: var(--line);
+  background: var(--paper);
+  font-weight: 650;
+}
+.fg .fg-place-list button:hover {
+  border-color: var(--accent);
 }
 .fg-dialog small {
   color: var(--muted);
