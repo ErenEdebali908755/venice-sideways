@@ -73,6 +73,9 @@ try:
         response = page.goto(base + ("/?lang=tr" if remote else "/?lang=tr&gps-test=1"), wait_until="domcontentloaded", timeout=45000)
         check(response.status == 200, "Main document returns 200")
         page.locator(".fg-route-card").first.wait_for()
+        if not remote:
+            # Finish the initial event update before testing the settled map tools.
+            page.wait_for_load_state("networkidle", timeout=30000)
         check(page.locator(".fg-route-card").count() == 2, "Main and Full Walk available")
         check(page.evaluate("window.__geoRequests") == 0, "No location request on arrival")
         check(poll(page, "() => !!document.querySelector('.maplibregl-canvas')"),
