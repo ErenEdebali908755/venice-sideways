@@ -12,4 +12,4 @@
 | Hosting ve geçiş | [MIGRATION](MIGRATION.md) |
 | Önceki uygulama aşaması | [4 Ekim tarihli rapor](2026-10-04-implementation-report.md) |
 
-5 Ekim doğrulaması: ziyaretçi 36 test/37 JS kontrolü; galeri 633 kontrol ve observer/native permission eklenmiş ayrı 597 kontrollü yerel çalışma. Gerçek fotoğraflar kullanıcının izin verdiği portrelerdir; sentetik yatay/panorama fixture'ları gerçek fotoğraf veya durak doğrulaması olarak sunulmaz. Yeni canlı dağıtım ve fiziksel telefon GPS/batarya kabulü bekler. Geçici QA ekranları repoya alınmaz; kalıcı yollar ziyaretçi raporundadır.
+5 Ekim doğrulaması: ziyaretçi 36 test/37 JS kontrolü; galeri 633 kontrol ve observer/native permission eklenmiş ayrı 597 kontrollü yerel çalışma. Gerçek fotoğraflar kullanıcının izin verdiği portrelerdir; sentetik yatay/panorama fixture'ları gerçek fotoğraf veya durak doğrulaması olarak sunulmaz. Son admin Railway dağıtımı context canceled ile FAILED; bu nedenle ziyaretçi PR #6 ve gerçek canlı kabul bekliyor. Fiziksel telefon GPS/batarya kabulü ayrı bir eksiktir. Geçici QA ekranları repoya alınmaz; kalıcı yollar ziyaretçi raporundadır.

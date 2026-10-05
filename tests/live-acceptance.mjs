@@ -12,6 +12,7 @@ const draftSlug='main-walk-2026-10-11';
 const plan={target, cases:32, languages:locales, widths:[390,1440], routes:['main','full'],
   reads:['cold public pages','real provider style/tiles','route and event projections','owned public photo derivatives','draft event QR target'],
   interactions:['manual gallery','browser Back','Escape and focus','native browser geolocation denial'],
+  performance:'Observed startup requests, JS/image wire transfer and cache flags, gallery derivative loading, and any LCP entry; headless Chrome desktop lab, with no speed threshold or physical-mobile claim.',
   writes:'All browser methods except GET/HEAD are aborted; no form is filled or submitted.',
   gates:['SIDEWAYS_LIVE_ACCEPTANCE=approved-read-only','SIDEWAYS_EVENT_GET_VERIFIED_READ_ONLY=1'],
   limitation:'Physical-device location, battery use, and protected admin/media rights revocation require separate acceptance.'};
@@ -34,6 +35,13 @@ const publicResource=value=>{try{const u=new URL(value);return {origin:u.origin,
 // failure. They do not replace the map, provider responses, or device fixes.
 function observe() {
   window.__acceptanceMaps=[];window.__acceptanceGPSStarts=0;window.__acceptanceCSP=[];
+  window.__acceptanceLCP={supported:false,entry:null};
+  try {
+    if(PerformanceObserver.supportedEntryTypes.includes('largest-contentful-paint')) {
+      window.__acceptanceLCP.supported=true;
+      new PerformanceObserver(list=>{const entry=list.getEntries().at(-1);if(entry)window.__acceptanceLCP.entry={startTimeMs:entry.startTime,renderTimeMs:entry.renderTime,loadTimeMs:entry.loadTime,size:entry.size,element:entry.element?.tagName||null};}).observe({type:'largest-contentful-paint',buffered:true});
+    }
+  }catch{}
   let native,proxy;const constructors=new WeakMap();
   Object.defineProperty(window,'maplibregl',{configurable:true,get:()=>proxy,set:value=>{
     native=value;proxy=new Proxy(native,{get(object,key,receiver){
@@ -64,6 +72,11 @@ async function newPage(language,width,height) {
     await route.continue();
   });
   const page=await context.newPage();page.setDefaultTimeout(12000);
+  const requests=[],wire=new Map();
+  page.on('request',request=>{
+    const u=new URL(request.url());
+    requests.push({type:request.resourceType(),photo:u.hostname==='erenedebali.com'&&/^\/image\/(3|6|18)\/(thumb|web)$/.test(u.pathname)?u.pathname:null});
+  });
   page.on('pageerror',()=>applicationErrors.push({language,width}));
   page.on('requestfailed',request=>networkFailures.push({type:request.resourceType(),...publicResource(request.url())}));
   page.on('response',response=>{
@@ -74,7 +87,33 @@ async function newPage(language,width,height) {
   // Scope denial to the fresh browser context: never acquire a physical location.
   const session=await context.newCDPSession(page);const {targetInfo}=await session.send('Target.getTargetInfo');
   await session.send('Browser.setPermission',{permission:{name:'geolocation'},setting:'denied',origin:target,browserContextId:targetInfo.browserContextId});
-  await session.detach();return {page,context};
+  await session.send('Network.enable');
+  session.on('Network.responseReceived',event=>{
+    const previous=wire.get(event.requestId)||{};
+    wire.set(event.requestId,{...previous,type:event.type,diskCache:!!event.response.fromDiskCache,serviceWorker:!!event.response.fromServiceWorker,prefetchCache:!!event.response.fromPrefetchCache});
+  });
+  session.on('Network.requestServedFromCache',event=>{wire.set(event.requestId,{...wire.get(event.requestId),browserCache:true})});
+  session.on('Network.loadingFinished',event=>{wire.set(event.requestId,{...wire.get(event.requestId),encodedTransferBytes:event.encodedDataLength})});
+  const measurements={snapshot:async()=>{
+    const observed=Object.fromEntries([...new Set(requests.map(r=>r.type))].sort().map(type=>[type,requests.filter(r=>r.type===type).length]));
+    const entries=[...wire.values()];
+    const summary=rows=>({responses:rows.length,completedWithByteCount:rows.filter(r=>Number.isFinite(r.encodedTransferBytes)).length,
+      encodedTransferBytes:rows.reduce((sum,r)=>sum+(Number.isFinite(r.encodedTransferBytes)?r.encodedTransferBytes:0),0),
+      browserCacheObserved:rows.filter(r=>r.browserCache).length,diskCacheObserved:rows.filter(r=>r.diskCache).length,
+      serviceWorkerObserved:rows.filter(r=>r.serviceWorker).length,prefetchCacheObserved:rows.filter(r=>r.prefetchCache).length});
+    const timing=await page.evaluate(()=>{
+      const entries=performance.getEntriesByType('resource');
+      const group=type=>entries.filter(entry=>type==='js'?entry.initiatorType==='script':entry.initiatorType==='img');
+      const summary=rows=>({entries:rows.length,reportedTransferBytes:rows.reduce((sum,row)=>sum+row.transferSize,0),reportedEncodedBodyBytes:rows.reduce((sum,row)=>sum+row.encodedBodySize,0),
+        zeroTransferWithDecodedBody:rows.filter(row=>row.transferSize===0&&row.decodedBodySize>0).length,
+        zeroSizesUnknown:rows.filter(row=>row.transferSize===0&&row.encodedBodySize===0&&row.decodedBodySize===0).length});
+      return {js:summary(group('js')),images:summary(group('images')),lcp:window.__acceptanceLCP};
+    });
+    return {pageObservedRequests:requests.length,byResourceType:observed,wire:{all:summary(entries),js:summary(entries.filter(r=>r.type==='Script')),images:summary(entries.filter(r=>r.type==='Image'))},
+      resourceTiming:timing,galleryDerivativeRequests:Object.fromEntries([...new Set(requests.map(r=>r.photo).filter(Boolean))].sort().map(path=>[path,requests.filter(r=>r.photo===path).length])),
+      scope:'Headless Chrome desktop lab. Page-observed requests and CDP completed-response byte counts are observations, not a physical-device or full-provider timing guarantee. ResourceTiming cross-origin zero sizes may be restricted or unavailable; zero-transfer decoded bodies suggest reuse but cache flags are reported separately. No original/private image URL is probed.'};
+  }};
+  return {page,context,measurements};
 }
 async function mapReady(page) {
   await page.waitForFunction(()=>window.__acceptanceMaps?.length===1&&window.__acceptanceMaps[0].getSource('fg-route'));
@@ -103,7 +142,8 @@ async function facts(page) {
     };
   });
 }
-async function gallery(page,label) {
+async function gallery(page,label,measurements) {
+  const beforeOpen=await measurements.snapshot();
   const initial=await page.evaluate(()=>{
     const map=__acceptanceMaps[0];return {active:document.querySelector('[data-step][aria-current="step"]')?.dataset.step,
       camera:JSON.stringify({center:map.getCenter(),zoom:map.getZoom(),bearing:map.getBearing(),pitch:map.getPitch()})};
@@ -114,6 +154,8 @@ async function gallery(page,label) {
   const thumbnails=page.locator('.fg-thumbnails [data-photo-id]');
   check(await thumbnails.count()>0,label+': manual gallery is available');
   const reference=await page.locator('[data-photo-id="reference-eren-3"]').count()>0;
+  await page.waitForFunction(()=>{const image=document.querySelector('.fg-gallery-stage img');return image?.complete&&image.naturalWidth>0});
+  const afterOpen=await measurements.snapshot();
   if(reference){
     check(await thumbnails.count()===3,label+': three owned temporary photographs');
     check(await page.locator('.fg-reference-note').isVisible(),label+': temporary relation warning');
@@ -135,16 +177,18 @@ async function gallery(page,label) {
     const map=__acceptanceMaps[0];return document.querySelector('[data-step][aria-current="step"]')?.dataset.step===initial.active&&
       JSON.stringify({center:map.getCenter(),zoom:map.getZoom(),bearing:map.getBearing(),pitch:map.getPitch()})===initial.camera;
   },initial),label+': inspecting preserves walk and camera');
+  return {beforeOpen,afterOpen,afterManualSelection:await measurements.snapshot()};
 }
 const unavailable={en:'This event is unavailable.',tr:'Bu etkinlik şu an kullanılamıyor.',it:'Evento non disponibile.',fr:'Événement indisponible.',ru:'Событие недоступно.',zh:'此活动暂不可用。',ja:'イベントを表示できません。',ko:'행사를 이용할 수 없습니다.'};
 try {
   for(const language of locales)for(const [width,height] of [[390,844],[1440,900]])for(const routeKey of ['main','full']) {
-    const {page,context}=await newPage(language,width,height);const label=`${language}/${width}/${routeKey}`,record={language,width,routeKey};
+    const {page,context,measurements}=await newPage(language,width,height);const label=`${language}/${width}/${routeKey}`,record={language,width,routeKey};
     try {
       const response=await page.goto(`${target}/?lang=${language}#route=${routeKey}`,{waitUntil:'domcontentloaded',timeout:30000});
       check(response?.status()===200,label+': cold page');
       check(/geolocation=\(self\)/.test(response?.headers()['permissions-policy']||''),label+': own-origin permission policy');
       await mapReady(page);check(await page.locator('.fg-offline-banner').count()===0,label+': published route loaded');
+      record.startup=await measurements.snapshot();
       await page.locator('[data-action="list"]').click();const state=await facts(page);
       record.facts=state;check(state.language===language,label+': selected language');check(state.paper==='rgb(244, 242, 237)',label+': neutral paper');
       check(state.maps===1&&state.gps===0,label+': one map and zero initial GPS');
@@ -161,7 +205,7 @@ try {
         await boat.click();check(await page.locator('.fg-pin').count()===3&&await page.locator('.fg-pin-boat').count()===3,label+': transfer-only boarding/change/landing pins');
         await page.locator('[data-step="0"]').click();await page.locator('[data-action="list"]').click();
       }
-      await gallery(page,label);
+      record.galleryLoading=await gallery(page,label,measurements);
       const theme=page.locator('.fg-theme').filter({visible:true}).first();
       // Select the visible preference control without opening a second map.
       if(await theme.count()){await theme.selectOption('dark');check(await page.evaluate(()=>__acceptanceMaps.length===1&&__acceptanceGPSStarts===0),label+': theme keeps map/GPS');await theme.selectOption('light')}
