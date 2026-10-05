@@ -84,7 +84,16 @@ try:
               "Main Walk opens")
         check(page.locator(".fg-pin").count() == 1, "Only active stop has a map marker")
         check(page.locator(".fg-stop-copy h1").is_visible(), "Active stop copy visible")
-        page.locator('[data-action="fit"]').click()
+        map_options = page.locator('.fg-map-options')
+        fit = page.locator('[data-action="fit"]')
+        if not fit.is_visible():
+            map_options.locator('summary').click()
+        check(fit.is_visible(), "Whole route control is reachable through mobile map tools")
+        fit.click()
+        if map_options.locator('summary').is_visible() and map_options.get_attribute('open') is not None:
+            map_options.locator('summary').click()
+        check(map_options.get_attribute('open') is None,
+              "Mobile map tools can close after fitting the route")
         page.evaluate("""() => {
             const canvas=document.querySelector('.maplibregl-canvas');
             canvas.dispatchEvent(new WheelEvent('wheel',{deltaY:200,bubbles:true}));
