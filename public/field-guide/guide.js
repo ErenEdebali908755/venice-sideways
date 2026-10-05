@@ -549,6 +549,12 @@ export class FieldGuide {
     const opener = this.overlayOpener?.isConnected ? this.overlayOpener : matching || this.root.querySelector('[data-action="detail"]') || this.root.querySelector('[data-action="focus"]');
     opener?.focus({ preventScroll: true }); this.overlayOpener = null; this.overlayFocusKey = null;
   }
+  showDialog(dialog) {
+    if (dialog.open) return;
+    dialog.showModal();
+    // A fresh opening starts at its heading; photo/history rerenders stay put.
+    dialog.scrollTop = 0;
+  }
   renderOverlay() {
     const visit = this.steps().find(item => item.key === this.inspectedVisit && !item.boat);
     if (!visit) { this.restoreOverlay(null); return; }
@@ -583,7 +589,7 @@ export class FieldGuide {
       if (Math.abs(deltaX) > 55 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) { this.ignorePhotoClickUntil = performance.now() + 400; this.selectPhoto(deltaX > 0 ? -1 : 1); }
     }, { passive: true });
     this.bindPhotoErrors(dialog);
-    if (!dialog.open) dialog.showModal();
+    this.showDialog(dialog);
     dialog.querySelector(".fg-close").focus({ preventScroll: true });
   }
   togglePhotoZoom() {
@@ -649,7 +655,7 @@ export class FieldGuide {
     dialog.querySelectorAll("[data-place]").forEach((button) => {
       button.onclick = () => this.openPlace(button.dataset.place);
     });
-    if (!dialog.open) dialog.showModal();
+    this.showDialog(dialog);
   }
   openPlace(key) {
     if (this.route?.visits.some(visit => visit.key === key)) { this.openDetail(key); return; }
@@ -677,7 +683,7 @@ export class FieldGuide {
       this.savedCamera = null; this.closeOverlay();
       if (this.ready && focus) this.map.easeTo({ center: focus, zoom: 16, duration: reduced() ? 0 : 250 });
     });
-    if (!dialog.open) dialog.showModal();
+    this.showDialog(dialog);
   }
   renderStatus() {
     const message = !navigator.onLine
