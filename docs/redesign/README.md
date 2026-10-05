@@ -1,6 +1,6 @@
 # Venice Sideways — tasarım ve doğrulama notu
 
-**Tarihsel tasarım/doğrulama kaydı — 28 Eylül 2026.** Aşağıdaki “yerel / yayında değil” ifadeleri o tarihteki çalışmaya aittir; 5 Ekim durumunu açıklamaz. Güncel mimari, 11/28 durak, sekiz dil, suluboya harita ve yayın ayrımı için [sistem rehberine](../../../eren-visual-archive/docs/VENICE-SIDEWAYS-SYSTEM.md), yayın sırası için [MIGRATION](../MIGRATION.md) belgesine bakın. Bu tarihli gözlem ve ekran kanıtları yeniden yazılmamıştır.
+**Tarihsel tasarım/doğrulama kaydı — 28 Eylül 2026.** Aşağıdaki “yerel / yayında değil” ifadeleri o tarihteki çalışmaya aittir; 5 Ekim durumunu açıklamaz. Güncel mimari, 11/28 durak, sekiz dil, suluboya harita ve yayın ayrımı için [sistem rehberine](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VENICE-SIDEWAYS-SYSTEM.md), yayın sırası için [MIGRATION](../MIGRATION.md) belgesine bakın. Bu tarihli gözlem ve ekran kanıtları yeniden yazılmamıştır.
 
 ## Kısa teşhis
 

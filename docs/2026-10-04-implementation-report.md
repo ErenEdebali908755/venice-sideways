@@ -1,6 +1,6 @@
 # Venice Sideways — 4 Ekim 2026 uygulama raporu
 
-> **Tarihsel yerel uygulama kanıtı.** Aşağıdaki “gönderilmedi/dağıtılmadı”, test sayısı ve eski yedi dilli ikiliye koşullu geri dönüş anlatımı yalnız 4 Ekim aşamasını açıklar; bugünkü üretim adımı olarak kullanılmaz. Güncel yayın, veri uyumluluğu ve geri dönüş için [ortak durum](../../eren-visual-archive/docs/CURRENT-STATE.md), [sistem rehberi](../../eren-visual-archive/docs/VENICE-SIDEWAYS-SYSTEM.md) ve [ziyaretçi geçiş kontrolü](MIGRATION.md) geçerlidir. Bu tarihli metnin kalan kısmı değiştirilmeden korunmuştur.
+> **Tarihsel yerel uygulama kanıtı.** Aşağıdaki “gönderilmedi/dağıtılmadı”, test sayısı ve eski yedi dilli ikiliye koşullu geri dönüş anlatımı yalnız 4 Ekim aşamasını açıklar; bugünkü üretim adımı olarak kullanılmaz. Güncel yayın, veri uyumluluğu ve geri dönüş için [ortak durum](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md), [sistem rehberi](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VENICE-SIDEWAYS-SYSTEM.md) ve [ziyaretçi geçiş kontrolü](MIGRATION.md) geçerlidir. Bu tarihli metnin kalan kısmı değiştirilmeden korunmuştur.
 
 Bu çalışma yerel kod değişiklikleri ve testlerden oluşur. GitHub’a gönderim, birleştirme, üretim veritabanı geçişi veya canlı yayın yapılmadı. Ziyaretçi dalı `feat/watercolor-visitor-map` (`4aa1bc3` tabanı), admin dalı `feat/sideways-map-editor-translation` (`ed26895` tabanı). Bordo palet, Yana ailesi, rota kimlikleri/sırası ve etkinlik sistemi korundu.
 
