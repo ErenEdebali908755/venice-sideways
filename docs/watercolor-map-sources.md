@@ -1,8 +1,22 @@
 # Ziyaretçi suluboya haritası — kaynak ve lisans
 
-## 6 Ekim güncel renderer sözleşmesi — yeni yerel düzeltme
+## 6 Ekim güncel renderer sözleşmesi — yeni düzeltme
 
-Yukarıdaki adlandırma değişmeden aynı dört hashli PNG kullanılır. Main **ve Full** üç yapıyı kendi doğrulanmış stable visit/place koordinatlarından alır. Katman sırası artık rota/halo→boundedart→gereklietiket/DOMpin’dir; bahçe dolguları yolların altında kalır. Tür ve gerçek harita alanına göre aspect-preserving ölçü, 34–42px ekran annotation offset’i, yalnız aktif landmark önceliği ve 2D/3D/style.load ortak idempotent durum adımı uygulanır. PNG alpha/ölçek/zoom/yerleşim kararları [manifest](../public/field-guide/art/manifest.json) ve [yeni kabul fazında](2026-10-05-visual-mobile.md) kayıtlıdır. Yeni cachechain `20261006-map-photo`; eski aşağıdaki Main-only/rota-altı kuralları tarihsel sürümü anlatır. Yeni canlı kabul henüz bu hazırlık noktasında tamamlanmamıştır.
+Aynı dört hashli PNG kullanılır; PNG baytları ve lisans kaydı değişmedi. Main **ve Full**, Santa Lucia/Accademia/Dogana çizimlerini kendi `lucia/accademia/dogana` stable visit/place kimliklerinin mevcut rota koordinatlarından alır. Full için Main koordinatı kopyalanmaz; bunlar ölçülmüş bina merkezi değildir. İki bahçenin gerçek OSM polygon’u değişmedi; diğer13 aday yüklenmez.
+
+| Asset / stable visit–place key | Main mevcut visit / LngLat | Full mevcut visit / LngLat |
+| --- | --- | --- |
+| Santa Lucia / `lucia` | 1 / `[12.32145, 45.44085]` | 1 / `[12.3213, 45.4404]` |
+| Accademia / `accademia` | 9 / `[12.32891, 45.43166]` | 18 / `[12.32899, 45.43164]` |
+| Punta della Dogana / `dogana` | 8 / `[12.33625, 45.43069]` | 16 / `[12.33625, 45.43069]` |
+
+Numaralar bu sürümün `routes.json` ziyaret sırasıdır; renderer seçim anahtarı çevrilmiş başlık veya numara değildir. Her iki rotada `segmentKey=walk-1`, ilgili stable `key/placeKey` eşleşmesi gerekir. Tablodaki coğrafi değerler rota verisidir; cihaz GPS’i veya sonradan ölçülmüş mimari ankraj değildir.
+
+Yeni MapLibre katman sırası: bahçe dolgusu/doku → yollar → rota halo/yürüyüş/vaporetto → sınırlı yapı illüstrasyonu ve aktif açıklama bağlantısı → gerekli provider/yer etiketleri → DOM aktif pin/GPS → kontroller. Rota feature ve koordinatları değişmez; şekli çizimi dolaşacak biçimde değiştiren yol veya maske yoktur. Kurulum/sıralama idempotenttir; eksik/kısmi layer ve style.load sonrası aynı sözleşme uygulanır. 3D’de art/bağlantı gizli, extrusion görünür; 2D’ye dönüş/style reload/recovery güncel mode ve kamera/adımı korur. Normal resize aynı instance kullanır.
+
+Üç türevin pixelRatio2 ve oranı korunur. Compact maksimum genişlik104px, masaüstü124px ve haritanın%27’si arasındaki küçük değer; yükseklik72/80px ve haritanın%24’ü arasındaki küçük değer kullanılır. Dogana ayrıca yüksekliğiyle sınırlanır. Zoom13/15/16.5/19 çarpanları0.64/0.88/1/1; Dogana13–24, istasyon/köprü14.5–24 ve14.5→15 kademeli fade. Harita180px’den dar veya160px’den kısa ise isteğe bağlı art gizlenir; rota/aktif pin kalır. 34–42CSSpx ekran açıklama offset’i coğrafi koordinatı değiştirmez. Yalnız seçili küçük landmark katmanı collision önceliği alır; bütün sembollere sınırsız overlap verilmez. Diğer yapı ve gerekli provider etiketleri normal symbol placement kullanır.
+
+Image pending/dedup/stale source guards/same-dimension update ve fallback korunur; kayıp style image kaydı aynı izinli türevle onarılır, yanlış/durmuş generation’a geç completion yazılmaz. Yeni cachechain `20261006-map-photo`; yerel ortak27 dosya digest `554a5f2ede68717afe1287b728be2213f664e54412c359921cacb8c3175cbb8c`. PNG alpha/ölçek/zoom/yerleşim metadata’sı [manifest](../public/field-guide/art/manifest.json), 76 ara kaynak/12alfa ile final kaynak6 kayıt ayrımı [yeni kabul fazında](2026-10-05-visual-mobile.md) kayıtlıdır. Yeni canlı kabul **08:55:09.475 UTC 80 final kayıt** ile geçti:72 landmark/zoom+8gerçek2D/3D/style-load, Main/Full 1440×900/DPR 1–390×844/DPR 2, üç yapı/altı zoom, sorun/pageError/Maperror/write/GPS 0;12 final screenshot incelendi. Final admin088/bd3 ve visitor00d5/131 SUCCESS,27 served dosya aynı digest ile eşit. Rota GeoJSON tam eşit; kamera roundoff≤3.09e-12 derece, QA toleransı1e-9. İki PBF ERR_ABORTED kaydı ayrı; kesin aşama/iptal nedeni kaydedilmedi. İlk59 başarısız ve ikinci16 kesilen QA menü/float-tolerance denemesi aynı ürün source’unda korunur; final80 bunların yerine tarih değiştirilerek konulmaz. Aşağıdaki Main-only/rota-altı kuralları önceki tarihli sürümü anlatır.
 
 ## Önceki tarihli kaynak kaydı
 
