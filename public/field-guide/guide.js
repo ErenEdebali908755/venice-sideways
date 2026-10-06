@@ -2,16 +2,18 @@
 import {
   BASE_STYLE,
   GARDENS,
+  NEARBY_GREEN_SPACES,
   addWatercolorLayers,
   applyWatercolorPresentation,
   landmarkFeatures,
+  mapDOMObstacles,
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261006-kit04";
-import { directionFeatures, installDirections } from "./directions.js?v=20261006-kit04";
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit04";
-import { uiCopy } from "./ui-copy.js?v=20261006-kit04";
+} from "./map-art.js?v=20261006-kit05";
+import { directionFeatures, installDirections } from "./directions.js?v=20261006-kit05";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit05";
+import { uiCopy } from "./ui-copy.js?v=20261006-kit05";
 import { galleryForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js?v=20261005-mobile";
 import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261005-mobile";
 import { icon } from "./icons.js?v=20261005-mobile";
@@ -51,6 +53,15 @@ export const copyFor = (rows, lang, sourceLanguage = "en") => {
     reviewed.find((row) => row.locale === sourceLanguage) ||
     {};
 };
+export function storyFor(visit, route, lang, preview = false) {
+  const story = visit?.place?.story || visit?.story || route?.places?.find(place => place.key === (visit?.placeKey || visit?.key))?.story ||
+    (preview ? route?.placeStories?.find(place => place.placeKey === (visit?.placeKey || visit?.key))?.story : null);
+  if (!story || (!preview && story.review?.status !== "reviewed")) return null;
+  const rows = (story.copy || []).filter(row => preview || row.needsReview === false);
+  const copy = rows.find(row => row.locale === lang) || rows.find(row => row.locale === "en") || rows.find(row => row.locale === story.sourceLanguage);
+  if (!copy || (!copy.shortHistory && !copy.interestingDetail)) return null;
+  return { copy, sources: story.sources || [], pending: story.review?.status !== "reviewed" || copy.needsReview === true };
+}
 const escape = (v) =>
   String(v ?? "").replace(
     /[&<>"']/g,
@@ -60,6 +71,7 @@ const escape = (v) =>
       ],
   );
 const safeURL = (value) => {
+  if (typeof value !== "string" || !value.trim()) return "";
   try {
     const u = new URL(value, location.origin);
     return ["https:", "http:"].includes(u.protocol) && !u.username && !u.password ? u.href : "";
@@ -83,6 +95,7 @@ export class FieldGuide {
       routes = [],
       lang = "en",
       preview = false,
+      compactPreview = false,
       onEdit = () => {},
       onRouteOpen = () => {},
       onLanguageChange = () => {},
@@ -99,6 +112,8 @@ export class FieldGuide {
     this.routes = routes;
     this.lang = lang;
     this.preview = preview;
+    this.compactPreview = preview && compactPreview === true;
+    this.previewPanelOpen = false;
     this.publicLocation = publicLocation;
     this.localTestLocation = localTestLocation;
     this.referencePhotos = referencePhotos;
@@ -184,6 +199,12 @@ export class FieldGuide {
       if (settings?.open && !settings.contains(event.target)) settings.open = false;
     };
     document.addEventListener("pointerdown", this.settingsOutside);
+    this.previewKeyboard = event => {
+      if (event.defaultPrevented || event.key !== "Escape" || !this.compactPreview || !this.previewPanelOpen || this.modalMode) return;
+      event.preventDefault(); this.previewPanelOpen = false; this.render();
+      this.el(".fg-preview-panel-toggle")?.focus({ preventScroll: true });
+    };
+    root.addEventListener("keydown", this.previewKeyboard);
   }
   t(en, tr) {
     return uiCopy(en, this.lang, tr);
@@ -241,11 +262,12 @@ export class FieldGuide {
     const photo = coverPhoto(this.visitPhotos(visit));
     return photo ? this.galleryImage(photo, { cover: true, stopPreview: true }) : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
   }
-  update({ routes, lang, visitKey, view } = {}) {
+  update({ routes, lang, visitKey, view, compactPreview } = {}) {
     const key = this.route?.key,
       selected = this.steps()[this.index]?.key;
     if (routes) this.routes = routes;
     if (lang) this.lang = lang;
+    if (compactPreview !== undefined) this.compactPreview = this.preview && compactPreview === true;
     this.route = this.routes.find((r) => r.key === key) || this.routes[0];
     const wanted = visitKey ?? selected;
     this.index = Math.max(
@@ -254,6 +276,7 @@ export class FieldGuide {
     );
     if (view) this.view = view;
     this.render();
+    if (wanted !== selected) this.el(".fg-editorial").scrollTop = 0;
     this.draw();
     this.refreshOverlay();
   }
@@ -290,6 +313,8 @@ export class FieldGuide {
     const settingsOpen = !!this.el(".fg-mobile-settings")?.open;
     this.root.dataset.view = this.view;
     this.root.dataset.sheet = this.sheet;
+    this.root.dataset.compactPreview = String(this.compactPreview);
+    this.root.dataset.previewPanel = this.previewPanelOpen ? "open" : "closed";
     this.root.lang = this.lang;
     this.el(".fg-map-shell").setAttribute(
       "aria-label",
@@ -307,6 +332,15 @@ export class FieldGuide {
     this.el(".fg-header").innerHTML =
       `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">${icon("back")}</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}<div data-measurement-preference></div></div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}<div data-measurement-preference></div></div></details></div>`;
     const panel = this.el(".fg-editorial");
+    panel.id = "fg-preview-panel";
+    panel.hidden = this.compactPreview && !this.previewPanelOpen;
+    if (this.compactPreview) {
+      const toggle = document.createElement("button"); toggle.className = "fg-preview-panel-toggle";
+      toggle.textContent = t(this.previewPanelOpen ? "Close stop details" : "Stop details");
+      toggle.setAttribute("aria-controls", panel.id); toggle.setAttribute("aria-expanded", String(this.previewPanelOpen));
+      toggle.onclick = () => { this.previewPanelOpen = !this.previewPanelOpen; this.render(); if (this.previewPanelOpen) this.el(".fg-editorial").scrollTop = 0; this.el(".fg-preview-panel-toggle")?.focus({preventScroll:true}); };
+      this.el(".fg-header-actions").append(toggle);
+    }
     if (!this.routes.length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
     else if (this.view === "explore")
@@ -327,7 +361,7 @@ export class FieldGuide {
       panel.innerHTML = `<h2>${t("No stops yet", "Henüz durak yok")}</h2>`;
     else if (step.boat) panel.innerHTML = this.transfer(step);
     else
-      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.cover(step)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.copyNote(step.copy)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
+      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div><div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.storyIntroduction(step)}${this.storySources(step)}${this.cover(step)}${this.copyNote(step.copy)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
     if (this.view === "walk") {
       const controls = document.createElement("div"); controls.className = "fg-sheet-controls";
       controls.innerHTML = `<span role="status">${t({collapsed:"Compact panel",standard:"Standard panel",expanded:"Expanded panel"}[this.sheet])}</span>${[["collapsed", "Collapse stop panel", "⌄"], ["standard", "Standard stop panel", "↔"], ["expanded", "Expand stop panel", "⌃"]].map(([state,label,symbol]) => `<button data-sheet="${state}" aria-label="${escape(t(label))}" aria-pressed="${state === this.sheet}" aria-controls="fg-sheet-content">${symbol}</button>`).join("")}`;
@@ -336,7 +370,7 @@ export class FieldGuide {
       panel.append(controls, content);
       if (!this.list && !this.completed && step && !step.boat) {
         const story = document.createElement("section"); story.className = "fg-sheet-story";
-        story.innerHTML = this.story(step); content.append(story);
+        story.innerHTML = this.story(step, { introduction: false }); content.append(story);
       }
       controls.querySelectorAll("[data-sheet]").forEach(button => { button.onclick = () => this.setSheet(button.dataset.sheet); });
     }
@@ -361,7 +395,7 @@ export class FieldGuide {
     }
     this.el(".fg-map-tools").innerHTML =
       `<details class="fg-map-options"><summary>${t("Route map")}</summary><div class="fg-map-option-actions"><button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="places">${t("Places on the map", "Haritadaki yerler")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button></div></details><div class="fg-location-controls"></div>`;
-    if (matchMedia("(min-width: 901px)").matches) this.el(".fg-map-options").open = true;
+    if (!this.compactPreview && matchMedia("(min-width: 901px)").matches) this.el(".fg-map-options").open = true;
     this.locationControlsSignature = "";
     this.renderLocation();
     this.root.querySelectorAll("[data-inspect]").forEach(button => { button.onclick = () => this.openDetail(button.dataset.inspect, button); });
@@ -424,8 +458,29 @@ export class FieldGuide {
     this.renderStatus();
     this.scheduleResize();
   }
-  story(visit) {
-    return `${this.vignette(visit)}${this.copyNote(visit.copy)}<p lang="${this.text(visit.copy).locale || this.lang}">${escape(this.text(visit.copy).text)}</p><h2>${this.t("Five ways to look")}</h2>${[...(visit.ideas || [])].sort((a, b) => a.order - b.order).map(idea => `<article><h3>${escape(this.text(idea.copy).title)}</h3><p>${escape(this.text(idea.copy).text)}</p><small>${escape(this.text(idea.copy).phoneTip)}</small></article>`).join("")}`;
+  story(visit, { introduction = true } = {}) {
+    return `${introduction ? this.storyIntroduction(visit) : ""}${this.copyNote(visit.copy)}<p class="fg-route-guidance" lang="${this.text(visit.copy).locale || this.lang}">${escape(this.text(visit.copy).text)}</p>${introduction ? this.storySources(visit) : ""}${this.nearbyGreenSpaces(visit)}${this.vignette(visit)}<details class="fg-photo-ideas"><summary>${this.t("Five ways to look")}</summary>${[...(visit.ideas || [])].sort((a, b) => a.order - b.order).map(idea => `<article><h3>${escape(this.text(idea.copy).title)}</h3><p>${escape(this.text(idea.copy).text)}</p><small>${escape(this.text(idea.copy).phoneTip)}</small></article>`).join("")}</details>`;
+  }
+  nearbyGreenSpaces(visit) {
+    const key = visit.placeKey || visit.key;
+    const spaces = NEARBY_GREEN_SPACES.filter(space => space.placeKey === key || space.placeKeys?.includes(key));
+    return spaces.length ? `<details class="fg-story-sources fg-nearby-green"><summary>${escape(this.t("Nearby green spaces"))}</summary><ul>${spaces.map(space => `<li><a href="${escape(space.url)}" target="_blank" rel="noopener noreferrer">${escape(space.name)} ↗</a><small>${escape(this.t(space.access))}</small></li>`).join('')}</ul></details>` : '';
+  }
+  storyIntroduction(visit) {
+    const story = storyFor(visit, this.route, this.lang, this.preview);
+    if (!story) return '';
+    const { copy, pending } = story;
+    const note = pending && this.preview ? `<p class="fg-source-note">${escape(this.t("Private draft · story awaiting review"))}</p>` : copy.locale !== this.lang ? `<p class="fg-source-note">${escape(this.t("Translation awaiting review. Source text:"))} ${escape(copy.locale.toUpperCase())}</p>` : '';
+    return `<section class="fg-place-story" lang="${escape(copy.locale)}">${note}${copy.shortHistory ? `<h2>${escape(this.t("A short history"))}</h2><p>${escape(copy.shortHistory)}</p>` : ''}${copy.interestingDetail ? `<div class="fg-interesting-detail"><h3>${escape(this.t("One detail to notice"))}</h3><p>${escape(copy.interestingDetail)}</p></div>` : ''}</section>`;
+  }
+  storySources(visit) {
+    const story = storyFor(visit, this.route, this.lang, this.preview);
+    if (!story?.sources.length) return '';
+    const rows = story.sources.filter(source => source && ['primary','book','other'].includes(source.kind) && source.title).map(source => {
+      const link = safeURL(source.url), bibliography = [source.author, source.publisher, source.edition, source.year, source.locator].filter(Boolean).map(escape).join(' · ');
+      return `<li>${link ? `<a href="${escape(link)}" target="_blank" rel="noopener noreferrer">${escape(source.title)} ↗</a>` : escape(source.title)}${bibliography ? `<small>${bibliography}</small>` : ''}</li>`;
+    });
+    return rows.length ? `<details class="fg-story-sources"><summary>${escape(this.t("Sources"))}</summary><ul>${rows.join('')}</ul></details>` : '';
   }
   setSheet(state) {
     if (!["collapsed", "standard", "expanded"].includes(state)) return;
@@ -591,7 +646,7 @@ export class FieldGuide {
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
     const gallery = photo ? `<section class="fg-gallery" aria-label="${escape(this.galleryLabel(visit))}"><div class="fg-gallery-stage"><button class="fg-open-photo" data-open-photo aria-label="${escape(t("Open full photograph"))}">${this.galleryImage(photo, { full: lightbox })}</button></div><div class="fg-gallery-controls"><button data-photo-previous aria-label="${escape(t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("previous")}</button><span role="status">${t("Photograph")} ${index + 1} / ${photos.length}</span><button data-photo-next aria-label="${escape(t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("next")}</button>${lightbox ? `<button data-photo-zoom aria-pressed="${!!this.photoZoom}">${icon(this.photoZoom ? "zoom-out" : "zoom-in")} ${escape(t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph"))}</button>` : ""}</div><div class="fg-thumbnails">${photos.map((item, number) => `<button data-photo-id="${escape(item.assetID)}" aria-pressed="${item === photo}" aria-label="${escape(t("Select photograph"))} ${number + 1}">${this.galleryImage(item, { thumbnail: true })}</button>`).join("")}</div></section>` : `<p class="fg-photo-missing">${t("No photographs at this stop yet.")}</p>`;
     const editorial = lightbox ? "" : this.story(visit);
-    dialog.innerHTML = `<button class="fg-close">${icon("back")} ${t(lightbox ? "Back to stop" : "Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${t("Stop")} ${visit.n || "·"} / ${this.steps().filter(step => step.isPhotoStop).length}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${temporary ? `<p class="fg-reference-note">${t("Temporary photographs by Eren Edebali; their connection to this stop has not been verified.")}</p>` : ""}${gallery}${editorial}`;
+    dialog.innerHTML = `<button class="fg-close">${icon("back")} ${t(lightbox ? "Back to stop" : "Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${t("Stop")} ${visit.n || "·"} / ${this.steps().filter(step => step.isPhotoStop).length}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${temporary ? `<p class="fg-reference-note">${t("Temporary photographs by Eren Edebali; their connection to this stop has not been verified.")}</p>` : ""}${editorial}${gallery}`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelector("[data-open-photo]")?.addEventListener("click", () => { if (performance.now() < (this.ignorePhotoClickUntil || 0)) return; lightbox ? this.togglePhotoZoom() : this.openLightbox(); });
     dialog.querySelector("[data-photo-zoom]")?.addEventListener("click", () => this.togglePhotoZoom());
@@ -768,6 +823,7 @@ export class FieldGuide {
         center: [12.335, 45.438],
         zoom: 13.5,
         attributionControl: { compact: true },
+        crossSourceCollisions: true,
       });
       for (const event of ["dragstart", "zoomstart", "rotatestart", "pitchstart"]) this.map.on(event, action => { if (action.originalEvent) { this.cameraMode = "free"; this.cameraTouched = true; } });
       const map = this.map;
@@ -801,23 +857,26 @@ export class FieldGuide {
           id: "fg-halo",
           type: "line",
           source: "fg-route",
-          paint: { "line-color": "#fff", "line-width": 8 },
+          layout: { "line-cap": "round", "line-join": "round" },
+          paint: { "line-color": "#fffaf2", "line-opacity": 0.8, "line-width": ["interpolate", ["linear"], ["zoom"], 13, 5, 17, 6.5, 20, 7] },
         });
         this.map.addLayer({
           id: "fg-walk",
           type: "line",
           source: "fg-route",
           filter: ["==", ["get", "boat"], false],
-          paint: { "line-color": "#2D59D6", "line-width": 4 },
+          layout: { "line-cap": "round", "line-join": "round" },
+          paint: { "line-color": "#2D59D6", "line-width": ["interpolate", ["linear"], ["zoom"], 13, 2.5, 17, 3.5, 20, 4] },
         });
         this.map.addLayer({
           id: "fg-boat",
           type: "line",
           source: "fg-route",
           filter: ["==", ["get", "boat"], true],
+          layout: { "line-cap": "round", "line-join": "round" },
           paint: {
             "line-color": "#007A8A",
-            "line-width": 4,
+            "line-width": ["interpolate", ["linear"], ["zoom"], 13, 2.5, 17, 3.5, 20, 4],
             "line-dasharray": [3, 2],
           },
         });
@@ -1006,7 +1065,7 @@ export class FieldGuide {
       this.annotationFrame = null;
       if (!this.ready || !this.map || this.disposed) return;
       setWatercolorLandmarks(this.map, this.route, this.view === "walk" && !this.steps()[this.index]?.boat ? this.steps()[this.index]?.key : null);
-      this.map.getSource("fg-direction-source")?.setData(directionFeatures(this.map, this.routeFeatures || []));
+      this.map.getSource("fg-direction-source")?.setData(directionFeatures(this.map, this.routeFeatures || [], { obstacles: mapDOMObstacles(this.map) }));
     });
   }
   scheduleResize() {
@@ -1063,6 +1122,7 @@ export class FieldGuide {
     if (!this.modalMode && (this.cameraMode === "follow" || (this.locationFirstFix && !this.cameraTouched && !fix.outside && !map.getBounds().contains(fix.coordinates)))) this.focusLocation(fix);
     this.locationFirstFix = false;
     this.renderLocation();
+    this.scheduleAnnotations();
   }
   focusLocation(fix) {
     const zoom = fix.accuracy > 1000 ? 12 : fix.accuracy > 200 ? 14 : fix.accuracy > 70 ? 15 : 16;
@@ -1101,5 +1161,6 @@ export class FieldGuide {
     removeEventListener("online", this.online);
     removeEventListener("offline", this.online);
     document.removeEventListener("pointerdown", this.settingsOutside);
+    this.root.removeEventListener("keydown", this.previewKeyboard);
   }
 }

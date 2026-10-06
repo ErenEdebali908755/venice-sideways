@@ -1,5 +1,5 @@
-import {createMeasurementCollector} from './measurement.js?v=20261006-kit04';
-import {FieldGuide} from './guide.js?v=20261006-kit04';
+import {createMeasurementCollector} from './measurement.js?v=20261006-kit05';
+import {FieldGuide} from './guide.js?v=20261006-kit05';
 import {temporarySelection} from './temporary-selection.js?v=20261005-mobile';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];

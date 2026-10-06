@@ -1,0 +1,1720 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-10-06",
+  "coordinateAuthority": "OpenStreetMap named geometry for separate art references; canonical route payload for callout visit coordinates; no route edits",
+  "license": "OSM derived geometry © OpenStreetMap contributors, ODbL 1.0",
+  "assets": [
+    {
+      "placeKey": "lucia",
+      "groundInVisibleBounds": [
+        0.5,
+        0.78
+      ],
+      "artAnchor": [
+        12.3207822,
+        45.44077515
+      ],
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "coordinate": [
+          12.3207822,
+          45.44077515
+        ],
+        "referenceType": "Midpoint of the mapped southeast main facade edge",
+        "sourceURL": "https://www.openstreetmap.org/way/138841071",
+        "sourceVersion": 22,
+        "sourceName": "Stazione Santa Lucia",
+        "checkedAt": "2026-10-06",
+        "edgeNodes": [
+          1522334295,
+          1892949973
+        ],
+        "geometry": [
+          [
+            12.320371,
+            45.4405841
+          ],
+          [
+            12.3211934,
+            45.4409662
+          ]
+        ],
+        "uncertainty": "OSM facade reference; no survey precision claim"
+      }
+    },
+    {
+      "placeKey": "giacomo",
+      "groundInVisibleBounds": [
+        0.5,
+        0.9
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "frari",
+      "groundInVisibleBounds": [
+        0.6,
+        0.92
+      ],
+      "artAnchor": [
+        12.326363875008484,
+        45.436857719639036
+      ],
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "coordinate": [
+          12.326363875008484,
+          45.436857719639036
+        ],
+        "referenceType": "Named church building area centroid",
+        "sourceURL": "https://www.openstreetmap.org/way/138841819",
+        "sourceVersion": 22,
+        "sourceTimestamp": "2026-09-15T17:41:28Z",
+        "sourceName": "Basilica di Santa Maria Gloriosa dei Frari",
+        "checkedAt": "2026-10-06",
+        "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+        "geometry": [
+          [
+            12.3256936,
+            45.4367948
+          ],
+          [
+            12.3256944,
+            45.4368
+          ],
+          [
+            12.3256976,
+            45.4367997
+          ],
+          [
+            12.3256991,
+            45.4368135
+          ],
+          [
+            12.3256963,
+            45.4368139
+          ],
+          [
+            12.3256961,
+            45.4368187
+          ],
+          [
+            12.3257016,
+            45.4368218
+          ],
+          [
+            12.3257048,
+            45.4368203
+          ],
+          [
+            12.3257238,
+            45.4368312
+          ],
+          [
+            12.3257263,
+            45.4368331
+          ],
+          [
+            12.3257241,
+            45.4368348
+          ],
+          [
+            12.3257653,
+            45.4368595
+          ],
+          [
+            12.3257491,
+            45.4368733
+          ],
+          [
+            12.3257592,
+            45.4368794
+          ],
+          [
+            12.3257268,
+            45.4369061
+          ],
+          [
+            12.325789,
+            45.4369401
+          ],
+          [
+            12.3258213,
+            45.4369142
+          ],
+          [
+            12.3258368,
+            45.4369244
+          ],
+          [
+            12.3258985,
+            45.4369592
+          ],
+          [
+            12.3259185,
+            45.4369712
+          ],
+          [
+            12.3259886,
+            45.4370117
+          ],
+          [
+            12.326065,
+            45.4369466
+          ],
+          [
+            12.3260746,
+            45.4369392
+          ],
+          [
+            12.3261355,
+            45.4368859
+          ],
+          [
+            12.3262451,
+            45.4369534
+          ],
+          [
+            12.3263498,
+            45.4370179
+          ],
+          [
+            12.3266744,
+            45.4372178
+          ],
+          [
+            12.3267558,
+            45.4372681
+          ],
+          [
+            12.3267524,
+            45.4372715
+          ],
+          [
+            12.3267673,
+            45.4372812
+          ],
+          [
+            12.3267726,
+            45.437284
+          ],
+          [
+            12.3267792,
+            45.4372791
+          ],
+          [
+            12.326789,
+            45.4372709
+          ],
+          [
+            12.3267812,
+            45.4372653
+          ],
+          [
+            12.3268261,
+            45.4372286
+          ],
+          [
+            12.326835,
+            45.4372344
+          ],
+          [
+            12.3268497,
+            45.4372226
+          ],
+          [
+            12.3268397,
+            45.4372165
+          ],
+          [
+            12.3268593,
+            45.4372019
+          ],
+          [
+            12.326863,
+            45.4372029
+          ],
+          [
+            12.3268667,
+            45.4372025
+          ],
+          [
+            12.326869,
+            45.437201
+          ],
+          [
+            12.3268704,
+            45.4371988
+          ],
+          [
+            12.3268696,
+            45.4371969
+          ],
+          [
+            12.3268676,
+            45.4371947
+          ],
+          [
+            12.3268794,
+            45.4371824
+          ],
+          [
+            12.3268764,
+            45.4371807
+          ],
+          [
+            12.3268901,
+            45.4371695
+          ],
+          [
+            12.3269038,
+            45.4371582
+          ],
+          [
+            12.3269066,
+            45.4371596
+          ],
+          [
+            12.3269189,
+            45.437152
+          ],
+          [
+            12.3269229,
+            45.4371532
+          ],
+          [
+            12.3269261,
+            45.4371531
+          ],
+          [
+            12.3269277,
+            45.4371522
+          ],
+          [
+            12.3269293,
+            45.4371511
+          ],
+          [
+            12.3269309,
+            45.4371489
+          ],
+          [
+            12.3269305,
+            45.4371476
+          ],
+          [
+            12.3269296,
+            45.4371461
+          ],
+          [
+            12.3269273,
+            45.4371446
+          ],
+          [
+            12.3269455,
+            45.4371295
+          ],
+          [
+            12.3269564,
+            45.4371355
+          ],
+          [
+            12.3269713,
+            45.4371234
+          ],
+          [
+            12.3269612,
+            45.4371161
+          ],
+          [
+            12.3270045,
+            45.4370808
+          ],
+          [
+            12.3270146,
+            45.4370863
+          ],
+          [
+            12.3270322,
+            45.4370718
+          ],
+          [
+            12.3270136,
+            45.4370595
+          ],
+          [
+            12.3270078,
+            45.4370647
+          ],
+          [
+            12.3270006,
+            45.4370599
+          ],
+          [
+            12.3269984,
+            45.4370584
+          ],
+          [
+            12.326913,
+            45.437006
+          ],
+          [
+            12.3269184,
+            45.4370013
+          ],
+          [
+            12.3269031,
+            45.4369925
+          ],
+          [
+            12.3268978,
+            45.4369972
+          ],
+          [
+            12.3268048,
+            45.4369403
+          ],
+          [
+            12.3268096,
+            45.4369363
+          ],
+          [
+            12.3267971,
+            45.4369282
+          ],
+          [
+            12.3267914,
+            45.4369323
+          ],
+          [
+            12.3267821,
+            45.4369258
+          ],
+          [
+            12.3267849,
+            45.4369234
+          ],
+          [
+            12.3267769,
+            45.4369175
+          ],
+          [
+            12.3267563,
+            45.4369128
+          ],
+          [
+            12.326728,
+            45.4368959
+          ],
+          [
+            12.3267151,
+            45.4368842
+          ],
+          [
+            12.3267166,
+            45.4368831
+          ],
+          [
+            12.326708,
+            45.4368789
+          ],
+          [
+            12.3267064,
+            45.4368804
+          ],
+          [
+            12.3266961,
+            45.4368739
+          ],
+          [
+            12.3267014,
+            45.4368697
+          ],
+          [
+            12.3266874,
+            45.4368608
+          ],
+          [
+            12.3266811,
+            45.4368654
+          ],
+          [
+            12.3266259,
+            45.4368312
+          ],
+          [
+            12.326634,
+            45.436824
+          ],
+          [
+            12.3266264,
+            45.4368198
+          ],
+          [
+            12.3266823,
+            45.4367747
+          ],
+          [
+            12.32669,
+            45.4367793
+          ],
+          [
+            12.3267012,
+            45.4367707
+          ],
+          [
+            12.3266876,
+            45.4367621
+          ],
+          [
+            12.3266804,
+            45.4367678
+          ],
+          [
+            12.3265982,
+            45.4367148
+          ],
+          [
+            12.3266043,
+            45.4367094
+          ],
+          [
+            12.3265922,
+            45.4367015
+          ],
+          [
+            12.326585,
+            45.4367068
+          ],
+          [
+            12.326435,
+            45.4366157
+          ],
+          [
+            12.3264405,
+            45.4366106
+          ],
+          [
+            12.326432,
+            45.436605
+          ],
+          [
+            12.3264263,
+            45.4366101
+          ],
+          [
+            12.3263668,
+            45.4365733
+          ],
+          [
+            12.3263715,
+            45.4365687
+          ],
+          [
+            12.3263676,
+            45.4365669
+          ],
+          [
+            12.3264179,
+            45.4365264
+          ],
+          [
+            12.3264226,
+            45.4365288
+          ],
+          [
+            12.3264332,
+            45.4365195
+          ],
+          [
+            12.3264201,
+            45.4365128
+          ],
+          [
+            12.3264155,
+            45.4365163
+          ],
+          [
+            12.3263662,
+            45.4364856
+          ],
+          [
+            12.3263707,
+            45.4364826
+          ],
+          [
+            12.3263576,
+            45.4364741
+          ],
+          [
+            12.3263536,
+            45.4364772
+          ],
+          [
+            12.3263328,
+            45.4364653
+          ],
+          [
+            12.3263358,
+            45.4364632
+          ],
+          [
+            12.3263318,
+            45.4364612
+          ],
+          [
+            12.326325,
+            45.4364603
+          ],
+          [
+            12.326325,
+            45.4364624
+          ],
+          [
+            12.3262875,
+            45.4364635
+          ],
+          [
+            12.3262875,
+            45.4364617
+          ],
+          [
+            12.3262811,
+            45.4364618
+          ],
+          [
+            12.3262778,
+            45.436465
+          ],
+          [
+            12.3262804,
+            45.436466
+          ],
+          [
+            12.3262624,
+            45.4364811
+          ],
+          [
+            12.3262606,
+            45.4364801
+          ],
+          [
+            12.3262575,
+            45.4364826
+          ],
+          [
+            12.3262584,
+            45.436486
+          ],
+          [
+            12.3262616,
+            45.4364861
+          ],
+          [
+            12.3262615,
+            45.4365049
+          ],
+          [
+            12.3262575,
+            45.4365045
+          ],
+          [
+            12.3262592,
+            45.4365004
+          ],
+          [
+            12.326241,
+            45.4364977
+          ],
+          [
+            12.3262391,
+            45.436502
+          ],
+          [
+            12.3262232,
+            45.4364978
+          ],
+          [
+            12.3262235,
+            45.436495
+          ],
+          [
+            12.326218,
+            45.4364948
+          ],
+          [
+            12.3262127,
+            45.436497
+          ],
+          [
+            12.3262141,
+            45.4364993
+          ],
+          [
+            12.3261938,
+            45.436506
+          ],
+          [
+            12.3261927,
+            45.4365042
+          ],
+          [
+            12.3261879,
+            45.4365062
+          ],
+          [
+            12.3261869,
+            45.4365099
+          ],
+          [
+            12.3261904,
+            45.4365107
+          ],
+          [
+            12.3261803,
+            45.436527
+          ],
+          [
+            12.3261761,
+            45.4365266
+          ],
+          [
+            12.3261757,
+            45.4365284
+          ],
+          [
+            12.3261712,
+            45.4365301
+          ],
+          [
+            12.3261731,
+            45.4365325
+          ],
+          [
+            12.3261483,
+            45.4365405
+          ],
+          [
+            12.3261465,
+            45.4365385
+          ],
+          [
+            12.326142,
+            45.4365395
+          ],
+          [
+            12.3261403,
+            45.4365433
+          ],
+          [
+            12.3261438,
+            45.4365441
+          ],
+          [
+            12.3261357,
+            45.4365619
+          ],
+          [
+            12.3261312,
+            45.4365616
+          ],
+          [
+            12.3261303,
+            45.4365645
+          ],
+          [
+            12.3261264,
+            45.4365657
+          ],
+          [
+            12.3261286,
+            45.4365685
+          ],
+          [
+            12.3261063,
+            45.4365753
+          ],
+          [
+            12.3261056,
+            45.4365733
+          ],
+          [
+            12.3260998,
+            45.4365741
+          ],
+          [
+            12.326098,
+            45.4365772
+          ],
+          [
+            12.3261029,
+            45.4365798
+          ],
+          [
+            12.3260926,
+            45.4365969
+          ],
+          [
+            12.3260736,
+            45.4365855
+          ],
+          [
+            12.3260849,
+            45.436576
+          ],
+          [
+            12.3260543,
+            45.436557
+          ],
+          [
+            12.3260432,
+            45.4365655
+          ],
+          [
+            12.3260102,
+            45.4365591
+          ],
+          [
+            12.3260034,
+            45.4365578
+          ],
+          [
+            12.3259631,
+            45.4365629
+          ],
+          [
+            12.3259183,
+            45.4365817
+          ],
+          [
+            12.3258945,
+            45.4366121
+          ],
+          [
+            12.3258947,
+            45.4366397
+          ],
+          [
+            12.3258948,
+            45.4366486
+          ],
+          [
+            12.325912,
+            45.4366752
+          ],
+          [
+            12.3259027,
+            45.4366827
+          ],
+          [
+            12.3259332,
+            45.4367018
+          ],
+          [
+            12.3259463,
+            45.4366914
+          ],
+          [
+            12.3259648,
+            45.4367028
+          ],
+          [
+            12.3259469,
+            45.4367113
+          ],
+          [
+            12.3259442,
+            45.4367093
+          ],
+          [
+            12.3259399,
+            45.4367103
+          ],
+          [
+            12.3259388,
+            45.4367133
+          ],
+          [
+            12.3259427,
+            45.4367145
+          ],
+          [
+            12.3259359,
+            45.4367318
+          ],
+          [
+            12.3259325,
+            45.4367311
+          ],
+          [
+            12.3259309,
+            45.4367349
+          ],
+          [
+            12.3259258,
+            45.4367366
+          ],
+          [
+            12.3259283,
+            45.4367395
+          ],
+          [
+            12.325904,
+            45.4367482
+          ],
+          [
+            12.3259021,
+            45.4367452
+          ],
+          [
+            12.3258966,
+            45.4367462
+          ],
+          [
+            12.3258949,
+            45.4367504
+          ],
+          [
+            12.3258984,
+            45.4367507
+          ],
+          [
+            12.3258924,
+            45.4367688
+          ],
+          [
+            12.325887,
+            45.4367678
+          ],
+          [
+            12.3258856,
+            45.4367706
+          ],
+          [
+            12.3258791,
+            45.4367728
+          ],
+          [
+            12.3258824,
+            45.4367765
+          ],
+          [
+            12.3258614,
+            45.4367823
+          ],
+          [
+            12.3258589,
+            45.4367805
+          ],
+          [
+            12.3258547,
+            45.4367814
+          ],
+          [
+            12.3258517,
+            45.4367853
+          ],
+          [
+            12.3258567,
+            45.4367868
+          ],
+          [
+            12.3258475,
+            45.4368054
+          ],
+          [
+            12.3258342,
+            45.4367964
+          ],
+          [
+            12.3258268,
+            45.4368028
+          ],
+          [
+            12.3258305,
+            45.4368053
+          ],
+          [
+            12.3258186,
+            45.4368148
+          ],
+          [
+            12.3257801,
+            45.436791
+          ],
+          [
+            12.3257774,
+            45.4367931
+          ],
+          [
+            12.325753,
+            45.4367782
+          ],
+          [
+            12.3257552,
+            45.4367764
+          ],
+          [
+            12.3257502,
+            45.4367738
+          ],
+          [
+            12.3257439,
+            45.4367733
+          ],
+          [
+            12.325744,
+            45.4367757
+          ],
+          [
+            12.3257219,
+            45.4367781
+          ],
+          [
+            12.3257213,
+            45.4367765
+          ],
+          [
+            12.3257149,
+            45.4367778
+          ],
+          [
+            12.3257106,
+            45.4367815
+          ],
+          [
+            12.3257134,
+            45.4367828
+          ],
+          [
+            12.3257008,
+            45.4367927
+          ],
+          [
+            12.3256976,
+            45.4367913
+          ],
+          [
+            12.3256936,
+            45.4367948
+          ]
+        ]
+      }
+    },
+    {
+      "placeKey": "margherita",
+      "groundInVisibleBounds": [
+        0.5,
+        0.9
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "barnaba",
+      "groundInVisibleBounds": [
+        0.55,
+        0.82
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "trovaso",
+      "groundInVisibleBounds": [
+        0.5,
+        0.78
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "zattere",
+      "groundInVisibleBounds": [
+        0.52,
+        0.84
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "dogana",
+      "groundInVisibleBounds": [
+        0.48,
+        0.83
+      ],
+      "artAnchor": [
+        12.336151621786827,
+        45.430794888061314
+      ],
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "coordinate": [
+          12.336151621786827,
+          45.430794888061314
+        ],
+        "referenceType": "Named customs building outer-ring area centroid",
+        "sourceURL": "https://www.openstreetmap.org/relation/2317795",
+        "sourceVersion": 5,
+        "sourceTimestamp": "2025-07-24T09:45:17Z",
+        "sourceName": "Punta della Dogana",
+        "checkedAt": "2026-10-06",
+        "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+        "geometry": [
+          [
+            12.3356802,
+            45.4307976
+          ],
+          [
+            12.3356222,
+            45.4309905
+          ],
+          [
+            12.3356035,
+            45.4310525
+          ],
+          [
+            12.3358468,
+            45.4310358
+          ],
+          [
+            12.3367735,
+            45.4309721
+          ],
+          [
+            12.3368644,
+            45.4309818
+          ],
+          [
+            12.3368699,
+            45.4309564
+          ],
+          [
+            12.336876,
+            45.4309571
+          ],
+          [
+            12.336877,
+            45.4309521
+          ],
+          [
+            12.3369226,
+            45.4309569
+          ],
+          [
+            12.336926,
+            45.4309412
+          ],
+          [
+            12.3369299,
+            45.4309234
+          ],
+          [
+            12.3369384,
+            45.4308843
+          ],
+          [
+            12.336894,
+            45.4308796
+          ],
+          [
+            12.3368951,
+            45.4308744
+          ],
+          [
+            12.3368882,
+            45.4308737
+          ],
+          [
+            12.3368934,
+            45.4308481
+          ],
+          [
+            12.3368026,
+            45.4308371
+          ],
+          [
+            12.3358079,
+            45.4303829
+          ],
+          [
+            12.3357528,
+            45.4305129
+          ],
+          [
+            12.3357528,
+            45.4306729
+          ],
+          [
+            12.3357126,
+            45.4306898
+          ],
+          [
+            12.3356802,
+            45.4307976
+          ]
+        ]
+      }
+    },
+    {
+      "placeKey": "accademia",
+      "groundInVisibleBounds": [
+        0.5,
+        0.82
+      ],
+      "artAnchor": [
+        12.328915970800372,
+        45.43164318814629
+      ],
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "coordinate": [
+          12.328915970800372,
+          45.43164318814629
+        ],
+        "referenceType": "Bridge polygon area centroid",
+        "sourceURL": "https://www.openstreetmap.org/way/556239027",
+        "sourceVersion": 14,
+        "sourceTimestamp": "2026-06-22T12:37:48Z",
+        "sourceName": "Ponte dell'Accademia",
+        "checkedAt": "2026-10-06",
+        "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+        "geometry": [
+          [
+            12.3288122,
+            45.431297
+          ],
+          [
+            12.3287423,
+            45.4313721
+          ],
+          [
+            12.3285716,
+            45.431445
+          ],
+          [
+            12.3285884,
+            45.4314641
+          ],
+          [
+            12.3286049,
+            45.4314834
+          ],
+          [
+            12.3287133,
+            45.4314356
+          ],
+          [
+            12.3287285,
+            45.4314547
+          ],
+          [
+            12.3287609,
+            45.4314956
+          ],
+          [
+            12.3290786,
+            45.4318964
+          ],
+          [
+            12.3291786,
+            45.4320226
+          ],
+          [
+            12.3292077,
+            45.432011
+          ],
+          [
+            12.3292391,
+            45.4319992
+          ],
+          [
+            12.3291386,
+            45.4318723
+          ],
+          [
+            12.3288086,
+            45.4314561
+          ],
+          [
+            12.3287856,
+            45.4314267
+          ],
+          [
+            12.3287736,
+            45.4314116
+          ],
+          [
+            12.3288461,
+            45.4313404
+          ],
+          [
+            12.3288276,
+            45.4313168
+          ],
+          [
+            12.3288122,
+            45.431297
+          ]
+        ]
+      }
+    },
+    {
+      "placeKey": "trearchi",
+      "groundInVisibleBounds": [
+        0.5,
+        0.82
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "Held for original human identity review",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "vino",
+      "groundInVisibleBounds": [
+        0.5,
+        0.77
+      ],
+      "artAnchor": [
+        12.3330905,
+        45.4440492
+      ],
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "coordinate": [
+          12.3330905,
+          45.4440492
+        ],
+        "referenceType": "Named business POI, not facade survey",
+        "sourceURL": "https://www.openstreetmap.org/node/4492344893",
+        "sourceVersion": 11,
+        "sourceName": "Vino Vero",
+        "checkedAt": "2026-10-06",
+        "identitySource": "https://vinovero.wine/luoghi/venezia/",
+        "identityAddress": "Cannaregio 2497, Fondamenta della Misericordia",
+        "uncertainty": "OSM business representative point; official address agrees; exact facade contact not surveyed"
+      }
+    },
+    {
+      "placeKey": "guglie",
+      "groundInVisibleBounds": [
+        0.45,
+        0.82
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "ghetto",
+      "groundInVisibleBounds": [
+        0.55,
+        0.88
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "ormesini",
+      "groundInVisibleBounds": [
+        0.57,
+        0.79
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "orto",
+      "groundInVisibleBounds": [
+        0.53,
+        0.92
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "misericordia",
+      "groundInVisibleBounds": [
+        0.5,
+        0.76
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "chiodo",
+      "groundInVisibleBounds": [
+        0.43,
+        0.85
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "rialto",
+      "groundInVisibleBounds": [
+        0.5,
+        0.81
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "polo",
+      "groundInVisibleBounds": [
+        0.4,
+        0.87
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "salute",
+      "groundInVisibleBounds": [
+        0.52,
+        0.88
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "stefano",
+      "groundInVisibleBounds": [
+        0.43,
+        0.88
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "marco",
+      "groundInVisibleBounds": [
+        0.65,
+        0.92
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "schiavoni",
+      "groundInVisibleBounds": [
+        0.47,
+        0.77
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "arsenale",
+      "groundInVisibleBounds": [
+        0.5,
+        0.9
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "tana",
+      "groundInVisibleBounds": [
+        0.5,
+        0.86
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "garibaldi",
+      "groundInVisibleBounds": [
+        0.5,
+        0.9
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "viale",
+      "groundInVisibleBounds": [
+        0.52,
+        0.91
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "giardini",
+      "groundInVisibleBounds": [
+        0.68,
+        0.88
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "sette",
+      "groundInVisibleBounds": [
+        0.45,
+        0.78
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    },
+    {
+      "placeKey": "elena",
+      "groundInVisibleBounds": [
+        0.46,
+        0.89
+      ],
+      "artAnchor": null,
+      "opticalReview": {
+        "checkedAt": "2026-10-06",
+        "status": "AI visual optical annotation review; human architectural approval not claimed",
+        "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+        "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+      },
+      "geographicReview": {
+        "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+        "checkedAt": "2026-10-06"
+      }
+    }
+  ]
+}

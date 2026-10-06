@@ -1,7 +1,7 @@
 /* Screen-spaced arrows follow source coordinate order; vertices never become arrows. */
 export const ROUTE_COLORS = { walk: "#2D59D6", boat: "#007A8A", halo: "#fffaf2" };
 /** @param {any} map @param {any[]} lines @param {{spacing?:number,max?:number}} options @returns {any} */
-export function directionFeatures(map, lines, { spacing = 125, max = 64 } = {}) {
+export function directionFeatures(map, lines, { spacing = 125, max = 64, obstacles = [] } = {}) {
   const features = [], container = map.getContainer();
   const width = container.clientWidth, height = container.clientHeight;
   if (width < 180 || height < 160) return { type: "FeatureCollection", features };
@@ -15,7 +15,8 @@ export function directionFeatures(map, lines, { spacing = 125, max = 64 } = {}) 
       if (!Number.isFinite(length) || length < 0.01) continue;
       while (next <= walked + length && features.length < max) {
         const ratio = (next - walked) / length, x = a.x + dx * ratio, y = a.y + dy * ratio;
-        if (x >= 16 && y >= 16 && x <= width - 16 && y <= height - 16) {
+        if (x >= 16 && y >= 16 && x <= width - 16 && y <= height - 16 &&
+          !obstacles.some(box => x >= box.left - 12 && x <= box.right + 12 && y >= box.top - 12 && y <= box.bottom + 12)) {
           const from = coordinates[i - 1], to = coordinates[i];
           features.push({ type: "Feature", properties: { boat: line.properties?.boat === true, angle: Math.atan2(dy, dx) * 180 / Math.PI }, geometry: { type: "Point", coordinates: [from[0] + (to[0] - from[0]) * ratio, from[1] + (to[1] - from[1]) * ratio] } });
         }
@@ -33,7 +34,10 @@ export function directionImage(boat = false) {
   const ctx = canvas.getContext("2d");
   ctx.lineCap = "round"; ctx.lineJoin = "round";
   for (const [color, width] of [[ROUTE_COLORS.halo, 9], [boat ? ROUTE_COLORS.boat : ROUTE_COLORS.walk, 4]]) {
-    ctx.beginPath(); ctx.moveTo(8, 7); ctx.lineTo(22, 16); ctx.lineTo(8, 25); ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+    ctx.strokeStyle = color; ctx.lineWidth = width;
+    for(const points of boat ? [[[4,9],[14,16],[4,23]],[[15,9],[25,16],[15,23]]] : [[[8,7],[22,16],[8,25]]]) {
+      ctx.beginPath();ctx.moveTo(...points[0]);ctx.lineTo(...points[1]);ctx.lineTo(...points[2]);ctx.stroke();
+    }
   }
   return ctx.getImageData(0, 0, 32, 32);
 }

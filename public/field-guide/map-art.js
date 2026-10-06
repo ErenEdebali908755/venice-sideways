@@ -1,5 +1,5 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit04";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit05";
 
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
@@ -40,6 +40,17 @@ export const MAIN_LANDMARKS = ILLUSTRATIONS.filter(asset => asset.approved).map(
 export const GARDENS = [
   { key: "papadopoli", osmWayId: "174476472", focus: [12.32068956, 45.43846877] },
   { key: "savorgnan", osmWayId: "4715855", focus: [12.32362926, 45.44335433] },
+];
+// Context belongs to an existing stop. These are neither additional visits nor
+// promises that a gate is open today; the linked keeper has current conditions.
+export const NEARBY_GREEN_SPACES = [
+  { placeKey: "lucia", name: "Giardini Papadopoli", access: "Public green space · check current access", url: "https://www.comune.venezia.it/it/node/44238", checkedAt: "2026-10-06", polygonOSMWay: "174476472" },
+  { placeKey: "lucia", name: "Parco Savorgnan", access: "Public green space · check current access", url: "https://www.comune.venezia.it/it/node/44238", checkedAt: "2026-10-06", polygonOSMWay: "4715855" },
+  { placeKey: "lucia", name: "Giardino Mistico dei Carmelitani Scalzi", access: "Convent garden · guided visits by reservation", url: "https://www.veneziaunica.it/it/cosa-fare-a-venezia/giardini-parchi-oasi-naturali/giardino-mistico-dei-carmelitani-scalzi", checkedAt: "2026-10-06" },
+  { placeKey: "marco", name: "Giardini Reali", access: "Public garden · check the foundation’s access information", url: "https://www.venicegardensfoundation.org/en/giardini-reali", checkedAt: "2026-10-06", polygonOSMWay: null },
+  { placeKeys: ["accademia", "salute"], name: "Peggy Guggenheim Collection · Nasher Sculpture Garden", access: "Museum garden · admission conditions apply", url: "https://www.guggenheim-venice.it/en/visit/", checkedAt: "2026-10-06" },
+  { placeKeys: ["giardini", "viale", "garibaldi"], name: "Giardini Napoleonici", access: "Public green space · check current access", url: "https://www.veneziaunica.it/en/things-to-do-in-venice/gardens-parks-natural-oases/napoleon-gardens", checkedAt: "2026-10-06" },
+  { placeKeys: ["giardini", "viale", "garibaldi"], name: "Giardini della Biennale · exhibition grounds", access: "Exhibition grounds · ticket and event conditions apply", url: "https://www.labiennale.org/en/art/2026/prepare-your-visit", checkedAt: "2026-10-06" },
 ];
 
 export const PLACE_COPY = {
@@ -93,12 +104,19 @@ export function watercolorStyle(base) {
     highway_motorway_inner: { "line-color": "#fffaf2" },
     highway_motorway_bridge_inner: { "line-color": "#fffaf2" },
     water_name_line_label: { "text-color": "#406f86", "text-halo-color": "#F4F2ED" },
+    waterway_line_label: { "text-color": "#406f86", "text-halo-color": "#F4F2ED" },
     water_name_point_label: { "text-color": "#406f86", "text-halo-color": "#F4F2ED" },
     label_other: { "text-color": "#59493f", "text-halo-color": "#F4F2ED" },
   };
   for (const layer of style.layers) {
     if (colors[layer.id]) layer.paint = { ...layer.paint, ...colors[layer.id] };
-    if (layer.id === "water_name_line_label") layer.minzoom = Math.max(layer.minzoom || 0, 14.5);
+    if (["water_name_line_label", "waterway_line_label"].includes(layer.id)) layer.minzoom = Math.max(layer.minzoom || 0, 16);
+    if (layer.type === "symbol") {
+      layer.layout = { ...layer.layout, "text-allow-overlap": false, "text-ignore-placement": false };
+      // Variable point anchors do not apply to a canal's line placement.
+      if ((!layer.layout["symbol-placement"] || layer.layout["symbol-placement"] === "point") && layer.layout["text-field"] && !layer.layout["text-variable-anchor"])
+        layer.layout["text-variable-anchor"] = ["top", "bottom", "left", "right"];
+    }
     if (/^highway-name-/.test(layer.id))
       layer.paint = { ...layer.paint, "text-color": "#695d55", "text-halo-color": "#fffaf2" };
   }
@@ -115,8 +133,11 @@ export function landmarkFeatures(route) {
     if (!Number.isFinite(visit?.longitude) || !Number.isFinite(visit?.latitude)) return [];
     return [{
       type: "Feature",
-      properties: { key, icon, visitKey: visit.key, placeKey: visit.placeKey || key },
-      geometry: { type: "Point", coordinates: [visit.longitude, visit.latitude] },
+      properties: { key, icon, visitKey: visit.key, placeKey: visit.placeKey || key,
+        visitCoordinate: [visit.longitude, visit.latitude],
+        artAnchor: ILLUSTRATIONS.find(asset => asset.key === key)?.artAnchor || null,
+        placementMode: "bounded-callout" },
+      geometry: { type: "Point", coordinates: ILLUSTRATIONS.find(asset => asset.key === key)?.artAnchor || [visit.longitude, visit.latitude] },
     }];
   });
 }
@@ -130,26 +151,23 @@ export function watercolorLayout(width, height) {
   const compact = width <= 600;
   const maxWidth = Math.min(compact ? 104 : 124, Math.max(0, width) * 0.27);
   const maxHeight = Math.min(compact ? 72 : 80, Math.max(0, height) * 0.24);
-  // Clear the selected/focused 43px stop plus its outline. On an unusually
-  // short/narrow map, optional art is hidden rather than covering the controls.
-  const gap = Math.min(42, Math.max(34, Math.max(0, height) * 0.12));
   const assets = ART_ASSETS.filter(asset => asset.kind !== "garden-leaves");
-  return { gap, maxWidth, maxHeight, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
+  return { gap: 0, maxWidth, maxHeight, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
     Math.min(maxWidth / (asset.width / asset.pixelRatio), maxHeight / (asset.height / asset.pixelRatio))])) };
 }
 
-function layoutExpressions(layout) {
-  const match = value => ["match", ["get", "icon"],
-    ...Object.entries(layout.sizes).flatMap(([kind, size]) => [kind, value(size)]), value(0.5)];
-  return {
-    size: ["interpolate", ["linear"], ["zoom"],
-      ...ZOOM_STOPS.flatMap(([zoom, factor]) => [zoom, match(size => size * factor)])],
-    // MapLibre 5 multiplies icon-offset by icon-size. The inverse size keeps
-    // the annotation gap stable in CSS pixels while its body scales smoothly.
-    offset: ["interpolate", ["linear"], ["zoom"],
-      ...ZOOM_STOPS.flatMap(([zoom, factor]) => [zoom, match(size =>
-        ["literal", [0, size ? -layout.gap / (size * factor) : 0]])])],
-  };
+export function opticalPlacement(asset, point, iconSize, displacement = [0, 0]) {
+  const ratio = asset.pixelRatio || 1, scale = iconSize / ratio;
+  const [gx, gy] = asset.imageGroundPointPx || [asset.width / 2, asset.height];
+  const [dx, dy] = displacement;
+  const center = { x: point.x + (asset.width / 2 - gx) * scale + dx, y: point.y + (asset.height / 2 - gy) * scale + dy };
+  const [left, top, right, bottom] = asset.visibleAlpha16BoundsPx || [0, 0, asset.width, asset.height];
+  return { center, ground: { x: point.x + dx, y: point.y + dy },
+    // icon-offset is in logical sprite pixels, then multiplied by icon-size.
+    // The raw ground point is divided by pixelRatio exactly once.
+    offset: [(asset.width / 2 - gx) / ratio + dx / iconSize, (asset.height / 2 - gy) / ratio + dy / iconSize],
+    bounds: { left: center.x + (left - asset.width / 2) * scale, top: center.y + (top - asset.height / 2) * scale,
+      right: center.x + (right - asset.width / 2) * scale, bottom: center.y + (bottom - asset.height / 2) * scale } };
 }
 
 export function orderWatercolorLayers(map) {
@@ -168,10 +186,11 @@ export function orderWatercolorLayers(map) {
     if (ids.slice(roadIndex - gardens.length, roadIndex).join("|") !== gardens.join("|"))
       for (const id of gardens) move(id, roads.id);
   }
-  // Keep the provider's road/place label order, above the small art family.
-  // Gardens stay below roads; route geometry and its white halo stay below art.
+  // Provider symbols are placed after the art family in collision priority,
+  // while drawn beneath it. Cross-source collision is enabled on the map.
+  // Canal line labels remain line labels; they no longer paint over Vino Vero.
   const labels = layers.filter(layer => layer.type === "symbol" && !layer.id.startsWith("fg-")).map(layer => layer.id);
-  const overlay = ["fg-halo", "fg-walk", "fg-boat", "fg-directions", ...LANDMARK_LAYERS, ...labels, "fg-garden-label"];
+  const overlay = [...labels, "fg-halo", "fg-walk", "fg-boat", "fg-directions", ...LANDMARK_LAYERS, "fg-garden-label"];
   const existing = overlay.filter(id => map.getLayer(id));
   const current = map.getStyle()?.layers.map(layer => layer.id) || [];
   if (current.slice(-existing.length).join("|") !== existing.join("|"))
@@ -182,7 +201,6 @@ export function applyWatercolorPresentation(map, { threeD = false } = {}) {
   orderWatercolorLayers(map);
   const container = map.getContainer?.();
   const layout = watercolorLayout(container?.clientWidth || 800, container?.clientHeight || 500);
-  const expressions = layoutExpressions(layout);
   const set = (id, name, value) => {
     if (!map.getLayer(id)) return;
     if (JSON.stringify(map.getLayoutProperty?.(id, name)) !== JSON.stringify(value))
@@ -191,12 +209,9 @@ export function applyWatercolorPresentation(map, { threeD = false } = {}) {
   set("fg-buildings", "visibility", threeD ? "visible" : "none");
   for (const id of LANDMARK_LAYERS) set(id, "visibility", threeD || !layout.visible ? "none" : "visible");
   for (const id of LANDMARK_LAYERS.slice(1)) {
-    set(id, "icon-size", expressions.size);
-    set(id, "icon-offset", expressions.offset);
+    set(id, "icon-size", ["get", "iconSize"]);
+    set(id, "icon-offset", ["get", "iconOffset"]);
   }
-  // The line is an annotation back to the unchanged route/place anchor. It is
-  // deliberately thin and neutral, distinct from solid/dashed route strokes.
-  set("fg-landmark-tether", "icon-size", layout.gap / 48);
 }
 
 const stroke = (ctx, points, color = "#865346", width = 3) => {
@@ -290,14 +305,6 @@ function gardenIcon() {
   return ctx.getImageData(0, 0, 64, 64);
 }
 
-function annotationTether() {
-  const canvas = document.createElement("canvas");
-  canvas.width = 4; canvas.height = 48;
-  const ctx = canvas.getContext("2d");
-  stroke(ctx, [[2, 0], [2, 48]], "#71645999", 1);
-  return ctx.getImageData(0, 0, 4, 48);
-}
-
 // Optional illustration failures never decide route or GPS readiness. Each style
 // has its own source identity; a late image cannot mutate a replacement style.
 const artworkState = new WeakMap();
@@ -352,8 +359,8 @@ export function addWatercolorLayers(map) {
     map.addImage("fg-garden-leaves", assetSizedFallback(gardenPattern(), pattern), { pixelRatio: pattern.pixelRatio });
   }
   if (!map.hasImage("fg-garden-icon")) map.addImage("fg-garden-icon", gardenIcon(), { pixelRatio: 2 });
-  if (!map.hasImage("fg-art-tether")) map.addImage("fg-art-tether", annotationTether(), { pixelRatio: 1 });
   if (!map.getSource("fg-landmarks")) map.addSource("fg-landmarks", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+  if (!map.getSource("fg-landmark-tethers")) map.addSource("fg-landmark-tethers", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
   if (!map.getSource("fg-gardens")) map.addSource("fg-gardens", {
     type: "geojson",
     data: "/field-guide/gardens.json",
@@ -378,12 +385,9 @@ export function addWatercolorLayers(map) {
     paint: { "text-color": "#335e42", "text-halo-color": "#fff9ec", "text-halo-width": 1.5 },
   });
   if (!map.getLayer("fg-landmark-tether")) map.addLayer({
-    id: "fg-landmark-tether", type: "symbol", source: "fg-landmarks", minzoom: 13, maxzoom: 24,
-    filter: ["==", ["get", "active"], true],
-    layout: { "icon-image": "fg-art-tether", "icon-anchor": "bottom",
-      "icon-allow-overlap": true, "icon-ignore-placement": true,
-      "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport" },
-    paint: { "icon-opacity": 1 },
+    id: "fg-landmark-tether", type: "line", source: "fg-landmark-tethers", minzoom: 13, maxzoom: 24,
+    layout: { "line-cap": "round" },
+    paint: { "line-color": "#716459", "line-width": 1, "line-opacity": 0.7 },
   });
   for (const [id, minzoom, filter] of [
     ["fg-landmark-overview", 13, ["!=", ["get", "active"], true]],
@@ -391,10 +395,10 @@ export function addWatercolorLayers(map) {
   ]) if (!map.getLayer(id)) map.addLayer({
     id, type: "symbol", source: "fg-landmarks", minzoom, maxzoom: 24, filter,
     layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
-      "icon-size": 0.75, "icon-anchor": "bottom", "icon-allow-overlap": false,
+      "icon-size": ["get", "iconSize"], "icon-offset": ["get", "iconOffset"], "icon-anchor": "center", "icon-allow-overlap": false,
       "icon-ignore-placement": false, "icon-padding": 3,
       "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport",
-      "symbol-sort-key": ["match", ["get", "icon"], "dogana", 1, "station", 2, 3] },
+      "symbol-sort-key": ["get", "priority"] },
     paint: { "icon-opacity": id === "fg-landmark-detail" ?
       ["interpolate", ["linear"], ["zoom"], 14.5, 0, 15, 1] : 1 },
   });
@@ -402,7 +406,8 @@ export function addWatercolorLayers(map) {
     id: "fg-landmark-active", type: "symbol", source: "fg-landmarks", minzoom: 13, maxzoom: 24,
     filter: ["==", ["get", "active"], true],
     layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
-      "icon-anchor": "bottom", "icon-allow-overlap": true,
+      "icon-size": ["get", "iconSize"], "icon-offset": ["get", "iconOffset"],
+      "icon-anchor": "center", "icon-allow-overlap": false,
       "icon-ignore-placement": false, "icon-padding": 3,
       "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport" },
   });
@@ -411,18 +416,91 @@ export function addWatercolorLayers(map) {
   return true;
 }
 
-/** Select real anchors in the viewport before requesting any raster. Pins stay independent. */
-export function visibleLandmarks(map, route, activeVisitKey = null) {
+export const boxesOverlap = (a, b, padding = 0) => a.left < b.right + padding && a.right > b.left - padding && a.top < b.bottom + padding && a.bottom > b.top - padding;
+export function mapDOMObstacles(map) {
+  const container=map.getContainer?.(), origin=container?.getBoundingClientRect?.();
+  if (!origin) return [];
+  const shell=container.closest?.('.fg-map-shell') || container.parentElement || container;
+  return [...(shell.querySelectorAll?.('.fg-pin,.fg-location-dot,.fg-map-tools,.maplibregl-ctrl-top-right,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-attrib') || [])]
+    .map(element=>element.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0)
+    .map(box=>({left:box.left-origin.left-5,top:box.top-origin.top-5,right:box.right-origin.left+5,bottom:box.bottom-origin.top+5}));
+}
+function zoomFactor(zoom) {
+  for(let i=1;i<ZOOM_STOPS.length;i++) if(zoom<=ZOOM_STOPS[i][0]) {
+    const [a,x]=ZOOM_STOPS[i-1], [b,y]=ZOOM_STOPS[i];return x+(y-x)*Math.max(0,(zoom-a)/(b-a));
+  }
+  return 1;
+}
+function routeScreenIndex(map, route, width, height) {
+  const grid=new Map(),points=new Map();
+  const project=coordinate=>{const key=coordinate.join(',');if(!points.has(key))points.set(key,map.project(coordinate));return points.get(key);};
+  for(const segment of route?.segments||[]) for(let i=1;i<(segment.geometry?.length||0);i++) {
+    const a=project(segment.geometry[i-1]),b=project(segment.geometry[i]);
+    const left=Math.max(0,Math.min(a.x,b.x)-4),right=Math.min(width,Math.max(a.x,b.x)+4),top=Math.max(0,Math.min(a.y,b.y)-4),bottom=Math.min(height,Math.max(a.y,b.y)+4);
+    if(left>right||top>bottom)continue;
+    const line={a,b};
+    for(let x=Math.floor(left/64);x<=Math.floor(right/64);x++)for(let y=Math.floor(top/64);y<=Math.floor(bottom/64);y++) {
+      const key=x+','+y;if(!grid.has(key))grid.set(key,[]);grid.get(key).push(line);
+    }
+  }
+  return grid;
+}
+function routeIntersectsBox(grid, box) {
+  const lines=new Set();
+  for(let x=Math.floor(box.left/64);x<=Math.floor(box.right/64);x++)for(let y=Math.floor(box.top/64);y<=Math.floor(box.bottom/64);y++)for(const line of grid.get(x+','+y)||[])lines.add(line);
+  for(const {a,b} of lines) {
+    const dx=b.x-a.x,dy=b.y-a.y;let lower=0,upper=1,intersects=true;
+    for(const [p,q] of [[-dx,a.x-box.left+4],[dx,box.right+4-a.x],[-dy,a.y-box.top+4],[dy,box.bottom+4-a.y]]) {
+      if(p===0){if(q<0){intersects=false;break;}continue;}
+      const ratio=q/p;if(p<0)lower=Math.max(lower,ratio);else upper=Math.min(upper,ratio);
+      if(lower>upper){intersects=false;break;}
+    }
+    if(intersects)return true;
+  }
+  return false;
+}
+const selectionState=new WeakMap();
+/** Alpha-based screen culling. A displaced image is an explicit tethered callout. */
+export function visibleLandmarks(map, route, activeVisitKey = null, { obstacles = mapDOMObstacles(map), protectRoute = true } = {}) {
   const container = map.getContainer?.(), width = container?.clientWidth || 800, height = container?.clientHeight || 500;
   const layout = watercolorLayout(width, height);
   if (!layout.visible || map.getZoom() < 13 || map.getPitch?.() > 0) return [];
   const max = width <= 600 ? 3 : 6;
-  return landmarkFeatures(route).map(feature => {
-    const point = map.project(feature.geometry.coordinates);
-    return { ...feature, properties: { ...feature.properties, active: feature.properties.visitKey === activeVisitKey, screenDistance: Math.hypot(point.x - width / 2, point.y - height / 2) }, point };
-  }).filter(feature => feature.point.x >= layout.maxWidth / 2 + 8 && feature.point.x <= width - layout.maxWidth / 2 - 8 && feature.point.y >= layout.maxHeight + layout.gap + 8 && feature.point.y <= height - 12)
-    .sort((a,b) => Number(b.properties.active) - Number(a.properties.active) || a.properties.screenDistance - b.properties.screenDistance)
-    .slice(0,max).map(({ point, ...feature }) => feature);
+  const routeObstacles=protectRoute?routeScreenIndex(map,route,width,height):null;
+  const previous=selectionState.get(map), retained=previous?.routeKey===route?.key ? previous.positions : new Map();
+  const accepted=[],positions=new Map();
+  const candidates=landmarkFeatures(route).map(feature => {
+    const projected = map.project(feature.geometry.coordinates);
+    // MapLibre's Point is a class instance; GeoJSON worker properties must be
+    // ordinary serializable values, including our calibration QA metadata.
+    const point = { x: projected.x, y: projected.y };
+    const active=feature.properties.visitKey===activeVisitKey;
+    return {feature,point,active,distance:Math.hypot(point.x-width/2,point.y-height/2)-(retained.has(feature.properties.key)?24:0)};
+  }).filter(({point})=>point.x>=0&&point.y>=0&&point.x<=width&&point.y<=height)
+    .sort((a,b)=>Number(b.active)-Number(a.active)||a.distance-b.distance||a.feature.properties.key.localeCompare(b.feature.properties.key));
+  for(const {feature,point,active} of candidates) {
+    const asset=ART_ASSETS.find(row=>row.kind===feature.properties.icon);
+    const size=layout.sizes[asset.kind]*zoomFactor(map.getZoom());
+    const old=retained.get(feature.properties.key);
+    const displacements=[...(old?[old]:[]),[0,0],[0,-32],[0,-56],[-48,-32],[48,-32],[-64,0],[64,0],[0,48]];
+    let chosen;
+    for(const displacement of displacements) {
+      if(Math.hypot(...displacement)>(asset.placement?.maxDisplacementCSSPx||72))continue;
+      const placement=opticalPlacement(asset,point,size,displacement),box=placement.bounds;
+      if(box.left<8||box.top<8||box.right>width-8||box.bottom>height-8)continue;
+      if(obstacles.some(obstacle=>boxesOverlap(box,obstacle,4))||accepted.some(item=>boxesOverlap(box,item.bounds,8)))continue;
+      if(protectRoute&&routeIntersectsBox(routeObstacles,box))continue;
+      chosen={...placement,displacement};break;
+    }
+    if(!chosen)continue;
+    positions.set(feature.properties.key,chosen.displacement);
+    accepted.push({bounds:chosen.bounds,feature:{...feature,properties:{...feature.properties,active,priority:accepted.length,
+      iconSize:size,iconOffset:chosen.offset,screenDisplacement:chosen.displacement,
+      visibleBoundsCSS:chosen.bounds,groundCSS:chosen.ground,anchorCSS:point}}});
+    if(accepted.length>=max)break;
+  }
+  selectionState.set(map,{routeKey:route?.key,positions});
+  return accepted.map(item=>item.feature);
 }
 export function setWatercolorLandmarks(map, route, activeVisitKey = null) {
   const source = map.getSource("fg-landmarks"); if (!source) return;
@@ -434,10 +512,17 @@ export function setWatercolorLandmarks(map, route, activeVisitKey = null) {
       map.addImage('fg-art-' + kind, { width: asset.width, height: asset.height, data: new Uint8Array(asset.width * asset.height * 4) }, { pixelRatio: asset.pixelRatio });
     }
   }
-  for (const id of ["fg-landmark-active", "fg-landmark-tether"]) if (map.getLayer(id)) {
+  for (const id of ["fg-landmark-active"]) if (map.getLayer(id)) {
     if (map.getLayer(id).minzoom !== 13) map.setLayerZoomRange(id, 13, 24);
     if (map.getPaintProperty?.(id, "icon-opacity") !== 1) map.setPaintProperty(id, "icon-opacity", 1);
   }
   source.setData({ type: "FeatureCollection", features });
+  const tethers=features.flatMap(feature=>{
+    const {groundCSS,anchorCSS,screenDisplacement}=feature.properties;
+    if(!screenDisplacement.some(value=>Math.abs(value)>1)||!map.unproject)return [];
+    const end=map.unproject(groundCSS);
+    return [{type:'Feature',properties:{key:feature.properties.key},geometry:{type:'LineString',coordinates:[feature.geometry.coordinates,[end.lng,end.lat]]}}];
+  });
+  map.getSource('fg-landmark-tethers')?.setData({type:'FeatureCollection',features:tethers});
   if (features.length) void loadWatercolorImages(map, [...new Set(features.map(feature => feature.properties.icon))]);
 }
