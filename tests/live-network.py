@@ -90,11 +90,11 @@ try:
         map_options = page.locator('.fg-map-options')
         fit = page.locator('[data-action="fit"]')
         if not fit.is_visible():
-            map_options.locator('summary').click()
+            map_options.locator(':scope > summary').click()
         check(fit.is_visible(), "Whole route control is reachable through mobile map tools")
         fit.click()
-        if map_options.locator('summary').is_visible() and map_options.get_attribute('open') is not None:
-            map_options.locator('summary').click()
+        if map_options.locator(':scope > summary').is_visible() and map_options.get_attribute('open') is not None:
+            map_options.locator(':scope > summary').click()
         check(map_options.get_attribute('open') is None,
               "Mobile map tools can close after fitting the route")
         page.evaluate("""() => {

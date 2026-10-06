@@ -272,7 +272,7 @@ try {
       record.phase='gallery-history-keyboard';
       record.galleryLoading=await gallery(page,label,measurements);
       record.phase='native-theme-settings';
-      if(width<=900)await page.locator('.fg-mobile-settings summary').click();
+      if(width<=900)await page.locator('.fg-mobile-settings > summary').click();
       const theme=page.locator('.fg-theme').filter({visible:true}).first();
       const waterColor=await page.evaluate(()=>__acceptanceMaps[0].getPaintProperty('water','fill-color'));
       await theme.selectOption('dark');
