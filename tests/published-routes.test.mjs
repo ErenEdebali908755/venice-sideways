@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readPublishedRoute} from '../published-routes.mjs';
-import {copyFor} from '../public/field-guide/guide.js';
+import {copyFor,storyFor} from '../public/field-guide/guide.js';
 
 const release=(key,extra={})=>({
   schemaVersion:1,key,revision:3,publishedAt:'2026-10-04T00:00:00.000Z',
@@ -70,6 +70,76 @@ test('invalid source languages fail closed rather than creating an untrusted fal
     const result=await readPublishedRoute(key,async()=>Response.json(release(key,{sourceLanguage:value})));
     assert.equal(result.status,503,key);
   }
+});
+
+const reviewedStory={
+  sourceLanguage:'tr',
+  copy:[
+    {locale:'tr',shortHistory:'Onaylı Türkçe tarih',interestingDetail:'Onaylı ayrıntı',needsReview:false},
+    {locale:'en',shortHistory:'Reviewed English history',interestingDetail:'Reviewed detail',needsReview:false},
+    {locale:'it',shortHistory:'PRIVATE pending Italian',interestingDetail:'PRIVATE pending detail',needsReview:true},
+  ],
+  sources:[{
+    key:'municipality',kind:'primary',title:'City archive',author:'Archivist',publisher:'Comune',
+    edition:'',year:'2026',url:'https://example.org/archive',locator:'',supports:'Building history',checkedAt:'2026-10-06',
+    privateNote:'PRIVATE source annotation',
+  }],
+  review:{status:'reviewed',revision:4,humanReviewedBy:'PRIVATE reviewer',notes:['PRIVATE review note']},
+  bookEvidence:[{bookTitle:'PRIVATE book scan',privateNote:'PRIVATE evidence'}],
+};
+
+test('v3 public story keeps only reviewed copy, safe bibliography and public review state',async()=>{
+  const result=await readPublishedRoute('v3-story',async()=>Response.json(release('v3-story',{
+    schemaVersion:3,sourceLanguage:'tr',
+    places:[{key:'place',copy:[],story:reviewedStory,storyHistory:['PRIVATE history']}],
+    visits:[{key:'stop',placeKey:'place',visible:true,copy:[],gallery:[]}],
+    privateStories:['PRIVATE route evidence'],
+  })));
+  assert.equal(result.status,200);
+  const publicRoute=JSON.parse(result.body);
+  assert.equal(publicRoute.schemaVersion,3);
+  assert.deepEqual(publicRoute.visits[0].gallery,[],'v3 preserves the v2 gallery contract');
+  assert.deepEqual(publicRoute.places[0].story,{
+    sourceLanguage:'tr',
+    copy:reviewedStory.copy.slice(0,2),
+    sources:[{
+      key:'municipality',kind:'primary',title:'City archive',author:'Archivist',publisher:'Comune',
+      edition:'',year:'2026',url:'https://example.org/archive',locator:'',supports:'Building history',checkedAt:'2026-10-06',
+    }],
+    review:{status:'reviewed',revision:4},
+  });
+  assert.equal(storyFor(publicRoute.visits[0],publicRoute,'it').copy.shortHistory,'Reviewed English history');
+  for(const secret of ['PRIVATE','humanReviewedBy','bookEvidence','storyHistory','reviewedDigest'])
+    assert.equal(result.body.includes(secret),false,secret);
+});
+
+test('v3 pending, invalid and incomplete stories are omitted without blocking a public route',async()=>{
+  const cases=[
+    {...reviewedStory,review:{status:'proposal_needs_review',revision:4}},
+    {...reviewedStory,copy:reviewedStory.copy.map(row=>row.locale==='tr'?{...row,needsReview:true}:row)},
+    {...reviewedStory,sources:[{...reviewedStory.sources[0],url:'javascript:PRIVATE'}]},
+    {...reviewedStory,copy:reviewedStory.copy.map(row=>row.locale==='tr'?{...row,shortHistory:'<script>PRIVATE</script>'}:row)},
+    {...reviewedStory,sources:[]},
+  ];
+  for(const [index,story] of cases.entries()){
+    const key=`v3-unreviewed-${index}`;
+    const result=await readPublishedRoute(key,async()=>Response.json(release(key,{
+      schemaVersion:3,places:[{key:'place',story}],
+    })));
+    assert.equal(result.status,200,key);
+    assert.equal(JSON.parse(result.body).places[0].story,undefined,key);
+    assert.equal(result.body.includes('PRIVATE'),false,key);
+  }
+});
+
+test('v1/v2 remain readable and unknown future release schemas stay closed',async()=>{
+  for(const version of [1,2]){
+    const key=`legacy-${version}`;
+    const result=await readPublishedRoute(key,async()=>Response.json(release(key,{schemaVersion:version})));
+    assert.equal(result.status,200,key);
+    assert.equal(JSON.parse(result.body).schemaVersion,version);
+  }
+  assert.equal((await readPublishedRoute('future-schema',async()=>Response.json(release('future-schema',{schemaVersion:4})))).status,503);
 });
 
 test('draft and unknown route paths cannot be proxied',async()=>{
