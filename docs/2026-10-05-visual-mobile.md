@@ -1,5 +1,35 @@
 # Venice Sideways — görsel ve mobil entegrasyon
 
+## 6 Ekim 2026 — harita ve normal fotoğraf önizlemesi düzeltmesi
+
+**Yerel uygulama hazırlanıyor; bu bölüm henüz yeni canlı yayın kanıtı değildir.** Önceki 5/6 Ekim CI ve canlı sonuçları aşağıda tarihleriyle korunur. Yeni ürün için admin → özel önizleme → ziyaretçi sırası ve tam CI/canlı kapıları yeniden uygulanır. Owner Insights etiketi için gerçek owner girişini bekleyen ayrı kontrol açık kalır.
+
+| Kullanıcı örneği | İlgili yüzey ve doğrulanan neden | Düzeltme / kanıt |
+| --- | --- | --- |
+| 1–2: `1` ve `5.2` işaretleri | Bağımsız admin `SidewaysMap.tsx`: durak ve ACTV aynı daire; transit click boştu. | Durak sayısı daire; tekne + ACTV hat adı kapsül; gerçek iskele kartı. Stable route/segment/leg/direction kimliği, sınırlı ekran offset’i ve gerçek ankraj bağlantısı. Uzak görünümde ikincil etiketler ölçeğe/hover/focus/seçime göre azalır; liste korunur. Move modunda offset sıfır, drag gerçek koordinatı kaydeder. |
+| 3–5: çizgi yapı gövdesini kesiyor / ölçek dengesiz | Ortak MapLibre renderer: çizimler `fg-halo` öncesine taşınıyordu; farklı oranlı üç PNG aynı ölçeği kullanıyordu. | Bahçe dolgusu/yollar → rota halo/yürüyüş/tekne → sınırlı yapı çizimi → gerekli etiketler → DOM aktif pin → kontroller. PNG oranı/pixelRatio korunur; tür ve gerçek harita alanına göre boyut, 34–42 CSS px açıklama offset’i. Rota GeoJSON değişmez. |
+| 6: siyah halka istasyonu örtüyor | Ortak renderer. Gerçek canlı DOM’da halka seçili durumdur (43px pin + 3px outline/2px offset); `focus=false`. | Halka/klavye odağı korunur; resim ekran açıklaması olarak yukarı taşınır ve alfa kutusu ile pin/focus açıklığı ölçülür. Aktif tek doğrulanmış yapı symbol çakışmasına öncelik alır; diğerleri normal placement kullanır. |
+| 7: normal sol panelde dev portre | Görsel kırpığı tek başına URL/iframe kimliğini kanıtlamaz. Gerçek canlı normal walk DOM: dialog kapalı, `height=2200`, `object-fit:cover`; yerel mobilde cover kırpması ölçüldü. | Yalnız `.fg-stop-preview`: gerçek metadata + `contain`, panel alanına göre sınırlı yükseklik (foto+caption yaklaşık üçte biri). Native düğme mevcut büyük görünümü açar. Full view/200% bilinçli zoom, intro/thumb/focal-cover kuralları ayrı kalır. |
+
+**Harita sözleşmesi:** Main ve Full üç yapıyı yalnız mevcut `lucia/accademia/dogana` visit/place kimliklerinden, her rotanın kendi koordinatından alır. Dogana z13–24; istasyon/köprü z14.5–24, 14.5→15 kademeli görünürlük. Ölçek z13/15/16.5/19’da 0.64/0.88/1/1 ve sınırlıdır. Harita <180px genişlik veya <160px yükseklikte yalnız isteğe bağlı art gizlenir. 3D art/tether’ı gizler; extrusion ve art durumu style.load/resize sonrası ortak idempotent adımla yeniden uygulanır. Harita resize’da yeniden yaratılmaz. Image pending/dedup, stale completion, aynı boyutlu update/fallback korunur.
+
+| Varlık | PNG / alpha kutusu / pixelRatio | Ekran bütçesi |
+| --- | --- | --- |
+| Santa Lucia | 272×92 / (8,8)–(264,84) / 2 | En-boy korunur; yatay yapı doğal olarak kısa. |
+| Accademia | 272×106 / (8,8)–(264,98) / 2 | En-boy korunur; köprü rota/iskele geometrisini değiştirmez. |
+| Dogana | 272×240 / (8,8)–(264,232) / 2 | Bağımsız yükseklik sınırı; diğer yapıların üç katı görsel ağırlığa çıkmaz. |
+
+Üçü için maksimum genişlik compact104/desktop124px ve haritanın %27’si; maksimum yükseklik compact72/desktop80px ve haritanın %24’ü arasındaki küçük değer seçilir, zoom faktörüyle ölçeklenir. Bunlar CSS annotation bütçeleridir, mimari ayak izi değildir. Dört mevcut hashli PNG (üç yapı + iki gerçek OSM bahçesine botanical doku) korunur; diğer 13 aday yüklenmez. Manifest gerçek PNG/alpha/presentation metadata’sını içerir.
+
+**Fotoğraf kanıtları (ayrı kapsamlar):** yeni gerçek 3/6/18 kabulü **52 bağlam / 1720 kontrol**; mevcut galeri regresyonu **56 / 1473**; native touch/mouse **4 / 17**; kısa1280×720 yeni rota seçimi scroll reset **1 / 3** geçti. Kısa mobil standard panelde fotoğraflar 120px altına inebilir: 44px dokunma hedefi ve gerçek panel bütçesi önceliklidir; expanded ve büyük görünüm erişilebilir. Retry yalnız aynı izinli türevi yükler. Geçici seçki/credit/unverified stop uyarısı, siyah-beyaz ton ve 3/6/18 allowlist korunur; 20/44/orijinaller eklenmez. Yeni Python CI portre testi açıkça SVG geometri fixture’ıdır; gerçek fotoğraf kabulü olarak raporlanmaz.
+
+**Sınırlar:** Main11/Full28/sekiz dil/beş fikir, ACTV Accademia B→Ferrovia E (1), Ferrovia D→Tre Archi (5.2), draft/publication ayrımı, ACL, private R2/no-store/CSP, local-only GPS ve analitik/etkinlik akışları korunur. Bu görev yeni migration/env/hizmet eklemez. 29 kayıtlı migration salt okunur kontrol edildi, pending0. 07:28:55 UTC yeni DB yedeği yalnız boş yerel PostgreSQL’e restore edilip 128 tablo/29 migration ve mantıksal digest doğrulandı; R2 nesneleri bu dump’ta yoktur. Google çevirisi pasif; gerçek telefon/Safari/konum yürüyüşü ve native %200 browser zoom ayrı sınırlardır. Önceki transient route abort/timeout nedeni bu görevle kanıtsız kapatılmaz.
+
+Paylaşılabilir yeni kanıtlar: `outputs/map-photo-layout-20261006` içindeki surface ayrı before/after/bbox/lifecycle raporları. Sırlar/dump/özel hesap dosyaları ürün commit’ine alınmaz. Cachechain `20261006-map-photo` (entry→guide→map-art/ui-copy; CSS; admin iframe→preview→guide) yeni byte’lara gider; değişmeyen hashli asset/importlar eski doğru sürümünü kullanır. Sync sayısı/digest ve ürün/CI/deployment/served kimlikleri final kapısından sonra bu bölümde ayrı kaydedilir.
+
+## Önceki tarihli fazlar
+
+
 **Görev tarihi:** 5 Ekim2026 · **Son doğrulama:** 6 Ekim2026(Roma/UTC).
 
 **Güncel durum — 6 Ekim 2026 (Roma/UTC):** Admin `93c99ce9` / `56689fed` **05:45:33 UTC SUCCESS**, ziyaretçi `b698162c` / `cf252b24` önceki doğrulanmış sürümde. Dar Insights fotoğraf etiketi düzeltmesi yeni **345 test/TypeScript/tam build/CI** kapısını geçti; son gerçek owner etiket kontrolü giriş bekliyor. 5 Ekim ziyaretçi **32/1432 + ayrı 3/103** kabulü korunur; 6 Ekim yeni admin **Sideways19/19** ve ayrı Main/Full **4/186** geçti. Önceki `86006627` owner/19 kabulü tarihli kanıttır; yeni owner başarısı yerine kullanılmaz. Fiziksel cihaz/native zoom-klavye, gerçek panorama seçkisi ve Google yapılandırması ayrı sınırlardır. [Tek current-state](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) exact kaynak/CI/runtime ve yedek bilgilerini tutar.

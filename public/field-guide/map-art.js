@@ -106,16 +106,97 @@ export function watercolorStyle(base) {
 }
 
 export function landmarkFeatures(route) {
-  if (route?.key !== "main") return [];
+  if (!["main", "full"].includes(route?.key)) return [];
   return MAIN_LANDMARKS.flatMap(({ key, icon, coordinatesFrom }) => {
-    const visit = route.visits?.find((entry) => entry.key === coordinatesFrom);
+    // Both canonical walks explicitly identify these places. Use each route's
+    // own visit anchor, never a translated title or Main's coordinates for Full.
+    const visit = route.visits?.find((entry) => entry.key === coordinatesFrom &&
+      (!entry.placeKey || entry.placeKey === key));
     if (!Number.isFinite(visit?.longitude) || !Number.isFinite(visit?.latitude)) return [];
     return [{
       type: "Feature",
-      properties: { key, icon },
+      properties: { key, icon, visitKey: visit.key, placeKey: visit.placeKey || key },
       geometry: { type: "Point", coordinates: [visit.longitude, visit.latitude] },
     }];
   });
+}
+
+const LANDMARK_LAYERS = ["fg-landmark-tether", "fg-landmark-overview", "fg-landmark-detail", "fg-landmark-active"];
+const ZOOM_STOPS = [[13, 0.64], [15, 0.88], [16.5, 1], [19, 1]];
+
+// These are screen annotation budgets, not architectural footprints. Height is
+// independently bounded so the tall Dogana cannot outweigh the station/bridge.
+export function watercolorLayout(width, height) {
+  const compact = width <= 600;
+  const maxWidth = Math.min(compact ? 104 : 124, Math.max(0, width) * 0.27);
+  const maxHeight = Math.min(compact ? 72 : 80, Math.max(0, height) * 0.24);
+  // Clear the selected/focused 43px stop plus its outline. On an unusually
+  // short/narrow map, optional art is hidden rather than covering the controls.
+  const gap = Math.min(42, Math.max(34, Math.max(0, height) * 0.12));
+  const assets = ART_ASSETS.filter(asset => asset.kind !== "garden-leaves");
+  return { gap, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
+    Math.min(maxWidth / (asset.width / asset.pixelRatio), maxHeight / (asset.height / asset.pixelRatio))])) };
+}
+
+function layoutExpressions(layout) {
+  const match = value => ["match", ["get", "icon"],
+    ...Object.entries(layout.sizes).flatMap(([kind, size]) => [kind, value(size)]), value(0.5)];
+  return {
+    size: ["interpolate", ["linear"], ["zoom"],
+      ...ZOOM_STOPS.flatMap(([zoom, factor]) => [zoom, match(size => size * factor)])],
+    // MapLibre 5 multiplies icon-offset by icon-size. The inverse size keeps
+    // the annotation gap stable in CSS pixels while its body scales smoothly.
+    offset: ["interpolate", ["linear"], ["zoom"],
+      ...ZOOM_STOPS.flatMap(([zoom, factor]) => [zoom, match(size =>
+        ["literal", [0, size ? -layout.gap / (size * factor) : 0]])])],
+  };
+}
+
+export function orderWatercolorLayers(map) {
+  const layers = map.getStyle()?.layers || [];
+  const roads = layers.find(layer => layer.id === "highway_path") ||
+    layers.find(layer => layer.type === "line" && /^(road|highway)/.test(layer.id));
+  const move = (id, before) => {
+    if (!map.getLayer(id) || (before && !map.getLayer(before))) return;
+    const ids = map.getStyle().layers.map(layer => layer.id);
+    const index = ids.indexOf(id), target = before ? ids.indexOf(before) : ids.length;
+    if (index !== target - 1) map.moveLayer(id, before);
+  };
+  if (roads) {
+    const gardens = ["fg-garden-wash", "fg-garden-grain"].filter(id => map.getLayer(id));
+    const ids = map.getStyle().layers.map(layer => layer.id), roadIndex = ids.indexOf(roads.id);
+    if (ids.slice(roadIndex - gardens.length, roadIndex).join("|") !== gardens.join("|"))
+      for (const id of gardens) move(id, roads.id);
+  }
+  // Keep the provider's road/place label order, above the small art family.
+  // Gardens stay below roads; route geometry and its white halo stay below art.
+  const labels = layers.filter(layer => layer.type === "symbol" && !layer.id.startsWith("fg-")).map(layer => layer.id);
+  const overlay = ["fg-halo", "fg-walk", "fg-boat", ...LANDMARK_LAYERS, ...labels, "fg-garden-label"];
+  const existing = overlay.filter(id => map.getLayer(id));
+  const current = map.getStyle()?.layers.map(layer => layer.id) || [];
+  if (current.slice(-existing.length).join("|") !== existing.join("|"))
+    for (const id of existing) move(id);
+}
+
+export function applyWatercolorPresentation(map, { threeD = false } = {}) {
+  orderWatercolorLayers(map);
+  const container = map.getContainer?.();
+  const layout = watercolorLayout(container?.clientWidth || 800, container?.clientHeight || 500);
+  const expressions = layoutExpressions(layout);
+  const set = (id, name, value) => {
+    if (!map.getLayer(id)) return;
+    if (JSON.stringify(map.getLayoutProperty?.(id, name)) !== JSON.stringify(value))
+      map.setLayoutProperty(id, name, value);
+  };
+  set("fg-buildings", "visibility", threeD ? "visible" : "none");
+  for (const id of LANDMARK_LAYERS) set(id, "visibility", threeD || !layout.visible ? "none" : "visible");
+  for (const id of LANDMARK_LAYERS.slice(1)) {
+    set(id, "icon-size", expressions.size);
+    set(id, "icon-offset", expressions.offset);
+  }
+  // The line is an annotation back to the unchanged route/place anchor. It is
+  // deliberately thin and neutral, distinct from solid/dashed route strokes.
+  set("fg-landmark-tether", "icon-size", layout.gap / 48);
 }
 
 const stroke = (ctx, points, color = "#865346", width = 3) => {
@@ -209,6 +290,14 @@ function gardenIcon() {
   return ctx.getImageData(0, 0, 64, 64);
 }
 
+function annotationTether() {
+  const canvas = document.createElement("canvas");
+  canvas.width = 4; canvas.height = 48;
+  const ctx = canvas.getContext("2d");
+  stroke(ctx, [[2, 0], [2, 48]], "#71645999", 1);
+  return ctx.getImageData(0, 0, 4, 48);
+}
+
 // Optional illustration failures never decide route or GPS readiness. Each style
 // has its own source identity; a late image cannot mutate a replacement style.
 const artworkState = new WeakMap();
@@ -249,30 +338,37 @@ export function loadWatercolorImages(map, kinds) {
 
 export function addWatercolorLayers(map) {
   const style = map.getStyle();
-  if (!style?.sources?.openmaptiles || map.getSource("fg-landmarks")) return false;
+  if (!style?.sources?.openmaptiles) return false;
   for (const kind of ["station", "bridge", "dogana"]) {
     const asset = ART_ASSETS.find(item => item.kind === kind);
-    map.addImage(`fg-art-${kind}`, assetSizedFallback(illustration(kind), asset), { pixelRatio: asset.pixelRatio });
+    if (!map.hasImage(`fg-art-${kind}`)) {
+      artworkState.get(map)?.pending.delete(kind);
+      map.addImage(`fg-art-${kind}`, assetSizedFallback(illustration(kind), asset), { pixelRatio: asset.pixelRatio });
+    }
   }
   const pattern = ART_ASSETS.find(item => item.kind === "garden-leaves");
-  map.addImage("fg-garden-leaves", assetSizedFallback(gardenPattern(), pattern), { pixelRatio: pattern.pixelRatio });
-  map.addImage("fg-garden-icon", gardenIcon(), { pixelRatio: 2 });
-  map.addSource("fg-landmarks", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-  map.addSource("fg-gardens", {
+  if (!map.hasImage("fg-garden-leaves")) {
+    artworkState.get(map)?.pending.delete("garden-leaves");
+    map.addImage("fg-garden-leaves", assetSizedFallback(gardenPattern(), pattern), { pixelRatio: pattern.pixelRatio });
+  }
+  if (!map.hasImage("fg-garden-icon")) map.addImage("fg-garden-icon", gardenIcon(), { pixelRatio: 2 });
+  if (!map.hasImage("fg-art-tether")) map.addImage("fg-art-tether", annotationTether(), { pixelRatio: 1 });
+  if (!map.getSource("fg-landmarks")) map.addSource("fg-landmarks", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
+  if (!map.getSource("fg-gardens")) map.addSource("fg-gardens", {
     type: "geojson",
     data: "/field-guide/gardens.json",
     attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors · ODbL</a>',
   });
   const beforeRoads = style.layers.find((layer) => layer.id === "highway_path")?.id;
-  map.addLayer({
+  if (!map.getLayer("fg-garden-wash")) map.addLayer({
     id: "fg-garden-wash", type: "fill", source: "fg-gardens", minzoom: 12,
     paint: { "fill-color": "#88c39a", "fill-opacity": 0.28 },
   }, beforeRoads);
-  map.addLayer({
+  if (!map.getLayer("fg-garden-grain")) map.addLayer({
     id: "fg-garden-grain", type: "fill", source: "fg-gardens", minzoom: 14,
     paint: { "fill-pattern": "fg-garden-leaves", "fill-opacity": 0.55 },
   }, beforeRoads);
-  map.addLayer({
+  if (!map.getLayer("fg-garden-label")) map.addLayer({
     id: "fg-garden-label", type: "symbol", source: "fg-gardens", minzoom: 15,
     layout: { "icon-image": "fg-garden-icon", "icon-size": 0.85,
       "icon-allow-overlap": false, "icon-ignore-placement": false,
@@ -281,23 +377,52 @@ export function addWatercolorLayers(map) {
       "text-allow-overlap": false, "symbol-sort-key": 8 },
     paint: { "text-color": "#335e42", "text-halo-color": "#fff9ec", "text-halo-width": 1.5 },
   });
-  for (const [id, minzoom, maxzoom, filter] of [
-    ["fg-landmark-overview", 13, 15, ["==", ["get", "key"], "dogana"]],
-    ["fg-landmark-detail", 15, 24, ["has", "key"]],
-  ]) map.addLayer({
-    id, type: "symbol", source: "fg-landmarks", minzoom, maxzoom, filter,
+  if (!map.getLayer("fg-landmark-tether")) map.addLayer({
+    id: "fg-landmark-tether", type: "symbol", source: "fg-landmarks", minzoom: 13, maxzoom: 24,
+    filter: ["==", ["get", "active"], true],
+    layout: { "icon-image": "fg-art-tether", "icon-anchor": "bottom",
+      "icon-allow-overlap": true, "icon-ignore-placement": true,
+      "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport" },
+    paint: { "icon-opacity": 1 },
+  });
+  for (const [id, minzoom, filter] of [
+    ["fg-landmark-overview", 13, ["all", ["==", ["get", "key"], "dogana"], ["!=", ["get", "active"], true]]],
+    ["fg-landmark-detail", 14.5, ["all", ["!=", ["get", "key"], "dogana"], ["!=", ["get", "active"], true]]],
+  ]) if (!map.getLayer(id)) map.addLayer({
+    id, type: "symbol", source: "fg-landmarks", minzoom, maxzoom: 24, filter,
     layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
       "icon-size": 0.75, "icon-anchor": "bottom", "icon-allow-overlap": false,
-      "icon-ignore-placement": false, "symbol-sort-key": 10 },
+      "icon-ignore-placement": false, "icon-padding": 3,
+      "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport",
+      "symbol-sort-key": ["match", ["get", "icon"], "dogana", 1, "station", 2, 3] },
+    paint: { "icon-opacity": id === "fg-landmark-detail" ?
+      ["interpolate", ["linear"], ["zoom"], 14.5, 0, 15, 1] : 1 },
   });
-  // Route strokes are above decoration even after a provider style reset.
-  for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-garden-label"])
-    if (map.getLayer("fg-halo")) map.moveLayer(id, "fg-halo");
+  if (!map.getLayer("fg-landmark-active")) map.addLayer({
+    id: "fg-landmark-active", type: "symbol", source: "fg-landmarks", minzoom: 13, maxzoom: 24,
+    filter: ["==", ["get", "active"], true],
+    layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
+      "icon-anchor": "bottom", "icon-allow-overlap": true,
+      "icon-ignore-placement": false, "icon-padding": 3,
+      "icon-pitch-alignment": "viewport", "icon-rotation-alignment": "viewport" },
+  });
+  orderWatercolorLayers(map);
   void loadWatercolorImages(map, ["garden-leaves"]);
   return true;
 }
 
-export function setWatercolorLandmarks(map, route) {
-  map.getSource("fg-landmarks")?.setData({ type: "FeatureCollection", features: landmarkFeatures(route) });
-  if (route?.key === "main") void loadWatercolorImages(map, ["station", "bridge", "dogana"]);
+export function setWatercolorLandmarks(map, route, activeVisitKey = null) {
+  const features = landmarkFeatures(route).map(feature => ({ ...feature,
+    properties: { ...feature.properties, active: feature.properties.visitKey === activeVisitKey } }));
+  const active = features.find(feature => feature.properties.active);
+  const minzoom = active?.properties.icon === "dogana" ? 13 : 14.5;
+  const opacity = active?.properties.icon === "dogana" ? 1 : ["interpolate", ["linear"], ["zoom"], 14.5, 0, 15, 1];
+  for (const id of ["fg-landmark-active", "fg-landmark-tether"]) if (map.getLayer(id)) {
+    const layer = map.getLayer(id);
+    if (layer.minzoom !== minzoom) map.setLayerZoomRange(id, minzoom, 24);
+    if (JSON.stringify(map.getPaintProperty?.(id, "icon-opacity")) !== JSON.stringify(opacity))
+      map.setPaintProperty(id, "icon-opacity", opacity);
+  }
+  map.getSource("fg-landmarks")?.setData({ type: "FeatureCollection", features });
+  if (features.length) void loadWatercolorImages(map, [...new Set(features.map(feature => feature.properties.icon))]);
 }

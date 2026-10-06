@@ -1,4 +1,4 @@
-import {FieldGuide} from './guide.js?v=20261005-gallery-reopen';
+import {FieldGuide} from './guide.js?v=20261006-map-photo';
 import {temporarySelection} from './temporary-selection.js?v=20261005-mobile';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];

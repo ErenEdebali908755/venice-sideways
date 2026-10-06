@@ -859,6 +859,47 @@ body {
 .fg[data-view="walk"] .fg-dialog .fg-photo-missing { display:block; font-size:14px; }
 .fg-photo-full img { width:auto; max-width:100%; margin-inline:auto; aspect-ratio: auto; height: auto; max-height: 62dvh; object-fit: contain; }
 .fg-photo-cover img { aspect-ratio: 4 / 3; object-fit: cover; }
+/* A stop preview has its own size contract; full photos and explicit zoom stay separate.
+   Only stretched walk panels are size containers. Compact panels keep intrinsic sizing. */
+.fg[data-view="walk"]:not([data-sheet="collapsed"]) .fg-editorial {
+  container-type: size;
+}
+.fg-stop-preview {
+  --fg-stop-preview-height: min(240px, max(44px, calc(33cqh - 28px)));
+  margin-bottom: 14px;
+}
+.fg .fg-stop-preview-open,
+.fg-stop-preview > .fg-photo-error {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: var(--fg-stop-preview-height);
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: var(--empty);
+}
+.fg .fg-stop-preview-open { cursor: zoom-in; }
+.fg[data-view="walk"] .fg-stop-preview img {
+  width: 100%;
+  height: var(--fg-stop-preview-height);
+  min-width: 0;
+  min-height: 0;
+  max-height: var(--fg-stop-preview-height);
+  aspect-ratio: auto;
+  object-fit: contain;
+  object-position: center !important;
+}
+.fg-stop-preview > .fg-photo-error {
+  align-content: center;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 8px;
+  overflow: auto;
+  padding: 2px 6px;
+}
+.fg-stop-preview > .fg-photo-error .fg-photo-missing { margin: 0; padding: 0; }
+.fg-stop-preview > .fg-photo-error button { min-height: 44px; padding: 6px 12px; }
 .fg .fg-open-photo { display:block; width:100%; padding:0; border:0; border-radius:0; background:transparent; text-align:left; }
 .fg-gallery-stage { min-width:0; touch-action:pan-y; }
 .fg-gallery .fg-photo { margin:0; }

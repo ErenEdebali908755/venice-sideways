@@ -41,7 +41,7 @@ test('watercolor presentation preserves provider geometry, sources and attributi
  assert.equal(style.metadata['venice-sideways:base'],BASE_STYLE);
  assert.throws(()=>watercolorStyle({version:8,sources:{},layers:[]}),/vector source/);
 });
-test('art landmarks stay at Main Walk coordinates and never become extra numbered stops',()=>{
+test('art landmarks use each verified walk’s coordinates and never become extra numbered stops',()=>{
  const main=routes.find(route=>route.key==='main'),features=landmarkFeatures(main);
  assert.equal(features.length,3);
  assert.equal(new Set(features.map(feature=>feature.properties.key)).size,3);
@@ -51,7 +51,14 @@ test('art landmarks stay at Main Walk coordinates and never become extra numbere
   assert.equal(feature.geometry.type,'Point');
   assert.equal(feature.properties.number,undefined);
  }
- assert.deepEqual(landmarkFeatures(routes.find(route=>route.key==='full')),[],'prototype stays scoped to Main Walk');
+ const full=routes.find(route=>route.key==='full');
+ assert.equal(landmarkFeatures(full).length,3,'Full has three verified stable place/visit identities');
+ for(const feature of landmarkFeatures(full)){
+  const visit=full.visits.find(visit=>visit.key===feature.properties.visitKey);
+  assert.equal(visit.placeKey,feature.properties.key);
+  assert.deepEqual(feature.geometry.coordinates,[visit.longitude,visit.latitude],'Full uses its own stored geography');
+  assert.equal(feature.properties.number,undefined);
+ }
  assert.deepEqual(landmarkFeatures({key:'main',visits:[]}),[],'missing coordinates do not produce invented locations');
  assert.equal(GARDENS.length,2);
  assert.ok(placeCopy('dogana','tr').text);

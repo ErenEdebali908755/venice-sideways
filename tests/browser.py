@@ -1,4 +1,6 @@
-"""Current field-guide browser acceptance with local routes and no external map traffic."""
+"""Current field-guide UI acceptance with local routes, explicit synthetic portrait
+geometry fixtures, and no external map or photograph traffic. Real owned photographs
+and actual MapLibre are validated separately by photo-preview-browser.mjs."""
 from pathlib import Path
 from urllib.parse import urlparse
 import json
@@ -16,6 +18,18 @@ checks = 0
 
 def serve(route):
     url = urlparse(route.request.url)
+    # Deliberately synthetic geometry, not an archive photograph or stop assignment.
+    # The approved derivative URL and actual metadata remain unchanged in the renderer.
+    if url.netloc == "erenedebali.com" and url.path in {
+            f"/image/{photo}/{variant}" for photo in (3, 6, 18) for variant in ("web", "thumb")}:
+        width = 1373 if url.path.split("/")[2] == "18" else 1238
+        body = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="2200">
+          <rect width="100%" height="100%" fill="#eee"/>
+          <rect x="6" y="6" width="{width-12}" height="2188" fill="none" stroke="#222" stroke-width="12"/>
+          <text x="30" y="100" font-size="50">QA portrait geometry fixture, not a photograph</text>
+        </svg>'''
+        route.fulfill(status=200, body=body, content_type="image/svg+xml")
+        return
     if url.netloc != "venicesideways.test":
         route.abort()
         return
@@ -79,6 +93,43 @@ with sync_playwright() as playwright:
             check(page.locator(".fg-stop-copy h1").is_visible(), f"{language}/{width}: active stop")
             check(page.locator('[data-action="focus"]').count() == 1,
                   f"{language}/{width}: active stop control")
+            page.wait_for_function("""()=>{const i=document.querySelector('.fg-stop-preview img');
+                return i?.complete&&i.naturalWidth>0} """)
+            preview = page.locator(".fg-stop-preview")
+            portrait = preview.evaluate("""figure=>{const i=figure.querySelector('img'),
+                b=figure.querySelector('button'),p=figure.closest('.fg-editorial'),
+                s=getComputedStyle(i),ps=getComputedStyle(p);return {
+                width:i.getAttribute('width'),height:i.getAttribute('height'),
+                naturalPortrait:i.naturalHeight>i.naturalWidth,fit:s.objectFit,
+                aspect:s.aspectRatio,filter:s.filter,imageHeight:i.getBoundingClientRect().height,
+                touchHeight:b.getBoundingClientRect().height,figureHeight:figure.getBoundingClientRect().height,
+                usable:p.clientHeight-parseFloat(ps.paddingTop)-parseFloat(ps.paddingBottom),
+                credit:figure.querySelector('figcaption')?.textContent}}""")
+            check(portrait["width"] == "1238" and portrait["height"] == "2200"
+                  and portrait["naturalPortrait"], f"{language}/{width}: portrait metadata retained")
+            check(portrait["fit"] == "contain" and portrait["aspect"] == "auto"
+                  and portrait["filter"] == "none", f"{language}/{width}: normal preview full frame without crop or filter")
+            check(43.5 <= portrait["imageHeight"] <= 240.5
+                  and portrait["touchHeight"] >= 43.5
+                  and portrait["figureHeight"] <= portrait["usable"] * .36 + 1,
+                  f"{language}/{width}: normal preview and credit fit usable panel budget")
+            check(portrait["credit"] == "Eren Edebali", f"{language}/{width}: normal preview credit")
+            opener = page.locator(".fg-stop-preview-open")
+            opener.focus()
+            page.keyboard.press("Enter")
+            page.locator(".fg-dialog.fg-lightbox[open]").wait_for()
+            page.wait_for_function("""()=>{const i=document.querySelector('.fg-gallery-stage img');
+                return i?.complete&&i.naturalWidth>0} """)
+            check(page.locator(".fg-gallery-stage img").evaluate("""i=>
+                getComputedStyle(i).objectFit==='contain'&&!i.closest('.fg-stop-preview')"""),
+                  f"{language}/{width}: native Enter opens separate unzoomed full view")
+            page.go_back()
+            page.wait_for_function("""()=>{const d=document.querySelector('.fg-dialog');
+                return d?.open&&!d.classList.contains('fg-lightbox')}""")
+            page.keyboard.press("Escape")
+            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
+            check(opener.evaluate("b=>document.activeElement===b"),
+                  f"{language}/{width}: natural Back and Escape return preview focus")
             page.locator('[data-action="list"]').click()
             check(page.locator(".fg-stop-list [data-step]").count() >= 11,
                   f"{language}/{width}: all stops remain selectable")

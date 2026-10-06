@@ -1,6 +1,7 @@
 export const UI_LANGUAGES = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
 // Controls use the existing eight locales. Editorial content keeps reviewed fallback.
 const rows = {
+  "Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.": ["Özgün Venice Sideways çizimi; haritadaki yaklaşık konum bu rotanın doğrulanmış durak koordinatlarını izler.", "Disegno originale di Venice Sideways; la posizione approssimativa segue le coordinate verificate della tappa di questo percorso.", "Dessin original de Venice Sideways ; la position approximative suit les coordonnées vérifiées de l’étape de ce parcours.", "Оригинальный рисунок Venice Sideways; примерная позиция следует проверенным координатам остановки этого маршрута.", "Venice Sideways 原创插画；地图上的大致位置依据此路线已核实的站点坐标。", "Venice Sidewaysのオリジナル画です。地図上の位置は、このルートの確認済みスポット座標に基づきます。", "Venice Sideways의 원본 그림이며 지도상의 대략적인 위치는 이 경로의 확인된 장소 좌표를 따릅니다."],
   "Compact panel": ["Kompakt panel","Pannello compatto","Panneau compact","Компактная панель","紧凑面板","コンパクト表示","간단 패널"],
   "Standard panel": ["Standart panel","Pannello standard","Panneau standard","Обычная панель","标准面板","標準表示","기본 패널"],
   "Expanded panel": ["Geniş panel","Pannello esteso","Panneau étendu","Расширенная панель","展开面板","拡大表示","확장 패널"],
