@@ -1,24 +1,26 @@
 {
   "task": "Kit04",
   "date": "2026-10-06",
-  "status": "local-validated-awaiting-exact-CI-and-controlled-release",
+  "status": "deployed-and-live-validated-with-listed-acceptance-limits",
   "source": {
     "adminBranch": "feat/kit04-admin-20261006",
     "visitorBranch": "feat/kit04-visitor-20261006",
-    "adminReviewHead": null,
-    "visitorReviewHead": null,
-    "adminMerge": null,
-    "visitorMerge": null,
+    "adminReviewHead": "14ffdd72f6584d0b3fafdfea9deaecd2d502810f",
+    "visitorReviewHead": "e39637837ddb95d3e7923f28efaa8ab9fa635172",
+    "adminMerge": "2f3a510bff590be9202fbf1d809d56e00ac50b93",
+    "visitorMerge": "5c077c0422556089ce19da30f8d45380a0872dfb",
     "sharedFiles": 120,
     "sharedDigest": "91c9b72da79a67948f8e93a2d06524e9bbecf5e1ae15c189277a03d410877c39",
-    "cacheVersion": "20261006-kit04"
+    "cacheVersion": "20261006-kit04",
+    "adminPR": 19,
+    "visitorPR": 12
   },
   "local": {
     "adminUnits": {
       "passed": 361,
       "failed": 0,
       "skipped": 0,
-      "note": "Before final iframe Escape bridge; exact CI must validate final head"
+      "note": "361 also passed on exact final-head GitHub CI; local pre-bridge result remains a separate run"
     },
     "visitorUnits": {
       "passed": 58,
@@ -42,14 +44,21 @@
         1440
       ],
       "chromePageZoom200": "native-isolated-profile-passed",
-      "physicalDevice": false
+      "physicalDevice": false,
+      "finalMenuAndStatusAndChrome200": "passed on final14ff source"
     },
     "actualLocalServedBytes": {
-      "files": 8,
+      "files": 17,
       "passed": true,
       "intercepted": false
     },
-    "nativeVisitor": null
+    "nativeVisitor": {
+      "localeLayouts": 64,
+      "realRasterMeasurements": 24,
+      "galleryPlacements": 39,
+      "status": "passed; final short-CSS and 17 HTTP-source proof separate",
+      "physicalDevice": false
+    }
   },
   "art": {
     "masters": 30,
@@ -68,27 +77,187 @@
     "providerEnabled": false,
     "realServiceAccountIAMOrGlossaryVerified": false,
     "fixtureHealthTests": "passed",
-    "paidGenerationPerformed": false
+    "paidGenerationPerformed": false,
+    "liveCheckedAt": "2026-10-06T14:25:52.183Z",
+    "liveHTTP": 200,
+    "liveState": "unconfigured",
+    "liveCode": "CONFIGURATION_MISSING",
+    "predictionVerified": false
   },
-  "backup": null,
+  "backup": {
+    "status": "restore-verified",
+    "verifiedAt": "2026-10-06T14:07:15.343Z",
+    "checksum": "6e34f32a9d938e375686379807069e54015cb9461878f6dad62622bf1cb5705c",
+    "logicalDigest": "820df4788852c552229036d924074a62c55547c37b15876f071b19d1d55b21cf",
+    "tables": 128,
+    "migrations": 29,
+    "bytes": 1276056,
+    "sourceCommit": "14ffdd72f6584d0b3fafdfea9deaecd2d502810f",
+    "mediaIncluded": false,
+    "restoreTarget": "isolated empty local PostgreSQL; production not restored",
+    "privateLocation": "admin .data/kit04-20261006/backups; not committed"
+  },
   "migration": {
+    "status": "verified",
+    "readOnly": true,
+    "registered": 29,
+    "pending": 0,
     "newMigration": false,
-    "productionLedgerRefresh": null,
-    "automaticSchemaSync": false
+    "observedAt": "2026-10-06T14:06:16.751Z",
+    "automaticSchemaSync": false,
+    "mechanism": "existing registered Railway predeploy migration command; no new migration"
   },
   "ci": {
-    "admin": null,
-    "visitor": null
+    "admin": {
+      "head": "14ffdd72f6584d0b3fafdfea9deaecd2d502810f",
+      "runs": [
+        37470815606,
+        37470815578
+      ],
+      "status": "SUCCESS",
+      "tests": 361,
+      "typescript": "passed",
+      "productionBuild": "passed",
+      "realPayloadRoleGallery": "passed",
+      "eventsDatabaseAndNativeUI": "passed"
+    },
+    "visitor": {
+      "head": "e39637837ddb95d3e7923f28efaa8ab9fa635172",
+      "run": 37470789098,
+      "status": "SUCCESS",
+      "tests": 58,
+      "syntaxPrivacy": 41,
+      "dockerBuildSmoke": "passed",
+      "browserChecks": 683,
+      "realMapChecks": 21
+    }
   },
   "deployments": {
-    "admin": null,
-    "visitor": null
+    "admin": {
+      "commit": "2f3a510bff590be9202fbf1d809d56e00ac50b93",
+      "id": "1257b775-707b-4ede-a01d-3b81045a49a9",
+      "status": "SUCCESS",
+      "createdAt": "2026-10-06T13:31:28.820Z",
+      "successAt": "2026-10-06T13:42:48.010Z",
+      "url": "https://erenedebali.com/admin/venice-sideways"
+    },
+    "visitor": {
+      "commit": "5c077c0422556089ce19da30f8d45380a0872dfb",
+      "id": "384ccd70-a1e4-46bd-8fec-64cb91727919",
+      "status": "SUCCESS",
+      "createdAt": "2026-10-06T14:27:27.926Z",
+      "successAt": "2026-10-06T14:28:18.643Z",
+      "url": "https://venicesideways.com"
+    }
   },
   "live": {
-    "admin": null,
-    "visitor": null,
-    "warmReload": null,
-    "servedFiles": null
+    "admin": {
+      "checkedAt": "2026-10-06T14:25:52.183Z",
+      "gates": 28,
+      "passed": 28,
+      "role": "actual controlled Sideways account; publish/events/registrations grants false",
+      "archiveAndInsightsAndEventsAndParticipantHTTP": 403,
+      "privateMediaHTTP": 200,
+      "anonymousMediaHTTP": 403,
+      "statistics": {
+        "HTTP": 200,
+        "state": "successful-empty",
+        "rows": 0,
+        "timezone": "Europe/Rome",
+        "native7DayTableRows": 7,
+        "chartPoints": 0,
+        "noFabricatedTrend": true
+      },
+      "previewCases": 8,
+      "routeIdentitiesRevisionsBodyDigestsUnchanged": true,
+      "GPSRequests": 0,
+      "JS": 0,
+      "contentProductionWrites": 0,
+      "QAUploads": 0,
+      "controlledAccountCleanup": "removed-and-verified",
+      "privateCredentialsRemoved": true,
+      "ownerEventsParticipantNativeUI": "not run; actual owner login required",
+      "populatedPrivateGallery": "not run; actual draft galleries empty, no fixture fabricated"
+    },
+    "visitor": {
+      "finishedAt": "2026-10-06T14:32:33.610Z",
+      "cases": 32,
+      "checks": 1512,
+      "issues": [],
+      "JS": 0,
+      "CSP": 0,
+      "attemptedWrites": 0,
+      "realPhotos": [
+        "/image/18/thumb",
+        "/image/18/web",
+        "/image/3/thumb",
+        "/image/3/web",
+        "/image/6/thumb",
+        "/image/6/web"
+      ],
+      "realProvider": [
+        "provider-resource",
+        "style",
+        "tile"
+      ],
+      "networkAborts": {
+        "https://tiles.openfreemap.org net::ERR_ABORTED": 262,
+        "https://venicesideways.com net::ERR_ABORTED": 48
+      },
+      "networkAbortCause": "not assigned per request; no zero-network-error or prior route-timeout root-cause claim",
+      "eventQR": "existing draft is404/unavailable in8 locales; no registration form or submit"
+    },
+    "targetedArt": {
+      "finishedAt": "2026-10-06T14:37:17.725Z",
+      "records": 52,
+      "checks": 219,
+      "passed": true,
+      "widths": [
+        390,
+        1440
+      ],
+      "routes": [
+        "main",
+        "full"
+      ],
+      "stops": [
+        "lucia",
+        "accademia",
+        "dogana",
+        "vino",
+        "misericordia"
+      ],
+      "zooms": [
+        12,
+        16.5,
+        19
+      ],
+      "native3D2D": true
+    },
+    "paintedArt": {
+      "finishedAt": "2026-10-06T14:39:10.952Z",
+      "records": 16,
+      "checks": 83,
+      "passed": true,
+      "decodedPaintedAssets": 12,
+      "transparentFallbackExcluded": true
+    },
+    "warmReload": {
+      "status": "passed",
+      "cases": 4,
+      "scope": "ordinary same-context reload of new release; not an old-release cached-document migration proof",
+      "oneMapAndActivePin": true,
+      "cacheVersion": "20261006-kit04"
+    },
+    "servedFiles": {
+      "observedAt": "2026-10-06T14:28:46.582Z",
+      "status": "passed",
+      "sharedFiles": 120,
+      "requests": 245,
+      "sharedDigest": "91c9b72da79a67948f8e93a2d06524e9bbecf5e1ae15c189277a03d410877c39",
+      "cacheChain": "visitor index/entry/measurement and admin private shell/preview all exact local bytes",
+      "actualHTTPS": true
+    }
   },
   "boundaries": {
     "realRegistrationsSubmitted": false,
@@ -98,5 +267,37 @@
     "busFeature": false,
     "R2InDatabaseBackup": false
   },
-  "liveReleaseComplete": false
+  "liveReleaseComplete": true,
+  "observedAt": "2026-10-06T14:40:23.126Z",
+  "preservedFailedAttempts": [
+    {
+      "scope": "visitor CI37469298013",
+      "cause": "nested Settings summary selected more than one control; exact selector recheck and final CI passed"
+    },
+    {
+      "scope": "first admin live helper",
+      "cause": "editor visibility/initial readiness wait; narrow retry succeeded, product root cause not established"
+    },
+    {
+      "scope": "second admin live helper",
+      "cause": "QA required14 chart points despite successful zero-data UI; final28 accepts zero table without fake trend"
+    },
+    {
+      "scope": "first and second targeted live QA",
+      "cause": "QA omitted reopening native mobile map tools on3D→2D; final52 passed with native action"
+    }
+  ],
+  "limitations": [
+    "Google credentials/IAM/real glossary and paid output not verified; generation passive",
+    "Actual owner native event/participant screens await login; exact CI and isolated native/role tests passed",
+    "Physical iOS/Android GPS/accuracy/battery/native keyboard and visitor real browser200% zoom not run",
+    "Very short240px Standard preview leaves33px map; use actual Expand panel control",
+    "Tre Archi held for human review; AI drawings are not verified stop photographs",
+    "Temporary3/6/18 photos have no verified stop assignment; private populated gallery not fabricated",
+    "Eight UI locales checked; unreviewed narrative keeps honest source-language/review notice",
+    "Event remains unpublished draft; no real registration submitted",
+    "Bus is future style only",
+    "R2 objects are outside PostgreSQL backup"
+  ],
+  "allAcceptanceComplete": false
 }

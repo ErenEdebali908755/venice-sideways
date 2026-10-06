@@ -2,7 +2,13 @@
 
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
-## Görsel ve mobil entegrasyon — 5 Ekim 2026
+## Kit 04 — 6 Ekim 2026 canlı yayın
+
+Yeni ziyaretçi rehberi ve native admin kontrollü admin→visitor sırasıyla yayımlandı. Ziyaretçimerge `5c077c04` / Railway `384ccd70-a1e4-46bd-8fec-64cb91727919`; adminmerge `2f3a510b` / Railway `1257b775-707b-4ede-a01d-3b81045a49a9`: **SUCCESS**. Exact CI/tam üretim build, gerçek Sideways28/28, sekiz UI dili×Main/Full×390/1440 **32soğuk/1512kontrol** ve iki host120shared HTTPS eşitliği geçti.
+
+[Canlı rehber](https://venicesideways.com) · [güncel ziyaretçi raporu](docs/2026-10-05-visual-mobile.md) · [teknik kanıt](docs/kit04-release-proof-20261006.json) · [tek CURRENT-STATE](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md). Google üretimi pasif; gerçek owner etkinlik/katılımcı ekranları ve fiziksel telefon kabulü eksik. TreArchi kapalı; AI çizimler fotoğraf değildir,3/6/18 geçici fotoğrafların durak ataması doğrulanmadı. Sıfır istatistik sıfır rızalı olay demektir, sıfır insan değil. Etkinlik taslak/QR unavailable/no-form, gerçek kayıt yok; otobüs gelecekteki stil.
+
+## Kit 04 öncesi tarihli görsel ve mobil entegrasyon — 5 Ekim 2026
 
 **Güncel durum — 6 Ekim 2026 (Roma/UTC):** Admin `93c99ce9` / `56689fed` **05:45:33 UTC SUCCESS**, ziyaretçi `b698162c` / `cf252b24` önceki doğrulanmış sürümde. Dar Insights fotoğraf etiketi düzeltmesi yeni **345 test/TypeScript/tam build/CI** kapısını geçti; son gerçek owner etiket kontrolü giriş bekliyor. 5 Ekim ziyaretçi **32/1432 + ayrı 3/103** kabulü korunur; 6 Ekim yeni admin **Sideways19/19** ve ayrı Main/Full **4/186** geçti. Önceki `86006627` owner/19 kabulü tarihli kanıttır; yeni owner başarısı yerine kullanılmaz. Fiziksel cihaz/native zoom-klavye, gerçek panorama seçkisi ve Google yapılandırması ayrı sınırlardır. [Ziyaretçi raporu](docs/2026-10-05-visual-mobile.md) ve [tek CURRENT-STATE](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) kaynak/test/canlı ayrımını taşır.
 
