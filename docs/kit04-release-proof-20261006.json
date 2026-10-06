@@ -1,0 +1,102 @@
+{
+  "task": "Kit04",
+  "date": "2026-10-06",
+  "status": "local-validated-awaiting-exact-CI-and-controlled-release",
+  "source": {
+    "adminBranch": "feat/kit04-admin-20261006",
+    "visitorBranch": "feat/kit04-visitor-20261006",
+    "adminReviewHead": null,
+    "visitorReviewHead": null,
+    "adminMerge": null,
+    "visitorMerge": null,
+    "sharedFiles": 120,
+    "sharedDigest": "38ae2ab7666083eca7854a5c1633f291d88ee8dfdc9ffc546d66fcd700f60649",
+    "cacheVersion": "20261006-kit04"
+  },
+  "local": {
+    "adminUnits": {
+      "passed": 361,
+      "failed": 0,
+      "skipped": 0,
+      "note": "Before final iframe Escape bridge; exact CI must validate final head"
+    },
+    "visitorUnits": {
+      "passed": 58,
+      "failed": 0,
+      "skipped": 0
+    },
+    "typescript": "passed",
+    "productionBuild": "passed-final2",
+    "realIsolatedPayloadRolesAndGallery": "passed",
+    "syntaxPrivacy": {
+      "files": 41,
+      "status": "passed"
+    },
+    "diffCheck": "passed",
+    "nativeAdmin": {
+      "status": "passed",
+      "screenOpenings": 84,
+      "lifecycleGroups": 12,
+      "actualProviderMainFullWidths": [
+        390,
+        1440
+      ],
+      "chromePageZoom200": "native-isolated-profile-passed",
+      "physicalDevice": false
+    },
+    "actualLocalServedBytes": {
+      "files": 8,
+      "passed": true,
+      "intercepted": false
+    },
+    "nativeVisitor": null
+  },
+  "art": {
+    "masters": 30,
+    "derivatives": 90,
+    "enabledPlaces": 29,
+    "held": "trearchi",
+    "routePlacements": 39,
+    "derivativeBytes": 21096689,
+    "manifestSHA256": "327c18d0dd35e2805d775c008716e3477fdba874679b7ad64e5d4b48baa59130",
+    "kind": "AI illustrations; not verified stop photographs",
+    "coordinatesAndGeometryChanged": false
+  },
+  "googleTranslation": {
+    "productionConfigVerifiedAt": "2026-10-06T12:39:57Z",
+    "configured": false,
+    "providerEnabled": false,
+    "realServiceAccountIAMOrGlossaryVerified": false,
+    "fixtureHealthTests": "passed",
+    "paidGenerationPerformed": false
+  },
+  "backup": null,
+  "migration": {
+    "newMigration": false,
+    "productionLedgerRefresh": null,
+    "automaticSchemaSync": false
+  },
+  "ci": {
+    "admin": null,
+    "visitor": null
+  },
+  "deployments": {
+    "admin": null,
+    "visitor": null
+  },
+  "live": {
+    "admin": null,
+    "visitor": null,
+    "warmReload": null,
+    "servedFiles": null
+  },
+  "boundaries": {
+    "realRegistrationsSubmitted": false,
+    "eventOrRouteEditorialPublication": false,
+    "productionStatisticsTestWrites": false,
+    "physicalDeviceAcceptance": false,
+    "busFeature": false,
+    "R2InDatabaseBackup": false
+  },
+  "liveReleaseComplete": false
+}

@@ -1,7 +1,7 @@
 /* Read-only release acceptance. Run only after the root release gate confirms that
    deployed event GETs contain the reviewed read-only fix. No production fixtures,
    credentials, registrations, publication, or content writes are used. */
-import {mkdir, writeFile} from 'node:fs/promises';
+import {mkdir, readFile, writeFile} from 'node:fs/promises';
 import {resolve, dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createRequire} from 'node:module';
@@ -21,8 +21,11 @@ if(process.env.SIDEWAYS_LIVE_ACCEPTANCE!=='approved-read-only'||process.env.SIDE
   console.error('Live acceptance is gated. Use --describe to inspect the read-only plan.');process.exit(2);
 }
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
+const {routes:expectedRoutes}=JSON.parse(await readFile(resolve(root,'public/field-guide/routes.json'),'utf8'));
+const {ILLUSTRATIONS}=await import('../public/field-guide/illustrations.js');
+const approvedArtKeys=new Set(ILLUSTRATIONS.filter(art=>art.approved&&!art.humanSpecificReviewRequired).map(art=>art.key));
 const stamp=new Date().toISOString().replace(/[:.]/g,'-');
-const output=resolve(process.env.SIDEWAYS_ACCEPTANCE_OUTPUT || resolve(root,'../map-photo-layout-20261006/visitor-live','live-'+stamp));
+const output=resolve(process.env.SIDEWAYS_ACCEPTANCE_OUTPUT || resolve(root,'../kit04-20261006/visitor-live','live-'+stamp));
 await mkdir(output,{recursive:true});
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'/Users/erenedebali/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
@@ -155,14 +158,16 @@ async function facts(page) {
       if(!value||typeof value.getData!=='function')throw Error('Required public GeoJSON getData unavailable: '+id);
       return await value.getData();
     };
-    const gardenData=await source('fg-gardens');
+    const gardenData=await source('fg-gardens'),landmarkData=await source('fg-landmarks');
     const gardens=typeof gardenData==='string'?await (await fetch(gardenData,{credentials:'omit'})).json():gardenData;
     return {maps:__acceptanceMaps.length,gps:__acceptanceGPSStarts,
       paper:getComputedStyle(document.querySelector('#field-guide')).backgroundColor,
       language:document.querySelector('#field-guide').lang,
       watercolor:style.metadata?.['venice-sideways:base'],vector:style.sources.openmaptiles?.type,
-      layers:['fg-garden-wash','fg-garden-grain','fg-garden-label','fg-landmark-overview','fg-landmark-detail'].map(id=>!!map.getLayer(id)),
-      landmarks:(await source('fg-landmarks'))?.features?.map(f=>f.properties.key).sort(),
+      layers:['fg-garden-wash','fg-garden-grain','fg-garden-label','fg-landmark-overview','fg-landmark-detail','fg-landmark-active','fg-landmark-tether','fg-directions'].map(id=>!!map.getLayer(id)),
+      landmarks:landmarkData?.features?.map(f=>f.properties.key).sort(),
+      artAnchors:landmarkData?.features?.map(f=>({key:f.properties.key,visitKey:f.properties.visitKey,active:f.properties.active,coordinates:f.geometry.coordinates})),
+      mapSize:{width:map.getContainer().clientWidth,height:map.getContainer().clientHeight},
       gardens:gardens?.features?.map(f=>({id:String(f.properties.osmWayId),type:f.geometry.type,vertices:f.geometry.coordinates[0].length})),
       routeFeatures:(await source('fg-route'))?.features?.map(f=>({boat:f.properties.boat,vertices:f.geometry.coordinates.length})),
       pins:document.querySelectorAll('.fg-pin').length,boats:document.querySelectorAll('.fg-pin-boat').length,
@@ -239,7 +244,7 @@ try {
       check(response?.status()===200,label+': cold page');
       check(/geolocation=\(self\)/.test(response?.headers()['permissions-policy']||''),label+': own-origin permission policy');
       record.phase='actual-map-ready';await mapReady(page);
-      check(await page.locator('.fg-offline-banner').count()===0&&await page.locator('.fg-bundled-notice').count()===0,label+': published route loaded without bundled fallback');
+      check(await page.locator('.fg-offline-banner').count()===0&&await page.locator('.fg-bundled-notice').count()===0,label+': catalogue-checked normal route loaded without user-selected recovery mode');
       record.startup=await measurements.snapshot();
       record.phase='native-map-controls';await mapControls(page,label,width);
       record.phase='public-geojson-facts';await page.locator('[data-action="list"]').click();const state=await facts(page);
@@ -250,7 +255,10 @@ try {
       check(state.visits===(routeKey==='main'?11:28)&&state.steps===(routeKey==='main'?12:28),label+': retained stops and transfer');
       check(state.pins===1&&state.boats===0,label+': only active photographic pin');
       check(!state.overflow,label+': no horizontal overflow');
-      check(state.landmarks?.join(',')==='accademia,dogana,lucia',label+': three illustrations at this walk’s verified coordinates');
+      const expectedRoute=expectedRoutes.find(route=>route.key===routeKey),artBudget=state.mapSize.width<=600?3:6;
+      check(Array.isArray(state.artAnchors)&&state.artAnchors.length>0&&state.artAnchors.length<=artBudget&&new Set(state.landmarks).size===state.landmarks.length,label+': viewport art budget and unique identities');
+      check(state.artAnchors.every(feature=>{const visit=expectedRoute.visits.find(visit=>visit.key===feature.visitKey&&visit.key===feature.key&&(visit.placeKey===undefined||visit.placeKey===feature.key));return approvedArtKeys.has(feature.key)&&visit&&feature.coordinates[0]===visit.longitude&&feature.coordinates[1]===visit.latitude;}),label+': approved illustration anchors use this walk’s own stable coordinates, never titles or another walk');
+      check(!state.landmarks.includes('trearchi')&&state.artAnchors.filter(feature=>feature.active).length===1&&state.artAnchors.some(feature=>feature.active&&feature.visitKey==='lucia'),label+': selected first-stop artwork has priority and human-held Tre Archi stays hidden');
       check(state.routeFeatures?.some(f=>!f.boat&&f.vertices>2),label+': real walking geometry');
       if(routeKey==='main'){
         record.phase='native-vaporetto-step';

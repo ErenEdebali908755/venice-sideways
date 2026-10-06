@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {orderedVisits,copyFor} from '../public/field-guide/guide.js';
 import {BASE_STYLE,GARDENS,landmarkFeatures,placeCopy,watercolorStyle} from '../public/field-guide/map-art.js';
+import {ILLUSTRATIONS,ILLUSTRATION_PLACEMENTS} from '../public/field-guide/illustrations.js';
 const {routes}=JSON.parse(await readFile(new URL('../public/field-guide/routes.json',import.meta.url),'utf8'));
 const gardens=JSON.parse(await readFile(new URL('../public/field-guide/gardens.json',import.meta.url),'utf8'));
 test('field guide keeps Main and Full stop counts, independent order and eight prompt languages',()=>{
@@ -43,8 +44,8 @@ test('watercolor presentation preserves provider geometry, sources and attributi
 });
 test('art landmarks use each verified walk’s coordinates and never become extra numbered stops',()=>{
  const main=routes.find(route=>route.key==='main'),features=landmarkFeatures(main);
- assert.equal(features.length,3);
- assert.equal(new Set(features.map(feature=>feature.properties.key)).size,3);
+ assert.equal(features.length,10,'Main has eleven visit identities; the unreviewed Tre Archi artwork stays hidden');
+ assert.equal(new Set(features.map(feature=>feature.properties.key)).size,10);
  for(const feature of features){
   const visit=main.visits.find(visit=>visit.key===feature.properties.key);
   assert.deepEqual(feature.geometry.coordinates,[visit.longitude,visit.latitude]);
@@ -52,7 +53,7 @@ test('art landmarks use each verified walk’s coordinates and never become extr
   assert.equal(feature.properties.number,undefined);
  }
  const full=routes.find(route=>route.key==='full');
- assert.equal(landmarkFeatures(full).length,3,'Full has three verified stable place/visit identities');
+ assert.equal(landmarkFeatures(full).length,28,'all Full visit identities have approved artwork; Tre Archi is not a Full stop');
  for(const feature of landmarkFeatures(full)){
   const visit=full.visits.find(visit=>visit.key===feature.properties.visitKey);
   assert.equal(visit.placeKey,feature.properties.key);
@@ -60,6 +61,10 @@ test('art landmarks use each verified walk’s coordinates and never become extr
   assert.equal(feature.properties.number,undefined);
  }
  assert.deepEqual(landmarkFeatures({key:'main',visits:[]}),[],'missing coordinates do not produce invented locations');
+ assert.equal(ILLUSTRATIONS.length,30);
+ assert.equal(ILLUSTRATION_PLACEMENTS.length,39);
+ assert.deepEqual(ILLUSTRATIONS.filter(asset=>!asset.approved).map(asset=>asset.key),['trearchi']);
+ assert.equal(features.some(feature=>feature.properties.key==='trearchi'),false);
  assert.equal(GARDENS.length,2);
  assert.ok(placeCopy('dogana','tr').text);
  assert.equal(placeCopy('dogana','ja').text,placeCopy('dogana','en').text,'missing art copy uses explicit English fallback');

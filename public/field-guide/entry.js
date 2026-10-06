@@ -1,4 +1,5 @@
-import {FieldGuide} from './guide.js?v=20261006-map-photo';
+import {createMeasurementCollector} from './measurement.js?v=20261006-kit04';
+import {FieldGuide} from './guide.js?v=20261006-kit04';
 import {temporarySelection} from './temporary-selection.js?v=20261005-mobile';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];
@@ -25,6 +26,7 @@ const language = () => {
   let saved; try { saved=localStorage.getItem('sideways-language'); } catch {}
   return resolveInitialLanguage({query:new URLSearchParams(location.search).get('lang'),saved,browser:navigator.languages||[navigator.language]});
 };
+const measurement = root ? createMeasurementCollector() : null;
 let generation=0, guide=null, attempts=0;
 async function json(url) {
   const response=await fetch(url,{credentials:'omit',cache:'no-store',signal:AbortSignal.timeout(9000)});
@@ -54,7 +56,8 @@ async function boot(bundled=false) {
     if(!routes.length)throw Error('No available routes');
     if(current!==generation)return;
     root.removeAttribute('aria-busy');
-    guide=new FieldGuide(root,{routes,lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled});
+    guide=new FieldGuide(root,{routes,lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
+    measurement?.pageReady(guide.lang);
     if(!bundled)json('/api/events').then(data=>{
       if(current!==generation||guide.disposed)return;
       guide.events=(data.events||[]).filter(event=>['open','upcoming'].includes(event.state));guide.render();

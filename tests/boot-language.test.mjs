@@ -17,3 +17,9 @@ test('all eight supported languages have boot recovery messages without inventin
     for(const key of ['loading','title','detail','retry','bundled','network','limit'])assert.ok(bootCopy[language][key]);
   }
 });
+test('new visitor Turkish/English system locale is normalized while saved supported preference wins',()=>{
+  assert.equal(resolveInitialLanguage({browser:['tr-TR','en-US']}),'tr');
+  assert.equal(resolveInitialLanguage({browser:['en-US']}),'en');
+  assert.equal(resolveInitialLanguage({saved:'ko',browser:['tr-TR']}),'ko');
+  assert.equal(resolveInitialLanguage({browser:['unsupported-XX']}),'en');
+});
