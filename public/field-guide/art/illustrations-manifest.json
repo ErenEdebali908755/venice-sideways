@@ -1,0 +1,3435 @@
+{
+  "schemaVersion": 1,
+  "version": "20261006-kit04",
+  "source": "User supplied venice-sideways-unified-visual-kit-04-2026-10-06",
+  "registrySHA256": "82feed012da66ca0e90e1da3341b46d110df4d86040927c31a7e339d54f95216",
+  "placementRegistrySHA256": "69cbf68d8c3e0d355abd46dbc768186bc493c3ca79d6c4c30a3a3daebb53954d",
+  "mastersPubliclyCopied": false,
+  "runtimePreloadsAllMasters": false,
+  "originalAlphaEdited": false,
+  "cropPolicy": "Only fully transparent exterior outside the strict nonzero-alpha bounding box is removed. Every painted source pixel remains represented; resizing preserves its aspect to raster rounding.",
+  "coordinateAuthority": "Current canonical route payload; source pack placements are a mapping reference and are never written into routes.",
+  "coordinateDifferences": [],
+  "routePlacements": [
+    {
+      "route": "main",
+      "visitKey": "lucia",
+      "placeKey": "lucia"
+    },
+    {
+      "route": "full",
+      "visitKey": "lucia",
+      "placeKey": "lucia"
+    },
+    {
+      "route": "main",
+      "visitKey": "giacomo",
+      "placeKey": "giacomo"
+    },
+    {
+      "route": "full",
+      "visitKey": "giacomo",
+      "placeKey": "giacomo"
+    },
+    {
+      "route": "main",
+      "visitKey": "frari",
+      "placeKey": "frari"
+    },
+    {
+      "route": "full",
+      "visitKey": "frari",
+      "placeKey": "frari"
+    },
+    {
+      "route": "main",
+      "visitKey": "margherita",
+      "placeKey": "margherita"
+    },
+    {
+      "route": "full",
+      "visitKey": "margherita",
+      "placeKey": "margherita"
+    },
+    {
+      "route": "main",
+      "visitKey": "barnaba",
+      "placeKey": "barnaba"
+    },
+    {
+      "route": "full",
+      "visitKey": "barnaba",
+      "placeKey": "barnaba"
+    },
+    {
+      "route": "main",
+      "visitKey": "trovaso",
+      "placeKey": "trovaso"
+    },
+    {
+      "route": "full",
+      "visitKey": "trovaso",
+      "placeKey": "trovaso"
+    },
+    {
+      "route": "main",
+      "visitKey": "zattere",
+      "placeKey": "zattere"
+    },
+    {
+      "route": "full",
+      "visitKey": "zattere",
+      "placeKey": "zattere"
+    },
+    {
+      "route": "main",
+      "visitKey": "dogana",
+      "placeKey": "dogana"
+    },
+    {
+      "route": "full",
+      "visitKey": "dogana",
+      "placeKey": "dogana"
+    },
+    {
+      "route": "main",
+      "visitKey": "accademia",
+      "placeKey": "accademia"
+    },
+    {
+      "route": "full",
+      "visitKey": "accademia",
+      "placeKey": "accademia"
+    },
+    {
+      "route": "main",
+      "visitKey": "trearchi",
+      "placeKey": "trearchi"
+    },
+    {
+      "route": "main",
+      "visitKey": "vino",
+      "placeKey": "vino"
+    },
+    {
+      "route": "full",
+      "visitKey": "guglie",
+      "placeKey": "guglie"
+    },
+    {
+      "route": "full",
+      "visitKey": "ghetto",
+      "placeKey": "ghetto"
+    },
+    {
+      "route": "full",
+      "visitKey": "ormesini",
+      "placeKey": "ormesini"
+    },
+    {
+      "route": "full",
+      "visitKey": "orto",
+      "placeKey": "orto"
+    },
+    {
+      "route": "full",
+      "visitKey": "misericordia",
+      "placeKey": "misericordia"
+    },
+    {
+      "route": "full",
+      "visitKey": "chiodo",
+      "placeKey": "chiodo"
+    },
+    {
+      "route": "full",
+      "visitKey": "rialto",
+      "placeKey": "rialto"
+    },
+    {
+      "route": "full",
+      "visitKey": "polo",
+      "placeKey": "polo"
+    },
+    {
+      "route": "full",
+      "visitKey": "salute",
+      "placeKey": "salute"
+    },
+    {
+      "route": "full",
+      "visitKey": "stefano",
+      "placeKey": "stefano"
+    },
+    {
+      "route": "full",
+      "visitKey": "marco",
+      "placeKey": "marco"
+    },
+    {
+      "route": "full",
+      "visitKey": "schiavoni",
+      "placeKey": "schiavoni"
+    },
+    {
+      "route": "full",
+      "visitKey": "arsenale",
+      "placeKey": "arsenale"
+    },
+    {
+      "route": "full",
+      "visitKey": "tana",
+      "placeKey": "tana"
+    },
+    {
+      "route": "full",
+      "visitKey": "garibaldi",
+      "placeKey": "garibaldi"
+    },
+    {
+      "route": "full",
+      "visitKey": "viale",
+      "placeKey": "viale"
+    },
+    {
+      "route": "full",
+      "visitKey": "giardini",
+      "placeKey": "giardini"
+    },
+    {
+      "route": "full",
+      "visitKey": "sette",
+      "placeKey": "sette"
+    },
+    {
+      "route": "full",
+      "visitKey": "elena",
+      "placeKey": "elena"
+    }
+  ],
+  "assets": [
+    {
+      "placeKey": "lucia",
+      "title": "Venezia Santa Lucia",
+      "kind": "kit-lucia",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/lucia-watercolor.png",
+        "sha256": "ca19b057fbd470e827a20ef1d391345a5da011ad70338cdf23652751f1053adc",
+        "width": 1774,
+        "height": 887,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          37,
+          19,
+          1744,
+          887
+        ],
+        "visibleAlpha16BoundsPx": [
+          42,
+          219,
+          1732,
+          701
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 37,
+          "top": 19,
+          "width": 1707,
+          "height": 868
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://www.grandistazioni.it/it/le-nostre-stazioni/venezia-s--lucia.html",
+          "https://www.gsretail.it/it/network/venezia-santa-lucia/"
+        ],
+        "architecturalChecks": [
+          "Modern low horizontal railway-station front, flat roof and glazed entries; no church substitution",
+          "Entire facade and steps visible; exact bay count and adjacent details remain interpretive"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-lucia-map1x-980d44b4a559.png",
+          "sha256": "980d44b4a5597d4b11c8ee226bb9ec6ac7522e0dcc4c946b3b9eed2a2cd92e7b",
+          "bytes": 17003,
+          "width": 162,
+          "height": 82,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            0,
+            18,
+            161,
+            65
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.9665898617511521,
+          "aspectErrorPx": 0.7396313364055231
+        },
+        "map2x": {
+          "file": "art/kit-lucia-map2x-7a02a01ba9b3.png",
+          "sha256": "7a02a01ba9b3abf3c78a181f0d86748107090e52797bee84b653da8f33347297",
+          "bytes": 63202,
+          "width": 323,
+          "height": 164,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            1,
+            38,
+            321,
+            129
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.9665898617511521,
+          "aspectErrorPx": 0.4792626728110454
+        },
+        "card": {
+          "file": "art/kit-lucia-card-9c373ac455d9.png",
+          "sha256": "9c373ac455d98cafa0200404e5916dfe4c22e46106b2baf26246a6c869d53126",
+          "bytes": 244719,
+          "width": 646,
+          "height": 328,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            2,
+            75,
+            642,
+            258
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.9665898617511521,
+          "aspectErrorPx": 0.9585253456220908
+        }
+      }
+    },
+    {
+      "placeKey": "giacomo",
+      "title": "San Giacomo dell’Orio",
+      "kind": "kit-giacomo",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/giacomo-watercolor.png",
+        "sha256": "e7bb5ae93d4c5957c87c5208fb691173230a3183931892fcbe536e9bf3c27fb5",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          31,
+          1426,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          112,
+          51,
+          1421,
+          949
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 31,
+          "width": 1426,
+          "height": 993
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://chorusvenezia.org/visita/chiesa-di-san-giacomo-dallorio/"
+        ],
+        "architecturalChecks": [
+          "Rounded apsidal ensemble, warm brick/plaster and white upper arcades; no Rialto clock",
+          "Campanile and window detail are stylized; not a complete measured church reconstruction"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-giacomo-map1x-8bad09694df5.png",
+          "sha256": "8bad09694df5860e4763fe121b16a1b8639c29152f9afa849800d0fc66806489",
+          "bytes": 34224,
+          "width": 174,
+          "height": 121,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            14,
+            2,
+            173,
+            112
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4360523665659617,
+          "aspectErrorPx": 0.23766364551864694
+        },
+        "map2x": {
+          "file": "art/kit-giacomo-map2x-81212cc241ea.png",
+          "sha256": "81212cc241ea116061431b1210ceacd78e5bdfd4d62884fe4b7e06569bd5f3cf",
+          "bytes": 133227,
+          "width": 349,
+          "height": 243,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            27,
+            5,
+            348,
+            225
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4360523665659617,
+          "aspectErrorPx": 0.0392749244713122
+        },
+        "card": {
+          "file": "art/kit-giacomo-card-3ec877c627cd.png",
+          "sha256": "3ec877c627cd153ff09011826dc54d9c571240e4cf827ada13b92fbe0e4f7ae2",
+          "bytes": 517624,
+          "width": 697,
+          "height": 485,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            55,
+            10,
+            694,
+            449
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4360523665659617,
+          "aspectErrorPx": 0.5146022155085805
+        }
+      }
+    },
+    {
+      "placeKey": "frari",
+      "title": "Frari · Campo dei Frari",
+      "kind": "kit-frari",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/frari-watercolor.png",
+        "sha256": "04013fe8f4dadcd31936f46e3ae5e2bc8ca2958093d762182025d7189485c3b1",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          31,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          155,
+          51,
+          1387,
+          975
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 31,
+          "width": 1522,
+          "height": 993
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://www.basilicadeifrari.it/esterno-della-basilica/",
+          "https://www.basilicadeifrari.it/il-campanile/"
+        ],
+        "architecturalChecks": [
+          "Brick Gothic main front, three principal roses plus smaller upper oculus, pointed portal and non-pyramidal tower",
+          "Fine tracery/statue placement and gable proportions are artistic simplifications"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-frari-map1x-4a87452e7db8.png",
+          "sha256": "4a87452e7db8f8fca85350c254284b04df59329753470548c1064d827786e9d2",
+          "bytes": 36775,
+          "width": 198,
+          "height": 129,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            21,
+            2,
+            180,
+            123
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5327291037260826,
+          "aspectErrorPx": 0.27794561933535
+        },
+        "map2x": {
+          "file": "art/kit-frari-map2x-62bf26a89cca.png",
+          "sha256": "62bf26a89cca87bc8d79a52e8710c0f902dd32f29157bad98341517b4e2b0079",
+          "bytes": 141157,
+          "width": 395,
+          "height": 258,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            41,
+            5,
+            360,
+            245
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5327291037260826,
+          "aspectErrorPx": 0.44410876132930177
+        },
+        "card": {
+          "file": "art/kit-frari-card-4f94d6c22a68.png",
+          "sha256": "4f94d6c22a68f3d27a5f9ed118fa5ebe15899b231eaf735d2d5182e9d7601ee4",
+          "bytes": 554988,
+          "width": 791,
+          "height": 516,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            81,
+            10,
+            721,
+            491
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5327291037260826,
+          "aspectErrorPx": 0.11178247734139823
+        }
+      }
+    },
+    {
+      "placeKey": "margherita",
+      "title": "Campo Santa Margherita",
+      "kind": "kit-margherita",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/margherita-watercolor.png",
+        "sha256": "967648d3a39b7e806902186aeec1ff0ba8c30ad7fa88cc8ff51e22ad0d6487a1",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          65,
+          30,
+          1452,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          272,
+          86,
+          1280,
+          924
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 65,
+          "top": 30,
+          "width": 1387,
+          "height": 994
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/index.php/it/node/125866"
+        ],
+        "architecturalChecks": [
+          "Final candidate has plain broken truncated tower and regular rectangular neighbouring windows",
+          "Limited campo atmosphere; neighbours and well placement do not claim exact survey"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-margherita-map1x-93a9724e7d6d.png",
+          "sha256": "93a9724e7d6d60cb6c46fd14aaa2e033b616b6ef24960f82730371bfa5f02919",
+          "bytes": 40423,
+          "width": 220,
+          "height": 158,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            33,
+            9,
+            192,
+            142
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.3953722334004024,
+          "aspectErrorPx": 0.4688128772635638
+        },
+        "map2x": {
+          "file": "art/kit-margherita-map2x-c7510a363410.png",
+          "sha256": "c7510a3634107cb187bb4a643c435a6b381cb353490d3358952f6145f6a68b98",
+          "bytes": 157021,
+          "width": 440,
+          "height": 315,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            66,
+            17,
+            385,
+            284
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.3953722334004024,
+          "aspectErrorPx": 0.45774647887322106
+        },
+        "card": {
+          "file": "art/kit-margherita-card-ae224bb5d4fa.png",
+          "sha256": "ae224bb5d4faa9dc89bf1151b08ba5f9ad1898cb01c2a4e9f85ef2ff9694a1fe",
+          "bytes": 605587,
+          "width": 881,
+          "height": 631,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            131,
+            35,
+            772,
+            568
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.3953722334004024,
+          "aspectErrorPx": 0.5201207243461288
+        }
+      }
+    },
+    {
+      "placeKey": "barnaba",
+      "title": "Campo San Barnaba",
+      "kind": "kit-barnaba",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/barnaba-watercolor.png",
+        "sha256": "d8225a8965ed290cc18eb322648e019d011a98b962fcb19687cfa5e1be75e0c7",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          19,
+          1518,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          184,
+          22,
+          1369,
+          986
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 19,
+          "width": 1518,
+          "height": 1005
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://leonardoavenezia.com/en/mostra/",
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district"
+        ],
+        "architecturalChecks": [
+          "Four Corinthian columns in two side pairs, circular pediment relief, triangular door pediment and conical brick tower",
+          "Minor ornament and waterfront apron simplified"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-barnaba-map1x-393cd1e500c8.png",
+          "sha256": "393cd1e500c833753d68288ea950b2a0621cc0275ad3c4a53f57bc2f7180e5dc",
+          "bytes": 41335,
+          "width": 205,
+          "height": 136,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            25,
+            1,
+            185,
+            131
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.51044776119403,
+          "aspectErrorPx": 0.4208955223880704
+        },
+        "map2x": {
+          "file": "art/kit-barnaba-map2x-bd4c74b25174.png",
+          "sha256": "bd4c74b2517418f1196794c20114e08a548b5ac39d7cf69c44d1e7f7c0f9cb93",
+          "bytes": 157233,
+          "width": 410,
+          "height": 271,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            50,
+            1,
+            370,
+            261
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.51044776119403,
+          "aspectErrorPx": 0.6686567164178789
+        },
+        "card": {
+          "file": "art/kit-barnaba-card-24f4f4bcd9e1.png",
+          "sha256": "24f4f4bcd9e16698995b7dd27ff0bfd3562ad14d1d6b706952f0128da34ae5c5",
+          "bytes": 597670,
+          "width": 820,
+          "height": 543,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            100,
+            2,
+            739,
+            523
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.51044776119403,
+          "aspectErrorPx": 0.17313432835828158
+        }
+      }
+    },
+    {
+      "placeKey": "trovaso",
+      "title": "San Trovaso · squero surroundings",
+      "kind": "kit-trovaso",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/trovaso-watercolor.png",
+        "sha256": "6c8b85ec0d3a73e59c229e3a7a77e45630ace196dda52ff272bd986c98a555b0",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          0,
+          1532,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          57,
+          98,
+          1496,
+          922
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 0,
+          "width": 1532,
+          "height": 1024
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district",
+          "https://www.squerosantrovaso.com/"
+        ],
+        "architecturalChecks": [
+          "Timber pitched workshops, balcony and two black gondola hulls on slipway",
+          "Editorial working-boatyard vignette, not a current operations report"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-trovaso-map1x-b8b4e7a63232.png",
+          "sha256": "b8b4e7a63232e357781ba5cd0f4f1bef06a394df53af72fc6d5ffd786f036a4d",
+          "bytes": 32867,
+          "width": 170,
+          "height": 114,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            6,
+            11,
+            166,
+            103
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.49609375,
+          "aspectErrorPx": 0.5546875000000031
+        },
+        "map2x": {
+          "file": "art/kit-trovaso-map2x-7b1bc9541acc.png",
+          "sha256": "7b1bc9541accc47422a736faeddfe9177a9c9901dc19aa6ed67a9f4f1d1786bb",
+          "bytes": 126815,
+          "width": 341,
+          "height": 228,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            13,
+            21,
+            333,
+            206
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.49609375,
+          "aspectErrorPx": 0.1093749999999778
+        },
+        "card": {
+          "file": "art/kit-trovaso-card-38f965af34a3.png",
+          "sha256": "38f965af34a308a33273144b6794e78a570e631de776b08351d16fea53fb09e7",
+          "bytes": 496021,
+          "width": 681,
+          "height": 455,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            26,
+            43,
+            665,
+            410
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.49609375,
+          "aspectErrorPx": 0.27734375000000533
+        }
+      }
+    },
+    {
+      "placeKey": "zattere",
+      "title": "Zattere · Gesuati",
+      "kind": "kit-zattere",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/zattere-watercolor.png",
+        "sha256": "114ca9588bba5932aa46e3327877dc40643f895a34dc6f29fbaf813fcc650f1a",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          79,
+          16,
+          1522,
+          1000
+        ],
+        "visibleAlpha16BoundsPx": [
+          87,
+          19,
+          1448,
+          993
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 79,
+          "top": 16,
+          "width": 1443,
+          "height": 984
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://chorusvenezia.org/visita/facciata-9/"
+        ],
+        "architecturalChecks": [
+          "Four columns, oval opening, curved portal pediment and four statue niches",
+          "Modest dome and belfries behind; fine proportions illustrative"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-zattere-map1x-5c03e1ceddb9.png",
+          "sha256": "5c03e1ceddb9ab43d83cffad2c884e716b1085fa15a43b993d4982be222c5688",
+          "bytes": 35038,
+          "width": 170,
+          "height": 116,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            1,
+            0,
+            162,
+            116
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4664634146341464,
+          "aspectErrorPx": 0.10975609756099303
+        },
+        "map2x": {
+          "file": "art/kit-zattere-map2x-b34a90d186d2.png",
+          "sha256": "b34a90d186d2f7b85cddaaf3b0af04af214cf1aea6f5817f9836a96cfa0251ec",
+          "bytes": 130327,
+          "width": 339,
+          "height": 231,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            2,
+            1,
+            322,
+            230
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4664634146341464,
+          "aspectErrorPx": 0.24695121951216104
+        },
+        "card": {
+          "file": "art/kit-zattere-card-5775963efdca.png",
+          "sha256": "5775963efdca3e5e244a8878ebe69804f3cd245682abcd3b20a5626802103d8e",
+          "bytes": 498096,
+          "width": 679,
+          "height": 463,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            2,
+            644,
+            460
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4664634146341464,
+          "aspectErrorPx": 0.027439024390243594
+        }
+      }
+    },
+    {
+      "placeKey": "dogana",
+      "title": "Punta della Dogana",
+      "kind": "kit-dogana",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/dogana-watercolor.png",
+        "sha256": "f8891ac3d2b5461aa7075a6a5dae827793c05ccdac5d231c78bbf22b5bf2744e",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          21,
+          1500,
+          1000
+        ],
+        "visibleAlpha16BoundsPx": [
+          50,
+          78,
+          1493,
+          922
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 21,
+          "width": 1500,
+          "height": 979
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://www.pinaultcollection.com/palazzograssi/it/punta-della-dogana"
+        ],
+        "architecturalChecks": [
+          "Golden globe, Fortune windvane figure and two supporting Atlas figures; long warehouse roof",
+          "Warehouse fenestration/detail simplified; no Salute dome"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-dogana-map1x-672eacf57ca6.png",
+          "sha256": "672eacf57ca62e7a30ae61de006f0fba00a748e7d9845d5ce8908787d3a104e5",
+          "bytes": 22166,
+          "width": 166,
+          "height": 108,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            6,
+            6,
+            165,
+            100
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5321756894790604,
+          "aspectErrorPx": 0.5250255362614755
+        },
+        "map2x": {
+          "file": "art/kit-dogana-map2x-ee6513123635.png",
+          "sha256": "ee65131236352e0e5e5d2caf8436f562ab2a1a9c3448c433359f4d8369098e41",
+          "bytes": 82311,
+          "width": 333,
+          "height": 217,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            11,
+            12,
+            331,
+            200
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5321756894790604,
+          "aspectErrorPx": 0.5178753830438827
+        },
+        "card": {
+          "file": "art/kit-dogana-card-796ba886b59e.png",
+          "sha256": "796ba886b59e53501d830cb94fb486edd533f2932e6fef5d70e15e3d267bb825",
+          "bytes": 314152,
+          "width": 665,
+          "height": 434,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            22,
+            25,
+            662,
+            400
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5321756894790604,
+          "aspectErrorPx": 0.03575076608779382
+        }
+      }
+    },
+    {
+      "placeKey": "accademia",
+      "title": "Ponte dell’Accademia",
+      "kind": "kit-accademia",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/accademia-watercolor.png",
+        "sha256": "4a0e9811467382ec2b13e9952acaf60d3f81db646298cf7557203333d47f34ea",
+        "width": 1774,
+        "height": 887,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          9,
+          1748,
+          887
+        ],
+        "visibleAlpha16BoundsPx": [
+          27,
+          196,
+          1745,
+          728
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 9,
+          "width": 1748,
+          "height": 878
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/it/2025/04/ponte-dellaccademia-libera-al-progetto-definitivo",
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district"
+        ],
+        "architecturalChecks": [
+          "Single wooden span, timber triangular bracing, both stepped ends",
+          "Timber pattern and landing ornaments simplified; not exact structural drawing"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-accademia-map1x-65ff2a9c2970.png",
+          "sha256": "65ff2a9c2970f5943c598af4e3a0d94700f70705aba5dbe3f60d14a3ea645182",
+          "bytes": 18247,
+          "width": 163,
+          "height": 82,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            3,
+            17,
+            163,
+            67
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.9908883826879271,
+          "aspectErrorPx": 0.2528473804100244
+        },
+        "map2x": {
+          "file": "art/kit-accademia-map2x-c520080ad1ab.png",
+          "sha256": "c520080ad1ab0b3665958db249820abab2fd9385c858e3a8d0c46315a39a51c5",
+          "bytes": 64624,
+          "width": 326,
+          "height": 164,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            5,
+            35,
+            325,
+            134
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.9908883826879271,
+          "aspectErrorPx": 0.5056947608200488
+        },
+        "card": {
+          "file": "art/kit-accademia-card-b3f12aca1391.png",
+          "sha256": "b3f12aca13917784056e80da429fab845349474b280258093cccd8e76e25f617",
+          "bytes": 234136,
+          "width": 651,
+          "height": 327,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            10,
+            69,
+            650,
+            268
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.9908883826879271,
+          "aspectErrorPx": 0.020501138952149
+        }
+      }
+    },
+    {
+      "placeKey": "trearchi",
+      "title": "Ponte dei Tre Archi",
+      "kind": "kit-trearchi",
+      "approved": false,
+      "humanSpecificReviewRequired": true,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/trearchi-watercolor.png",
+        "sha256": "a95991cca2ec28c0d7158a168880ecfaf036b78fef9cf1055e05d7b7e56a26d7",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          20,
+          1511,
+          1000
+        ],
+        "visibleAlpha16BoundsPx": [
+          27,
+          252,
+          1509,
+          761
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 20,
+          "width": 1511,
+          "height": 980
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/it/node/119182",
+          "https://www.comune.venezia.it/zh-hans/node/68628?d=MzUzMDE0OA%3D%3D&e=YXBwbGljYXRpb24vcGRm&n=QS4xIDE0OTU5IDI1IFJFTEFaSU9ORSBWQVJJQU5URSBuLjI%3D"
+        ],
+        "architecturalChecks": [
+          "Three open arch passages, larger central span, solid stepped brick/stone parapet and both ends",
+          "Primary municipal text checked; photo retrieval failed; explicit human visual approval needed"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-trearchi-map1x-971aa3436716.png",
+          "sha256": "971aa343671640cb39052387268d33c7a0be515f46d3edc848b1c40064718549",
+          "bytes": 19222,
+          "width": 163,
+          "height": 106,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            3,
+            25,
+            163,
+            80
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5418367346938775,
+          "aspectErrorPx": 0.43469387755101563
+        },
+        "map2x": {
+          "file": "art/kit-trearchi-map2x-46060f44e759.png",
+          "sha256": "46060f44e759bf942902970731425ac8eeaf234b49aadd0531b747bfb7024c85",
+          "bytes": 68710,
+          "width": 326,
+          "height": 211,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            6,
+            49,
+            325,
+            160
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5418367346938775,
+          "aspectErrorPx": 0.6724489795918407
+        },
+        "card": {
+          "file": "art/kit-trearchi-card-5fa345f39fe8.png",
+          "sha256": "5fa345f39fe890e84954869b17a3921b438f679d9a480175e656c6f86b9a397e",
+          "bytes": 254718,
+          "width": 653,
+          "height": 424,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            12,
+            100,
+            652,
+            320
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5418367346938775,
+          "aspectErrorPx": 0.738775510204098
+        }
+      }
+    },
+    {
+      "placeKey": "vino",
+      "title": "Vino Vero",
+      "kind": "kit-vino",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/vino-watercolor.png",
+        "sha256": "fef2aafe44692e013ecde9cc77b06fed97c32c5c4d945a722aca27ef5213054f",
+        "width": 1312,
+        "height": 1199,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          39,
+          1281,
+          1199
+        ],
+        "visibleAlpha16BoundsPx": [
+          40,
+          88,
+          1274,
+          1166
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 39,
+          "width": 1281,
+          "height": 1160
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://vinovero.wine/luoghi/venezia/"
+        ],
+        "architecturalChecks": [
+          "Small wine bar at Fondamenta della Misericordia 2497; canal-side frontage",
+          "Official venue photograph visually inspected: broad glass-fronted opening with slim dark blue-gray frames and warm wooden bottle shelving",
+          "Wine-bottle interior cue and modest outdoor furniture; storefront vignette rather than panoramic quay; surrounding facade fragments are simplified art direction"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-vino-map1x-40887c3ffdf4.png",
+          "sha256": "40887c3ffdf45ce0b0294f9515fcc168ade854f1f488bfe995c7c467150d34b5",
+          "bytes": 50579,
+          "width": 166,
+          "height": 150,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            5,
+            6,
+            165,
+            146
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.1043103448275862,
+          "aspectErrorPx": 0.3534482758620783
+        },
+        "map2x": {
+          "file": "art/kit-vino-map2x-0d72945a3671.png",
+          "sha256": "0d72945a3671767d9ce643584655175072bb011aeae8b8db34a8182b2307329e",
+          "bytes": 198633,
+          "width": 332,
+          "height": 301,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            10,
+            13,
+            330,
+            293
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.1043103448275862,
+          "aspectErrorPx": 0.3974137931034667
+        },
+        "card": {
+          "file": "art/kit-vino-card-a34b741f0a83.png",
+          "sha256": "a34b741f0a838fa6f8aa5ab84f06c742dfa672e1e5d7d065190e4d67f1ed3cb3",
+          "bytes": 791639,
+          "width": 664,
+          "height": 601,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            21,
+            25,
+            660,
+            584
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.1043103448275862,
+          "aspectErrorPx": 0.30948275862065855
+        }
+      }
+    },
+    {
+      "placeKey": "guglie",
+      "title": "Ponte delle Guglie",
+      "kind": "kit-guglie",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/guglie-watercolor.png",
+        "sha256": "9755bd929344daef6df051960b25c551c012fd0ec98af40db02f7cca86c169db",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          9,
+          1508,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          31,
+          35,
+          1503,
+          985
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 9,
+          "width": 1508,
+          "height": 1015
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/index.php/it/2025/08/lavori-rio-di-cannaregio-da-lunedi-11-agosto-riapre-lapprodo-actv-guglie",
+          "https://www.comune.venezia.it/zh-hans/node/68628?d=MzUzMDE1MA%3D%3D&e=YXBwbGljYXRpb24vcGRm&n=QS4yIDE0OTU5IDI1IERPQ1VNRU5UQVpJT05FIEZPVE9HUkFGSUNBIHZhciAy"
+        ],
+        "architecturalChecks": [
+          "Single stone arch over the Cannaregio canal",
+          "Stepped pedestrian deck, stone balustrades and four small pointed stone obelisks at bridge ends"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-guglie-map1x-cc58db00958b.png",
+          "sha256": "cc58db00958bae1938103dcc9b1346c0f4762d55c3ddaa41cd62f10f605f8e8a",
+          "bytes": 38593,
+          "width": 164,
+          "height": 110,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            3,
+            2,
+            164,
+            106
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4857142857142858,
+          "aspectErrorPx": 0.5714285714285716
+        },
+        "map2x": {
+          "file": "art/kit-guglie-map2x-1ca0ee6e468b.png",
+          "sha256": "1ca0ee6e468b55cf6fa45d6c6e9affdc689294ce6ea1907ff351acbbcd325a8e",
+          "bytes": 142021,
+          "width": 328,
+          "height": 221,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            6,
+            5,
+            327,
+            213
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4857142857142858,
+          "aspectErrorPx": 0.34285714285714164
+        },
+        "card": {
+          "file": "art/kit-guglie-card-00069bc9018e.png",
+          "sha256": "00069bc9018e1d1a4493a8ded54c76d691372429a98437fe5a484a9c2698763f",
+          "bytes": 534029,
+          "width": 656,
+          "height": 442,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            13,
+            11,
+            654,
+            425
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4857142857142858,
+          "aspectErrorPx": 0.6857142857142833
+        }
+      }
+    },
+    {
+      "placeKey": "ghetto",
+      "title": "Campo del Ghetto Nuovo",
+      "kind": "kit-ghetto",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/ghetto-watercolor.png",
+        "sha256": "6e491fe30107d124f7e1390484ec6c6b0ef963f2d6aff50b4911e86bb4d4aacf",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          21,
+          1536,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          9,
+          26,
+          1528,
+          1002
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 21,
+          "width": 1536,
+          "height": 1003
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/cannaregio-authenticity-and-traditions"
+        ],
+        "architecturalChecks": [
+          "Open paved campo enclosed by unusually tall narrow residential buildings",
+          "Stone wellheads, restrained trees; synagogues are in upper floors rather than a freestanding monumental synagogue"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-ghetto-map1x-06670427e606.png",
+          "sha256": "06670427e606a7ca566e41235088d2c0cb0eed9b4a70283d75bedcc2f8228099",
+          "bytes": 37853,
+          "width": 162,
+          "height": 106,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            1,
+            0,
+            161,
+            104
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.531405782652044,
+          "aspectErrorPx": 0.32901296111664946
+        },
+        "map2x": {
+          "file": "art/kit-ghetto-map2x-9b47dd4f1b5f.png",
+          "sha256": "9b47dd4f1b5f5395dc17367e8e08841314d760bfcdbb7c96e1c28241023a1f38",
+          "bytes": 141482,
+          "width": 324,
+          "height": 212,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            2,
+            1,
+            322,
+            208
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.531405782652044,
+          "aspectErrorPx": 0.6580259222332989
+        },
+        "card": {
+          "file": "art/kit-ghetto-card-2f7c9f02dbe2.png",
+          "sha256": "2f7c9f02dbe23116d9aa7920faac5bfd85bffd70cc7d5c5b7f85b29d4e67d0b0",
+          "bytes": 547873,
+          "width": 647,
+          "height": 422,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            2,
+            644,
+            413
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.531405782652044,
+          "aspectErrorPx": 0.7467597208374497
+        }
+      }
+    },
+    {
+      "placeKey": "ormesini",
+      "title": "Fondamenta degli Ormesini",
+      "kind": "kit-ormesini",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/ormesini-watercolor.png",
+        "sha256": "ab5254945bd9c999e16738c2861267119bfe3125bd3079248c77df275e456261",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          21,
+          1524,
+          998
+        ],
+        "visibleAlpha16BoundsPx": [
+          21,
+          37,
+          1516,
+          985
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 21,
+          "width": 1524,
+          "height": 977
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/cannaregio-authenticity-and-traditions",
+          "https://www.comune.venezia.it/it/content/fondamenta-dei-ormesini"
+        ],
+        "architecturalChecks": [
+          "Lively narrow canal-side promenade with residential facades and small bacari",
+          "Near the iron Ghetto Nuovo footbridge; canal/quay subject rather than individual wine-bar identity"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-ormesini-map1x-2ecac8c93309.png",
+          "sha256": "2ecac8c9330922a7a9f5ab9c514103d268f991e2d0f99b42ae9c98c09f7c1ce2",
+          "bytes": 37101,
+          "width": 163,
+          "height": 104,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            2,
+            1,
+            162,
+            103
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5598771750255886,
+          "aspectErrorPx": 0.7727737973387789
+        },
+        "map2x": {
+          "file": "art/kit-ormesini-map2x-0cf320ad2c89.png",
+          "sha256": "0cf320ad2c89539dba1cc4a64219c3a52bdeb5bc1e6c0f07719ef4880afa9fc3",
+          "bytes": 139634,
+          "width": 326,
+          "height": 209,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            5,
+            3,
+            325,
+            207
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5598771750255886,
+          "aspectErrorPx": 0.014329580348043214
+        },
+        "card": {
+          "file": "art/kit-ormesini-card-ce6d9e435986.png",
+          "sha256": "ce6d9e435986fedd68ef461e47e3538fbcf5d2dc4ecd8c9f845a97060bf720bc",
+          "bytes": 541815,
+          "width": 652,
+          "height": 418,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            9,
+            7,
+            649,
+            413
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5598771750255886,
+          "aspectErrorPx": 0.028659160696086428
+        }
+      }
+    },
+    {
+      "placeKey": "orto",
+      "title": "Madonna dell’Orto",
+      "kind": "kit-orto",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/orto-watercolor.png",
+        "sha256": "af59b155a4ceacd4f7df5f9f5e494d0e767c476a5e487fb7c9070759e4b8b85f",
+        "width": 1312,
+        "height": 1199,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          13,
+          1312,
+          1199
+        ],
+        "visibleAlpha16BoundsPx": [
+          17,
+          16,
+          1311,
+          1185
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 13,
+          "width": 1312,
+          "height": 1186
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/it/cosa-fare-a-venezia/chiese/chiesa-della-madonna-dell-orto",
+          "https://tour.venezia.it/it/venezia/cosa-vedere"
+        ],
+        "architecturalChecks": [
+          "Venetian Gothic red-brick church facade with pale stone detailing",
+          "Central rose window, pointed portal and lancet windows; red-brick campanile behind; brick-paved church forecourt"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-orto-map1x-ebfbc0c3dc36.png",
+          "sha256": "ebfbc0c3dc366229d34d1532e60b4f56ef3aedf2b6d615bf432dfafd520ccd50",
+          "bytes": 44021,
+          "width": 162,
+          "height": 146,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            2,
+            0,
+            162,
+            145
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.1062394603709949,
+          "aspectErrorPx": 0.48903878583475047
+        },
+        "map2x": {
+          "file": "art/kit-orto-map2x-8a022563cf0b.png",
+          "sha256": "8a022563cf0b42d80784c895be05eec2e1e9a34786fba6c4c6d0ff40d8949c65",
+          "bytes": 168136,
+          "width": 324,
+          "height": 293,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            4,
+            1,
+            324,
+            290
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.1062394603709949,
+          "aspectErrorPx": 0.12816188870148637
+        },
+        "card": {
+          "file": "art/kit-orto-card-2881eda52a32.png",
+          "sha256": "2881eda52a32d13341963770b303cdb47935dc36df5fecf753468b0224a527f0",
+          "bytes": 680742,
+          "width": 649,
+          "height": 587,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            9,
+            2,
+            649,
+            580
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.1062394603709949,
+          "aspectErrorPx": 0.36256323777393096
+        }
+      }
+    },
+    {
+      "placeKey": "misericordia",
+      "title": "Fondamenta della Misericordia",
+      "kind": "kit-misericordia",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/misericordia-watercolor.png",
+        "sha256": "410dd28a99251f4fb58366a7520e85b4156b653e238b104605eef166e3f992e6",
+        "width": 1774,
+        "height": 887,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          9,
+          1760,
+          887
+        ],
+        "visibleAlpha16BoundsPx": [
+          16,
+          19,
+          1755,
+          876
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 9,
+          "width": 1760,
+          "height": 878
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/cannaregio-authenticity-and-traditions",
+          "https://vinovero.wine/luoghi/venezia/"
+        ],
+        "architecturalChecks": [
+          "Linear Cannaregio canal-side promenade with warm facades and small bars",
+          "Distinct place identity from Vino Vero despite almost identical supplied route anchor; broad waterfront vignette"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-misericordia-map1x-cdae5191b86a.png",
+          "sha256": "cdae5191b86a62a9e517633a8bd0a4d69fa4adee647df603cf9a9e528eed6e4b",
+          "bytes": 28892,
+          "width": 162,
+          "height": 81,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            1,
+            1,
+            162,
+            80
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 2.0045558086560367,
+          "aspectErrorPx": 0.3690205011389698
+        },
+        "map2x": {
+          "file": "art/kit-misericordia-map2x-7104e228e645.png",
+          "sha256": "7104e228e645f3895bf1e7c311b12a8fee298556c32b5a0b9baccbe0fed30469",
+          "bytes": 108015,
+          "width": 324,
+          "height": 162,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            3,
+            2,
+            323,
+            160
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 2.0045558086560367,
+          "aspectErrorPx": 0.7380410022779396
+        },
+        "card": {
+          "file": "art/kit-misericordia-card-f92f6b0661f7.png",
+          "sha256": "f92f6b0661f7f1aef4c5ef1b756551bce39d40ff6b1323d96e0e9237859d4ea2",
+          "bytes": 415753,
+          "width": 648,
+          "height": 323,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            6,
+            3,
+            646,
+            319
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 2.0045558086560367,
+          "aspectErrorPx": 0.5284738041001806
+        }
+      }
+    },
+    {
+      "placeKey": "chiodo",
+      "title": "Ponte Chiodo · view from the quay",
+      "kind": "kit-chiodo",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/chiodo-watercolor.png",
+        "sha256": "8a0dace9a0cada235a2eadf499be7dab742dc05bc4535cfdc051f9acfbbdd7db",
+        "width": 1374,
+        "height": 1145,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          39,
+          1346,
+          1145
+        ],
+        "visibleAlpha16BoundsPx": [
+          57,
+          47,
+          1323,
+          1113
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 39,
+          "width": 1346,
+          "height": 1106
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/cannaregio-authenticity-and-traditions",
+          "https://www.veneziaunica.it/it/venezia-sostenibile/detourism/gemme-nascoste"
+        ],
+        "architecturalChecks": [
+          "Small single stone arch across a narrow rio, without parapets or railings",
+          "Public quay observational view; avoid implying visitor access across private bridge"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-chiodo-map1x-8a1fb96aa2ca.png",
+          "sha256": "8a1fb96aa2ca6533bf7335d379a2d9294b051e860f8e315c640a294ce4389728",
+          "bytes": 45142,
+          "width": 170,
+          "height": 140,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            7,
+            1,
+            168,
+            136
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.216998191681736,
+          "aspectErrorPx": 0.3797468354430622
+        },
+        "map2x": {
+          "file": "art/kit-chiodo-map2x-3c6ab294ce71.png",
+          "sha256": "3c6ab294ce716042b5f4dedc82452ecbb372fe9b461f2117144f1d9c786eef90",
+          "bytes": 171986,
+          "width": 340,
+          "height": 279,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            14,
+            1,
+            335,
+            271
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.216998191681736,
+          "aspectErrorPx": 0.4575045207956254
+        },
+        "card": {
+          "file": "art/kit-chiodo-card-a2a82f5c5791.png",
+          "sha256": "a2a82f5c5791c2655ac65e66c34f7357b4e694ecb5338953a1d10a7ccfdee6ef",
+          "bytes": 673906,
+          "width": 680,
+          "height": 559,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            29,
+            4,
+            669,
+            543
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.216998191681736,
+          "aspectErrorPx": 0.30198915009047367
+        }
+      }
+    },
+    {
+      "placeKey": "rialto",
+      "title": "Rialto · San Polo side",
+      "kind": "kit-rialto",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/rialto-watercolor.png",
+        "sha256": "c4e4f60434852bc298ebec235f4355738241d90fd498ef2e84609c7353c8943c",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          32,
+          1505,
+          1004
+        ],
+        "visibleAlpha16BoundsPx": [
+          36,
+          162,
+          1501,
+          939
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 32,
+          "width": 1505,
+          "height": 972
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://tour.venezia.it/it/venezia/cosa-vedere/dettagli/ponte-di-rialto",
+          "https://live.comune.venezia.it/it/2025/04/venezia-celebrazione-del-restauro-del-ponte-di-rialto"
+        ],
+        "architecturalChecks": [
+          "Single broad pale Istrian stone arch over Grand Canal",
+          "Inclined stepped ramps, shop rows and central covered portico"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-rialto-map1x-736228b1ae33.png",
+          "sha256": "736228b1ae337829334085c09c89a06907cc751eb5a6eee1a98170b0bc1a4c36",
+          "bytes": 31765,
+          "width": 164,
+          "height": 106,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            14,
+            164,
+            99
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5483539094650205,
+          "aspectErrorPx": 0.1255144032921618
+        },
+        "map2x": {
+          "file": "art/kit-rialto-map2x-6d5b2cca8f75.png",
+          "sha256": "6d5b2cca8f7571a18e76c8751e43eb1a00157111c55dcc135fe0e3f400723711",
+          "bytes": 115957,
+          "width": 329,
+          "height": 212,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            8,
+            28,
+            328,
+            198
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5483539094650205,
+          "aspectErrorPx": 0.7489711934156409
+        },
+        "card": {
+          "file": "art/kit-rialto-card-7d971cf04847.png",
+          "sha256": "7d971cf04847f04ca520f80088c1d21376c6d536e566aa2dc458a9bd073f7a34",
+          "bytes": 438664,
+          "width": 657,
+          "height": 424,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            16,
+            56,
+            655,
+            396
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5483539094650205,
+          "aspectErrorPx": 0.4979423868313173
+        }
+      }
+    },
+    {
+      "placeKey": "polo",
+      "title": "Campo San Polo",
+      "kind": "kit-polo",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/polo-watercolor.png",
+        "sha256": "085f757cedf9b8d66216a7e6058e15dcca7b276391c2301eb4867d736e44f3d9",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          5,
+          1535,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          11,
+          28,
+          1519,
+          1003
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 5,
+          "width": 1535,
+          "height": 1019
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/venice-areas/sestieri/san-polo",
+          "https://www.comune.venezia.it/it/content/campo-san-polo",
+          "https://live.comune.venezia.it/it/node/133658"
+        ],
+        "architecturalChecks": [
+          "Large open paved campo framed by Venetian residential palazzi",
+          "Octagonal Istrian-stone wellhead; restrained mature trees and only an understated distant campanile glimpse",
+          "Initial generic frontal church facade removed during QA; detailed facade orientation and individual palazzo elevations remain unmeasured"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-polo-map1x-fff529e5d462.png",
+          "sha256": "fff529e5d4624777cae17b407946409b5dc885d49e758575aad8b36098f9c776",
+          "bytes": 37463,
+          "width": 163,
+          "height": 108,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            1,
+            2,
+            162,
+            106
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.506378802747792,
+          "aspectErrorPx": 0.3110893032384672
+        },
+        "map2x": {
+          "file": "art/kit-polo-map2x-d21f81b12946.png",
+          "sha256": "d21f81b1294607aae52b57212eb94092d419abe58b27c7fc3c8ba1a1c3ff90ac",
+          "bytes": 142059,
+          "width": 326,
+          "height": 216,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            2,
+            5,
+            323,
+            212
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.506378802747792,
+          "aspectErrorPx": 0.6221786064769343
+        },
+        "card": {
+          "file": "art/kit-polo-card-655a7615249c.png",
+          "sha256": "655a7615249c1f2471e5f82f76ae193ffa18a551259968337081bdbf00a05ca3",
+          "bytes": 540652,
+          "width": 651,
+          "height": 432,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            10,
+            644,
+            423
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.506378802747792,
+          "aspectErrorPx": 0.24435721295384027
+        }
+      }
+    },
+    {
+      "placeKey": "salute",
+      "title": "Santa Maria della Salute",
+      "kind": "kit-salute",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/salute-watercolor.png",
+        "sha256": "edcab0a5b8a5983dcea82a5d35d8bb78eee3d2831c5f702b834dea45056230dc",
+        "width": 1312,
+        "height": 1199,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          11,
+          1296,
+          1199
+        ],
+        "visibleAlpha16BoundsPx": [
+          24,
+          13,
+          1291,
+          1186
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 11,
+          "width": 1296,
+          "height": 1188
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
+        "sourceLinks": [
+          "https://basilicasalutevenezia.it/",
+          "https://basilicasalutevenezia.it/prodotto/la-cupola/"
+        ],
+        "architecturalChecks": [
+          "Monumental pale-stone Baroque church with a dominant large central dome and smaller rear dome",
+          "Octagonal massing, volute buttresses, grand entrance stair and sculptural facade"
+        ],
+        "caveats": []
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-salute-map1x-c1d4abdf1de7.png",
+          "sha256": "c1d4abdf1de7e5957429da411ea217448e06f9b7e008ea20543e362fe29c3c5c",
+          "bytes": 41249,
+          "width": 164,
+          "height": 150,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            3,
+            0,
+            164,
+            149
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.0909090909090908,
+          "aspectErrorPx": 0.363636363636366
+        },
+        "map2x": {
+          "file": "art/kit-salute-map2x-0194b741997c.png",
+          "sha256": "0194b741997c4f73dca5764031b7168d07976489a36504518711dd4ede511f12",
+          "bytes": 151015,
+          "width": 327,
+          "height": 300,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            6,
+            0,
+            326,
+            297
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.0909090909090908,
+          "aspectErrorPx": 0.2727272727272245
+        },
+        "card": {
+          "file": "art/kit-salute-card-d96f47a96ad6.png",
+          "sha256": "d96f47a96ad67a3cc655797944e32abb3fbc1e6a90ee72be0ef1da934fe7c483",
+          "bytes": 574128,
+          "width": 655,
+          "height": 600,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            12,
+            1,
+            653,
+            594
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.0909090909090908,
+          "aspectErrorPx": 0.4545454545454408
+        }
+      }
+    },
+    {
+      "placeKey": "stefano",
+      "title": "Campo Santo Stefano",
+      "kind": "kit-stefano",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/stefano-watercolor.png",
+        "sha256": "0801944de2caae159b49abda90463593a7c86232a37b3546f80cdf45ea3ad063",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          9,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          72,
+          34,
+          1473,
+          999
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 9,
+          "width": 1522,
+          "height": 1015
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/cannaregio-authenticity-and-traditions",
+          "https://www.comune.venezia.it/it/node/1636"
+        ],
+        "architecturalChecks": "A public paved Venetian campo defined by warm ochre and pale-stone palazzo facades. Make the full-length pale-stone monument to Niccolò Tommaseo the modest foreground identifying anchor: a standing bearded scholar on a simple tall pedestal, with two historic pale-stone wellheads offset in the open paving and restrained Venetian facades behind. Include the recognizable Gothic Santo Stefano church edge and brick bell tower as secondary context without inventing a grand basilica or dome. The square is paved, not a garden or canal. Statue is stone, not a bronze equestrian figure.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-stefano-map1x-8e9eddf4e9c8.png",
+          "sha256": "8e9eddf4e9c87c8837e8f18cce215f06a8ecec878a1d74b5cbf9d6f737a873fd",
+          "bytes": 36380,
+          "width": 174,
+          "height": 116,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            8,
+            3,
+            169,
+            113
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.05714285714284806
+        },
+        "map2x": {
+          "file": "art/kit-stefano-map2x-18d69661f73d.png",
+          "sha256": "18d69661f73d59ce5c855e3147d4eedc02779ec390262c9ac7c65ea121ce7867",
+          "bytes": 133359,
+          "width": 348,
+          "height": 232,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            16,
+            6,
+            337,
+            226
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.11428571428569612
+        },
+        "card": {
+          "file": "art/kit-stefano-card-02076e94a919.png",
+          "sha256": "02076e94a9199caa7c1a14762e660dccff1b7f40f4ad60850c8ebbff3326ded4",
+          "bytes": 517500,
+          "width": 695,
+          "height": 463,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            33,
+            11,
+            673,
+            452
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.7280788177339825
+        }
+      }
+    },
+    {
+      "placeKey": "marco",
+      "title": "Piazza San Marco",
+      "kind": "kit-marco",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/marco-watercolor.png",
+        "sha256": "776a625b950cbe54a0596b0747b468421fd9c4b751ddce5497ed51496968fd27",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          69,
+          0,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          169,
+          8,
+          1445,
+          1020
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 69,
+          "top": 0,
+          "width": 1453,
+          "height": 1024
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/it/cosa-fare-a-venezia/il-territorio-di-venezia/sestieri/san-marco",
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/st-mark-s-square/procuratie-nuove"
+        ],
+        "architecturalChecks": "The open paved Piazza San Marco facing the complete west facade of Basilica di San Marco, with its row of five arched portals, layered pale marble and small grey-blue domes. Include the separate tall red-brick campanile with pale stone bell chamber and slender green pyramidal roof to one side, and only a short arcaded Procuratie wing receding from the piazza. The basilica must remain recognizably Byzantine/Venetian, not a Gothic cathedral or a single large domed church. Ground is restrained stone paving; no gondola canal through the square; do not omit or clip the campanile tip.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-marco-map1x-c2110242d166.png",
+          "sha256": "c2110242d16646878f6ce3835b73e18f2b7251d78168d0a3f3e512bfe1dec8f3",
+          "bytes": 28931,
+          "width": 182,
+          "height": 128,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            12,
+            1,
+            172,
+            128
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4189453125,
+          "aspectErrorPx": 0.375
+        },
+        "map2x": {
+          "file": "art/kit-marco-map2x-d80ae057933e.png",
+          "sha256": "d80ae057933ee9d98c511b079244091477df730a45048a7cf2a57a81dd4da7d0",
+          "bytes": 105147,
+          "width": 364,
+          "height": 257,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            25,
+            2,
+            345,
+            256
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4189453125,
+          "aspectErrorPx": 0.6689453124999807
+        },
+        "card": {
+          "file": "art/kit-marco-card-74bf824debab.png",
+          "sha256": "74bf824debab7f4e2a2c053abdc9a87fd5219e355c3add5fddf5cae9fc571441",
+          "bytes": 398644,
+          "width": 729,
+          "height": 514,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            50,
+            4,
+            690,
+            512
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4189453125,
+          "aspectErrorPx": 0.3378906249999649
+        }
+      }
+    },
+    {
+      "placeKey": "schiavoni",
+      "title": "Riva degli Schiavoni",
+      "kind": "kit-schiavoni",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/schiavoni-watercolor.png",
+        "sha256": "fa6cfda8f5ae8b8c99bea3fb800c57ca3dc1be905e5fc78a9934bdf53c59d4a8",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          4,
+          1447,
+          1006
+        ],
+        "visibleAlpha16BoundsPx": [
+          94,
+          68,
+          1445,
+          974
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 4,
+          "width": 1447,
+          "height": 1002
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/it/node/132935",
+          "https://www.comune.venezia.it/sites/default/files/flex/files/3/f/e/D.bf1d3dd25fcafdd00cc7/itinerario_Venice_Marathon_2013_1_.pdf"
+        ],
+        "architecturalChecks": "Riva degli Schiavoni represented accurately by its WATERFRONT PROMENADE, with no sculptural monument. A modest irregular fragment of a broad pale Istrian-stone pedestrian quay, warm pale plaster waterfront Venetian residential/hotel facades with balconies and green shutters along the land side, open teal-blue Bacino San Marco water along the other side, and three simple traditional wooden mooring posts. The long waterfront quay and lagoon are the identifying visual traits. View the modest facades obliquely along the broad quay; complete rooflines and small waterside edge within a compact island-like vignette. No people, equestrian statues, generic monuments, church towers, basilica, narrow canal, park or crowd. ABSOLUTELY NO colored halo, sky, mist backdrop, rectangular paper or scene background: all area outside the small facade-and-quay-and-water silhouette is fully transparent; water is only a compact irregular ground-level wash.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made.",
+          "Final illustration omits the Vittorio Emanuele II monument: two attempts risked a misleading medieval rider silhouette. The official monument source is retained as research and rejection evidence."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-schiavoni-map1x-438cdcc451cb.png",
+          "sha256": "438cdcc451cbb7eddc40ce72f9496dc5c606c743d52d00766db41ea8a63b7ce2",
+          "bytes": 37145,
+          "width": 171,
+          "height": 118,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            11,
+            7,
+            171,
+            115
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4441117764471059,
+          "aspectErrorPx": 0.5948103792414976
+        },
+        "map2x": {
+          "file": "art/kit-schiavoni-map2x-65099e161b61.png",
+          "sha256": "65099e161b61bd4cc2a428dc3e620d670fef168bf64e28934185d41ad01cf574",
+          "bytes": 137989,
+          "width": 343,
+          "height": 238,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            22,
+            15,
+            343,
+            230
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4441117764471059,
+          "aspectErrorPx": 0.6986027944111992
+        },
+        "card": {
+          "file": "art/kit-schiavoni-card-36270fa499a5.png",
+          "sha256": "36270fa499a5f8ee1efa4f8ad5dbd5ee2aab99e3a52433ba454de766488da03e",
+          "bytes": 524273,
+          "width": 685,
+          "height": 474,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            44,
+            30,
+            684,
+            459
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4441117764471059,
+          "aspectErrorPx": 0.4910179640718213
+        }
+      }
+    },
+    {
+      "placeKey": "arsenale",
+      "title": "Campo dell’Arsenale",
+      "kind": "kit-arsenale",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/arsenale-watercolor.png",
+        "sha256": "0df096d7279f2993a855f8f19e5a19874fccf24158f0dedc68ab012fc97a338b",
+        "width": 1374,
+        "height": 1145,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          17,
+          1343,
+          1145
+        ],
+        "visibleAlpha16BoundsPx": [
+          53,
+          33,
+          1339,
+          1120
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 17,
+          "width": 1343,
+          "height": 1128
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/castello-naval-art-and-traditions",
+          "https://www.veneziaunica.it/it/cosa-fare-a-venezia/itinerari/castello-arte-navale-e-tradizioni",
+          "https://www.marina.difesa.it/media-cultura/Notiziario-online/Pagine/20241004_Il-restauro-del-cancello-monumentale-dell%E2%80%99Arsenale-di-Venezia.aspx"
+        ],
+        "architecturalChecks": "A compact pedestrian view of the ACTUAL Renaissance Porta Magna LAND entrance at Campo dell’Arsenale, centered on the pale Istrian-stone triumphal portal with paired classical columns, winged Lion of Saint Mark above the entablature, triangular pediment and small Santa Giustina statue at the top. In front is the LOW STONE ENTRANCE TERRACE with its delicate BLACK IRON FENCE between pale stone posts and modest allegorical statues. Beside this terrace depict the two primary ANCIENT GREEK STONE LIONS with clearly DIFFERENT POSES: one tall seated Piraeus lion and one long reclining lion, weathered light stone, not identical mirror images. Show only a short restrained red-brick wall/building edge to either side and pale stone pedestrian paving. Omit bridges and canal to prioritize accurate land-gate identification. No wooden bridge, no castle battlements, no fantasy crenellated fortress, no giant uniform towers. No Campo della Tana Biennale entrance or internal shipyard pavilion. No readable inscriptions.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-arsenale-map1x-a11a4e4dc194.png",
+          "sha256": "a11a4e4dc1942d513e0788c2f1b16daded53766bfbf01f4ea4978c8d0f4c0b53",
+          "bytes": 37766,
+          "width": 167,
+          "height": 140,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            6,
+            2,
+            167,
+            137
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.1906028368794326,
+          "aspectErrorPx": 0.31560283687943613
+        },
+        "map2x": {
+          "file": "art/kit-arsenale-map2x-83b430a4d5b4.png",
+          "sha256": "83b430a4d5b4046fd62e20c7a0711e45fd7247a9e3fb4b4f7eb5b0d1ea7a0691",
+          "bytes": 141225,
+          "width": 334,
+          "height": 281,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            13,
+            4,
+            333,
+            275
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.1906028368794326,
+          "aspectErrorPx": 0.5593971631205696
+        },
+        "card": {
+          "file": "art/kit-arsenale-card-1a560045bf26.png",
+          "sha256": "1a560045bf267a961a30f1aaac388f4f3008ff9884c96bd5fcfc65a525f3c4a2",
+          "bytes": 550958,
+          "width": 668,
+          "height": 561,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            26,
+            8,
+            666,
+            549
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.1906028368794326,
+          "aspectErrorPx": 0.07180851063829352
+        }
+      }
+    },
+    {
+      "placeKey": "tana",
+      "title": "Campo della Tana · Biennale exterior",
+      "kind": "kit-tana",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/tana-watercolor.png",
+        "sha256": "7dac6837af67530a0c3b13d4aca06034b57e1481b176c845355d24e279cb5f2f",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          9,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          85,
+          97,
+          1472,
+          923
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 9,
+          "width": 1522,
+          "height": 1015
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.labiennale.org/en/art/2026/prepare-your-visit",
+          "https://www.labiennale.org/it/arte/2026/informazioni",
+          "https://www.labiennale.org/it/luoghi/arsenale"
+        ],
+        "architecturalChecks": "An OUTSIDE PUBLIC-SPACE fragment at Campo della Tana near the Biennale Arsenale entrance. Show modest public stone pedestrian paving, a SHORT plain weathered warm red-brick historic Arsenal boundary wall with a modest unmarked low modern metal access railing/ramp along its base, and one small adjoining faded Venetian residential plaster facade with dark shutters. Keep the boundary modest and deliberately schematic without reconstructing the current portal: no giant gates, no monumental white pillars, no castle towers, no battlements, no church, no statues, no lion, no triumphal arch, no pavilion, no exhibition interior. The image depicts only the public approach and perimeter; the ticketed area behind the wall is not visible. No water is needed. Delicate irregular paving wash is the only ground. Thin pencil and lightly painted watercolor, not photorealistic. Fully transparent outside the silhouette; no luminous halo or sky.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-tana-map1x-7b32d1e1e9c9.png",
+          "sha256": "7b32d1e1e9c949acf35b9bd7e85f01c7bd53eb895b46cb014dbf0037f5366fc4",
+          "bytes": 33340,
+          "width": 176,
+          "height": 117,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            10,
+            10,
+            170,
+            106
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.5576354679802846
+        },
+        "map2x": {
+          "file": "art/kit-tana-map2x-a75e05cf59c2.png",
+          "sha256": "a75e05cf59c293b22e9306672d4c91854eb7abfc0fdcd1acfb33c6ee400cdc5f",
+          "bytes": 126967,
+          "width": 351,
+          "height": 234,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            19,
+            20,
+            340,
+            211
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.1152709359605728
+        },
+        "card": {
+          "file": "art/kit-tana-card-2e8067b6ea4b.png",
+          "sha256": "2e8067b6ea4bec39e399ce962c6b701f7c11a436afe6c6f66ebbfb643884e075",
+          "bytes": 498871,
+          "width": 702,
+          "height": 468,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            39,
+            41,
+            679,
+            422
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4995073891625617,
+          "aspectErrorPx": 0.2305418719211456
+        }
+      }
+    },
+    {
+      "placeKey": "garibaldi",
+      "title": "Via Garibaldi",
+      "kind": "kit-garibaldi",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/garibaldi-watercolor.png",
+        "sha256": "dd1010663d808bf0475aaa3a943ed1724687b2945e34fcf139e1fb06e9eb7785",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          92,
+          63,
+          1488,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          94,
+          70,
+          1472,
+          976
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 92,
+          "top": 63,
+          "width": 1396,
+          "height": 961
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.comune.venezia.it/it/node/1674",
+          "https://consiglio2020.comune.venezia.it/atti-ispettivi/1/risposta/378"
+        ],
+        "architecturalChecks": "Via Garibaldi in Castello as a BROAD DRY pedestrian Venetian STREET, created by filling a canal. Three- and four-storey warm ochre, faded pink and terracotta residential facades on both sides, green shutters, simple street-level shop arches, a few tiny unlettered cafe tables and pale stone paving. Show a broad street receding only a short distance, with no tall silhouette or unidentified landmark in the background. Rooflines are modest residential pitched tiled roofs only. NO church, domed tower, campanile, skyline monument, Garibaldi statue, canal, water, gondola, rows of trees or garden avenue. No people, cars, road markings or signage. Keep facades subtly imperfect Venetian everyday buildings, not ornate fantasy palace row. Fine delicate pencil and lightly painted watercolor, not photorealistic. Fully transparent outside the vignette silhouette; no sky or luminous halo.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-garibaldi-map1x-c3a0d5a08942.png",
+          "sha256": "c3a0d5a089426e9388ea9d775dc4c9fde5a097fbc1f37e777f7d1deab75183a2",
+          "bytes": 40040,
+          "width": 162,
+          "height": 112,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            0,
+            1,
+            160,
+            107
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.4526534859521332,
+          "aspectErrorPx": 0.6971904266389188
+        },
+        "map2x": {
+          "file": "art/kit-garibaldi-map2x-ce9f453c8a14.png",
+          "sha256": "ce9f453c8a144f1d0ed2948b0bf37f7ac9974568ce789d03538e501cd8c9ec12",
+          "bytes": 149494,
+          "width": 324,
+          "height": 223,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            0,
+            1,
+            320,
+            212
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.4526534859521332,
+          "aspectErrorPx": 0.058272632674297054
+        },
+        "card": {
+          "file": "art/kit-garibaldi-card-202ed1cc1fde.png",
+          "sha256": "202ed1cc1fde976c8763612e69af671cf521719bbc87502d4fca009489bf024a",
+          "bytes": 587672,
+          "width": 648,
+          "height": 446,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            1,
+            3,
+            641,
+            424
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.4526534859521332,
+          "aspectErrorPx": 0.11654526534859411
+        }
+      }
+    },
+    {
+      "placeKey": "viale",
+      "title": "Viale Garibaldi",
+      "kind": "kit-viale",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/viale-watercolor.png",
+        "sha256": "e157442e701880b3ae2e91bdea9581a8102005f11bac9ce85946a79b4eb26b69",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          17,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          196,
+          39,
+          1345,
+          985
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 17,
+          "width": 1522,
+          "height": 1007
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.comune.venezia.it/it/node/1674",
+          "https://www.comune.venezia.it/it/content/i-luoghi-carnevale-2014",
+          "https://consiglio2020.comune.venezia.it/atti-ispettivi/1/risposta/378"
+        ],
+        "architecturalChecks": "Viale Garibaldi in Castello as a SHADY PUBLIC TREE-LINED WALKING AVENUE. Four to six mature deciduous trees with branching brown trunks in two rows, softly interlocking restrained green crowns shading a central light gravel walking path and narrow warm porphyry edging, plus two simple discreet park benches. Include only a small understated bronze standing Garibaldi silhouette on a pale stone pedestal and low fountain basin at the far end as secondary depth anchor, partly framed by the trees. Entire tree crowns inside the compact vignette. NO greenhouse, Serra, conservatory, glass dome, church, palazzo or other buildings; no canal, palms or umbrella pine rows; this is not Via Garibaldi residential street. Keep fine pencil linework and lightly tinted watercolor, not dense photorealism. Background outside tree/path silhouettes must be fully transparent; no rectangular sky or paper.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-viale-map1x-bc250682e500.png",
+          "sha256": "bc250682e5005b247d956913575b109ee46da073b07e2c3ed0a12f7e7c2a07a9",
+          "bytes": 55707,
+          "width": 212,
+          "height": 140,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            27,
+            3,
+            188,
+            135
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5114200595829195,
+          "aspectErrorPx": 0.4011916583912667
+        },
+        "map2x": {
+          "file": "art/kit-viale-map2x-cb723505d8c8.png",
+          "sha256": "cb723505d8c82f76d7b75fde81e3eb53c1f580ef586c5da1090c8437aae5b551",
+          "bytes": 211481,
+          "width": 424,
+          "height": 281,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            54,
+            6,
+            375,
+            270
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5114200595829195,
+          "aspectErrorPx": 0.7090367428003643
+        },
+        "card": {
+          "file": "art/kit-viale-card-6a4c060c3a91.png",
+          "sha256": "6a4c060c3a918457cfa700caadcc1245a8eef0abbc178bb6d2b663128887cfc8",
+          "bytes": 801951,
+          "width": 848,
+          "height": 561,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            109,
+            12,
+            750,
+            539
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5114200595829195,
+          "aspectErrorPx": 0.09334657398211865
+        }
+      }
+    },
+    {
+      "placeKey": "giardini",
+      "title": "Giardini della Biennale · outside",
+      "kind": "kit-giardini",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/giardini-watercolor.png",
+        "sha256": "02ee546e00674d27c8145607c0689bed0696423da2c3929f259532358d8d89c2",
+        "width": 1374,
+        "height": 1145,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          1,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          0,
+          1360,
+          1145
+        ],
+        "visibleAlpha16BoundsPx": [
+          49,
+          42,
+          1348,
+          1105
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 0,
+          "width": 1360,
+          "height": 1145
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.labiennale.org/en/art/2026/prepare-your-visit",
+          "https://www.comune.venezia.it/it/node/1674",
+          "https://www.labiennale.org/en/node/17397",
+          "https://www.veneziaunica.it/en/things-to-do-in-venice/gardens-parks-natural-oases/napoleon-gardens"
+        ],
+        "architecturalChecks": "An OUTSIDE public-space vignette at Giardini della Biennale entrance on Viale Trento: a short public approach path under mature deciduous trees, restrained garden greenery and simple iron boundary fencing, with a small understated pale stone/brick entrance-side structure seen from outside. Focus on public tree canopy, path and boundary threshold. Do not depict national pavilions, the Central Pavilion or exhibition interiors as if they are freely accessible walk stops; no building beyond the boundary as the main subject. No ticket signage, lettering, flags or posters. This is the outside approach, not a surveyed reconstruction of the current ticket office.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-giardini-map1x-30687eca9096.png",
+          "sha256": "30687eca909695e62524a1b93642c552ee11a0ce0663ea338c9f0091151e1526",
+          "bytes": 49126,
+          "width": 168,
+          "height": 141,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            6,
+            5,
+            167,
+            137
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.1877729257641922,
+          "aspectErrorPx": 0.5240174672488855
+        },
+        "map2x": {
+          "file": "art/kit-giardini-map2x-abed63106e34.png",
+          "sha256": "abed63106e34b1a54a1f6bce821e7932b0f227dbbb1f6c9aef15d32da7569417",
+          "bytes": 187965,
+          "width": 335,
+          "height": 282,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            12,
+            10,
+            332,
+            272
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.1877729257641922,
+          "aspectErrorPx": 0.04803493449778529
+        },
+        "card": {
+          "file": "art/kit-giardini-card-896ba01b5608.png",
+          "sha256": "896ba01b560853f214f609bc197943e0c15ac4d315d63fad1399098b6dee5813",
+          "bytes": 727696,
+          "width": 670,
+          "height": 564,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            24,
+            21,
+            664,
+            544
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.1877729257641922,
+          "aspectErrorPx": 0.09606986899557057
+        }
+      }
+    },
+    {
+      "placeKey": "sette",
+      "title": "Riva dei Sette Martiri",
+      "kind": "kit-sette",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/sette-watercolor.png",
+        "sha256": "4b2a2f90ff5bd718e2caf54d5e4a7a838ba7b37e0e79a7ac8e94308f835899d3",
+        "width": 1536,
+        "height": 1024,
+        "alpha": true,
+        "cornerAlpha": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          21,
+          1522,
+          1024
+        ],
+        "visibleAlpha16BoundsPx": [
+          38,
+          54,
+          1498,
+          974
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 21,
+          "width": 1522,
+          "height": 1003
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://live.comune.venezia.it/index.php/it/2025/04/il-commissario-allemergenza-firma-il-progetto-ripristino-urgente-di-ponti-e-muri-di-sponda",
+          "https://live.comune.venezia.it/it/2026/08/venezia-celebra-l82deg-anniversario-delleccidio-dei-sette-martiri"
+        ],
+        "architecturalChecks": "A broad open waterfront promenade at Riva dei Sette Martiri in Castello: pale stone quay with long clean lagoon edge, quiet teal-blue Bacino San Marco water, a few simple mooring bollards and only sparse background Venetian residential plaster facades and mature public-garden trees inland. The promenade and openness toward the lagoon are the main subject. Do not turn it into a narrow canal, place the San Marco Basilica on the quay, add an equestrian monument, or invent seven statue figures from the name. A short irregular stone-and-water wash grounds the vignette without a rectangular backdrop.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-sette-map1x-1a0b2d8123bd.png",
+          "sha256": "1a0b2d8123bd80dd7f5ccec18d2b05e4415b8e49c0598ffb835ad8b09d11ef0e",
+          "bytes": 34042,
+          "width": 167,
+          "height": 110,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            3,
+            164,
+            105
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.5174476570289133,
+          "aspectErrorPx": 0.0807577268195292
+        },
+        "map2x": {
+          "file": "art/kit-sette-map2x-72ce51474265.png",
+          "sha256": "72ce51474265f1ef85ddf4bccc99a84250790c3d6c113cc67f60687cd6c08cdf",
+          "bytes": 126673,
+          "width": 334,
+          "height": 220,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            8,
+            7,
+            329,
+            210
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.5174476570289133,
+          "aspectErrorPx": 0.1615154536390584
+        },
+        "card": {
+          "file": "art/kit-sette-card-a483077aac6b.png",
+          "sha256": "a483077aac6b9d02f36c4c5a54a16f3dd22aeb1f9d47903ceaac299997de882b",
+          "bytes": 478230,
+          "width": 667,
+          "height": 440,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            17,
+            14,
+            657,
+            418
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.5174476570289133,
+          "aspectErrorPx": 0.676969092721853
+        }
+      }
+    },
+    {
+      "placeKey": "elena",
+      "title": "Sant’Elena · Parco delle Rimembranze",
+      "kind": "kit-elena",
+      "approved": true,
+      "humanSpecificReviewRequired": false,
+      "illustrationNotPhotograph": true,
+      "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
+      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "source": {
+        "file": "reference/visual-pack-03/landmarks/elena-watercolor.png",
+        "sha256": "2125d7c53c3964309a13ab3b4cef7aa837e4d6118818cf4914274bc322ec60d9",
+        "width": 1312,
+        "height": 1199,
+        "alpha": true,
+        "cornerAlpha": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "strictAlphaBoundsPx": [
+          0,
+          0,
+          1298,
+          1199
+        ],
+        "visibleAlpha16BoundsPx": [
+          31,
+          15,
+          1291,
+          1188
+        ],
+        "croppedTransparentExteriorPx": {
+          "left": 0,
+          "top": 0,
+          "width": 1298,
+          "height": 1199
+        }
+      },
+      "qa": {
+        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "referencePath": "reference/visual-pack-03/research/reference-group-3.json",
+        "sourceLinks": [
+          "https://www.veneziaunica.it/it/cosa-fare-a-venezia/giardini-parchi-oasi-naturali/pineta-di-sant-elena",
+          "https://www.veneziaunica.it/it/cosa-fare-a-venezia/itinerari/castello-arte-navale-e-tradizioni"
+        ],
+        "architecturalChecks": "The public Parco delle Rimembranze pine park on Sant’Elena island beside the lagoon: a small group of tall mature maritime/umbrella-like pines with long textured brown trunks and airy flattened dark-green crowns, pale gravel footpath, a simple discreet park bench, patches of muted grass and a narrow lagoon teal-blue edge beyond. Pine silhouettes and quiet waterfront park are the identifiers. Do not depict tropical palms, cypress rows, a random church as the stop, or an indoor Biennale pavilion. Keep the complete tall pine crowns and trunks inside the compact transparent vignette, with restrained greenery and delicate drawn texture.",
+        "caveats": [
+          "Interpretive illustration, not a surveyed facade or geographically measured map feature.",
+          "The route placement provided by group-3.json is not a measured illustration centroid or optical anchor.",
+          "No admission, current access-hours or public-pavilion access claim is made."
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit-elena-map1x-1e4fe33db2d8.png",
+          "sha256": "1e4fe33db2d889d10ce63ea895651693f83267faed0b22fadf86ccbe85e4d297",
+          "bytes": 52023,
+          "width": 165,
+          "height": 152,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            1,
+            164,
+            151
+          ],
+          "targetVisibleSpanPx": 160,
+          "sourcePaintedAspect": 1.0825688073394495,
+          "aspectErrorPx": 0.4495412844036757
+        },
+        "map2x": {
+          "file": "art/kit-elena-map2x-7a23b9a3bebb.png",
+          "sha256": "7a23b9a3bebb779527bb943bed8525987fc8ed02b6d9f3ce3bb380daa3ccf894",
+          "bytes": 195646,
+          "width": 330,
+          "height": 305,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            8,
+            4,
+            328,
+            302
+          ],
+          "targetVisibleSpanPx": 320,
+          "sourcePaintedAspect": 1.0825688073394495,
+          "aspectErrorPx": 0.1834862385320668
+        },
+        "card": {
+          "file": "art/kit-elena-card-8268af7c2e67.png",
+          "sha256": "8268af7c2e67b2bedb5b0c893bb9123dc2acf80bbcd52ffdcf4b092171155191",
+          "bytes": 740013,
+          "width": 659,
+          "height": 609,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            16,
+            8,
+            656,
+            603
+          ],
+          "targetVisibleSpanPx": 640,
+          "sourcePaintedAspect": 1.0825688073394495,
+          "aspectErrorPx": 0.2844036697248007
+        }
+      }
+    }
+  ]
+}

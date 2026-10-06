@@ -54,7 +54,7 @@ try{
    await page.locator('[data-sheet="standard"]').click();await page.waitForTimeout(40);
    check(await page.evaluate(()=>guide.mapGeneration)===sameMap,label+': all sheet states preserve map instance');
    check(await page.locator('.fg-sheet-controls button').first().evaluate(button=>button.getBoundingClientRect().height>=44),label+': sheet touch target');
-   await page.locator('.fg-mobile-settings summary').click();await page.locator('.fg-mobile-settings .fg-theme').selectOption('dark');
+   await page.locator('.fg-mobile-settings > summary').click();await page.locator('.fg-mobile-settings .fg-theme').selectOption('dark');
    check(await page.evaluate(()=>guide.root.dataset.theme==='dark'),label+': manual dark theme');
    check(await page.locator('.fg-map-shell').evaluate(map=>getComputedStyle(map).backgroundColor==='rgb(248, 241, 230)'),label+': map stays light');
    if(language==='tr'&&width===320)await page.screenshot({path:resolve(output,'settings-dark-tr-320.png')});

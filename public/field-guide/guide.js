@@ -8,8 +8,10 @@ import {
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261006-map-photo";
-import { uiCopy } from "./ui-copy.js?v=20261006-map-photo";
+} from "./map-art.js?v=20261006-kit04";
+import { directionFeatures, installDirections } from "./directions.js?v=20261006-kit04";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit04";
+import { uiCopy } from "./ui-copy.js?v=20261006-kit04";
 import { galleryForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js?v=20261005-mobile";
 import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261005-mobile";
 import { icon } from "./icons.js?v=20261005-mobile";
@@ -82,6 +84,9 @@ export class FieldGuide {
       lang = "en",
       preview = false,
       onEdit = () => {},
+      onRouteOpen = () => {},
+      onLanguageChange = () => {},
+      onPreferences = () => {},
       water = null,
       events = [],
       publicLocation = false,
@@ -99,6 +104,9 @@ export class FieldGuide {
     this.referencePhotos = referencePhotos;
     this.bundledNotice = bundledNotice;
     this.onEdit = onEdit;
+    this.onRouteOpen = onRouteOpen;
+    this.onLanguageChange = onLanguageChange;
+    this.onPreferences = onPreferences;
     this.water = water;
     this.events = events;
     this.route = routes[0];
@@ -192,6 +200,16 @@ export class FieldGuide {
   text(rows, route = this.route) {
     return copyFor(rows, this.lang, route?.sourceLanguage || "en");
   }
+  copyNote(rows, route = this.route) {
+    const actual = this.text(rows, route);
+    return actual.locale && actual.locale !== this.lang ? '<p class="fg-source-note">' + escape(this.t("Translation awaiting review. Source text:")) + ' <span lang="en">' + escape(actual.locale.toUpperCase()) + '</span></p>' : '';
+  }
+  vignette(visit) {
+    const asset = ILLUSTRATIONS.find(item => item.key === (visit.placeKey || visit.key));
+    if (!asset) return '';
+    if (!asset.approved) return '<p class="fg-source-note">' + escape(this.t("Illustration awaiting identity review.")) + '</p>';
+    return '<figure class="fg-vignette"><img src="' + escape(asset.cardURL) + '" alt="' + escape(this.text(visit.copy).title || asset.title) + '" width="' + asset.cardWidth + '" height="' + asset.cardHeight + '" loading="lazy" decoding="async"><figcaption>' + escape(this.t("AI illustration · not a photograph")) + '</figcaption></figure>';
+  }
   title(route = this.route) {
     return this.text(route?.copy, route).title || route?.key || "";
   }
@@ -264,7 +282,7 @@ export class FieldGuide {
     const known =
       walking.length &&
       walking.every((s) => s.routingReviewed && s.distanceMeters > 0);
-    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2><p>${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl><p class="fg-muted">${known ? new Intl.NumberFormat(this.lang, { maximumFractionDigits: 1 }).format(walking.reduce((sum, s) => sum + s.distanceMeters, 0) / 1000) + " km · " + this.t("walking distance; duration not verified", "yaya mesafesi; süre doğrulanmadı") : this.t("Distance and duration awaiting verification", "Mesafe ve süre doğrulanmayı bekliyor")}</p><button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} <span aria-hidden="true">↗</span></button></div></article>`;
+    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2>${this.copyNote(r.copy, r)}<p lang="${this.text(r.copy, r).locale || this.lang}">${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl><p class="fg-muted">${known ? new Intl.NumberFormat(this.lang, { maximumFractionDigits: 1 }).format(walking.reduce((sum, s) => sum + s.distanceMeters, 0) / 1000) + " km · " + this.t("walking distance; duration not verified", "yaya mesafesi; süre doğrulanmadı") : this.t("Distance and duration awaiting verification", "Mesafe ve süre doğrulanmayı bekliyor")}</p><button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} <span aria-hidden="true">↗</span></button></div></article>`;
   }
   render() {
     const t = (en, tr) => this.t(en, tr),
@@ -287,7 +305,7 @@ export class FieldGuide {
     const themeSelect = `<select class="fg-theme" aria-label="${escape(themeName)}">${[["system", systemName], ["light", lightName], ["dark", darkName]].map(([value, label]) => `<option value="${value}" ${value === this.themePreference ? "selected" : ""}>${escape(label)}</option>`).join("")}</select>`;
     const preferences = `<label class="fg-language-control"><span>${escape(languageName)}</span>${languageSelect}</label><label class="fg-theme-control"><span>${escape(themeName)}</span>${themeSelect}</label>`;
     this.el(".fg-header").innerHTML =
-      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">${icon("back")}</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}</div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}</div></details></div>`;
+      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">${icon("back")}</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}<div data-measurement-preference></div></div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}<div data-measurement-preference></div></div></details></div>`;
     const panel = this.el(".fg-editorial");
     if (!this.routes.length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
@@ -309,7 +327,7 @@ export class FieldGuide {
       panel.innerHTML = `<h2>${t("No stops yet", "Henüz durak yok")}</h2>`;
     else if (step.boat) panel.innerHTML = this.transfer(step);
     else
-      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.cover(step)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><p>${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
+      panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${this.index === 0 ? t("START HERE", "BURADAN BAŞLA") : t("YOUR NEXT STOP", "SIRADAKİ DURAĞIN")} · ${step.n || "·"}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div>${this.cover(step)}<div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.copyNote(step.copy)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas", "Durak anlatısı ve fotoğraf fikirleri")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop", "Bu durağı düzenle")} ↗</button>` : ""}<div class="fg-walk-actions">${!this.started ? `<a class="fg-primary" href="${pointLink(step)}" target="_blank" rel="noopener">${t("Go to the start", "Başlangıca git")} ↗</a><button data-action="start">${t("I am here · start walking", "Buradayım · yürüyüşe başla")}</button>` : `<button class="fg-primary" data-action="next">${this.index === this.steps().length - 1 ? t("Finish walk", "Yürüyüşü bitir") : this.steps()[this.index + 1]?.boat ? t("Next · vaporetto transfer", "Sıradaki · vaporetto aktarması") : t("Next stop", "Sonraki durak")} →</button><a href="${pointLink(step)}" target="_blank" rel="noopener">${t("Directions to this stop", "Bu durağa yol tarifi")} ↗</a>`}</div><div class="fg-progress"><button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${t("Previous", "Önceki")}</button><span>${this.index + 1} / ${this.steps().length}</span></div></div>`;
     if (this.view === "walk") {
       const controls = document.createElement("div"); controls.className = "fg-sheet-controls";
       controls.innerHTML = `<span role="status">${t({collapsed:"Compact panel",standard:"Standard panel",expanded:"Expanded panel"}[this.sheet])}</span>${[["collapsed", "Collapse stop panel", "⌄"], ["standard", "Standard stop panel", "↔"], ["expanded", "Expand stop panel", "⌃"]].map(([state,label,symbol]) => `<button data-sheet="${state}" aria-label="${escape(t(label))}" aria-pressed="${state === this.sheet}" aria-controls="fg-sheet-content">${symbol}</button>`).join("")}`;
@@ -372,6 +390,7 @@ export class FieldGuide {
       select.onchange = (e) => {
         const mobileSettings = !!select.closest(".fg-mobile-settings");
         this.lang = e.target.value;
+        this.onLanguageChange(this.lang);
         try { localStorage.setItem("sideways-language", this.lang); } catch {}
         this.render();
         this.draw();
@@ -399,13 +418,14 @@ export class FieldGuide {
     closeSettings.textContent = t("Close settings"); closeSettings.onclick = () => { settings.open = false; settings.querySelector("summary").focus(); };
     settings.querySelector(".fg-settings-panel").append(closeSettings);
     settings.addEventListener("keydown", event => { if (event.key === "Escape" && settings.open) { event.preventDefault(); settings.open = false; settings.querySelector("summary").focus(); } });
+    this.onPreferences([...this.root.querySelectorAll('[data-measurement-preference]')], this.lang);
     this.bindPhotoErrors(panel);
     this.applyTheme();
     this.renderStatus();
     this.scheduleResize();
   }
   story(visit) {
-    return `<p>${escape(this.text(visit.copy).text)}</p><h2>${this.t("Five ways to look")}</h2>${[...(visit.ideas || [])].sort((a, b) => a.order - b.order).map(idea => `<article><h3>${escape(this.text(idea.copy).title)}</h3><p>${escape(this.text(idea.copy).text)}</p><small>${escape(this.text(idea.copy).phoneTip)}</small></article>`).join("")}`;
+    return `${this.vignette(visit)}${this.copyNote(visit.copy)}<p lang="${this.text(visit.copy).locale || this.lang}">${escape(this.text(visit.copy).text)}</p><h2>${this.t("Five ways to look")}</h2>${[...(visit.ideas || [])].sort((a, b) => a.order - b.order).map(idea => `<article><h3>${escape(this.text(idea.copy).title)}</h3><p>${escape(this.text(idea.copy).text)}</p><small>${escape(this.text(idea.copy).phoneTip)}</small></article>`).join("")}`;
   }
   setSheet(state) {
     if (!["collapsed", "standard", "expanded"].includes(state)) return;
@@ -424,7 +444,9 @@ export class FieldGuide {
     return `<div class="fg-panel-head"><span class="fg-kicker">⛴ ${t("WALK → BOAT → WALK", "YAYA → TEKNE → YAYA")}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div><div class="fg-stop-copy"><h1>${t("Across the water.", "Su üzerinden devam.")}<br><i>${t("Then on foot.", "Sonra yeniden yaya.")}</i></h1><ol class="fg-transfer">${parts.map((p, i) => `<li><span>${i === 0 ? t("BOARD", "BİNİŞ") : i === parts.length - 1 ? t("LEAVE THE BOAT", "İNİŞ") : t("CHANGE", "AKTARMA")}</span><h2>${escape(p.name)}</h2><p>${p.lineTo ? "ACTV " + escape(p.lineTo) : t("Continue to the next photo stop on foot.", "Sıradaki fotoğraf durağına yürüyerek devam et.")}</p></li>`).join("")}</ol><p class="fg-muted">${t("Check the departure board and current service before boarding.", "Binmeden önce iskele panosunu ve güncel seferleri kontrol et.")}</p>${source ? `<a href="${escape(safeURL(source))}" target="_blank" rel="noopener">${t("ACTV · timetables & notices", "ACTV · seferler ve duyurular")} ↗</a>` : ""}<p class="fg-muted">${t("Geometry source", "Güzergâh kaynağı")}: ${escape(this.water?.source || "ACTV")} · ${escape(this.water?.retrievedAt || this.water?.downloadedAt || this.water?.checkedAt || t("Verification date unavailable", "Doğrulama tarihi yok"))}</p><button class="fg-primary" data-action="next">${t("Continue after the boat", "Tekneden sonra devam et")} →</button><button data-action="previous">← ${t("Previous stop", "Önceki durak")}</button></div>`;
   }
   choose(key) {
-    this.route = this.routes.find((r) => r.key === key) || this.route;
+    const route = this.routes.find((r) => r.key === key);
+    if (!route) return;
+    this.route = route;
     this.view = "walk";
     this.index = 0;
     this.started = false;
@@ -436,6 +458,7 @@ export class FieldGuide {
     if (this.el(".fg-sheet-content")) this.el(".fg-sheet-content").scrollTop = 0;
     this.draw();
     this.fit();
+    this.onRouteOpen({ route: this.route.key, language: this.lang });
   }
   action(action) {
     if (action === "explore") {
@@ -615,6 +638,9 @@ export class FieldGuide {
   }
   bindPhotoErrors(container) {
     container.querySelectorAll("img").forEach(image => { image.onerror = () => {
+      if (image.closest(".fg-vignette")) {
+        const message = document.createElement("p"); message.className = "fg-photo-missing"; message.setAttribute("role", "status"); message.textContent = this.t("Illustration unavailable"); image.replaceWith(message); return;
+      }
       if (!image.closest(".fg-photo")) return;
       if (image.closest("[data-photo-id]")) { const message = document.createElement("span"); message.className = "fg-photo-missing"; message.textContent = this.t("Photograph unavailable"); image.replaceWith(message); return; }
       const error = document.createElement("div"); error.className = "fg-photo-error";
@@ -674,7 +700,7 @@ export class FieldGuide {
     const stop = this.route?.visits?.find((item) => item.key === key);
     const focus = garden?.focus || (stop ? [stop.longitude, stop.latitude] : null);
     const englishFallback = !["en", "tr"].includes(this.lang);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="' + escape(this.lang) + '">' + escape(t("Description in English")) + '</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelector("[data-focus-place]")?.addEventListener("click", () => {
       this.savedCamera = null; this.closeOverlay();
@@ -745,6 +771,7 @@ export class FieldGuide {
       });
       for (const event of ["dragstart", "zoomstart", "rotatestart", "pitchstart"]) this.map.on(event, action => { if (action.originalEvent) { this.cameraMode = "free"; this.cameraTouched = true; } });
       const map = this.map;
+      for (const event of ["moveend", "zoomend", "rotateend", "pitchend"]) map.on(event, () => { if (generation === this.mapGeneration) this.scheduleAnnotations(); });
       map.on("error", () => { if (generation === this.mapGeneration && map === this.map && !this.disposed) { this.mapResourceWarning = "Some map details could not load. Stops and directions remain available."; this.renderStatus(); } });
       map.on("webglcontextlost", () => {
         if (generation !== this.mapGeneration || map !== this.map || this.disposed) return;
@@ -781,7 +808,7 @@ export class FieldGuide {
           type: "line",
           source: "fg-route",
           filter: ["==", ["get", "boat"], false],
-          paint: { "line-color": "#2454d4", "line-width": 4 },
+          paint: { "line-color": "#2D59D6", "line-width": 4 },
         });
         this.map.addLayer({
           id: "fg-boat",
@@ -789,12 +816,13 @@ export class FieldGuide {
           source: "fg-route",
           filter: ["==", ["get", "boat"], true],
           paint: {
-            "line-color": "#275c94",
+            "line-color": "#007A8A",
             "line-width": 4,
-            "line-dasharray": [2, 2],
+            "line-dasharray": [3, 2],
           },
         });
         }
+        installDirections(map, "fg-direction-source", "fg-directions");
         const building = this.map
           .getStyle()
           .layers.find((l) => l.id === "building");
@@ -865,7 +893,7 @@ export class FieldGuide {
     const features = this.route.segments.flatMap((s) => {
       let paths = [];
       if (s.type === "walking") {
-        if (s.geometry?.length > 2) paths = [s.geometry];
+        if (s.geometry?.length >= 2) paths = [s.geometry];
       } else {
         const original = [
           [12.32871, 45.43164],
@@ -892,10 +920,11 @@ export class FieldGuide {
         geometry: { type: "LineString", coordinates },
       }));
     });
+    this.routeFeatures = features;
     this.map
       .getSource("fg-route")
       ?.setData({ type: "FeatureCollection", features });
-    setWatercolorLandmarks(this.map, this.route, this.view === "walk" && !this.steps()[this.index]?.boat ? this.steps()[this.index]?.key : null);
+    this.scheduleAnnotations();
     this.pins.forEach((p) => p.remove());
     this.pins = [];
     if (this.view !== "walk") return;
@@ -971,6 +1000,15 @@ export class FieldGuide {
     const rectangle = this.el(".fg-map").getBoundingClientRect();
     return rectangle.width > 0 && rectangle.height > 0;
   }
+  scheduleAnnotations() {
+    if (this.annotationFrame || this.disposed) return;
+    this.annotationFrame = requestAnimationFrame(() => {
+      this.annotationFrame = null;
+      if (!this.ready || !this.map || this.disposed) return;
+      setWatercolorLandmarks(this.map, this.route, this.view === "walk" && !this.steps()[this.index]?.boat ? this.steps()[this.index]?.key : null);
+      this.map.getSource("fg-direction-source")?.setData(directionFeatures(this.map, this.routeFeatures || []));
+    });
+  }
   scheduleResize() {
     if (this.resizeFrame || this.disposed) return;
     this.resizeFrame = requestAnimationFrame(() => {
@@ -981,7 +1019,7 @@ export class FieldGuide {
       if (!rectangle.width || !rectangle.height) { if (this.locationEngine.active) this.stopLocation("suspended"); this.lastMapSize = size; return; }
       if (size !== this.lastMapSize) {
         this.lastMapSize = size; this.map?.resize();
-        if (this.ready) applyWatercolorPresentation(this.map, { threeD: this.threeD });
+        if (this.ready) { applyWatercolorPresentation(this.map, { threeD: this.threeD }); this.scheduleAnnotations(); }
       }
     });
   }
@@ -1048,6 +1086,7 @@ export class FieldGuide {
     this.el(".fg-dialog").removeEventListener("keydown", this.dialogKeyboard);
     if (this.el(".fg-dialog").open) this.el(".fg-dialog").close();
     cancelAnimationFrame(this.resizeFrame);
+    cancelAnimationFrame(this.annotationFrame);
     removeEventListener("popstate", this.popstate);
     removeEventListener("pagehide", this.pagehide);
     removeEventListener("pageshow", this.pageshow);

@@ -139,7 +139,9 @@ with sync_playwright() as playwright:
 
             theme = page.locator(".fg-desktop-preferences .fg-theme")
             if not theme.is_visible():
-                page.locator(".fg-mobile-settings summary").click()
+                # The consent details have their own summary inside Settings.
+                # Open the direct Settings control, not a nested consent disclosure.
+                page.locator(".fg-mobile-settings > summary").click()
                 theme = page.locator(".fg-mobile-settings .fg-theme")
             theme.select_option("dark")
             check(root.get_attribute("data-theme") == "dark", f"{language}/{width}: manual dark theme")

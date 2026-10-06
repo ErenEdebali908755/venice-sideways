@@ -1,5 +1,30 @@
 # Ziyaretçi suluboya haritası — kaynak ve lisans
 
+## Kit 04 — current local renderer contract, not yet deployed
+
+Kit 04 is currently local on `feat/kit04-visitor-20261006` and the matching `feat/kit04-admin-20261006` checkout. Its new source, CI, deployment and served-byte acceptance are pending. The three-landmark/27-file/live evidence below describes the previously deployed map/photo phase, not this expanded set. [The canonical technical ledger](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/kit04-release-proof-20261006.json) keeps those scopes separate.
+
+### Assets and coordinate authority
+
+- [Kit manifest](../public/field-guide/art/illustrations-manifest.json) records 30 supplied AI masters, 90 content-hashed map1x/map2x/card derivatives and 39 route-placement references. Source registry SHA is `82feed012da66ca0e90e1da3341b46d110df4d86040927c31a7e339d54f95216`; placement registry SHA is `69cbf68d8c3e0d355abd46dbc768186bc493c3ca79d6c4c30a3a3daebb53954d`. There are **29 approved enabled place illustrations**; **Tre Archi remains hidden for human review**. Derivative existence is not review approval.
+- Only fully transparent exterior outside the strict nonzero-alpha bounding box is trimmed. Painted source pixels are retained, alpha and natural aspect are preserved to raster rounding, and metadata records derivative dimensions, pixel ratio and bounds. The masters are not copied into public assets or all preloaded. [Runtime illustration registry](../public/field-guide/illustrations.js) supplies the approved, hash-addressed derivatives.
+- The current canonical route payload remains coordinate authority. Package placement references are never imported over route coordinates. Main has 11 visits, Full 28; their stable visit/place IDs, order and 39 placements remain unchanged. The same place may have different coordinates in the two walks. `landmarkFeatures` matches stable key/placeKey and uses **that route's own visit coordinates**. Vino and Misericordia are close but distinct; neither is merged or relocated. Screen offsets and tethers are explanatory annotations, not edits to these anchors.
+- Package reference links and review metadata support the illustration choice; they do not establish architectural footprint, surveyed position, final photographic assignment or geographic ground truth. Illustrations remain distinct from the temporary owned black-and-white 3/6/18 photo derivatives, whose stop relationship remains explicitly unverified. Package photos 20/44 and private originals are unused.
+
+### Runtime budget and geographic layers
+
+MapLibre, OpenFreeMap Positron, provider attribution, real street/water/route geometry and the two existing OSM garden boundaries remain. Page theme does not darken the light basemap or photographs. `visibleLandmarks` evaluates the **actual map container**, true projected anchors and active visit: maximum three relevant illustrations on maps up to 600 CSS px wide, six on wider maps; minimum map size 180×160, zoom below 13 or 3D hides optional art. The selected pin remains independent and has priority. Each visible approved raster loads lazily through the guarded/deduplicated image lifecycle; style reload and resize reuse the map. Alpha, controls, pin/focus, close-place/dense-stop and 3D/style-load acceptance are separate browser gates.
+
+Walk segments use a solid blue line (`#2D59D6`), boat segments a long dashed teal line (`#007A8A`), both with a halo. Sparse viewport-based directional arrows follow ordered real segment flow, rather than every vertex; they are not animated. Pending geographic review remains a separate warning. Official ACTV 1 Accademia→Ferrovia and 5.2 Ferrovia→Tre Archi legs apply only to the unchanged canonical Main seed; authored route geometry is preserved. ACTV capsules identify transport, not photographic stop numbers. A future bus style creates no new bus route.
+
+### Shared renderer and evidence limits
+
+The visitor renderer is authoritative. `tools/sync-field-guide.mjs <explicit-admin-checkout> --check` checks the actual shared module/art list and rejects extra or missing art files. The current local list is **120 files**, digest `91c9b72da79a67948f8e93a2d06524e9bbecf5e1ae15c189277a03d410877c39`, including the late UI-label correction. Guide/CSS/entry/map-art/directions/illustrations and authenticated iframe/preview use cache chain `20261006-kit04`; content-hashed image names are retained. The public measurement collector is not a private-preview shared file.
+
+Current local gates are 361 admin and 58 visitor tests (no skips), 41 JS/privacy checks, TypeScript and isolated real Payload role/gallery checks. The final2 full Next/Webpack production build passed after the last admin header wrapping and parent-iframe Escape bridge changes; the 361 admin unit result predates that last bridge change. Exact-source CI and targeted native/live acceptance remain separate pending gates. Python `browser.py` checks synthetic portrait/UI geometry with MapLibre disabled; `live-network.py` uses real MapLibre with an isolated basemap. The release helper now checks manifest approval, per-route anchor equality and the 3/6 density budget, replacing the obsolete exact-three-landmark assertion. Local shared-byte equality does not prove deployed equality. Final served 120, fresh 32 public contexts, targeted illustrations/private-preview and natural warm reload are pending; physical devices, real GPS walking/battery and native browser zoom remain separate.
+
+## Previously deployed map/photo renderer
+
 ## 6 Ekim güncel renderer sözleşmesi — yeni düzeltme
 
 Aynı dört hashli PNG kullanılır; PNG baytları ve lisans kaydı değişmedi. Main **ve Full**, Santa Lucia/Accademia/Dogana çizimlerini kendi `lucia/accademia/dogana` stable visit/place kimliklerinin mevcut rota koordinatlarından alır. Full için Main koordinatı kopyalanmaz; bunlar ölçülmüş bina merkezi değildir. İki bahçenin gerçek OSM polygon’u değişmedi; diğer13 aday yüklenmez.

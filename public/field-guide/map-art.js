@@ -1,7 +1,10 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit04";
+
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
 export const ART_ASSETS = [
+  ...ILLUSTRATIONS.filter(asset => asset.approved),
   {
     "kind": "station",
     "url": "/field-guide/art/santa-lucia-0c26a4e5d8a5.png",
@@ -32,11 +35,7 @@ export const ART_ASSETS = [
   }
 ];
 
-export const MAIN_LANDMARKS = [
-  { key: "lucia", icon: "station", coordinatesFrom: "lucia" },
-  { key: "accademia", icon: "bridge", coordinatesFrom: "accademia" },
-  { key: "dogana", icon: "dogana", coordinatesFrom: "dogana" },
-];
+export const MAIN_LANDMARKS = ILLUSTRATIONS.filter(asset => asset.approved).map(asset => ({ key: asset.key, icon: asset.kind, coordinatesFrom: asset.key }));
 
 export const GARDENS = [
   { key: "papadopoli", osmWayId: "174476472", focus: [12.32068956, 45.43846877] },
@@ -68,6 +67,7 @@ export const PLACE_COPY = {
 
 export function placeCopy(key, language) {
   const place = PLACE_COPY[key];
+  if (!place) { const art = ILLUSTRATIONS.find(item => item.key === key); return art ? { name: art.title, text: "" } : null; }
   return place ? { name: place.name, text: place.text[language] || place.text.en } : null;
 }
 
@@ -110,7 +110,7 @@ export function landmarkFeatures(route) {
   return MAIN_LANDMARKS.flatMap(({ key, icon, coordinatesFrom }) => {
     // Both canonical walks explicitly identify these places. Use each route's
     // own visit anchor, never a translated title or Main's coordinates for Full.
-    const visit = route.visits?.find((entry) => entry.key === coordinatesFrom &&
+    const visit = route.visits?.find((entry) => entry.visible !== false && entry.key === coordinatesFrom &&
       (!entry.placeKey || entry.placeKey === key));
     if (!Number.isFinite(visit?.longitude) || !Number.isFinite(visit?.latitude)) return [];
     return [{
@@ -134,7 +134,7 @@ export function watercolorLayout(width, height) {
   // short/narrow map, optional art is hidden rather than covering the controls.
   const gap = Math.min(42, Math.max(34, Math.max(0, height) * 0.12));
   const assets = ART_ASSETS.filter(asset => asset.kind !== "garden-leaves");
-  return { gap, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
+  return { gap, maxWidth, maxHeight, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
     Math.min(maxWidth / (asset.width / asset.pixelRatio), maxHeight / (asset.height / asset.pixelRatio))])) };
 }
 
@@ -171,7 +171,7 @@ export function orderWatercolorLayers(map) {
   // Keep the provider's road/place label order, above the small art family.
   // Gardens stay below roads; route geometry and its white halo stay below art.
   const labels = layers.filter(layer => layer.type === "symbol" && !layer.id.startsWith("fg-")).map(layer => layer.id);
-  const overlay = ["fg-halo", "fg-walk", "fg-boat", ...LANDMARK_LAYERS, ...labels, "fg-garden-label"];
+  const overlay = ["fg-halo", "fg-walk", "fg-boat", "fg-directions", ...LANDMARK_LAYERS, ...labels, "fg-garden-label"];
   const existing = overlay.filter(id => map.getLayer(id));
   const current = map.getStyle()?.layers.map(layer => layer.id) || [];
   if (current.slice(-existing.length).join("|") !== existing.join("|"))
@@ -386,8 +386,8 @@ export function addWatercolorLayers(map) {
     paint: { "icon-opacity": 1 },
   });
   for (const [id, minzoom, filter] of [
-    ["fg-landmark-overview", 13, ["all", ["==", ["get", "key"], "dogana"], ["!=", ["get", "active"], true]]],
-    ["fg-landmark-detail", 14.5, ["all", ["!=", ["get", "key"], "dogana"], ["!=", ["get", "active"], true]]],
+    ["fg-landmark-overview", 13, ["!=", ["get", "active"], true]],
+    ["fg-landmark-detail", 14.5, ["==", ["get", "key"], "__unused__"]],
   ]) if (!map.getLayer(id)) map.addLayer({
     id, type: "symbol", source: "fg-landmarks", minzoom, maxzoom: 24, filter,
     layout: { "icon-image": ["concat", "fg-art-", ["get", "icon"]],
@@ -411,18 +411,33 @@ export function addWatercolorLayers(map) {
   return true;
 }
 
+/** Select real anchors in the viewport before requesting any raster. Pins stay independent. */
+export function visibleLandmarks(map, route, activeVisitKey = null) {
+  const container = map.getContainer?.(), width = container?.clientWidth || 800, height = container?.clientHeight || 500;
+  const layout = watercolorLayout(width, height);
+  if (!layout.visible || map.getZoom() < 13 || map.getPitch?.() > 0) return [];
+  const max = width <= 600 ? 3 : 6;
+  return landmarkFeatures(route).map(feature => {
+    const point = map.project(feature.geometry.coordinates);
+    return { ...feature, properties: { ...feature.properties, active: feature.properties.visitKey === activeVisitKey, screenDistance: Math.hypot(point.x - width / 2, point.y - height / 2) }, point };
+  }).filter(feature => feature.point.x >= layout.maxWidth / 2 + 8 && feature.point.x <= width - layout.maxWidth / 2 - 8 && feature.point.y >= layout.maxHeight + layout.gap + 8 && feature.point.y <= height - 12)
+    .sort((a,b) => Number(b.properties.active) - Number(a.properties.active) || a.properties.screenDistance - b.properties.screenDistance)
+    .slice(0,max).map(({ point, ...feature }) => feature);
+}
 export function setWatercolorLandmarks(map, route, activeVisitKey = null) {
-  const features = landmarkFeatures(route).map(feature => ({ ...feature,
-    properties: { ...feature.properties, active: feature.properties.visitKey === activeVisitKey } }));
-  const active = features.find(feature => feature.properties.active);
-  const minzoom = active?.properties.icon === "dogana" ? 13 : 14.5;
-  const opacity = active?.properties.icon === "dogana" ? 1 : ["interpolate", ["linear"], ["zoom"], 14.5, 0, 15, 1];
-  for (const id of ["fg-landmark-active", "fg-landmark-tether"]) if (map.getLayer(id)) {
-    const layer = map.getLayer(id);
-    if (layer.minzoom !== minzoom) map.setLayerZoomRange(id, minzoom, 24);
-    if (JSON.stringify(map.getPaintProperty?.(id, "icon-opacity")) !== JSON.stringify(opacity))
-      map.setPaintProperty(id, "icon-opacity", opacity);
+  const source = map.getSource("fg-landmarks"); if (!source) return;
+  const features = visibleLandmarks(map, route, activeVisitKey);
+  for (const feature of features) {
+    const kind = feature.properties.icon, asset = ART_ASSETS.find(item => item.kind === kind);
+    if (asset && !map.hasImage('fg-art-' + kind)) {
+      artworkState.get(map)?.pending.delete(kind);
+      map.addImage('fg-art-' + kind, { width: asset.width, height: asset.height, data: new Uint8Array(asset.width * asset.height * 4) }, { pixelRatio: asset.pixelRatio });
+    }
   }
-  map.getSource("fg-landmarks")?.setData({ type: "FeatureCollection", features });
+  for (const id of ["fg-landmark-active", "fg-landmark-tether"]) if (map.getLayer(id)) {
+    if (map.getLayer(id).minzoom !== 13) map.setLayerZoomRange(id, 13, 24);
+    if (map.getPaintProperty?.(id, "icon-opacity") !== 1) map.setPaintProperty(id, "icon-opacity", 1);
+  }
+  source.setData({ type: "FeatureCollection", features });
   if (features.length) void loadWatercolorImages(map, [...new Set(features.map(feature => feature.properties.icon))]);
 }
