@@ -2,13 +2,14 @@
 import {
   BASE_STYLE,
   GARDENS,
-  MAIN_LANDMARKS,
   addWatercolorLayers,
+  applyWatercolorPresentation,
+  landmarkFeatures,
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261005-mobile";
-import { uiCopy } from "./ui-copy.js?v=20261005-mobile";
+} from "./map-art.js?v=20261006-map-photo";
+import { uiCopy } from "./ui-copy.js?v=20261006-map-photo";
 import { galleryForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js?v=20261005-mobile";
 import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261005-mobile";
 import { icon } from "./icons.js?v=20261005-mobile";
@@ -199,7 +200,7 @@ export class FieldGuide {
     if (!items.length) return kind === "cover" ? "" : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
     return this.galleryImage(items[0], { cover: kind === "cover", eager: kind === "cover" });
   }
-  galleryImage(photo, { cover = false, thumbnail = false, eager = false, full = false } = {}) {
+  galleryImage(photo, { cover = false, thumbnail = false, eager = false, full = false, stopPreview = false } = {}) {
     const selected = imageVariant(photo, thumbnail ? 400 : full ? 1600 : 900), url = safeURL(selected?.url);
     if (!url) return `<p class="fg-photo-missing">${this.t("Photograph unavailable")}</p>`;
     const copy = galleryText(photo, this.lang);
@@ -207,7 +208,8 @@ export class FieldGuide {
     const source = variants.map(item => `${escape(safeURL(item.url))} ${item.width}w`).join(", ");
     const dimensions = selected.width > 0 && selected.height > 0 ? `width="${selected.width}" height="${selected.height}"` : "";
     const focal = photo.focalPoint || { x: 50, y: 50 };
-    return `<figure class="fg-photo ${cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}"><img src="${escape(url)}" ${source ? `srcset="${source}" sizes="${thumbnail ? "80px" : full ? "95vw" : "(max-width: 900px) 92vw, 650px"}"` : ""} ${dimensions} alt="${escape(copy.alt || "")}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${Math.max(0, Math.min(100, Number(focal.x) || 0))}% ${Math.max(0, Math.min(100, Number(focal.y) || 0))}%">${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${escape(photo.credit || "")}</figcaption>` : ""}</figure>`;
+    const image = `<img src="${escape(url)}" ${source ? `srcset="${source}" sizes="${thumbnail ? "80px" : full ? "95vw" : stopPreview ? "(max-width: 900px) 92vw, 380px" : "(max-width: 900px) 92vw, 650px"}"` : ""} ${dimensions} alt="${escape(copy.alt || "")}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${Math.max(0, Math.min(100, Number(focal.x) || 0))}% ${Math.max(0, Math.min(100, Number(focal.y) || 0))}%">`;
+    return `<figure class="fg-photo ${stopPreview ? "fg-stop-preview" : cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}">${stopPreview ? `<button class="fg-stop-preview-open" data-open-stop-photo aria-label="${escape(this.t("Open full photograph"))}">${image}</button>` : image}${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${escape(photo.credit || "")}</figcaption>` : ""}</figure>`;
   }
   visitPhotos(visit) {
     const photos = galleryForVisit(visit);
@@ -219,7 +221,7 @@ export class FieldGuide {
   }
   cover(visit) {
     const photo = coverPhoto(this.visitPhotos(visit));
-    return photo ? this.galleryImage(photo, { cover: true }) : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
+    return photo ? this.galleryImage(photo, { cover: true, stopPreview: true }) : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
   }
   update({ routes, lang, visitKey, view } = {}) {
     const key = this.route?.key,
@@ -345,6 +347,9 @@ export class FieldGuide {
     this.locationControlsSignature = "";
     this.renderLocation();
     this.root.querySelectorAll("[data-inspect]").forEach(button => { button.onclick = () => this.openDetail(button.dataset.inspect, button); });
+    this.root.querySelectorAll("[data-open-stop-photo]").forEach(button => {
+      button.onclick = () => { this.openDetail(this.steps()[this.index]?.key, button); this.openLightbox(); };
+    });
     this.root
       .querySelectorAll("[data-route]")
       .forEach((b) => (b.onclick = () => this.choose(b.dataset.route)));
@@ -427,6 +432,8 @@ export class FieldGuide {
     this.sheet = "standard";
     this.list = false;
     this.render();
+    this.el(".fg-editorial").scrollTop = 0;
+    if (this.el(".fg-sheet-content")) this.el(".fg-sheet-content").scrollTop = 0;
     this.draw();
     this.fit();
   }
@@ -480,15 +487,7 @@ export class FieldGuide {
         pitch: this.threeD ? 50 : 0,
         duration: reduced() ? 0 : 220,
       });
-      if (this.map.getLayer("fg-buildings"))
-        this.map.setLayoutProperty(
-          "fg-buildings",
-          "visibility",
-          this.threeD ? "visible" : "none",
-        );
-      for (const id of ["fg-landmark-overview", "fg-landmark-detail"])
-        if (this.map.getLayer(id))
-          this.map.setLayoutProperty(id, "visibility", this.threeD ? "none" : "visible");
+      applyWatercolorPresentation(this.map, { threeD: this.threeD });
       this.render();
     }
   }
@@ -622,7 +621,7 @@ export class FieldGuide {
       const message = document.createElement("p"); message.className = "fg-photo-missing"; message.setAttribute("role", "status"); message.textContent = this.t("Photograph unavailable");
       const retry = document.createElement("button"); retry.textContent = this.t("Retry photograph");
       error.append(message, retry);
-      const openButton = image.closest("[data-open-photo]");
+      const openButton = image.closest("[data-open-photo], [data-open-stop-photo]");
       // Retry the same approved derivative. Never fall back to an original or another visit.
       const target = openButton || image;
       target.replaceWith(error);
@@ -647,9 +646,7 @@ export class FieldGuide {
     dialog.classList.remove("fg-lightbox", "fg-photo-zoomed");
     dialog.onkeydown = null;
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
-    const keys = this.route?.key === "main"
-      ? [...MAIN_LANDMARKS.map((place) => place.key), ...GARDENS.map((place) => place.key)]
-      : GARDENS.map((place) => place.key);
+    const keys = [...landmarkFeatures(this.route).map(place => place.properties.key), ...GARDENS.map(place => place.key)];
     dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1 id="fg-dialog-title">${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} →</button>`).join("")}</div>`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelectorAll("[data-place]").forEach((button) => {
@@ -677,7 +674,7 @@ export class FieldGuide {
     const stop = this.route?.visits?.find((item) => item.key === key);
     const focus = garden?.focus || (stop ? [stop.longitude, stop.latitude] : null);
     const englishFallback = !["en", "tr"].includes(this.lang);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows the Main Walk stop coordinates.", "Özgün Venice Sideways çizimi; haritadaki yaklaşık konum Ana Yürüyüş durağının koordinatlarını izler.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
+    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="en">Description in English</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelector("[data-focus-place]")?.addEventListener("click", () => {
       this.savedCamera = null; this.closeOverlay();
@@ -823,16 +820,17 @@ export class FieldGuide {
           try {
             Promise.resolve(addWatercolorLayers(map)).then(available => {
               if (!available || generation !== this.mapGeneration || map !== this.map || this.disposed) return;
+              applyWatercolorPresentation(map, { threeD: this.threeD });
               this.draw();
               if (map.__fgArtworkInteractions) return;
               map.__fgArtworkInteractions = true;
-              for (const id of ["fg-landmark-overview", "fg-landmark-detail"])
+              for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-landmark-active"])
                 this.map.on("click", id, (event) => this.openPlace(event.features?.[0]?.properties?.key));
               for (const id of ["fg-garden-wash", "fg-garden-label"])
                 this.map.on("click", id, (event) => {
                   this.openPlace(event.features?.[0]?.properties?.key);
                 });
-              for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-garden-wash", "fg-garden-label"]) {
+              for (const id of ["fg-landmark-overview", "fg-landmark-detail", "fg-landmark-active", "fg-garden-wash", "fg-garden-label"]) {
                 this.map.on("mouseenter", id, () => { this.map.getCanvas().style.cursor = "pointer"; });
                 this.map.on("mouseleave", id, () => { this.map.getCanvas().style.cursor = ""; });
               }
@@ -842,6 +840,7 @@ export class FieldGuide {
           }
         }
         this.ready = true;
+        applyWatercolorPresentation(map, { threeD: this.threeD });
         this.mapError = "";
         this.render();
         this.draw();
@@ -896,7 +895,7 @@ export class FieldGuide {
     this.map
       .getSource("fg-route")
       ?.setData({ type: "FeatureCollection", features });
-    setWatercolorLandmarks(this.map, this.route);
+    setWatercolorLandmarks(this.map, this.route, this.view === "walk" && !this.steps()[this.index]?.boat ? this.steps()[this.index]?.key : null);
     this.pins.forEach((p) => p.remove());
     this.pins = [];
     if (this.view !== "walk") return;
@@ -980,7 +979,10 @@ export class FieldGuide {
       const rectangle = this.el(".fg-map").getBoundingClientRect();
       const size = `${Math.round(rectangle.width)}:${Math.round(rectangle.height)}`;
       if (!rectangle.width || !rectangle.height) { if (this.locationEngine.active) this.stopLocation("suspended"); this.lastMapSize = size; return; }
-      if (size !== this.lastMapSize) { this.lastMapSize = size; this.map?.resize(); }
+      if (size !== this.lastMapSize) {
+        this.lastMapSize = size; this.map?.resize();
+        if (this.ready) applyWatercolorPresentation(this.map, { threeD: this.threeD });
+      }
     });
   }
   renderLocation() {

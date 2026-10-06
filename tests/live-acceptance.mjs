@@ -22,7 +22,7 @@ if(process.env.SIDEWAYS_LIVE_ACCEPTANCE!=='approved-read-only'||process.env.SIDE
 }
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const stamp=new Date().toISOString().replace(/[:.]/g,'-');
-const output=resolve(root,'../combined-20261005/visitor-gallery','live-'+stamp);
+const output=resolve(process.env.SIDEWAYS_ACCEPTANCE_OUTPUT || resolve(root,'../map-photo-layout-20261006/visitor-live','live-'+stamp));
 await mkdir(output,{recursive:true});
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'/Users/erenedebali/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
@@ -250,7 +250,7 @@ try {
       check(state.visits===(routeKey==='main'?11:28)&&state.steps===(routeKey==='main'?12:28),label+': retained stops and transfer');
       check(state.pins===1&&state.boats===0,label+': only active photographic pin');
       check(!state.overflow,label+': no horizontal overflow');
-      if(routeKey==='main')check(state.landmarks?.join(',')==='accademia,dogana,lucia',label+': three approved illustrations');
+      check(state.landmarks?.join(',')==='accademia,dogana,lucia',label+': three illustrations at this walk’s verified coordinates');
       check(state.routeFeatures?.some(f=>!f.boat&&f.vertices>2),label+': real walking geometry');
       if(routeKey==='main'){
         record.phase='native-vaporetto-step';

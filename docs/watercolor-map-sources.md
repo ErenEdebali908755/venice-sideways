@@ -1,5 +1,12 @@
 # Ziyaretçi suluboya haritası — kaynak ve lisans
 
+## 6 Ekim güncel renderer sözleşmesi — yeni yerel düzeltme
+
+Yukarıdaki adlandırma değişmeden aynı dört hashli PNG kullanılır. Main **ve Full** üç yapıyı kendi doğrulanmış stable visit/place koordinatlarından alır. Katman sırası artık rota/halo→boundedart→gereklietiket/DOMpin’dir; bahçe dolguları yolların altında kalır. Tür ve gerçek harita alanına göre aspect-preserving ölçü, 34–42px ekran annotation offset’i, yalnız aktif landmark önceliği ve 2D/3D/style.load ortak idempotent durum adımı uygulanır. PNG alpha/ölçek/zoom/yerleşim kararları [manifest](../public/field-guide/art/manifest.json) ve [yeni kabul fazında](2026-10-05-visual-mobile.md) kayıtlıdır. Yeni cachechain `20261006-map-photo`; eski aşağıdaki Main-only/rota-altı kuralları tarihsel sürümü anlatır. Yeni canlı kabul henüz bu hazırlık noktasında tamamlanmamıştır.
+
+## Önceki tarihli kaynak kaydı
+
+
 **Güncel kaynak notu — 6 Ekim2026:** İki kullanıcı görsel paketindeki dört suluboya PNG türevi, native Yana/ikonlar ve mobil düzen mevcut MapLibre rehberinde canlıdır. Değişmeyen visitorb698 için5Ekim32/1432+ayrı3/103 ve6Ekim ayrıMain/Full4/186 kontrolü geçti. Yeni admin93label sürümü27/e45renderer ile eşit; yeni gerçekSideways19/19 geçti; son owner etiketi kontrolü giriş bekliyor. Aynı kaynak yenileme onayı/deployment kapısı5Ekim tamamlandı; izinler genişletilmedi. [Ziyaretçi raporu](2026-10-05-visual-mobile.md) ve [ortak kanonik rapor](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VISUAL-MOBILE-INTEGRATION-20261005.md) tarihli test/dağıtım/kabulü ayırır.
 
 **Tarihsel önceki yayın:** Önceki kod çizimleri `6d3d3650` ile yayımlandı (Railway `a58d3f86-3994-46a1-ac1d-84545a7111ae`). O sürümün canlı karolarında üç yapı ve iki OSM bahçe katmanı görülmüş olması aşağıdaki yeni PNG türevlerinin canlı kabulü değildir. 4 Ekim geometri kaydı kendi tarihiyle korunur.

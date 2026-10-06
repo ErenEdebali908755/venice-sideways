@@ -18,7 +18,27 @@
         "width": 1219,
         "height": 364
       },
-      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)",
+      "derivativeAlphaBounds": {
+        "left": 8,
+        "top": 8,
+        "right": 264,
+        "bottom": 84
+      },
+      "presentationBudget": {
+        "maxWidthCSS": {
+          "compact": 104,
+          "desktop": 124,
+          "mapFraction": 0.27
+        },
+        "maxHeightCSS": {
+          "compact": 72,
+          "desktop": 80,
+          "mapFraction": 0.24
+        },
+        "aspectRatioPreserved": true,
+        "anchor": "bottom-center; viewport-aligned bounded screen annotation offset"
+      }
     },
     {
       "kind": "bridge",
@@ -36,7 +56,27 @@
         "width": 1239,
         "height": 435
       },
-      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)",
+      "derivativeAlphaBounds": {
+        "left": 8,
+        "top": 8,
+        "right": 264,
+        "bottom": 98
+      },
+      "presentationBudget": {
+        "maxWidthCSS": {
+          "compact": 104,
+          "desktop": 124,
+          "mapFraction": 0.27
+        },
+        "maxHeightCSS": {
+          "compact": 72,
+          "desktop": 80,
+          "mapFraction": 0.24
+        },
+        "aspectRatioPreserved": true,
+        "anchor": "bottom-center; viewport-aligned bounded screen annotation offset"
+      }
     },
     {
       "kind": "dogana",
@@ -54,7 +94,27 @@
         "width": 1114,
         "height": 973
       },
-      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)"
+      "anchor": "bottom-center (visible-content crop with 8px transparent safety border)",
+      "derivativeAlphaBounds": {
+        "left": 8,
+        "top": 8,
+        "right": 264,
+        "bottom": 232
+      },
+      "presentationBudget": {
+        "maxWidthCSS": {
+          "compact": 104,
+          "desktop": 124,
+          "mapFraction": 0.27
+        },
+        "maxHeightCSS": {
+          "compact": 72,
+          "desktop": 80,
+          "mapFraction": 0.24
+        },
+        "aspectRatioPreserved": true,
+        "anchor": "bottom-center; viewport-aligned bounded screen annotation offset"
+      }
     },
     {
       "kind": "garden-leaves",
@@ -74,5 +134,59 @@
       },
       "anchor": "polygon clipped"
     }
-  ]
+  ],
+  "presentation": {
+    "revision": "20261006-map-photo",
+    "geometry": "Each canonical Main/Full verified stable visit/place identity; no route coordinates changed",
+    "layerOrder": [
+      "basemap and garden fills below roads",
+      "route halo/walk/boat",
+      "bounded landmark tether and art",
+      "necessary basemap and garden labels",
+      "active DOM pin/local GPS",
+      "controls"
+    ],
+    "zoom": {
+      "dogana": [
+        13,
+        24
+      ],
+      "stationBridge": [
+        14.5,
+        24
+      ],
+      "stationBridgeFade": [
+        14.5,
+        15
+      ],
+      "sizeFactors": [
+        [
+          13,
+          0.64
+        ],
+        [
+          15,
+          0.88
+        ],
+        [
+          16.5,
+          1
+        ],
+        [
+          19,
+          1
+        ]
+      ]
+    },
+    "screenGapCSSPixels": [
+      34,
+      42
+    ],
+    "tinyMapArtHiddenBelow": {
+      "width": 180,
+      "height": 160
+    },
+    "activeLandmark": "Only the current verified landmark may bypass symbol collision; secondary art retains collision placement",
+    "threeD": "Optional landmark/tether hidden; registered extrusion visible; state reapplied after style load and resize"
+  }
 }
