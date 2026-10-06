@@ -1,0 +1,463 @@
+{
+  "version": "20261006-kit05",
+  "generatedAt": "2026-10-06T21:46:37.184Z",
+  "status": "deployed-and-browser-acceptance-passed",
+  "canonicalState": "eren-visual-archive/docs/CURRENT-STATE.md",
+  "privacy": "Sanitized aggregates only. No account identity, credentials, cookies, private API content, source URLs, dump paths, exact GPS or private screenshots.",
+  "deployments": {
+    "admin": {
+      "url": "https://erenedebali.com/admin/venice-sideways",
+      "sourceCommit": "71f032ee19eb8cf138b3a9b0c4fb9e379421b0b6",
+      "runtimeCommit": "fe4bbbb16e781694f069cb64ad174334eb2067d6",
+      "deploymentId": "8cdb369f-bb7c-45db-b25c-c140cfbdd674",
+      "status": "SUCCESS",
+      "successAt": "2026-10-06T20:52:32.934Z",
+      "pullRequests": [
+        22,
+        23
+      ],
+      "ciRuns": [
+        37522732508,
+        37522732490,
+        37528498734
+      ]
+    },
+    "visitor": {
+      "url": "https://venicesideways.com",
+      "sourceCommit": "13807fa9ac0834e24787b88b3f2f63092faa374b",
+      "runtimeCommit": "073ba8bc5b3ac0bb9897d65aeeb5f606420416c0",
+      "deploymentId": "a5b58e97-ba69-40f3-a2d2-4e730af2322c",
+      "status": "SUCCESS",
+      "successAt": "2026-10-06T21:32:24.283Z",
+      "originalSourceCommit": "b018318171e39b46f994bf27fa4aff5b9093405d",
+      "pullRequests": [
+        14,
+        15
+      ],
+      "ciRuns": [
+        37522540255,
+        37534128993
+      ]
+    },
+    "note": "Documentation-only commits and SKIPPED deployments are separate from these active product runtime identities.",
+    "initialVisitor": {
+      "runtimeCommit": "df6e28e53937bf06c14624030ace326ba0022567",
+      "deploymentId": "743724a1-e59d-405e-8503-83698e285650",
+      "successAt": "2026-10-06T21:17:49.798Z",
+      "note": "Initial UI release preceded the discovered and subsequently corrected v3 visitor proxy incompatibility."
+    }
+  },
+  "sourceValidation": {
+    "adminUnitTests": 373,
+    "adminSkippedTests": 0,
+    "typeScript": "passed",
+    "fullOptimizedProductionBuild": "passed",
+    "isolatedPayloadRolesStoryCASImportPublishRestoreGallery": "passed",
+    "visitorUnitTests": 71,
+    "visitorJSPrivacyChecks": 41,
+    "visitorProductionDockerSmoke": "passed",
+    "sharedRendererFiles": 126,
+    "sharedDigest": "50d746ece6ffe7a0cb6bafc62b3e990d034ad9ec4c3be2209835d6af8070d13a",
+    "localRealMap": {
+      "records": 53,
+      "checks": 243
+    },
+    "localRealPhotos": {
+      "records": 8,
+      "checks": 27
+    },
+    "localAdminComputedContrast": {
+      "pairs": 281,
+      "groups": 81,
+      "minimumRatio": 6.20494,
+      "scope": "Selected actual computed component pairs; not whole-site WCAG conformance."
+    },
+    "actualAdminPublicStoryToVisitorProjection": "passed in isolated in-memory fixture with actual sources; no network, database or production writes"
+  },
+  "migration": {
+    "name": "20261006_180000_sideways_stories",
+    "status": "registered-applied",
+    "ledgerEntries": 30,
+    "pending": [],
+    "storyColumns": [
+      {
+        "table": "sideways_places",
+        "column": "story",
+        "type": "jsonb"
+      },
+      {
+        "table": "sideways_places",
+        "column": "story_history",
+        "type": "jsonb"
+      },
+      {
+        "table": "sideways_releases",
+        "column": "private_stories",
+        "type": "jsonb"
+      }
+    ],
+    "languages": [
+      "en",
+      "fr",
+      "it",
+      "ja",
+      "ko",
+      "ru",
+      "tr",
+      "zh"
+    ],
+    "sourceLanguagesRetained": [
+      "en",
+      "tr"
+    ],
+    "schemaPush": false,
+    "productionRestore": false,
+    "backups": [
+      {
+        "phase": "pre-migration",
+        "restoredAt": "2026-10-06T19:37:09.384Z",
+        "dumpSHA256": "65c1ebb0085dc1d5f8d11100f9ef31469704c6219330d98fb29eb119c707b647",
+        "bytes": 1256761,
+        "tables": 128,
+        "migrations": 29,
+        "logicalDigest": "f22f48df152b3016263852954712ee9f23bbcfd73f65cda19b53605cea700aaa",
+        "mediaObjectsIncluded": false
+      },
+      {
+        "phase": "post-migration-before-help-fix",
+        "restoredAt": "2026-10-06T20:09:39.458Z",
+        "dumpSHA256": "7355ac2d719ff9d0aa60601e653811cb63d8eb64fac5cfc5971035e206bdd45d",
+        "bytes": 1256921,
+        "tables": 128,
+        "migrations": 30,
+        "logicalDigest": "e255096b32d1879f10053ed32f8c1266fa624931210a3ec6a00da25e89c64e32",
+        "mediaObjectsIncluded": false
+      },
+      {
+        "phase": "current-source-pre-import",
+        "restoredAt": "2026-10-06T20:49:14.096Z",
+        "dumpSHA256": "4b3c99336c928699cc613a6abfc2c4320b7ecf25274a628b18cf0f96409e7de2",
+        "bytes": 1256921,
+        "tables": 128,
+        "migrations": 30,
+        "logicalDigest": "e255096b32d1879f10053ed32f8c1266fa624931210a3ec6a00da25e89c64e32",
+        "mediaObjectsIncluded": false
+      }
+    ],
+    "original29to30Regression": {
+      "status": "passed",
+      "completedAt": "2026-10-06T19:41:35.260Z"
+    },
+    "currentAlreadyAppliedRegression": {
+      "status": "passed",
+      "completedAt": "2026-10-06T20:49:55.919Z",
+      "newMigrations": []
+    },
+    "rollback": "Use the compatible Kit05 runtime or a forward fix retaining Italian/source fields and story JSONB data. Do not blindly restore a seven-language admin or drop columns. R2 objects are not included in the database dump."
+  },
+  "content": {
+    "importedAt": "2026-10-06T21:00:23.719Z",
+    "planSHA256": "0744f902ff22766bb708017d108b9796ef4e4edc9bafddc507183a08e6822349",
+    "counts": {
+      "places": 30,
+      "visits": 39,
+      "ideas": 195,
+      "create": 30,
+      "unchanged": 0,
+      "preserved": 0
+    },
+    "idempotentDryRun": {
+      "places": 30,
+      "visits": 39,
+      "ideas": 195,
+      "create": 0,
+      "unchanged": 30,
+      "preserved": 0
+    },
+    "stories": {
+      "stories": 30,
+      "proposals": 30,
+      "human_reviews": 0,
+      "pending_turkish": 30
+    },
+    "publicationChanged": false,
+    "originalContentAndReleasesUnchanged": true,
+    "policy": "Thirty Turkish research proposals await genuine human review. Public renderer excludes unreviewed story content; private preview shows a pending badge. No human approval or editorial publication was performed.",
+    "preserved": {
+      "mainVisits": 11,
+      "fullVisits": 28,
+      "totalPhotoVisits": 39,
+      "uniquePhotoPlaces": 30,
+      "photoIdeas": 195,
+      "usedPlacesIncludingTransit": 33,
+      "transitOnlyPlacesWithoutStory": 3
+    }
+  },
+  "acceptance": {
+    "protectedPreview": {
+      "passed": true,
+      "checks": 172,
+      "records": 30,
+      "stopPinMatches": 6,
+      "resizeNativeCloseCases": 6,
+      "loginPOSTs": 1,
+      "blockedWrites": 0,
+      "pageErrors": 0,
+      "GPSStarts": 0,
+      "analyticsAttempts": 0
+    },
+    "supplemental": {
+      "status": "passed",
+      "completedAt": "2026-10-06T21:15:38.657Z",
+      "gates": 11,
+      "nativeCases": 4,
+      "editingLanguages": 8,
+      "statisticsDays": [
+        7,
+        30
+      ],
+      "successfulEmptyStatistics": true,
+      "privateImportedStoryPreviewPassed": true,
+      "loginPOSTs": 1,
+      "contentWrites": 0,
+      "translationPOSTs": 0,
+      "healthPOSTs": 0,
+      "syntheticPOSTs": 0,
+      "GPSCalls": 0,
+      "pageErrors": 0,
+      "blockedRequests": 0
+    },
+    "assets": {
+      "status": "passed",
+      "requests": 257,
+      "sharedFiles": 126,
+      "digest": "50d746ece6ffe7a0cb6bafc62b3e990d034ad9ec4c3be2209835d6af8070d13a",
+      "issues": 0
+    },
+    "publicColdStarts": {
+      "acceptedAfterContractFollowup": true,
+      "rawBroadReportPassed": false,
+      "finishedAt": "2026-10-06T21:37:46.343Z",
+      "cases": 32,
+      "totalRawChecks": 1736,
+      "passingProductChecks": 1704,
+      "failedHarnessAssertions": 32,
+      "applicationErrors": 0,
+      "cspFailures": 0,
+      "attemptedWrites": 0,
+      "networkFailures": {
+        "total": 324,
+        "aborted": 324,
+        "other": 0,
+        "scope": "Browser request failures are recorded separately. Individual cancellations are not root-caused."
+      },
+      "classification": "Legacy generic copy may carry pending translations; actual copyFor filters them. Pending story prohibition belongs to story objects, not every generic copy row.",
+      "scope": "All32 UI contexts completed. The original1736-check report remains EXIT1; only32 incorrectly scoped generic-copy assertions failed. Those assertions were independently audited and closed by separate fresh live/source contract evidence; no raw result was rewritten."
+    },
+    "mapFollowup": {
+      "passed": true,
+      "cases": 112,
+      "checks": 1009,
+      "issues": 0,
+      "blockedWrites": 0,
+      "pageErrors": 0,
+      "mapErrors": 0,
+      "scope": "Critical five places across Main/Full mobile/desktop, zoom15/16.5/18 and bearing0/45, plus four deliberate optional-art404 cases. No separate raw network-failure ledger.",
+      "runtimeCommit": "df6e28e53937bf06c14624030ace326ba0022567",
+      "note": "Initial Kit05 runtime map tests. Final proxy fix changed only server projection/tests; all126 browser files were reverified byte-identical on the final runtime."
+    },
+    "oldCacheMigration": {
+      "status": "passed",
+      "cases": 4,
+      "oldBaselineAt": "2026-10-06T19:57:56.997Z",
+      "oldCacheReuseObserved": true,
+      "cacheResponses": 127,
+      "issues": 0,
+      "pageErrors": 0,
+      "blockedWrites": 0,
+      "scope": "Actual persistent anonymous Kit04 cache captured before deployment and reused after Kit05 deployment.",
+      "runtimeCommit": "df6e28e53937bf06c14624030ace326ba0022567",
+      "note": "Actual Kit04→initialKit05 transition. Not rerun or mislabeled after that profile already migrated; final proxy fix leaves all browser/cache-chain bytes identical."
+    },
+    "nativeBrowser200": {
+      "cases": 32,
+      "checks": 2767,
+      "completedAt": "2026-10-06T21:36:29.489Z",
+      "contrastPairs": 608,
+      "issues": 0,
+      "pageErrors": 0,
+      "attemptedWrites": 0,
+      "networkFailures": {
+        "total": 291,
+        "aborted": 291,
+        "other": 0,
+        "scope": "Browser request failures are recorded separately. Individual cancellations are not root-caused."
+      },
+      "scope": "Actual installed Chrome Appearance Page zoom200% in disposable desktop browser profiles; not physical phones or a whole-site AA assertion.",
+      "actualThumbGETCount": 3,
+      "minimumSelectedContrastRatio": 5.917570593923599,
+      "decodedThumbnailCount": 96,
+      "decodedVignetteCount": 64,
+      "thumbnailPolicy": "Every visible thumbnail is decoded and uses the same photo own approved responsive thumb|web candidate. Cached web reuse is valid; request variants are observations, not forced fetches."
+    },
+    "publicContractFollowup": {
+      "status": "passed",
+      "completedAt": "2026-10-06T21:46:08.187Z",
+      "checks": 20768,
+      "liveReads": 5,
+      "copyGroups": 240,
+      "actualCopySelections": 1920,
+      "pendingGenericRows": 46,
+      "pendingLocaleFallbacks": 46,
+      "publicStories": 0,
+      "issues": 0,
+      "productionWrites": 0,
+      "scope": "Fresh actual catalogue/API/body hash plus the exact served renderer selection across every copy group and eight languages. New reviewed-story publication remains unperformed; future v3 projection was tested with actual cross-repository sources in isolated memory and CI."
+    }
+  },
+  "provider": {
+    "name": "existing Google Cloud Translation",
+    "state": "unconfigured",
+    "available": false,
+    "code": "CONFIGURATION_MISSING",
+    "missingEnvironmentNames": [
+      "GOOGLE_CLOUD_TRANSLATION_PROJECT_ID",
+      "GOOGLE_CLOUD_TRANSLATION_CLIENT_EMAIL",
+      "GOOGLE_CLOUD_TRANSLATION_PRIVATE_KEY",
+      "GOOGLE_CLOUD_TRANSLATION_GLOSSARY"
+    ],
+    "predictionVerifiedPresent": false,
+    "newProviderOrIAMOrGlossarySetup": false
+  },
+  "cleanup": {
+    "accountStatus": "removed-and-verified",
+    "removedAt": "2026-10-06T21:17:02.720Z",
+    "privateCredentialsRemoved": true,
+    "accountIdentityPublished": false
+  },
+  "preservedFailures": [
+    {
+      "phase": "initial-admin-private-preview",
+      "type": "product-defect",
+      "cause": "Resize help intercepted the first native Close click.",
+      "resolution": "Narrow native-action help dismissal source71f032, new373/build/CI, PR23/adminSUCCESS and six real Close cases passed."
+    },
+    {
+      "phase": "supplemental-first",
+      "gatesPassed": 4,
+      "gatesTotal": 6,
+      "type": "QA-contract-mismatch",
+      "cause": "Optional predictionVerified absence and three legitimate transit-only wrappers were incorrectly rejected.",
+      "resolution": "Source-backed exact30story/33wrapper coverage and passive-provider contract preserved."
+    },
+    {
+      "phase": "supplemental-second",
+      "gatesPassed": 6,
+      "gatesTotal": 11,
+      "type": "QA-contract-mismatch-and-unreproduced-observations",
+      "cause": "Content label selector and omitted exact gardens.json read allowance.",
+      "unresolvedHistoricalObservations": "One old pageerror and one Full390 route-open without an observed GET remain unclassified/unreproduced.",
+      "resolution": "Source-associated unique select/exact static allowance, offline13 tests and fresh actual11/11 with zero pageerrors/blocked requests."
+    },
+    {
+      "phase": "final-visitor-public-cold32",
+      "runtimeCommit": "073ba8bc5b3ac0bb9897d65aeeb5f606420416c0",
+      "rawBroadReportPassed": false,
+      "checks": 1736,
+      "completedContexts": 32,
+      "passingProductChecks": 1704,
+      "failedHarnessAssertions": 32,
+      "type": "QA-contract-scope-mismatch",
+      "cause": "Generic legacy copy needsReview was incorrectly treated as private/pending story evidence. Actual served copyFor excludes all46 pending generic rows before display.",
+      "resolution": "Independent source audit plus separate fresh live catalogue/API/bundle/renderer hash and all-copy eight-language selection followup passed. Raw failed report retained unchanged; no third duplicate broad run or1736PASS claim."
+    },
+    {
+      "phase": "initial-visitor-public-cold32",
+      "checks": 1576,
+      "completedContexts": 32,
+      "failedHarnessAssertions": 32,
+      "cause": "Unconditionally expected200 for unpublished editorial Main/Full. Actual catalogue published:false, public404 and bundled11/28 guide200 were independently verified.",
+      "resolution": "Source-backed publication-state branches, fresh full32 on the final proxy runtime."
+    },
+    {
+      "phase": "visitor-v3-publication-proxy",
+      "type": "product-defect",
+      "cause": "Initial proxy only accepted schemas1/2 and omitted shared story.",
+      "resolution": "PR15 source13807fa accepts1/2/3, preserves galleries and explicitly filters reviewed text/safe citations. Fresh71/41/actual cross-repository fixture/production CI and final deployment verified."
+    },
+    {
+      "phase": "native200-first",
+      "completedContexts": 32,
+      "checks": 202,
+      "cause": "Native CDP permission denial reset when session was detached; actualpermissionprompt/automaticGPS0.",
+      "resolution": "Actual narrow Chrome diagnostic proved denied→prompt on detach. CDP retained until context teardown; final32 require genuine native denied state."
+    },
+    {
+      "phase": "native200-targeted",
+      "completedContexts": 4,
+      "checks": 321,
+      "cause": "Incorrectly required every thumb request path despite a decoded responsive3thumbnail legitimately selecting owned3web.",
+      "resolution": "Actual native scroll/decode diagnostic verified legal responsive reuse. Final32 verify each actual own decoded candidate and report observedthumb GETs honestly."
+    }
+  ],
+  "limits": {
+    "ownerLiveLogin": "pending user login",
+    "physicalIOSAndroidGPSWalkBattery": "not performed",
+    "humanStoryReview": "pending",
+    "architecturalAnchorsVerified": 5,
+    "unresolvedBoundedCallouts": 25,
+    "treArchiEnabled": false,
+    "newGardenCandidatesEnabled": false,
+    "existingOSMGardensPreserved": true,
+    "temporaryOwnPhotos": [
+      3,
+      6,
+      18
+    ],
+    "photoPlaceVerification": "Temporary owned black-and-white photographs are not verified Venice stop photographs.",
+    "event": {
+      "eventDate": null,
+      "meetingPlace": "CX Lobby",
+      "localTime": "15:45",
+      "timeZone": "Europe/Rome",
+      "published": false,
+      "registrationOpened": false,
+      "finalQRGenerated": false,
+      "note": "Existing historical event date was not treated as fresh user confirmation."
+    }
+  },
+  "evidence": {
+    "protected": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/private-preview-2026-10-06T20-57-05-839Z/report.json",
+      "sha256": "3f240f3166401f486a7e3d7a2f807cce67144ac53aa9ff400b1812e951dea3e4"
+    },
+    "supplemental": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/live-admin-supplemental-2026-10-06T21-14-51-608Z/report.json",
+      "sha256": "01d7fde51fbaad9755a008ea4022c96b0a2babf8b78df79043477fb25797cef1"
+    },
+    "assets": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/served-bytes-2026-10-06T21-33-29-178Z/report.json",
+      "sha256": "3bab683ee0be8e8f11ee677486abf39982d2539c375125c63850c477a3f66245"
+    },
+    "map": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/map-followup-2026-10-06T21-18-28-373Z/report.json",
+      "sha256": "c3d970dbcf91aa986c450ca49e15e30c5d248755cfad67b024642c0d33395dcb"
+    },
+    "cache": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/cache-migration-2026-10-06T21-18-40-741Z/report.json",
+      "sha256": "1b9be456dc5c863a439563dfb98b2b2bf3accda35a200cbdda400bfb67c1f359"
+    },
+    "native": {
+      "localReport": "kit05-20261006/visitor-native-200/visitor-native200-report.json",
+      "sha256": "89bff7cb4900a60e0505309862f38a02fa01f0c542cffdca767fbc4d5a03284f"
+    },
+    "public": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/public-live/live-2026-10-06T21-33-20-014Z/live-report.json",
+      "sha256": "a9ca35567844f42a43de0ffa40ac755b6ab447b8b7b518c967a5ecf0ff551102"
+    },
+    "publicContract": {
+      "localReport": "eren-visual-archive/.data/kit05-20261006/public-contract-followup.json",
+      "sha256": "7d7f1bcf3b4b198d2c0c67f78cda959c09b60ba435eb13fcc9735a97a713b7f6"
+    }
+  }
+}
