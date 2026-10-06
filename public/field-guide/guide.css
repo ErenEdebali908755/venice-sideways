@@ -939,7 +939,7 @@ body {
   .fg-header { padding-top:max(9px,env(safe-area-inset-top)); }
   .fg[data-view="walk"] .fg-editorial { padding-bottom:max(25px,env(safe-area-inset-bottom)); }
 }
-@media (max-height:550px) and (orientation:landscape) {
+@media (min-width:600px) and (max-height:550px) and (orientation:landscape) {
   .fg-body,.fg[data-view="walk"] .fg-body { display:grid; grid-template-columns:minmax(230px,40%) minmax(0,1fr); }
   .fg[data-view="walk"] .fg-map-shell { order:0; min-height:0; }
   .fg[data-view="walk"] .fg-editorial { max-height:none; height:auto; }
