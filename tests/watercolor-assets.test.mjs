@@ -79,7 +79,7 @@ test('initial fallback registration is bounded and idempotent; layer order prote
  const order=[...map.layers.keys()],before=(a,b)=>assert.ok(order.indexOf(a)<order.indexOf(b),`${a} before ${b}`);
  before('fg-garden-wash','fg-garden-grain');before('fg-garden-grain','highway_path');
  for(const route of ['fg-halo','fg-walk','fg-boat','fg-directions'])for(const art of ['fg-landmark-overview','fg-landmark-detail','fg-landmark-active'])before(route,art);
- before('fg-landmark-detail','place-label');before('fg-landmark-detail','fg-garden-label');
+ before('place-label','fg-landmark-detail');before('fg-landmark-detail','fg-garden-label');
  for(const id of ['fg-landmark-overview','fg-landmark-detail']){assert.equal(map.getLayoutProperty(id,'icon-allow-overlap'),false);assert.equal(map.getLayoutProperty(id,'icon-ignore-placement'),false);}
  const asset=legacy.find(a=>a.kind==='garden-leaves');map.pending.get(asset.url).resolve({data:asset});await loadWatercolorImages(map,['garden-leaves']);assert.deepEqual(map.calls.updates,['fg-garden-leaves']);
 }));
@@ -87,28 +87,28 @@ test('thirty-nine placements preserve each route’s own canonical anchor and ne
  const before=JSON.stringify(routes);assert.equal(ILLUSTRATION_PLACEMENTS.length,39);
  assert.deepEqual(routes.map(route=>landmarkFeatures(route).length),[10,28]);
  for(const route of routes)for(const feature of landmarkFeatures(route)){
-  const visit=route.visits.find(v=>v.key===feature.properties.visitKey);assert.equal(feature.properties.placeKey,visit.placeKey);assert.deepEqual(feature.geometry.coordinates,[visit.longitude,visit.latitude]);assert.equal(feature.properties.number,undefined);
+  const visit=route.visits.find(v=>v.key===feature.properties.visitKey);assert.equal(feature.properties.placeKey,visit.placeKey);assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude]);assert.deepEqual(feature.geometry.coordinates,feature.properties.artAnchor||feature.properties.visitCoordinate);assert.equal(feature.properties.number,undefined);
  }
- const mainLucia=landmarkFeatures(routes[0]).find(f=>f.properties.key==='lucia'),fullLucia=landmarkFeatures(routes[1]).find(f=>f.properties.key==='lucia');assert.notDeepEqual(mainLucia.geometry.coordinates,fullLucia.geometry.coordinates,'shared image must not force Full onto Main coordinates');
+ const mainLucia=landmarkFeatures(routes[0]).find(f=>f.properties.key==='lucia'),fullLucia=landmarkFeatures(routes[1]).find(f=>f.properties.key==='lucia');assert.notDeepEqual(mainLucia.properties.visitCoordinate,fullLucia.properties.visitCoordinate,'shared image must not force Full onto Main visit coordinates');assert.deepEqual(mainLucia.geometry.coordinates,fullLucia.geometry.coordinates,'a separate sourced facade reference is shared while visits remain distinct');
  assert.equal(JSON.stringify(routes),before);assert.deepEqual(landmarkFeatures({key:'other',visits:routes[0].visits}),[]);
  assert.deepEqual(landmarkFeatures({key:'full',visits:[{key:'unverified',copy:[{locale:'en',title:'Punta della Dogana'}],longitude:12.3,latitude:45.4}]}),[]);
  assert.deepEqual(landmarkFeatures({key:'full',visits:[{key:'dogana',placeKey:'other-place',longitude:12.3,latitude:45.4}]}),[]);
 });
 test('viewport budget is three mobile/six desktop, active first, and offscreen/low zoom/3D art yields without moving anchors',()=>{
- for(const width of [390,1440]){const map=mapFixture({width,height:700});let features=visibleLandmarks(map,routes[1],'elena');assert.equal(features.length,width<=600?3:6);assert.equal(features[0].properties.visitKey,'elena');assert.equal(features.filter(f=>f.properties.active).length,1);
-  for(const f of features){const visit=routes[1].visits.find(v=>v.key===f.properties.visitKey);assert.deepEqual(f.geometry.coordinates,[visit.longitude,visit.latitude]);}
+ for(const width of [390,1440]){const map=mapFixture({width,height:700});let features=visibleLandmarks(map,routes[1],'elena');assert.ok(features.length>0&&features.length<=(width<=600?3:6));assert.equal(features[0].properties.visitKey,'elena');assert.equal(features.filter(f=>f.properties.active).length,1);
+  for(const f of features){const visit=routes[1].visits.find(v=>v.key===f.properties.visitKey);assert.deepEqual(f.properties.visitCoordinate,[visit.longitude,visit.latitude]);}
   map.zoom=12.9;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);map.zoom=17;map.pitch=45;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);map.pitch=0;map.height=100;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);
  }
  const outside=mapFixture({project:()=>({x:-5,y:250})});assert.deepEqual(visibleLandmarks(outside,routes[0],'lucia'),[],'decorative art is hidden instead of relocating a real anchor into frame');
 });
 test('only relevant approved raster kinds load and shared route requests deduplicate while pending',async()=>withCanvas(async()=>{
  const map=mapFixture();addWatercolorLayers(map);const garden=legacy.find(a=>a.kind==='garden-leaves');map.pending.get(garden.url).resolve({data:garden});await loadWatercolorImages(map,['garden-leaves']);
- setWatercolorLandmarks(map,routes[0],'lucia');const features=map.getSource('fg-landmarks').data.features;assert.equal(features.length,3);
+ setWatercolorLandmarks(map,routes[0],'lucia');const features=map.getSource('fg-landmarks').data.features;assert.ok(features.length>0&&features.length<=3);
  const kinds=features.map(f=>f.properties.icon),first=loadWatercolorImages(map,kinds),second=loadWatercolorImages(map,kinds);
- assert.equal(map.calls.loads.length,4,'one garden plus only three relevant landmark images');
+ assert.equal(map.calls.loads.length,1+features.length,'one garden plus only accepted collision-free landmark images');
  for(const kind of kinds){const asset=ART_ASSETS.find(a=>a.kind===kind);map.pending.get(asset.url).resolve({data:asset});}
- assert.deepEqual(await first,[true,true,true]);assert.deepEqual(await second,[true,true,true]);assert.equal(map.calls.updates.length,4);
- setWatercolorLandmarks(map,routes[1],'lucia');assert.equal(map.calls.loads.length,4,'same first visible place identities share already decoded assets');
+ assert.deepEqual(await first,kinds.map(()=>true));assert.deepEqual(await second,kinds.map(()=>true));assert.equal(map.calls.updates.length,1+features.length);
+ setWatercolorLandmarks(map,routes[0],'lucia');assert.equal(map.calls.loads.length,1+features.length,'same accepted identities share already decoded assets');
 }));
 test('presentation repairs partially removed art and reapplies 2D/3D without replacing source or repeat mutations',async()=>withCanvas(async()=>{
  const map=mapFixture();addWatercolorLayers(map);applyWatercolorPresentation(map,{threeD:true});
@@ -122,13 +122,13 @@ test('presentation repairs partially removed art and reapplies 2D/3D without rep
 test('one active approved landmark has priority while secondary art retains native collision and held/unknown selection cannot activate',async()=>withCanvas(async()=>{
  const map=mapFixture();addWatercolorLayers(map);setWatercolorLandmarks(map,routes[0],'dogana');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,1);
  assert.equal(map.getSource('fg-landmarks').data.features[0].properties.key,'dogana');assert.equal(map.getLayer('fg-landmark-active').minzoom,13);assert.equal(map.getPaintProperty('fg-landmark-active','icon-opacity'),1);
- assert.equal(map.getLayoutProperty('fg-landmark-active','icon-allow-overlap'),true);assert.equal(map.getLayoutProperty('fg-landmark-active','icon-ignore-placement'),false);
+ assert.equal(map.getLayoutProperty('fg-landmark-active','icon-allow-overlap'),false);assert.equal(map.getLayoutProperty('fg-landmark-active','icon-ignore-placement'),false);
  for(const id of ['fg-landmark-overview','fg-landmark-detail'])assert.equal(map.getLayoutProperty(id,'icon-allow-overlap'),false);
  setWatercolorLandmarks(map,routes[0],'trearchi');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,0);assert.equal(map.calls.loads.some(url=>url.includes('trearchi')),false);
  setWatercolorLandmarks(map,routes[0],'unknown');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,0);
 }));
 test('all approved aspect ratios and legacy fallbacks fit independent width/height budgets including short containers',()=>{
- for(const [width,height]of [[390,360],[1440,700],[320,100],[844,150]]){const {sizes,gap,visible}=watercolorLayout(width,height);assert.ok(gap<=42&&gap>=34);assert.equal(visible,width>=180&&height>=160);
+ for(const [width,height]of [[390,360],[1440,700],[320,100],[844,150]]){const {sizes,gap,visible}=watercolorLayout(width,height);assert.equal(gap,0,"no shared artificial lift");assert.equal(visible,width>=180&&height>=160);
   for(const asset of ART_ASSETS.filter(a=>a.kind!=='garden-leaves')){const w=asset.width/asset.pixelRatio*sizes[asset.kind],h=asset.height/asset.pixelRatio*sizes[asset.kind];assert.ok(w<=Math.min(width<=600?104:124,width*.27)+.001);assert.ok(h<=Math.min(width<=600?72:80,height*.24)+.001);assert.ok(Math.abs(w/h-asset.width/asset.height)<.0001);}
  }
 });

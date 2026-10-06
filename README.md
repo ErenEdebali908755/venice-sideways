@@ -1,5 +1,12 @@
 # Venice Sideways
 
+## Kit 05 — yerel kapılar geçti, kontrollü yayın hazırlanıyor
+
+Ortak durak hikâyesi ve kaynak/inceleme modeli, seçili hikâye alanlarının mevcut çeviri akışı, optik harita kalibrasyonu, tam kadraj fotoğraflar ve gerçek yüksekliği ölçülen admin önizlemesi hazırlandı. Yeni üretim derlemesi ve testler mevcut kodda çalıştırıldı; canlı Kit05 sonucu henüz doğrulanmadı. Google hizmeti yapılandırılmamışsa otomatik çeviri pasif kalır.30 araştırma hikâyesi insan onayı bekleyen taslaktır; TreArchi,25 doğrulanmamış bina referansı ve iki yeni bahçe çizimi ayrıca belirtilir. Etkinlik için CX Lobby/15:45 Europe/Rome biliniyor; takvim tarihi teyit bekler, QR üretilmez.
+
+[Tek güncel durum](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) · [harita ve kaynaklar](docs/watercolor-map-sources.md)
+
+
 Independent multilingual photography walks for **https://venicesideways.com/**.
 
 ## Kit 04 — 6 Ekim 2026 canlı yayın

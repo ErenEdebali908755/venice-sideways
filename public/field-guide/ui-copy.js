@@ -1,6 +1,18 @@
 export const UI_LANGUAGES = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
 // Controls use the existing eight locales. Editorial content keeps reviewed fallback.
 const rows = {
+  "Convent garden · guided visits by reservation": ["Manastır bahçesi · rezervasyonlu rehberli ziyaret", "Giardino del convento · visite accompagnate su prenotazione", "Jardin du couvent · visites guidées sur réservation", "Монастырский сад · экскурсии по предварительной записи", "修道院花园 · 导览参观须预约", "修道院の庭園・要予約のガイド付き見学", "수도원 정원 · 예약 가이드 방문"],
+  "Museum garden · admission conditions apply": ["Müze bahçesi · müze giriş koşulları geçerli", "Giardino del museo · valgono le condizioni d’ingresso", "Jardin du musée · conditions d’admission applicables", "Сад музея · действуют условия входа в музей", "博物馆花园 · 须遵守博物馆入场条件", "美術館の庭園・美術館の入場条件が適用", "미술관 정원 · 미술관 입장 조건 적용"],
+  "Exhibition grounds · ticket and event conditions apply": ["Sergi alanı · bilet ve etkinlik koşulları geçerli", "Area espositiva · valgono le condizioni dei biglietti e dell’evento", "Site d’exposition · conditions de billet et de l’événement applicables", "Выставочная территория · действуют условия билетов и мероприятия", "展览场地 · 须遵守票务和活动条件", "展覧会会場・チケットと催事の条件が適用", "전시 구역 · 티켓과 행사 조건 적용"],
+  "Stop details": ["Durak bilgisi", "Dettagli tappa", "Détails de l’étape", "Об остановке", "站点详情", "スポットの詳細", "장소 정보"],
+  "Nearby green spaces": ["Yakında yeşil alanlar", "Spazi verdi vicini", "Espaces verts à proximité", "Зелёные зоны рядом", "附近绿地", "近くの緑地", "가까운 녹지"],
+  "Public green space · check current access": ["Kamusal yeşil alan · güncel erişimi kontrol et", "Spazio verde pubblico · verifica l’accesso attuale", "Espace vert public · vérifiez l’accès actuel", "Общественная зелёная зона · проверьте условия входа", "公共绿地 · 请确认当前通行条件", "公共の緑地・現在の入場条件を確認", "공공 녹지 · 현재 출입 조건을 확인하세요"],
+  "Public garden · check the foundation’s access information": ["Kamu bahçesi · vakfın güncel erişim bilgisini kontrol et", "Giardino pubblico · verifica le informazioni della fondazione", "Jardin public · consultez les informations de la fondation", "Общественный сад · проверьте сведения фонда о входе", "公共花园 · 请查看基金会的入园信息", "公共の庭園・財団の入場案内を確認", "공공 정원 · 재단의 출입 안내를 확인하세요"],
+  "Close stop details": ["Durak bilgisini kapat", "Chiudi dettagli", "Fermer les détails", "Закрыть сведения", "关闭详情", "詳細を閉じる", "정보 닫기"],
+  "A short history": ["Kısa tarih", "Una breve storia", "Un peu d’histoire", "Краткая история", "简史", "短い歴史", "짧은 역사"],
+  "One detail to notice": ["Fark edilecek bir ayrıntı", "Un dettaglio da osservare", "Un détail à remarquer", "Деталь, которую стоит заметить", "值得留意的细节", "注目したい細部", "눈여겨볼 디테일"],
+  "Sources": ["Kaynaklar", "Fonti", "Sources utilisées", "Источники", "资料来源", "出典", "자료 출처"],
+  "Private draft · story awaiting review": ["Özel taslak · anlatı inceleme bekliyor", "Bozza privata · storia da verificare", "Brouillon privé · récit à vérifier", "Частный черновик · история на проверке", "私有草稿 · 故事待审核", "非公開の下書き・物語は確認待ち", "비공개 초안 · 이야기 검토 대기"],
   "Description in English": ["İngilizce açıklama", "Descrizione in inglese", "Description en anglais", "Описание на английском", "英文说明", "英語の説明", "영어 설명"],
   "Illustration awaiting identity review.": ["Çizimin yer kimliği kontrol bekliyor.", "Illustrazione in attesa di verifica del luogo raffigurato.", "Illustration en attente de vérification du lieu représenté.", "Иллюстрация ожидает проверки изображённого места.", "插画所描绘的地点待核实。", "イラストに描かれた場所は確認待ちです。", "그림에 묘사된 장소를 확인 중입니다."],
   "Illustration unavailable": ["Çizim yüklenemedi", "Illustrazione non disponibile", "Illustration indisponible", "Иллюстрация недоступна", "插画无法显示", "イラストを表示できません", "그림을 표시할 수 없습니다"],

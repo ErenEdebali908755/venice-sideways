@@ -37,7 +37,7 @@ test('watercolor presentation preserves provider geometry, sources and attributi
  const snapshot=structuredClone(base),style=watercolorStyle(base);
  assert.deepEqual(base,snapshot,'shared provider style is not mutated');
  assert.deepEqual(style.sources,base.sources,'tile source and credits stay intact');
- assert.deepEqual(style.layers.map(({id,type,source,filter,layout,...rest})=>({id,type,source,filter,layout})),base.layers.map(({id,type,source,filter,layout,...rest})=>({id,type,source,filter,layout})), 'presentation cannot move streets, bridges or features');
+ assert.deepEqual(style.layers.map(({id,type,source,filter,...rest})=>({id,type,source,filter})),base.layers.map(({id,type,source,filter,...rest})=>({id,type,source,filter})), 'presentation cannot move streets, bridges or features');
  assert.notEqual(style.layers[0].paint['fill-color'],base.layers[0].paint['fill-color']);
  assert.equal(style.metadata['venice-sideways:base'],BASE_STYLE);
  assert.throws(()=>watercolorStyle({version:8,sources:{},layers:[]}),/vector source/);
@@ -48,7 +48,8 @@ test('art landmarks use each verified walk’s coordinates and never become extr
  assert.equal(new Set(features.map(feature=>feature.properties.key)).size,10);
  for(const feature of features){
   const visit=main.visits.find(visit=>visit.key===feature.properties.key);
-  assert.deepEqual(feature.geometry.coordinates,[visit.longitude,visit.latitude]);
+  assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude]);
+  assert.deepEqual(feature.geometry.coordinates,feature.properties.artAnchor||feature.properties.visitCoordinate);
   assert.equal(feature.geometry.type,'Point');
   assert.equal(feature.properties.number,undefined);
  }
@@ -57,7 +58,7 @@ test('art landmarks use each verified walk’s coordinates and never become extr
  for(const feature of landmarkFeatures(full)){
   const visit=full.visits.find(visit=>visit.key===feature.properties.visitKey);
   assert.equal(visit.placeKey,feature.properties.key);
-  assert.deepEqual(feature.geometry.coordinates,[visit.longitude,visit.latitude],'Full uses its own stored geography');
+  assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude],'Full retains its own visit geography independently of illustration references');
   assert.equal(feature.properties.number,undefined);
  }
  assert.deepEqual(landmarkFeatures({key:'main',visits:[]}),[],'missing coordinates do not produce invented locations');

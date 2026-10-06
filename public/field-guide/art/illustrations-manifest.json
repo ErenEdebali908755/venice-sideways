@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "version": "20261006-kit04",
+  "schemaVersion": 2,
+  "version": "20261006-kit05",
   "source": "User supplied venice-sideways-unified-visual-kit-04-2026-10-06",
   "registrySHA256": "82feed012da66ca0e90e1da3341b46d110df4d86040927c31a7e339d54f95216",
   "placementRegistrySHA256": "69cbf68d8c3e0d355abd46dbc768186bc493c3ca79d6c4c30a3a3daebb53954d",
@@ -14,197 +14,692 @@
     {
       "route": "main",
       "visitKey": "lucia",
-      "placeKey": "lucia"
+      "placeKey": "lucia",
+      "visitCoordinate": [
+        12.32145,
+        45.44085
+      ],
+      "artAnchor": [
+        12.3207822,
+        45.44077515
+      ],
+      "imageGroundPointPx": [
+        160.83772700644406,
+        108.82193548387097
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "full",
       "visitKey": "lucia",
-      "placeKey": "lucia"
+      "placeKey": "lucia",
+      "visitCoordinate": [
+        12.3213,
+        45.4404
+      ],
+      "artAnchor": [
+        12.3207822,
+        45.44077515
+      ],
+      "imageGroundPointPx": [
+        160.83772700644406,
+        108.82193548387097
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "main",
       "visitKey": "giacomo",
-      "placeKey": "giacomo"
+      "placeKey": "giacomo",
+      "visitCoordinate": [
+        12.3271,
+        45.4402
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        187.59361851332397,
+        202.6712990936556
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "giacomo",
-      "placeKey": "giacomo"
+      "placeKey": "giacomo",
+      "visitCoordinate": [
+        12.3271,
+        45.4402
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        187.59361851332397,
+        202.6712990936556
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "frari",
-      "placeKey": "frari"
+      "placeKey": "frari",
+      "visitCoordinate": [
+        12.32568,
+        45.4371
+      ],
+      "artAnchor": [
+        12.326363875008484,
+        45.436857719639036
+      ],
+      "imageGroundPointPx": [
+        232.06898817345598,
+        226.06308157099699
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "full",
       "visitKey": "frari",
-      "placeKey": "frari"
+      "placeKey": "frari",
+      "visitCoordinate": [
+        12.32568,
+        45.4371
+      ],
+      "artAnchor": [
+        12.326363875008484,
+        45.436857719639036
+      ],
+      "imageGroundPointPx": [
+        232.06898817345598,
+        226.06308157099699
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "main",
       "visitKey": "margherita",
-      "placeKey": "margherita"
+      "placeKey": "margherita",
+      "visitCoordinate": [
+        12.323822,
+        45.4344
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        225.55155010814707,
+        256.7535211267606
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "margherita",
-      "placeKey": "margherita"
+      "placeKey": "margherita",
+      "visitCoordinate": [
+        12.323822,
+        45.4344
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        225.55155010814707,
+        256.7535211267606
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "barnaba",
-      "placeKey": "barnaba"
+      "placeKey": "barnaba",
+      "visitCoordinate": [
+        12.3254,
+        45.43335
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        225.72957839262187,
+        213.96326368159203
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "barnaba",
-      "placeKey": "barnaba"
+      "placeKey": "barnaba",
+      "visitCoordinate": [
+        12.3254,
+        45.43335
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        225.72957839262187,
+        213.96326368159203
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "trovaso",
-      "placeKey": "trovaso"
+      "placeKey": "trovaso",
+      "visitCoordinate": [
+        12.327,
+        45.43008
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        172.8371409921671,
+        164.9259375
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "trovaso",
-      "placeKey": "trovaso"
+      "placeKey": "trovaso",
+      "visitCoordinate": [
+        12.327,
+        45.43008
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        172.8371409921671,
+        164.9259375
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "zattere",
-      "placeKey": "zattere"
+      "placeKey": "zattere",
+      "visitCoordinate": [
+        12.32761,
+        45.42928
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        168.14212058212058,
+        192.7723170731707
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "zattere",
-      "placeKey": "zattere"
+      "placeKey": "zattere",
+      "visitCoordinate": [
+        12.32761,
+        45.42928
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        168.14212058212058,
+        192.7723170731707
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "dogana",
-      "placeKey": "dogana"
+      "placeKey": "dogana",
+      "visitCoordinate": [
+        12.33625,
+        45.43069
+      ],
+      "artAnchor": [
+        12.336151621786827,
+        45.430794888061314
+      ],
+      "imageGroundPointPx": [
+        164.86608,
+        167.9079060265577
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "full",
       "visitKey": "dogana",
-      "placeKey": "dogana"
+      "placeKey": "dogana",
+      "visitCoordinate": [
+        12.33625,
+        45.43069
+      ],
+      "artAnchor": [
+        12.336151621786827,
+        45.430794888061314
+      ],
+      "imageGroundPointPx": [
+        164.86608,
+        167.9079060265577
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "main",
       "visitKey": "accademia",
-      "placeKey": "accademia"
+      "placeKey": "accademia",
+      "visitCoordinate": [
+        12.32891,
+        45.43166
+      ],
+      "artAnchor": [
+        12.328915970800372,
+        45.43164318814629
+      ],
+      "imageGroundPointPx": [
+        165.23798627002287,
+        116.41384965831435
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "full",
       "visitKey": "accademia",
-      "placeKey": "accademia"
+      "placeKey": "accademia",
+      "visitCoordinate": [
+        12.32899,
+        45.43164
+      ],
+      "artAnchor": [
+        12.328915970800372,
+        45.43164318814629
+      ],
+      "imageGroundPointPx": [
+        165.23798627002287,
+        116.41384965831435
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "main",
       "visitKey": "trearchi",
-      "placeKey": "trearchi"
+      "placeKey": "trearchi",
+      "visitCoordinate": [
+        12.32074,
+        45.44557
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        165.69688947716745,
+        139.81548979591835
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "held",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "main",
       "visitKey": "vino",
-      "placeKey": "vino"
+      "placeKey": "vino",
+      "visitCoordinate": [
+        12.33309,
+        45.44405
+      ],
+      "artAnchor": [
+        12.3330905,
+        45.4440492
+      ],
+      "imageGroundPointPx": [
+        170.27634660421546,
+        228.10091379310344
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
     },
     {
       "route": "full",
       "visitKey": "guglie",
-      "placeKey": "guglie"
+      "placeKey": "guglie",
+      "visitCoordinate": [
+        12.32527,
+        45.44356
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        150.81909814323606,
+        175.27586206896552
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "ghetto",
-      "placeKey": "ghetto"
+      "placeKey": "ghetto",
+      "visitCoordinate": [
+        12.3275,
+        45.44525
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        178.12617187499998,
+        182.59477567298106
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "ormesini",
-      "placeKey": "ormesini"
+      "placeKey": "ormesini",
+      "visitCoordinate": [
+        12.328,
+        45.44605
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        186.7761811023622,
+        163.6318116683726
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "orto",
-      "placeKey": "orto"
+      "placeKey": "orto",
+      "visitCoordinate": [
+        12.33235,
+        45.44621
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        173.562256097561,
+        266.4373018549747
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "misericordia",
-      "placeKey": "misericordia"
+      "placeKey": "misericordia",
+      "visitCoordinate": [
+        12.33312,
+        45.44405
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        163.0125,
+        122.02031890660594
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "chiodo",
-      "placeKey": "chiodo"
+      "placeKey": "chiodo",
+      "visitCoordinate": [
+        12.33459,
+        45.44288
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        151.90876671619614,
+        230.59122965641953
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "rialto",
-      "placeKey": "rialto"
+      "placeKey": "rialto",
+      "visitCoordinate": [
+        12.3354,
+        45.4381
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        167.99767441860465,
+        165.62390946502057
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "polo",
-      "placeKey": "polo"
+      "placeKey": "polo",
+      "visitCoordinate": [
+        12.32925,
+        45.43735
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        130.44247557003257,
+        184.6810598626104
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "salute",
-      "placeKey": "salute"
+      "placeKey": "salute",
+      "visitCoordinate": [
+        12.33439,
+        45.43086
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        172.29064814814816,
+        261.17171717171715
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "stefano",
-      "placeKey": "stefano"
+      "placeKey": "stefano",
+      "visitCoordinate": [
+        12.3313,
+        45.43303
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        154.2060709592641,
+        199.81714285714287
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "marco",
-      "placeKey": "marco"
+      "placeKey": "marco",
+      "visitCoordinate": [
+        12.33873,
+        45.43404
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        232.82973158981417,
+        235.67703125000003
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "schiavoni",
-      "placeKey": "schiavoni"
+      "placeKey": "schiavoni",
+      "visitCoordinate": [
+        12.34415,
+        45.43342
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        172.79662059433306,
+        180.90375249500997
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "arsenale",
-      "placeKey": "arsenale"
+      "placeKey": "arsenale",
+      "visitCoordinate": [
+        12.34984,
+        45.43482
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        173.09307520476546,
+        247.69352836879438
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "tana",
-      "placeKey": "tana"
+      "placeKey": "tana",
+      "visitCoordinate": [
+        12.351705,
+        45.433188
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        179.53580814717478,
+        184.05540886699507
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "garibaldi",
-      "placeKey": "garibaldi"
+      "placeKey": "garibaldi",
+      "visitCoordinate": [
+        12.35412,
+        45.43226
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        160.3753581661891,
+        190.83787721123826
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "viale",
-      "placeKey": "viale"
+      "placeKey": "viale",
+      "visitCoordinate": [
+        12.35633,
+        45.43089
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        221.04830486202366,
+        246.35914597815292
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "giardini",
-      "placeKey": "giardini"
+      "placeKey": "giardini",
+      "visitCoordinate": [
+        12.356997,
+        45.429291
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        229.65235294117647,
+        240.7319475982533
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "sette",
-      "placeKey": "sette"
+      "placeKey": "sette",
+      "visitCoordinate": [
+        12.3551,
+        45.42908
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        152.51642575558475,
+        164.6380857427717
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
       "route": "full",
       "visitKey": "elena",
-      "placeKey": "elena"
+      "placeKey": "elena",
+      "visitCoordinate": [
+        12.36149,
+        45.4251
+      ],
+      "artAnchor": null,
+      "imageGroundPointPx": [
+        155.23728813559322,
+        269.3793577981652
+      ],
+      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
+      "placementMode": "bounded-callout",
+      "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     }
   ],
   "assets": [
@@ -246,7 +741,11 @@
           "top": 19,
           "width": 1707,
           "height": 868
-        }
+        },
+        "imageGroundPointPx": [
+          887,
+          594.96
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -277,7 +776,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.9665898617511521,
-          "aspectErrorPx": 0.7396313364055231
+          "aspectErrorPx": 0.7396313364055231,
+          "imageGroundPointPx": [
+            80.66783831282953,
+            54.41096774193549
+          ],
+          "sourceScale": [
+            0.09490333919156414,
+            0.0944700460829493
+          ]
         },
         "map2x": {
           "file": "art/kit-lucia-map2x-7a02a01ba9b3.png",
@@ -294,7 +801,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.9665898617511521,
-          "aspectErrorPx": 0.4792626728110454
+          "aspectErrorPx": 0.4792626728110454,
+          "imageGroundPointPx": [
+            160.83772700644406,
+            108.82193548387097
+          ],
+          "sourceScale": [
+            0.18922085530169888,
+            0.1889400921658986
+          ]
         },
         "card": {
           "file": "art/kit-lucia-card-9c373ac455d9.png",
@@ -311,8 +826,61 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.9665898617511521,
-          "aspectErrorPx": 0.9585253456220908
+          "aspectErrorPx": 0.9585253456220908,
+          "imageGroundPointPx": [
+            321.6754540128881,
+            217.64387096774195
+          ],
+          "sourceScale": [
+            0.37844171060339776,
+            0.3778801843317972
+          ]
         }
+      },
+      "artAnchor": [
+        12.3207822,
+        45.44077515
+      ],
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "geographic-reference-checked; optical annotation reviewed",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "coordinate": [
+            12.3207822,
+            45.44077515
+          ],
+          "referenceType": "Midpoint of the mapped southeast main facade edge",
+          "sourceURL": "https://www.openstreetmap.org/way/138841071",
+          "sourceVersion": 22,
+          "sourceName": "Stazione Santa Lucia",
+          "checkedAt": "2026-10-06",
+          "edgeNodes": [
+            1522334295,
+            1892949973
+          ],
+          "geometry": [
+            [
+              12.320371,
+              45.4405841
+            ],
+            [
+              12.3211934,
+              45.4409662
+            ]
+          ],
+          "uncertainty": "OSM facade reference; no survey precision claim"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -353,7 +921,11 @@
           "top": 31,
           "width": 1426,
           "height": 993
-        }
+        },
+        "imageGroundPointPx": [
+          766.5,
+          859.2
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -383,7 +955,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.23766364551864694
+          "aspectErrorPx": 0.23766364551864694,
+          "imageGroundPointPx": [
+            93.52805049088359,
+            100.91863041289024
+          ],
+          "sourceScale": [
+            0.12201963534361851,
+            0.12185297079556898
+          ]
         },
         "map2x": {
           "file": "art/kit-giacomo-map2x-81212cc241ea.png",
@@ -400,7 +980,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.0392749244713122
+          "aspectErrorPx": 0.0392749244713122,
+          "imageGroundPointPx": [
+            187.59361851332397,
+            202.6712990936556
+          ],
+          "sourceScale": [
+            0.2447405329593268,
+            0.24471299093655588
+          ]
         },
         "card": {
           "file": "art/kit-giacomo-card-3ec877c627cd.png",
@@ -417,8 +1005,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.5146022155085805
+          "aspectErrorPx": 0.5146022155085805,
+          "imageGroundPointPx": [
+            374.6497194950912,
+            404.50855991943604
+          ],
+          "sourceScale": [
+            0.4887798036465638,
+            0.48841893252769386
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -459,7 +1075,11 @@
           "top": 31,
           "width": 1522,
           "height": 993
-        }
+        },
+        "imageGroundPointPx": [
+          894.1999999999999,
+          901.08
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -490,7 +1110,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5327291037260826,
-          "aspectErrorPx": 0.27794561933535
+          "aspectErrorPx": 0.27794561933535,
+          "imageGroundPointPx": [
+            116.32825229960577,
+            113.03154078549849
+          ],
+          "sourceScale": [
+            0.13009198423127463,
+            0.1299093655589124
+          ]
         },
         "map2x": {
           "file": "art/kit-frari-map2x-62bf26a89cca.png",
@@ -507,7 +1135,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5327291037260826,
-          "aspectErrorPx": 0.44410876132930177
+          "aspectErrorPx": 0.44410876132930177,
+          "imageGroundPointPx": [
+            232.06898817345598,
+            226.06308157099699
+          ],
+          "sourceScale": [
+            0.259526938239159,
+            0.2598187311178248
+          ]
         },
         "card": {
           "file": "art/kit-frari-card-4f94d6c22a68.png",
@@ -524,8 +1160,974 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5327291037260826,
-          "aspectErrorPx": 0.11178247734139823
+          "aspectErrorPx": 0.11178247734139823,
+          "imageGroundPointPx": [
+            464.7254927726675,
+            452.12616314199397
+          ],
+          "sourceScale": [
+            0.5197109067017083,
+            0.5196374622356495
+          ]
         }
+      },
+      "artAnchor": [
+        12.326363875008484,
+        45.436857719639036
+      ],
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "geographic-reference-checked; optical annotation reviewed",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "coordinate": [
+            12.326363875008484,
+            45.436857719639036
+          ],
+          "referenceType": "Named church building area centroid",
+          "sourceURL": "https://www.openstreetmap.org/way/138841819",
+          "sourceVersion": 22,
+          "sourceTimestamp": "2026-09-15T17:41:28Z",
+          "sourceName": "Basilica di Santa Maria Gloriosa dei Frari",
+          "checkedAt": "2026-10-06",
+          "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+          "geometry": [
+            [
+              12.3256936,
+              45.4367948
+            ],
+            [
+              12.3256944,
+              45.4368
+            ],
+            [
+              12.3256976,
+              45.4367997
+            ],
+            [
+              12.3256991,
+              45.4368135
+            ],
+            [
+              12.3256963,
+              45.4368139
+            ],
+            [
+              12.3256961,
+              45.4368187
+            ],
+            [
+              12.3257016,
+              45.4368218
+            ],
+            [
+              12.3257048,
+              45.4368203
+            ],
+            [
+              12.3257238,
+              45.4368312
+            ],
+            [
+              12.3257263,
+              45.4368331
+            ],
+            [
+              12.3257241,
+              45.4368348
+            ],
+            [
+              12.3257653,
+              45.4368595
+            ],
+            [
+              12.3257491,
+              45.4368733
+            ],
+            [
+              12.3257592,
+              45.4368794
+            ],
+            [
+              12.3257268,
+              45.4369061
+            ],
+            [
+              12.325789,
+              45.4369401
+            ],
+            [
+              12.3258213,
+              45.4369142
+            ],
+            [
+              12.3258368,
+              45.4369244
+            ],
+            [
+              12.3258985,
+              45.4369592
+            ],
+            [
+              12.3259185,
+              45.4369712
+            ],
+            [
+              12.3259886,
+              45.4370117
+            ],
+            [
+              12.326065,
+              45.4369466
+            ],
+            [
+              12.3260746,
+              45.4369392
+            ],
+            [
+              12.3261355,
+              45.4368859
+            ],
+            [
+              12.3262451,
+              45.4369534
+            ],
+            [
+              12.3263498,
+              45.4370179
+            ],
+            [
+              12.3266744,
+              45.4372178
+            ],
+            [
+              12.3267558,
+              45.4372681
+            ],
+            [
+              12.3267524,
+              45.4372715
+            ],
+            [
+              12.3267673,
+              45.4372812
+            ],
+            [
+              12.3267726,
+              45.437284
+            ],
+            [
+              12.3267792,
+              45.4372791
+            ],
+            [
+              12.326789,
+              45.4372709
+            ],
+            [
+              12.3267812,
+              45.4372653
+            ],
+            [
+              12.3268261,
+              45.4372286
+            ],
+            [
+              12.326835,
+              45.4372344
+            ],
+            [
+              12.3268497,
+              45.4372226
+            ],
+            [
+              12.3268397,
+              45.4372165
+            ],
+            [
+              12.3268593,
+              45.4372019
+            ],
+            [
+              12.326863,
+              45.4372029
+            ],
+            [
+              12.3268667,
+              45.4372025
+            ],
+            [
+              12.326869,
+              45.437201
+            ],
+            [
+              12.3268704,
+              45.4371988
+            ],
+            [
+              12.3268696,
+              45.4371969
+            ],
+            [
+              12.3268676,
+              45.4371947
+            ],
+            [
+              12.3268794,
+              45.4371824
+            ],
+            [
+              12.3268764,
+              45.4371807
+            ],
+            [
+              12.3268901,
+              45.4371695
+            ],
+            [
+              12.3269038,
+              45.4371582
+            ],
+            [
+              12.3269066,
+              45.4371596
+            ],
+            [
+              12.3269189,
+              45.437152
+            ],
+            [
+              12.3269229,
+              45.4371532
+            ],
+            [
+              12.3269261,
+              45.4371531
+            ],
+            [
+              12.3269277,
+              45.4371522
+            ],
+            [
+              12.3269293,
+              45.4371511
+            ],
+            [
+              12.3269309,
+              45.4371489
+            ],
+            [
+              12.3269305,
+              45.4371476
+            ],
+            [
+              12.3269296,
+              45.4371461
+            ],
+            [
+              12.3269273,
+              45.4371446
+            ],
+            [
+              12.3269455,
+              45.4371295
+            ],
+            [
+              12.3269564,
+              45.4371355
+            ],
+            [
+              12.3269713,
+              45.4371234
+            ],
+            [
+              12.3269612,
+              45.4371161
+            ],
+            [
+              12.3270045,
+              45.4370808
+            ],
+            [
+              12.3270146,
+              45.4370863
+            ],
+            [
+              12.3270322,
+              45.4370718
+            ],
+            [
+              12.3270136,
+              45.4370595
+            ],
+            [
+              12.3270078,
+              45.4370647
+            ],
+            [
+              12.3270006,
+              45.4370599
+            ],
+            [
+              12.3269984,
+              45.4370584
+            ],
+            [
+              12.326913,
+              45.437006
+            ],
+            [
+              12.3269184,
+              45.4370013
+            ],
+            [
+              12.3269031,
+              45.4369925
+            ],
+            [
+              12.3268978,
+              45.4369972
+            ],
+            [
+              12.3268048,
+              45.4369403
+            ],
+            [
+              12.3268096,
+              45.4369363
+            ],
+            [
+              12.3267971,
+              45.4369282
+            ],
+            [
+              12.3267914,
+              45.4369323
+            ],
+            [
+              12.3267821,
+              45.4369258
+            ],
+            [
+              12.3267849,
+              45.4369234
+            ],
+            [
+              12.3267769,
+              45.4369175
+            ],
+            [
+              12.3267563,
+              45.4369128
+            ],
+            [
+              12.326728,
+              45.4368959
+            ],
+            [
+              12.3267151,
+              45.4368842
+            ],
+            [
+              12.3267166,
+              45.4368831
+            ],
+            [
+              12.326708,
+              45.4368789
+            ],
+            [
+              12.3267064,
+              45.4368804
+            ],
+            [
+              12.3266961,
+              45.4368739
+            ],
+            [
+              12.3267014,
+              45.4368697
+            ],
+            [
+              12.3266874,
+              45.4368608
+            ],
+            [
+              12.3266811,
+              45.4368654
+            ],
+            [
+              12.3266259,
+              45.4368312
+            ],
+            [
+              12.326634,
+              45.436824
+            ],
+            [
+              12.3266264,
+              45.4368198
+            ],
+            [
+              12.3266823,
+              45.4367747
+            ],
+            [
+              12.32669,
+              45.4367793
+            ],
+            [
+              12.3267012,
+              45.4367707
+            ],
+            [
+              12.3266876,
+              45.4367621
+            ],
+            [
+              12.3266804,
+              45.4367678
+            ],
+            [
+              12.3265982,
+              45.4367148
+            ],
+            [
+              12.3266043,
+              45.4367094
+            ],
+            [
+              12.3265922,
+              45.4367015
+            ],
+            [
+              12.326585,
+              45.4367068
+            ],
+            [
+              12.326435,
+              45.4366157
+            ],
+            [
+              12.3264405,
+              45.4366106
+            ],
+            [
+              12.326432,
+              45.436605
+            ],
+            [
+              12.3264263,
+              45.4366101
+            ],
+            [
+              12.3263668,
+              45.4365733
+            ],
+            [
+              12.3263715,
+              45.4365687
+            ],
+            [
+              12.3263676,
+              45.4365669
+            ],
+            [
+              12.3264179,
+              45.4365264
+            ],
+            [
+              12.3264226,
+              45.4365288
+            ],
+            [
+              12.3264332,
+              45.4365195
+            ],
+            [
+              12.3264201,
+              45.4365128
+            ],
+            [
+              12.3264155,
+              45.4365163
+            ],
+            [
+              12.3263662,
+              45.4364856
+            ],
+            [
+              12.3263707,
+              45.4364826
+            ],
+            [
+              12.3263576,
+              45.4364741
+            ],
+            [
+              12.3263536,
+              45.4364772
+            ],
+            [
+              12.3263328,
+              45.4364653
+            ],
+            [
+              12.3263358,
+              45.4364632
+            ],
+            [
+              12.3263318,
+              45.4364612
+            ],
+            [
+              12.326325,
+              45.4364603
+            ],
+            [
+              12.326325,
+              45.4364624
+            ],
+            [
+              12.3262875,
+              45.4364635
+            ],
+            [
+              12.3262875,
+              45.4364617
+            ],
+            [
+              12.3262811,
+              45.4364618
+            ],
+            [
+              12.3262778,
+              45.436465
+            ],
+            [
+              12.3262804,
+              45.436466
+            ],
+            [
+              12.3262624,
+              45.4364811
+            ],
+            [
+              12.3262606,
+              45.4364801
+            ],
+            [
+              12.3262575,
+              45.4364826
+            ],
+            [
+              12.3262584,
+              45.436486
+            ],
+            [
+              12.3262616,
+              45.4364861
+            ],
+            [
+              12.3262615,
+              45.4365049
+            ],
+            [
+              12.3262575,
+              45.4365045
+            ],
+            [
+              12.3262592,
+              45.4365004
+            ],
+            [
+              12.326241,
+              45.4364977
+            ],
+            [
+              12.3262391,
+              45.436502
+            ],
+            [
+              12.3262232,
+              45.4364978
+            ],
+            [
+              12.3262235,
+              45.436495
+            ],
+            [
+              12.326218,
+              45.4364948
+            ],
+            [
+              12.3262127,
+              45.436497
+            ],
+            [
+              12.3262141,
+              45.4364993
+            ],
+            [
+              12.3261938,
+              45.436506
+            ],
+            [
+              12.3261927,
+              45.4365042
+            ],
+            [
+              12.3261879,
+              45.4365062
+            ],
+            [
+              12.3261869,
+              45.4365099
+            ],
+            [
+              12.3261904,
+              45.4365107
+            ],
+            [
+              12.3261803,
+              45.436527
+            ],
+            [
+              12.3261761,
+              45.4365266
+            ],
+            [
+              12.3261757,
+              45.4365284
+            ],
+            [
+              12.3261712,
+              45.4365301
+            ],
+            [
+              12.3261731,
+              45.4365325
+            ],
+            [
+              12.3261483,
+              45.4365405
+            ],
+            [
+              12.3261465,
+              45.4365385
+            ],
+            [
+              12.326142,
+              45.4365395
+            ],
+            [
+              12.3261403,
+              45.4365433
+            ],
+            [
+              12.3261438,
+              45.4365441
+            ],
+            [
+              12.3261357,
+              45.4365619
+            ],
+            [
+              12.3261312,
+              45.4365616
+            ],
+            [
+              12.3261303,
+              45.4365645
+            ],
+            [
+              12.3261264,
+              45.4365657
+            ],
+            [
+              12.3261286,
+              45.4365685
+            ],
+            [
+              12.3261063,
+              45.4365753
+            ],
+            [
+              12.3261056,
+              45.4365733
+            ],
+            [
+              12.3260998,
+              45.4365741
+            ],
+            [
+              12.326098,
+              45.4365772
+            ],
+            [
+              12.3261029,
+              45.4365798
+            ],
+            [
+              12.3260926,
+              45.4365969
+            ],
+            [
+              12.3260736,
+              45.4365855
+            ],
+            [
+              12.3260849,
+              45.436576
+            ],
+            [
+              12.3260543,
+              45.436557
+            ],
+            [
+              12.3260432,
+              45.4365655
+            ],
+            [
+              12.3260102,
+              45.4365591
+            ],
+            [
+              12.3260034,
+              45.4365578
+            ],
+            [
+              12.3259631,
+              45.4365629
+            ],
+            [
+              12.3259183,
+              45.4365817
+            ],
+            [
+              12.3258945,
+              45.4366121
+            ],
+            [
+              12.3258947,
+              45.4366397
+            ],
+            [
+              12.3258948,
+              45.4366486
+            ],
+            [
+              12.325912,
+              45.4366752
+            ],
+            [
+              12.3259027,
+              45.4366827
+            ],
+            [
+              12.3259332,
+              45.4367018
+            ],
+            [
+              12.3259463,
+              45.4366914
+            ],
+            [
+              12.3259648,
+              45.4367028
+            ],
+            [
+              12.3259469,
+              45.4367113
+            ],
+            [
+              12.3259442,
+              45.4367093
+            ],
+            [
+              12.3259399,
+              45.4367103
+            ],
+            [
+              12.3259388,
+              45.4367133
+            ],
+            [
+              12.3259427,
+              45.4367145
+            ],
+            [
+              12.3259359,
+              45.4367318
+            ],
+            [
+              12.3259325,
+              45.4367311
+            ],
+            [
+              12.3259309,
+              45.4367349
+            ],
+            [
+              12.3259258,
+              45.4367366
+            ],
+            [
+              12.3259283,
+              45.4367395
+            ],
+            [
+              12.325904,
+              45.4367482
+            ],
+            [
+              12.3259021,
+              45.4367452
+            ],
+            [
+              12.3258966,
+              45.4367462
+            ],
+            [
+              12.3258949,
+              45.4367504
+            ],
+            [
+              12.3258984,
+              45.4367507
+            ],
+            [
+              12.3258924,
+              45.4367688
+            ],
+            [
+              12.325887,
+              45.4367678
+            ],
+            [
+              12.3258856,
+              45.4367706
+            ],
+            [
+              12.3258791,
+              45.4367728
+            ],
+            [
+              12.3258824,
+              45.4367765
+            ],
+            [
+              12.3258614,
+              45.4367823
+            ],
+            [
+              12.3258589,
+              45.4367805
+            ],
+            [
+              12.3258547,
+              45.4367814
+            ],
+            [
+              12.3258517,
+              45.4367853
+            ],
+            [
+              12.3258567,
+              45.4367868
+            ],
+            [
+              12.3258475,
+              45.4368054
+            ],
+            [
+              12.3258342,
+              45.4367964
+            ],
+            [
+              12.3258268,
+              45.4368028
+            ],
+            [
+              12.3258305,
+              45.4368053
+            ],
+            [
+              12.3258186,
+              45.4368148
+            ],
+            [
+              12.3257801,
+              45.436791
+            ],
+            [
+              12.3257774,
+              45.4367931
+            ],
+            [
+              12.325753,
+              45.4367782
+            ],
+            [
+              12.3257552,
+              45.4367764
+            ],
+            [
+              12.3257502,
+              45.4367738
+            ],
+            [
+              12.3257439,
+              45.4367733
+            ],
+            [
+              12.325744,
+              45.4367757
+            ],
+            [
+              12.3257219,
+              45.4367781
+            ],
+            [
+              12.3257213,
+              45.4367765
+            ],
+            [
+              12.3257149,
+              45.4367778
+            ],
+            [
+              12.3257106,
+              45.4367815
+            ],
+            [
+              12.3257134,
+              45.4367828
+            ],
+            [
+              12.3257008,
+              45.4367927
+            ],
+            [
+              12.3256976,
+              45.4367913
+            ],
+            [
+              12.3256936,
+              45.4367948
+            ]
+          ]
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -566,7 +2168,11 @@
           "top": 30,
           "width": 1387,
           "height": 994
-        }
+        },
+        "imageGroundPointPx": [
+          776,
+          840.2
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -596,7 +2202,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.4688128772635638
+          "aspectErrorPx": 0.4688128772635638,
+          "imageGroundPointPx": [
+            112.77577505407353,
+            128.78430583501006
+          ],
+          "sourceScale": [
+            0.15861571737563085,
+            0.158953722334004
+          ]
         },
         "map2x": {
           "file": "art/kit-margherita-map2x-c7510a363410.png",
@@ -613,7 +2227,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.45774647887322106
+          "aspectErrorPx": 0.45774647887322106,
+          "imageGroundPointPx": [
+            225.55155010814707,
+            256.7535211267606
+          ],
+          "sourceScale": [
+            0.3172314347512617,
+            0.31690140845070425
+          ]
         },
         "card": {
           "file": "art/kit-margherita-card-ae224bb5d4fa.png",
@@ -630,8 +2252,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.5201207243461288
+          "aspectErrorPx": 0.5201207243461288,
+          "imageGroundPointPx": [
+            451.6157173756309,
+            514.3221327967807
+          ],
+          "sourceScale": [
+            0.635183850036049,
+            0.6348088531187123
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -672,7 +2322,11 @@
           "top": 19,
           "width": 1518,
           "height": 1005
-        }
+        },
+        "imageGroundPointPx": [
+          835.75,
+          812.4799999999999
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -703,7 +2357,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.4208955223880704
+          "aspectErrorPx": 0.4208955223880704,
+          "imageGroundPointPx": [
+            112.86478919631094,
+            107.37639800995024
+          ],
+          "sourceScale": [
+            0.13504611330698288,
+            0.13532338308457711
+          ]
         },
         "map2x": {
           "file": "art/kit-barnaba-map2x-bd4c74b25174.png",
@@ -720,7 +2382,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.6686567164178789
+          "aspectErrorPx": 0.6686567164178789,
+          "imageGroundPointPx": [
+            225.72957839262187,
+            213.96326368159203
+          ],
+          "sourceScale": [
+            0.27009222661396576,
+            0.26965174129353237
+          ]
         },
         "card": {
           "file": "art/kit-barnaba-card-24f4f4bcd9e1.png",
@@ -737,8 +2407,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.17313432835828158
+          "aspectErrorPx": 0.17313432835828158,
+          "imageGroundPointPx": [
+            451.45915678524375,
+            428.7160597014925
+          ],
+          "sourceScale": [
+            0.5401844532279315,
+            0.5402985074626866
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -779,7 +2477,11 @@
           "top": 0,
           "width": 1532,
           "height": 1024
-        }
+        },
+        "imageGroundPointPx": [
+          776.5,
+          740.72
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -810,7 +2512,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.49609375,
-          "aspectErrorPx": 0.5546875000000031
+          "aspectErrorPx": 0.5546875000000031,
+          "imageGroundPointPx": [
+            86.16514360313316,
+            82.46296875
+          ],
+          "sourceScale": [
+            0.11096605744125326,
+            0.111328125
+          ]
         },
         "map2x": {
           "file": "art/kit-trovaso-map2x-7b1bc9541acc.png",
@@ -827,7 +2537,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.49609375,
-          "aspectErrorPx": 0.1093749999999778
+          "aspectErrorPx": 0.1093749999999778,
+          "imageGroundPointPx": [
+            172.8371409921671,
+            164.9259375
+          ],
+          "sourceScale": [
+            0.22258485639686684,
+            0.22265625
+          ]
         },
         "card": {
           "file": "art/kit-trovaso-card-38f965af34a3.png",
@@ -844,8 +2562,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.49609375,
-          "aspectErrorPx": 0.27734375000000533
+          "aspectErrorPx": 0.27734375000000533,
+          "imageGroundPointPx": [
+            345.1674281984334,
+            329.12851562500003
+          ],
+          "sourceScale": [
+            0.44451697127937334,
+            0.4443359375
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -886,7 +2632,11 @@
           "top": 16,
           "width": 1443,
           "height": 984
-        }
+        },
+        "imageGroundPointPx": [
+          794.72,
+          837.16
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -916,7 +2666,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.10975609756099303
+          "aspectErrorPx": 0.10975609756099303,
+          "imageGroundPointPx": [
+            84.31905751905752,
+            96.80341463414634
+          ],
+          "sourceScale": [
+            0.11781011781011781,
+            0.11788617886178862
+          ]
         },
         "map2x": {
           "file": "art/kit-zattere-map2x-b34a90d186d2.png",
@@ -933,7 +2691,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.24695121951216104
+          "aspectErrorPx": 0.24695121951216104,
+          "imageGroundPointPx": [
+            168.14212058212058,
+            192.7723170731707
+          ],
+          "sourceScale": [
+            0.23492723492723494,
+            0.2347560975609756
+          ]
         },
         "card": {
           "file": "art/kit-zattere-card-5775963efdca.png",
@@ -950,8 +2716,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.027439024390243594
+          "aspectErrorPx": 0.027439024390243594,
+          "imageGroundPointPx": [
+            336.7802356202356,
+            386.37914634146335
+          ],
+          "sourceScale": [
+            0.47054747054747054,
+            0.47052845528455284
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -992,7 +2786,11 @@
           "top": 21,
           "width": 1500,
           "height": 979
-        }
+        },
+        "imageGroundPointPx": [
+          742.64,
+          778.52
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1022,7 +2820,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5321756894790604,
-          "aspectErrorPx": 0.5250255362614755
+          "aspectErrorPx": 0.5250255362614755,
+          "imageGroundPointPx": [
+            82.18549333333333,
+            83.5670684371808
+          ],
+          "sourceScale": [
+            0.11066666666666666,
+            0.11031664964249234
+          ]
         },
         "map2x": {
           "file": "art/kit-dogana-map2x-ee6513123635.png",
@@ -1039,7 +2845,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5321756894790604,
-          "aspectErrorPx": 0.5178753830438827
+          "aspectErrorPx": 0.5178753830438827,
+          "imageGroundPointPx": [
+            164.86608,
+            167.9079060265577
+          ],
+          "sourceScale": [
+            0.222,
+            0.2216547497446374
+          ]
         },
         "card": {
           "file": "art/kit-dogana-card-796ba886b59e.png",
@@ -1056,8 +2870,142 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5321756894790604,
-          "aspectErrorPx": 0.03575076608779382
+          "aspectErrorPx": 0.03575076608779382,
+          "imageGroundPointPx": [
+            329.23706666666664,
+            335.8158120531154
+          ],
+          "sourceScale": [
+            0.44333333333333336,
+            0.4433094994892748
+          ]
         }
+      },
+      "artAnchor": [
+        12.336151621786827,
+        45.430794888061314
+      ],
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "geographic-reference-checked; optical annotation reviewed",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "coordinate": [
+            12.336151621786827,
+            45.430794888061314
+          ],
+          "referenceType": "Named customs building outer-ring area centroid",
+          "sourceURL": "https://www.openstreetmap.org/relation/2317795",
+          "sourceVersion": 5,
+          "sourceTimestamp": "2025-07-24T09:45:17Z",
+          "sourceName": "Punta della Dogana",
+          "checkedAt": "2026-10-06",
+          "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+          "geometry": [
+            [
+              12.3356802,
+              45.4307976
+            ],
+            [
+              12.3356222,
+              45.4309905
+            ],
+            [
+              12.3356035,
+              45.4310525
+            ],
+            [
+              12.3358468,
+              45.4310358
+            ],
+            [
+              12.3367735,
+              45.4309721
+            ],
+            [
+              12.3368644,
+              45.4309818
+            ],
+            [
+              12.3368699,
+              45.4309564
+            ],
+            [
+              12.336876,
+              45.4309571
+            ],
+            [
+              12.336877,
+              45.4309521
+            ],
+            [
+              12.3369226,
+              45.4309569
+            ],
+            [
+              12.336926,
+              45.4309412
+            ],
+            [
+              12.3369299,
+              45.4309234
+            ],
+            [
+              12.3369384,
+              45.4308843
+            ],
+            [
+              12.336894,
+              45.4308796
+            ],
+            [
+              12.3368951,
+              45.4308744
+            ],
+            [
+              12.3368882,
+              45.4308737
+            ],
+            [
+              12.3368934,
+              45.4308481
+            ],
+            [
+              12.3368026,
+              45.4308371
+            ],
+            [
+              12.3358079,
+              45.4303829
+            ],
+            [
+              12.3357528,
+              45.4305129
+            ],
+            [
+              12.3357528,
+              45.4306729
+            ],
+            [
+              12.3357126,
+              45.4306898
+            ],
+            [
+              12.3356802,
+              45.4307976
+            ]
+          ]
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1098,7 +3046,11 @@
           "top": 9,
           "width": 1748,
           "height": 878
-        }
+        },
+        "imageGroundPointPx": [
+          886,
+          632.24
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1129,7 +3081,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.9908883826879271,
-          "aspectErrorPx": 0.2528473804100244
+          "aspectErrorPx": 0.2528473804100244,
+          "imageGroundPointPx": [
+            82.61899313501144,
+            58.206924829157174
+          ],
+          "sourceScale": [
+            0.09324942791762014,
+            0.09339407744874716
+          ]
         },
         "map2x": {
           "file": "art/kit-accademia-map2x-c520080ad1ab.png",
@@ -1146,7 +3106,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.9908883826879271,
-          "aspectErrorPx": 0.5056947608200488
+          "aspectErrorPx": 0.5056947608200488,
+          "imageGroundPointPx": [
+            165.23798627002287,
+            116.41384965831435
+          ],
+          "sourceScale": [
+            0.18649885583524028,
+            0.1867881548974943
+          ]
         },
         "card": {
           "file": "art/kit-accademia-card-b3f12aca1391.png",
@@ -1163,8 +3131,126 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.9908883826879271,
-          "aspectErrorPx": 0.020501138952149
+          "aspectErrorPx": 0.020501138952149,
+          "imageGroundPointPx": [
+            329.9691075514874,
+            232.11785876993167
+          ],
+          "sourceScale": [
+            0.37242562929061784,
+            0.3724373576309795
+          ]
         }
+      },
+      "artAnchor": [
+        12.328915970800372,
+        45.43164318814629
+      ],
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "geographic-reference-checked; optical annotation reviewed",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "coordinate": [
+            12.328915970800372,
+            45.43164318814629
+          ],
+          "referenceType": "Bridge polygon area centroid",
+          "sourceURL": "https://www.openstreetmap.org/way/556239027",
+          "sourceVersion": 14,
+          "sourceTimestamp": "2026-06-22T12:37:48Z",
+          "sourceName": "Ponte dell'Accademia",
+          "checkedAt": "2026-10-06",
+          "uncertainty": "OSM representative point; illustration is perspective annotation, not measured building footprint",
+          "geometry": [
+            [
+              12.3288122,
+              45.431297
+            ],
+            [
+              12.3287423,
+              45.4313721
+            ],
+            [
+              12.3285716,
+              45.431445
+            ],
+            [
+              12.3285884,
+              45.4314641
+            ],
+            [
+              12.3286049,
+              45.4314834
+            ],
+            [
+              12.3287133,
+              45.4314356
+            ],
+            [
+              12.3287285,
+              45.4314547
+            ],
+            [
+              12.3287609,
+              45.4314956
+            ],
+            [
+              12.3290786,
+              45.4318964
+            ],
+            [
+              12.3291786,
+              45.4320226
+            ],
+            [
+              12.3292077,
+              45.432011
+            ],
+            [
+              12.3292391,
+              45.4319992
+            ],
+            [
+              12.3291386,
+              45.4318723
+            ],
+            [
+              12.3288086,
+              45.4314561
+            ],
+            [
+              12.3287856,
+              45.4314267
+            ],
+            [
+              12.3287736,
+              45.4314116
+            ],
+            [
+              12.3288461,
+              45.4313404
+            ],
+            [
+              12.3288276,
+              45.4313168
+            ],
+            [
+              12.3288122,
+              45.431297
+            ]
+          ]
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1205,7 +3291,11 @@
           "top": 20,
           "width": 1511,
           "height": 980
-        }
+        },
+        "imageGroundPointPx": [
+          768,
+          669.38
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1236,7 +3326,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.43469387755101563
+          "aspectErrorPx": 0.43469387755101563,
+          "imageGroundPointPx": [
+            82.84844473858372,
+            70.23906122448979
+          ],
+          "sourceScale": [
+            0.10787557908669755,
+            0.10816326530612246
+          ]
         },
         "map2x": {
           "file": "art/kit-trearchi-map2x-46060f44e759.png",
@@ -1253,7 +3351,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.6724489795918407
+          "aspectErrorPx": 0.6724489795918407,
+          "imageGroundPointPx": [
+            165.69688947716745,
+            139.81548979591835
+          ],
+          "sourceScale": [
+            0.2157511581733951,
+            0.2153061224489796
+          ]
         },
         "card": {
           "file": "art/kit-trearchi-card-5fa345f39fe8.png",
@@ -1270,8 +3376,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.738775510204098
+          "aspectErrorPx": 0.738775510204098,
+          "imageGroundPointPx": [
+            331.90205162144275,
+            280.95624489795915
+          ],
+          "sourceScale": [
+            0.43216412971542023,
+            0.4326530612244898
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "held",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "Held for original human identity review",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1312,7 +3446,11 @@
           "top": 39,
           "width": 1281,
           "height": 1160
-        }
+        },
+        "imageGroundPointPx": [
+          657,
+          918.0600000000001
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1343,7 +3481,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.1043103448275862,
-          "aspectErrorPx": 0.3534482758620783
+          "aspectErrorPx": 0.3534482758620783,
+          "imageGroundPointPx": [
+            85.13817330210773,
+            113.67155172413793
+          ],
+          "sourceScale": [
+            0.12958626073380172,
+            0.12931034482758622
+          ]
         },
         "map2x": {
           "file": "art/kit-vino-map2x-0d72945a3671.png",
@@ -1360,7 +3506,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.1043103448275862,
-          "aspectErrorPx": 0.3974137931034667
+          "aspectErrorPx": 0.3974137931034667,
+          "imageGroundPointPx": [
+            170.27634660421546,
+            228.10091379310344
+          ],
+          "sourceScale": [
+            0.25917252146760345,
+            0.25948275862068965
+          ]
         },
         "card": {
           "file": "art/kit-vino-card-a34b741f0a83.png",
@@ -1377,8 +3531,49 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.1043103448275862,
-          "aspectErrorPx": 0.30948275862065855
+          "aspectErrorPx": 0.30948275862065855,
+          "imageGroundPointPx": [
+            340.5526932084309,
+            455.44401724137936
+          ],
+          "sourceScale": [
+            0.5183450429352069,
+            0.5181034482758621
+          ]
         }
+      },
+      "artAnchor": [
+        12.3330905,
+        45.4440492
+      ],
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "geographic-reference-checked; optical annotation reviewed",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "coordinate": [
+            12.3330905,
+            45.4440492
+          ],
+          "referenceType": "Named business POI, not facade survey",
+          "sourceURL": "https://www.openstreetmap.org/node/4492344893",
+          "sourceVersion": 11,
+          "sourceName": "Vino Vero",
+          "checkedAt": "2026-10-06",
+          "identitySource": "https://vinovero.wine/luoghi/venezia/",
+          "identityAddress": "Cannaregio 2497, Fondamenta della Misericordia",
+          "uncertainty": "OSM business representative point; official address agrees; exact facade contact not surveyed"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1419,7 +3614,11 @@
           "top": 9,
           "width": 1508,
           "height": 1015
-        }
+        },
+        "imageGroundPointPx": [
+          693.4,
+          814
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1450,7 +3649,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4857142857142858,
-          "aspectErrorPx": 0.5714285714285716
+          "aspectErrorPx": 0.5714285714285716,
+          "imageGroundPointPx": [
+            75.40954907161803,
+            87.24137931034483
+          ],
+          "sourceScale": [
+            0.10875331564986737,
+            0.10837438423645321
+          ]
         },
         "map2x": {
           "file": "art/kit-guglie-map2x-1ca0ee6e468b.png",
@@ -1467,7 +3674,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4857142857142858,
-          "aspectErrorPx": 0.34285714285714164
+          "aspectErrorPx": 0.34285714285714164,
+          "imageGroundPointPx": [
+            150.81909814323606,
+            175.27586206896552
+          ],
+          "sourceScale": [
+            0.21750663129973474,
+            0.21773399014778325
+          ]
         },
         "card": {
           "file": "art/kit-guglie-card-00069bc9018e.png",
@@ -1484,8 +3699,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4857142857142858,
-          "aspectErrorPx": 0.6857142857142833
+          "aspectErrorPx": 0.6857142857142833,
+          "imageGroundPointPx": [
+            301.6381962864721,
+            350.55172413793105
+          ],
+          "sourceScale": [
+            0.4350132625994695,
+            0.4354679802955665
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1526,7 +3769,11 @@
           "top": 21,
           "width": 1536,
           "height": 1003
-        }
+        },
+        "imageGroundPointPx": [
+          844.45,
+          884.88
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1556,7 +3803,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.531405782652044,
-          "aspectErrorPx": 0.32901296111664946
+          "aspectErrorPx": 0.32901296111664946,
+          "imageGroundPointPx": [
+            89.06308593749999,
+            91.29738783649053
+          ],
+          "sourceScale": [
+            0.10546875,
+            0.10568295114656032
+          ]
         },
         "map2x": {
           "file": "art/kit-ghetto-map2x-9b47dd4f1b5f.png",
@@ -1573,7 +3828,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.531405782652044,
-          "aspectErrorPx": 0.6580259222332989
+          "aspectErrorPx": 0.6580259222332989,
+          "imageGroundPointPx": [
+            178.12617187499998,
+            182.59477567298106
+          ],
+          "sourceScale": [
+            0.2109375,
+            0.21136590229312063
+          ]
         },
         "card": {
           "file": "art/kit-ghetto-card-2f7c9f02dbe2.png",
@@ -1590,8 +3853,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.531405782652044,
-          "aspectErrorPx": 0.7467597208374497
+          "aspectErrorPx": 0.7467597208374497,
+          "imageGroundPointPx": [
+            355.70257161458335,
+            363.4669591226321
+          ],
+          "sourceScale": [
+            0.4212239583333333,
+            0.42073778664007977
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1632,7 +3923,11 @@
           "top": 21,
           "width": 1524,
           "height": 977
-        }
+        },
+        "imageGroundPointPx": [
+          873.15,
+          785.9200000000001
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1663,7 +3958,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5598771750255886,
-          "aspectErrorPx": 0.7727737973387789
+          "aspectErrorPx": 0.7727737973387789,
+          "imageGroundPointPx": [
+            93.3880905511811,
+            81.42444216990789
+          ],
+          "sourceScale": [
+            0.10695538057742782,
+            0.10644831115660185
+          ]
         },
         "map2x": {
           "file": "art/kit-ormesini-map2x-0cf320ad2c89.png",
@@ -1680,7 +3983,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5598771750255886,
-          "aspectErrorPx": 0.014329580348043214
+          "aspectErrorPx": 0.014329580348043214,
+          "imageGroundPointPx": [
+            186.7761811023622,
+            163.6318116683726
+          ],
+          "sourceScale": [
+            0.21391076115485563,
+            0.21392016376663256
+          ]
         },
         "card": {
           "file": "art/kit-ormesini-card-ce6d9e435986.png",
@@ -1697,8 +4008,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5598771750255886,
-          "aspectErrorPx": 0.028659160696086428
+          "aspectErrorPx": 0.028659160696086428,
+          "imageGroundPointPx": [
+            373.5523622047244,
+            327.2636233367452
+          ],
+          "sourceScale": [
+            0.42782152230971127,
+            0.4278403275332651
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1739,7 +4078,11 @@
           "top": 13,
           "width": 1312,
           "height": 1186
-        }
+        },
+        "imageGroundPointPx": [
+          702.82,
+          1091.48
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1770,7 +4113,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.1062394603709949,
-          "aspectErrorPx": 0.48903878583475047
+          "aspectErrorPx": 0.48903878583475047,
+          "imageGroundPointPx": [
+            86.7811280487805,
+            132.76397976391232
+          ],
+          "sourceScale": [
+            0.12347560975609756,
+            0.12310286677908938
+          ]
         },
         "map2x": {
           "file": "art/kit-orto-map2x-8a022563cf0b.png",
@@ -1787,7 +4138,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.1062394603709949,
-          "aspectErrorPx": 0.12816188870148637
+          "aspectErrorPx": 0.12816188870148637,
+          "imageGroundPointPx": [
+            173.562256097561,
+            266.4373018549747
+          ],
+          "sourceScale": [
+            0.24695121951219512,
+            0.24704890387858347
+          ]
         },
         "card": {
           "file": "art/kit-orto-card-2881eda52a32.png",
@@ -1804,8 +4163,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.1062394603709949,
-          "aspectErrorPx": 0.36256323777393096
+          "aspectErrorPx": 0.36256323777393096,
+          "imageGroundPointPx": [
+            347.66019817073175,
+            533.7839460370996
+          ],
+          "sourceScale": [
+            0.4946646341463415,
+            0.49494097807757165
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1846,7 +4233,11 @@
           "top": 9,
           "width": 1760,
           "height": 878
-        }
+        },
+        "imageGroundPointPx": [
+          885.5,
+          670.32
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1877,7 +4268,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 2.0045558086560367,
-          "aspectErrorPx": 0.3690205011389698
+          "aspectErrorPx": 0.3690205011389698,
+          "imageGroundPointPx": [
+            81.50625,
+            61.01015945330297
+          ],
+          "sourceScale": [
+            0.09204545454545454,
+            0.09225512528473805
+          ]
         },
         "map2x": {
           "file": "art/kit-misericordia-map2x-7104e228e645.png",
@@ -1894,7 +4293,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 2.0045558086560367,
-          "aspectErrorPx": 0.7380410022779396
+          "aspectErrorPx": 0.7380410022779396,
+          "imageGroundPointPx": [
+            163.0125,
+            122.02031890660594
+          ],
+          "sourceScale": [
+            0.18409090909090908,
+            0.1845102505694761
+          ]
         },
         "card": {
           "file": "art/kit-misericordia-card-f92f6b0661f7.png",
@@ -1911,8 +4318,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 2.0045558086560367,
-          "aspectErrorPx": 0.5284738041001806
+          "aspectErrorPx": 0.5284738041001806,
+          "imageGroundPointPx": [
+            326.025,
+            243.28742596810935
+          ],
+          "sourceScale": [
+            0.36818181818181817,
+            0.3678815489749431
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -1953,7 +4388,11 @@
           "top": 39,
           "width": 1346,
           "height": 1106
-        }
+        },
+        "imageGroundPointPx": [
+          601.38,
+          953.1
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -1984,7 +4423,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.216998191681736,
-          "aspectErrorPx": 0.3797468354430622
+          "aspectErrorPx": 0.3797468354430622,
+          "imageGroundPointPx": [
+            75.95438335809807,
+            115.70886075949367
+          ],
+          "sourceScale": [
+            0.1263001485884101,
+            0.12658227848101267
+          ]
         },
         "map2x": {
           "file": "art/kit-chiodo-map2x-3c6ab294ce71.png",
@@ -2001,7 +4448,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.216998191681736,
-          "aspectErrorPx": 0.4575045207956254
+          "aspectErrorPx": 0.4575045207956254,
+          "imageGroundPointPx": [
+            151.90876671619614,
+            230.59122965641953
+          ],
+          "sourceScale": [
+            0.2526002971768202,
+            0.2522603978300181
+          ]
         },
         "card": {
           "file": "art/kit-chiodo-card-a2a82f5c5791.png",
@@ -2018,8 +4473,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.216998191681736,
-          "aspectErrorPx": 0.30198915009047367
+          "aspectErrorPx": 0.30198915009047367,
+          "imageGroundPointPx": [
+            303.8175334323923,
+            462.0089511754069
+          ],
+          "sourceScale": [
+            0.5052005943536404,
+            0.5054249547920434
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2060,7 +4543,11 @@
           "top": 32,
           "width": 1505,
           "height": 972
-        }
+        },
+        "imageGroundPointPx": [
+          768.5,
+          791.37
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2091,7 +4578,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5483539094650205,
-          "aspectErrorPx": 0.1255144032921618
+          "aspectErrorPx": 0.1255144032921618,
+          "imageGroundPointPx": [
+            83.74352159468438,
+            82.81195473251029
+          ],
+          "sourceScale": [
+            0.10897009966777409,
+            0.10905349794238683
+          ]
         },
         "map2x": {
           "file": "art/kit-rialto-map2x-6d5b2cca8f75.png",
@@ -2108,7 +4603,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5483539094650205,
-          "aspectErrorPx": 0.7489711934156409
+          "aspectErrorPx": 0.7489711934156409,
+          "imageGroundPointPx": [
+            167.99767441860465,
+            165.62390946502057
+          ],
+          "sourceScale": [
+            0.2186046511627907,
+            0.21810699588477367
+          ]
         },
         "card": {
           "file": "art/kit-rialto-card-7d971cf04847.png",
@@ -2125,8 +4628,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5483539094650205,
-          "aspectErrorPx": 0.4979423868313173
+          "aspectErrorPx": 0.4979423868313173,
+          "imageGroundPointPx": [
+            335.48471760797344,
+            331.24781893004115
+          ],
+          "sourceScale": [
+            0.43654485049833885,
+            0.43621399176954734
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2167,7 +4698,11 @@
           "top": 5,
           "width": 1535,
           "height": 1019
-        }
+        },
+        "imageGroundPointPx": [
+          614.2,
+          876.25
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2200,7 +4735,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.506378802747792,
-          "aspectErrorPx": 0.3110893032384672
+          "aspectErrorPx": 0.3110893032384672,
+          "imageGroundPointPx": [
+            65.22123778501629,
+            92.3405299313052
+          ],
+          "sourceScale": [
+            0.10618892508143322,
+            0.10598626104023552
+          ]
         },
         "map2x": {
           "file": "art/kit-polo-map2x-d21f81b12946.png",
@@ -2217,7 +4760,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.506378802747792,
-          "aspectErrorPx": 0.6221786064769343
+          "aspectErrorPx": 0.6221786064769343,
+          "imageGroundPointPx": [
+            130.44247557003257,
+            184.6810598626104
+          ],
+          "sourceScale": [
+            0.21237785016286645,
+            0.21197252208047104
+          ]
         },
         "card": {
           "file": "art/kit-polo-card-655a7615249c.png",
@@ -2234,8 +4785,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.506378802747792,
-          "aspectErrorPx": 0.24435721295384027
+          "aspectErrorPx": 0.24435721295384027,
+          "imageGroundPointPx": [
+            260.48482084690556,
+            369.3621197252208
+          ],
+          "sourceScale": [
+            0.4241042345276873,
+            0.4239450441609421
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2276,7 +4855,11 @@
           "top": 11,
           "width": 1296,
           "height": 1188
-        }
+        },
+        "imageGroundPointPx": [
+          682.84,
+          1045.24
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2307,7 +4890,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.0909090909090908,
-          "aspectErrorPx": 0.363636363636366
+          "aspectErrorPx": 0.363636363636366,
+          "imageGroundPointPx": [
+            86.40876543209878,
+            130.58585858585857
+          ],
+          "sourceScale": [
+            0.12654320987654322,
+            0.12626262626262627
+          ]
         },
         "map2x": {
           "file": "art/kit-salute-map2x-0194b741997c.png",
@@ -2324,7 +4915,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.0909090909090908,
-          "aspectErrorPx": 0.2727272727272245
+          "aspectErrorPx": 0.2727272727272245,
+          "imageGroundPointPx": [
+            172.29064814814816,
+            261.17171717171715
+          ],
+          "sourceScale": [
+            0.2523148148148148,
+            0.25252525252525254
+          ]
         },
         "card": {
           "file": "art/kit-salute-card-d96f47a96ad6.png",
@@ -2341,8 +4940,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.0909090909090908,
-          "aspectErrorPx": 0.4545454545454408
+          "aspectErrorPx": 0.4545454545454408,
+          "imageGroundPointPx": [
+            345.1081790123457,
+            522.3434343434343
+          ],
+          "sourceScale": [
+            0.5054012345679012,
+            0.5050505050505051
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2383,7 +5010,11 @@
           "top": 9,
           "width": 1522,
           "height": 1015
-        }
+        },
+        "imageGroundPointPx": [
+          674.43,
+          883.2
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2415,7 +5046,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.05714285714284806
+          "aspectErrorPx": 0.05714285714284806,
+          "imageGroundPointPx": [
+            77.10303547963206,
+            99.90857142857143
+          ],
+          "sourceScale": [
+            0.11432325886990802,
+            0.11428571428571428
+          ]
         },
         "map2x": {
           "file": "art/kit-stefano-map2x-18d69661f73d.png",
@@ -2432,7 +5071,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.11428571428569612
+          "aspectErrorPx": 0.11428571428569612,
+          "imageGroundPointPx": [
+            154.2060709592641,
+            199.81714285714287
+          ],
+          "sourceScale": [
+            0.22864651773981604,
+            0.22857142857142856
+          ]
         },
         "card": {
           "file": "art/kit-stefano-card-02076e94a919.png",
@@ -2449,8 +5096,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.7280788177339825
+          "aspectErrorPx": 0.7280788177339825,
+          "imageGroundPointPx": [
+            307.9690210249671,
+            398.7730049261084
+          ],
+          "sourceScale": [
+            0.45663600525624176,
+            0.45615763546798027
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2491,7 +5166,11 @@
           "top": 0,
           "width": 1453,
           "height": 1024
-        }
+        },
+        "imageGroundPointPx": [
+          998.4,
+          939.0400000000001
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2523,7 +5202,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4189453125,
-          "aspectErrorPx": 0.375
+          "aspectErrorPx": 0.375,
+          "imageGroundPointPx": [
+            116.41486579490709,
+            117.38000000000001
+          ],
+          "sourceScale": [
+            0.12525808671713695,
+            0.125
+          ]
         },
         "map2x": {
           "file": "art/kit-marco-map2x-d80ae057933e.png",
@@ -2540,7 +5227,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4189453125,
-          "aspectErrorPx": 0.6689453124999807
+          "aspectErrorPx": 0.6689453124999807,
+          "imageGroundPointPx": [
+            232.82973158981417,
+            235.67703125000003
+          ],
+          "sourceScale": [
+            0.2505161734342739,
+            0.2509765625
+          ]
         },
         "card": {
           "file": "art/kit-marco-card-74bf824debab.png",
@@ -2557,8 +5252,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4189453125,
-          "aspectErrorPx": 0.3378906249999649
+          "aspectErrorPx": 0.3378906249999649,
+          "imageGroundPointPx": [
+            466.2991052993806,
+            471.35406250000005
+          ],
+          "sourceScale": [
+            0.5017205781142464,
+            0.501953125
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2599,7 +5322,11 @@
           "top": 4,
           "width": 1447,
           "height": 1002
-        }
+        },
+        "imageGroundPointPx": [
+          728.9699999999999,
+          765.62
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2632,7 +5359,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4441117764471059,
-          "aspectErrorPx": 0.5948103792414976
+          "aspectErrorPx": 0.5948103792414976,
+          "imageGroundPointPx": [
+            86.14642017968208,
+            89.6917764471058
+          ],
+          "sourceScale": [
+            0.11817553559087768,
+            0.11776447105788423
+          ]
         },
         "map2x": {
           "file": "art/kit-schiavoni-map2x-65099e161b61.png",
@@ -2649,7 +5384,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4441117764471059,
-          "aspectErrorPx": 0.6986027944111992
+          "aspectErrorPx": 0.6986027944111992,
+          "imageGroundPointPx": [
+            172.79662059433306,
+            180.90375249500997
+          ],
+          "sourceScale": [
+            0.23704215618521077,
+            0.2375249500998004
+          ]
         },
         "card": {
           "file": "art/kit-schiavoni-card-36270fa499a5.png",
@@ -2666,8 +5409,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4441117764471059,
-          "aspectErrorPx": 0.4910179640718213
+          "aspectErrorPx": 0.4910179640718213,
+          "imageGroundPointPx": [
+            345.08946095369726,
+            360.28730538922156
+          ],
+          "sourceScale": [
+            0.47339322736696615,
+            0.47305389221556887
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2708,7 +5479,11 @@
           "top": 17,
           "width": 1343,
           "height": 1128
-        }
+        },
+        "imageGroundPointPx": [
+          696,
+          1011.3000000000001
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2741,7 +5516,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.1906028368794326,
-          "aspectErrorPx": 0.31560283687943613
+          "aspectErrorPx": 0.31560283687943613,
+          "imageGroundPointPx": [
+            86.54653760238273,
+            123.40602836879432
+          ],
+          "sourceScale": [
+            0.12434847356664185,
+            0.12411347517730496
+          ]
         },
         "map2x": {
           "file": "art/kit-arsenale-map2x-83b430a4d5b4.png",
@@ -2758,7 +5541,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.1906028368794326,
-          "aspectErrorPx": 0.5593971631205696
+          "aspectErrorPx": 0.5593971631205696,
+          "imageGroundPointPx": [
+            173.09307520476546,
+            247.69352836879438
+          ],
+          "sourceScale": [
+            0.2486969471332837,
+            0.24911347517730498
+          ]
         },
         "card": {
           "file": "art/kit-arsenale-card-1a560045bf26.png",
@@ -2775,8 +5566,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.1906028368794326,
-          "aspectErrorPx": 0.07180851063829352
+          "aspectErrorPx": 0.07180851063829352,
+          "imageGroundPointPx": [
+            346.1861504095309,
+            494.505585106383
+          ],
+          "sourceScale": [
+            0.4973938942665674,
+            0.4973404255319149
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2817,7 +5636,11 @@
           "top": 9,
           "width": 1522,
           "height": 1015
-        }
+        },
+        "imageGroundPointPx": [
+          778.5,
+          807.36
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2850,7 +5673,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.5576354679802846
+          "aspectErrorPx": 0.5576354679802846,
+          "imageGroundPointPx": [
+            90.02365308804205,
+            92.02770443349753
+          ],
+          "sourceScale": [
+            0.11563731931668857,
+            0.11527093596059114
+          ]
         },
         "map2x": {
           "file": "art/kit-tana-map2x-a75e05cf59c2.png",
@@ -2867,7 +5698,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.1152709359605728
+          "aspectErrorPx": 0.1152709359605728,
+          "imageGroundPointPx": [
+            179.53580814717478,
+            184.05540886699507
+          ],
+          "sourceScale": [
+            0.23061760840998685,
+            0.23054187192118228
+          ]
         },
         "card": {
           "file": "art/kit-tana-card-2e8067b6ea4b.png",
@@ -2884,8 +5723,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4995073891625617,
-          "aspectErrorPx": 0.2305418719211456
+          "aspectErrorPx": 0.2305418719211456,
+          "imageGroundPointPx": [
+            359.07161629434955,
+            368.11081773399013
+          ],
+          "sourceScale": [
+            0.4612352168199737,
+            0.46108374384236456
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -2926,7 +5793,11 @@
           "top": 63,
           "width": 1396,
           "height": 961
-        }
+        },
+        "imageGroundPointPx": [
+          783,
+          885.4
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -2958,7 +5829,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.4526534859521332,
-          "aspectErrorPx": 0.6971904266389188
+          "aspectErrorPx": 0.6971904266389188,
+          "imageGroundPointPx": [
+            80.18767908309455,
+            95.84682622268471
+          ],
+          "sourceScale": [
+            0.11604584527220631,
+            0.11654526534859522
+          ]
         },
         "map2x": {
           "file": "art/kit-garibaldi-map2x-ce9f453c8a14.png",
@@ -2975,7 +5854,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.4526534859521332,
-          "aspectErrorPx": 0.058272632674297054
+          "aspectErrorPx": 0.058272632674297054,
+          "imageGroundPointPx": [
+            160.3753581661891,
+            190.83787721123826
+          ],
+          "sourceScale": [
+            0.23209169054441262,
+            0.23204994797086367
+          ]
         },
         "card": {
           "file": "art/kit-garibaldi-card-202ed1cc1fde.png",
@@ -2992,8 +5879,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.4526534859521332,
-          "aspectErrorPx": 0.11654526534859411
+          "aspectErrorPx": 0.11654526534859411,
+          "imageGroundPointPx": [
+            320.7507163323782,
+            381.67575442247653
+          ],
+          "sourceScale": [
+            0.46418338108882523,
+            0.46409989594172735
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -3034,7 +5949,11 @@
           "top": 17,
           "width": 1522,
           "height": 1007
-        }
+        },
+        "imageGroundPointPx": [
+          793.48,
+          899.86
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -3067,7 +5986,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5114200595829195,
-          "aspectErrorPx": 0.4011916583912667
+          "aspectErrorPx": 0.4011916583912667,
+          "imageGroundPointPx": [
+            110.52415243101183,
+            122.74121151936446
+          ],
+          "sourceScale": [
+            0.1392904073587385,
+            0.13902681231380337
+          ]
         },
         "map2x": {
           "file": "art/kit-viale-map2x-cb723505d8c8.png",
@@ -3084,7 +6011,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5114200595829195,
-          "aspectErrorPx": 0.7090367428003643
+          "aspectErrorPx": 0.7090367428003643,
+          "imageGroundPointPx": [
+            221.04830486202366,
+            246.35914597815292
+          ],
+          "sourceScale": [
+            0.278580814717477,
+            0.27904667328699106
+          ]
         },
         "card": {
           "file": "art/kit-viale-card-6a4c060c3a91.png",
@@ -3101,8 +6036,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5114200595829195,
-          "aspectErrorPx": 0.09334657398211865
+          "aspectErrorPx": 0.09334657398211865,
+          "imageGroundPointPx": [
+            442.0966097240473,
+            491.84156901688186
+          ],
+          "sourceScale": [
+            0.557161629434954,
+            0.5571002979145978
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -3143,7 +6106,11 @@
           "top": 0,
           "width": 1360,
           "height": 1145
-        }
+        },
+        "imageGroundPointPx": [
+          932.32,
+          977.44
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -3177,7 +6144,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.1877729257641922,
-          "aspectErrorPx": 0.5240174672488855
+          "aspectErrorPx": 0.5240174672488855,
+          "imageGroundPointPx": [
+            115.1689411764706,
+            120.36597379912665
+          ],
+          "sourceScale": [
+            0.12352941176470589,
+            0.12314410480349346
+          ]
         },
         "map2x": {
           "file": "art/kit-giardini-map2x-abed63106e34.png",
@@ -3194,7 +6169,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.1877729257641922,
-          "aspectErrorPx": 0.04803493449778529
+          "aspectErrorPx": 0.04803493449778529,
+          "imageGroundPointPx": [
+            229.65235294117647,
+            240.7319475982533
+          ],
+          "sourceScale": [
+            0.24632352941176472,
+            0.2462882096069869
+          ]
         },
         "card": {
           "file": "art/kit-giardini-card-896ba01b5608.png",
@@ -3211,8 +6194,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.1877729257641922,
-          "aspectErrorPx": 0.09606986899557057
+          "aspectErrorPx": 0.09606986899557057,
+          "imageGroundPointPx": [
+            459.30470588235295,
+            481.4638951965066
+          ],
+          "sourceScale": [
+            0.49264705882352944,
+            0.4925764192139738
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -3253,7 +6264,11 @@
           "top": 21,
           "width": 1522,
           "height": 1003
-        }
+        },
+        "imageGroundPointPx": [
+          695,
+          771.6
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -3285,7 +6300,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.5174476570289133,
-          "aspectErrorPx": 0.0807577268195292
+          "aspectErrorPx": 0.0807577268195292,
+          "imageGroundPointPx": [
+            76.25821287779237,
+            82.31904287138585
+          ],
+          "sourceScale": [
+            0.10972404730617609,
+            0.10967098703888335
+          ]
         },
         "map2x": {
           "file": "art/kit-sette-map2x-72ce51474265.png",
@@ -3302,7 +6325,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.5174476570289133,
-          "aspectErrorPx": 0.1615154536390584
+          "aspectErrorPx": 0.1615154536390584,
+          "imageGroundPointPx": [
+            152.51642575558475,
+            164.6380857427717
+          ],
+          "sourceScale": [
+            0.21944809461235218,
+            0.2193419740777667
+          ]
         },
         "card": {
           "file": "art/kit-sette-card-a483077aac6b.png",
@@ -3319,8 +6350,36 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.5174476570289133,
-          "aspectErrorPx": 0.676969092721853
+          "aspectErrorPx": 0.676969092721853,
+          "imageGroundPointPx": [
+            304.5762155059133,
+            329.2761714855434
+          ],
+          "sourceScale": [
+            0.43823915900131405,
+            0.4386839481555334
+          ]
         }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
       }
     },
     {
@@ -3361,7 +6420,11 @@
           "top": 0,
           "width": 1298,
           "height": 1199
-        }
+        },
+        "imageGroundPointPx": [
+          610.6,
+          1058.97
+        ]
       },
       "qa": {
         "status": "source-pack reference-checked illustration candidate; final human review required",
@@ -3393,7 +6456,15 @@
           ],
           "targetVisibleSpanPx": 160,
           "sourcePaintedAspect": 1.0825688073394495,
-          "aspectErrorPx": 0.4495412844036757
+          "aspectErrorPx": 0.4495412844036757,
+          "imageGroundPointPx": [
+            77.61864406779661,
+            134.2480733944954
+          ],
+          "sourceScale": [
+            0.1271186440677966,
+            0.1267723102585488
+          ]
         },
         "map2x": {
           "file": "art/kit-elena-map2x-7a23b9a3bebb.png",
@@ -3410,7 +6481,15 @@
           ],
           "targetVisibleSpanPx": 320,
           "sourcePaintedAspect": 1.0825688073394495,
-          "aspectErrorPx": 0.1834862385320668
+          "aspectErrorPx": 0.1834862385320668,
+          "imageGroundPointPx": [
+            155.23728813559322,
+            269.3793577981652
+          ],
+          "sourceScale": [
+            0.2542372881355932,
+            0.2543786488740617
+          ]
         },
         "card": {
           "file": "art/kit-elena-card-8268af7c2e67.png",
@@ -3427,9 +6506,195 @@
           ],
           "targetVisibleSpanPx": 640,
           "sourcePaintedAspect": 1.0825688073394495,
-          "aspectErrorPx": 0.2844036697248007
+          "aspectErrorPx": 0.2844036697248007,
+          "imageGroundPointPx": [
+            310.00416024653316,
+            537.875504587156
+          ],
+          "sourceScale": [
+            0.5077041602465331,
+            0.5079232693911593
+          ]
+        }
+      },
+      "artAnchor": null,
+      "placement": {
+        "mode": "bounded-callout",
+        "minZoom": 13,
+        "maxZoom": 24,
+        "maxDisplacementCSSPx": 72,
+        "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
+        "opticalReview": {
+          "checkedAt": "2026-10-06",
+          "status": "AI visual optical annotation review; human architectural approval not claimed",
+          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
+          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+        },
+        "geographicReview": {
+          "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
+          "checkedAt": "2026-10-06"
+        },
+        "notSurveyedFootprint": true,
+        "humanArchitecturalApproval": false
+      }
+    }
+  ],
+  "gardenCandidates": [
+    {
+      "key": "reali",
+      "title": "Giardini Reali",
+      "approved": false,
+      "runtimeEnabledByDefault": false,
+      "artAnchor": null,
+      "imageGroundPoint": null,
+      "calibrationRequired": true,
+      "identityCheckedAt": "2026-10-06",
+      "identitySource": "https://www.venicegardensfoundation.org/en/giardini-reali",
+      "reviewStatus": "Identity context checked; architectural/optical calibration and candidate approval remain pending",
+      "source": {
+        "sha256": "04bc7739f122100072b55742d92558d0c353cba91f0bc6236fb86a3630f8a989",
+        "width": 1312,
+        "height": 1199,
+        "visibleAlpha16BoundsPx": [
+          16,
+          11,
+          1301,
+          1177
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit05-garden-reali-map1x-2bd3483d58ad.png",
+          "sha256": "2bd3483d58adcfe56e73ad9c9ef013a188470cd33c5f170da513f660db917a76",
+          "bytes": 48566,
+          "width": 160,
+          "height": 146,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            2,
+            1,
+            159,
+            144
+          ],
+          "imageGroundPointPx": null
+        },
+        "map2x": {
+          "file": "art/kit05-garden-reali-map2x-9c62a20d4a18.png",
+          "sha256": "9c62a20d4a18f28e45496030eb3e444684eef4ed98ede52d92a509101a39392e",
+          "bytes": 180002,
+          "width": 320,
+          "height": 292,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            4,
+            2,
+            318,
+            287
+          ],
+          "imageGroundPointPx": null
+        },
+        "card": {
+          "file": "art/kit05-garden-reali-card-cfa75f6f11a8.png",
+          "sha256": "cfa75f6f11a80967d155bdad942d6ed5bcb75e1ec18c48e91bd6f8382fc83aac",
+          "bytes": 684114,
+          "width": 640,
+          "height": 585,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            8,
+            5,
+            635,
+            574
+          ],
+          "imageGroundPointPx": null
+        }
+      }
+    },
+    {
+      "key": "papadopoli",
+      "title": "Giardini Papadopoli",
+      "approved": false,
+      "runtimeEnabledByDefault": false,
+      "artAnchor": null,
+      "imageGroundPoint": null,
+      "calibrationRequired": true,
+      "identityCheckedAt": "2026-10-06",
+      "identitySource": "https://www.openstreetmap.org/way/174476472",
+      "reviewStatus": "Identity context checked; architectural/optical calibration and candidate approval remain pending",
+      "source": {
+        "sha256": "ae1304511deb3d22369188bdcd875a7ff7d59aa69ec6099326445bea12dbe4fc",
+        "width": 1374,
+        "height": 1145,
+        "visibleAlpha16BoundsPx": [
+          36,
+          12,
+          1355,
+          1124
+        ]
+      },
+      "derivatives": {
+        "map1x": {
+          "file": "art/kit05-garden-papadopoli-map1x-b5f970931324.png",
+          "sha256": "b5f97093132424385d04beb6272eeadd4f526d1c2683d617f32cb8bf5cd473bf",
+          "bytes": 51058,
+          "width": 160,
+          "height": 133,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            4,
+            1,
+            158,
+            131
+          ],
+          "imageGroundPointPx": null
+        },
+        "map2x": {
+          "file": "art/kit05-garden-papadopoli-map2x-24adaac94e2a.png",
+          "sha256": "24adaac94e2a0a9fdc4b1232c21b76c238a0ac295de7300093be464724a19268",
+          "bytes": 193949,
+          "width": 320,
+          "height": 267,
+          "pixelRatio": 2,
+          "visibleAlpha16BoundsPx": [
+            8,
+            3,
+            316,
+            262
+          ],
+          "imageGroundPointPx": null
+        },
+        "card": {
+          "file": "art/kit05-garden-papadopoli-card-6fb2c895e4a5.png",
+          "sha256": "6fb2c895e4a5eed37b78fdad5b29fff8fa35cb71f7406d39d2b0cd0ace847618",
+          "bytes": 740271,
+          "width": 640,
+          "height": 533,
+          "pixelRatio": 1,
+          "visibleAlpha16BoundsPx": [
+            16,
+            6,
+            631,
+            523
+          ],
+          "imageGroundPointPx": null
         }
       }
     }
-  ]
+  ],
+  "opticalCalibration": {
+    "checkedAt": "2026-10-06",
+    "source": "tools/kit05-art-calibration.json",
+    "assets": 30,
+    "routePlacements": 39,
+    "coordinatePolicy": "Visit coordinates unchanged. Separate sourced architectural/place references where checked; unresolved images are bounded route-visit callouts with tethers.",
+    "verifiedGeographicReferences": [
+      "lucia",
+      "frari",
+      "dogana",
+      "accademia",
+      "vino"
+    ],
+    "opticalToleranceCSSPx": 2,
+    "toleranceScope": "Pixel transform equivalence only; does not certify geographic accuracy or human architectural approval."
+  }
 }
