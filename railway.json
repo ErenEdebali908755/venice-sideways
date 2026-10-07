@@ -5,6 +5,7 @@
     "dockerfilePath": "Dockerfile",
     "watchPatterns": [
       "/public/**",
+      "/lib/**",
       "/*.mjs",
       "/package.json",
       "/Dockerfile",

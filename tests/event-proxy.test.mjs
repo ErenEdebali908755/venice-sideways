@@ -31,9 +31,8 @@ test('registration relay strips extra fields and browser credentials',async()=>{
     assert.equal(JSON.parse(options.body).adminCookie,undefined);
     return Response.json({result:'registered',event},{status:201});
   });
-  assert.equal(res.status,201);
-  assert.equal(JSON.parse(res.body).result,'registered');
-  assert.equal(JSON.parse(res.body).event.secret,undefined);
+  assert.equal(res.status,200);
+  assert.deepEqual(JSON.parse(res.body),{result:'received'});
 });
 
 test('unknown paths and wrong origins never reach the private service',async()=>{
@@ -56,7 +55,7 @@ test('a shared hosting proxy address does not impose a 15-person registration ce
     req.socket={remoteAddress:'10.0.0.1'};
     const res=response();
     await eventProxy(req,res,'/api/events/main-walk-2026-10-11/register',()=>Response.json({result:'registered',event},{status:201}));
-    assert.equal(res.status,201);
+    assert.equal(res.status,200);
   }
 });
 
@@ -67,6 +66,6 @@ test('the visitor proxy caps registrations at 450 requests per minute per proces
     req.method='POST';req.headers={origin:'https://venicesideways.com','content-type':'application/json'};
     const res=response();
     await isolatedProxy(req,res,'/api/events/main-walk-2026-10-11/register',()=>Response.json({result:'registered',event},{status:201}));
-    assert.equal(res.status,i<450?201:429);
+    assert.equal(res.status,i<450?200:429);
   }
 });

@@ -1,37 +1,11 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import {Readable} from 'node:stream';
-import {communityProxy} from '../community-proxy.mjs';
-
-function response(){return {code:0,body:'',setHeader(){},writeHead(code){this.code=code},end(body){this.body=body}};}
-
-test('community proxy forwards only anonymous statistics and rejects location sharing',async()=>{
- let calls=0;
- const fetcher=async(url,options)=>{
-  calls++;
-  assert.equal(url,'https://erenedebali.com/api/sideways/statistics');
-  assert.equal(options.headers.Cookie,undefined);
-  assert.equal(options.headers.Origin,'https://erenedebali.com');
-  assert.deepEqual(JSON.parse(options.body),{consent:true,event:'a'.repeat(32),metric:'page_view',route:'main',language:'en',device:'mobile'});
-  return Response.json({ok:true,secret:'not-public'});
- };
- const data={consent:true,event:'a'.repeat(32),metric:'page_view',route:'main',language:'en',device:'mobile',latitude:45.4,longitude:12.3};
- const req=Readable.from([Buffer.from(JSON.stringify(data))]);
- req.method='POST';
- req.headers={origin:'https://venicesideways.com','content-type':'application/json',cookie:'private'};
- const accepted=response();
- await communityProxy(req,accepted,'/api/community/statistics',fetcher);
- assert.equal(accepted.code,200);
- assert.equal(accepted.body,'{"ok":true}');
- assert.equal(calls,1);
- for(const [method,path,origin,expected] of [
-  ['POST','presence','https://venicesideways.com',404],
-  ['GET','statistics','https://venicesideways.com',405],
-  ['POST','users','https://venicesideways.com',404],
-  ['POST','statistics','https://evil.example',403],
- ]){
-  const result=response();
-  await communityProxy({method,headers:{origin,'content-type':'application/json'}},result,'/api/community/'+path,()=>{throw Error('must not call')});
-  assert.equal(result.code,expected);
- }
-});
+import test from 'node:test';import assert from 'node:assert/strict';import{Readable}from'node:stream';import{createHmac}from'node:crypto';import{createCommunityProxy,verifyMeasurement}from'../community-proxy.mjs';
+const now=()=>1700000000000, secret='ab'.repeat(32), epoch='a'.repeat(32);
+const claims={schemaVersion:1,product:'sideways',scope:'anonymous-counts',site:'venicesideways.com',consentEpoch:epoch,nonce:'b'.repeat(32),iat:1700000000,exp:1700000300};
+const sign=value=>{const body=Buffer.from(JSON.stringify(value)).toString('base64url');return body+'.'+createHmac('sha256',secret).update('measurement-v1:'+body).digest('base64url');};const token=sign(claims);
+const body={consent:true,event:'c'.repeat(32),metric:'page_view',route:'main',language:'en',device:'mobile',schemaVersion:1,consentEpoch:epoch};
+const req=(value=body,cap=token)=>Object.assign(Readable.from([Buffer.from(JSON.stringify(value))]),{method:'POST',headers:{origin:'https://venicesideways.com','content-type':'application/json',cookie:'private','x-measurement-capability':cap}});
+const res=()=>({code:0,body:'',headers:{},setHeader(k,v){this.headers[k]=v;},writeHead(code){this.code=code;},end(value){this.body=value;}});
+test('server-issued strict capability gates forwarding, successful replay dedupes, changed replay fails',async()=>{let calls=0;const proxy=createCommunityProxy({now,secret:()=>secret});const fetcher=async(url,options)=>{calls++;assert.equal(url,'https://erenedebali.com/api/sideways/statistics');assert.equal(options.headers.Cookie,undefined);assert.equal(options.headers['X-Measurement-Capability'],token);assert.deepEqual(JSON.parse(options.body),body);return Response.json({ok:true,secret:'not-public'});};for(let i=0;i<2;i++){const r=res();await proxy(req(),r,'/api/community/statistics',fetcher);assert.equal(r.code,200);assert.equal(r.body,'{"ok":true}');}assert.equal(calls,1);const conflict=res();await proxy(req({...body,language:'tr'}),conflict,'/api/community/statistics',fetcher);assert.equal(conflict.code,403);assert.equal(calls,1);});
+test('unsigned, wrong-schema/consent/dimension/GPS, incompatible/expired claims and absent secret never fetch',async()=>{for(const [value,cap,expected] of [[body,undefined,403],[{...body,latitude:0},token,400],[{...body,consent:false},token,400],[{...body,schemaVersion:2},token,400],[{...body,event:'bad'},token,400],[body,sign({...claims,product:'archive'}),403],[body,sign({...claims,nonce:['b'.repeat(32)]}),403],[body,sign({...claims,exp:1700000000,iat:1699999700}),403],[body,sign({...claims,iat:1700000031,exp:1700000331}),403],[body,sign({...claims,extra:true}),403]]){const r=res(),q=req(value,cap);if(cap===undefined)delete q.headers['x-measurement-capability'];await createCommunityProxy({now,secret:()=>secret})(q,r,'/api/community/statistics',()=>{throw Error('Must not fetch');});assert.equal(r.code,expected);}const r=res();await createCommunityProxy({now,secret:()=>''})(req(),r,'/api/community/statistics',()=>{throw Error('Must not fetch');});assert.equal(r.code,503);assert.throws(()=>verifyMeasurement(token,epoch,now(),''),e=>e.status===503);});
+test('bootstrap is separate bounded same-origin POST and accepts exact signed response only',async()=>{const proxy=createCommunityProxy({now,secret:()=>secret});const r=res();await proxy(req({consent:true,schemaVersion:1,consentEpoch:epoch}),r,'/api/community/admission',(url,options)=>{assert.equal(url,'https://erenedebali.com/api/sideways/measurement-admission');assert.equal(options.headers['X-Measurement-Capability'],undefined);return Response.json({capability:token,expiresAt:claims.exp,private:'omit'});});assert.equal(r.code,200);assert.deepEqual(JSON.parse(r.body),{capability:token,expiresAt:claims.exp});for(const [method,path,origin,expected] of [['POST','presence','https://venicesideways.com',404],['GET','statistics','https://venicesideways.com',405],['POST','statistics','https://evil.test',403]]){const v=res();await proxy({method,headers:{origin,'content-type':'application/json'}},v,'/api/community/'+path,()=>{throw Error('Must not call');});assert.equal(v.code,expected);}});
+test('nonce budget is sixty unique events and repeated ids cannot evade it',async()=>{const proxy=createCommunityProxy({now,secret:()=>secret});let calls=0;for(let i=0;i<61;i++){const r=res();await proxy(req({...body,event:i.toString(16).padStart(32,'0')}),r,'/api/community/statistics',()=>{calls++;return Response.json({ok:true});});assert.equal(r.code,i<60?200:429);}assert.equal(calls,60);});

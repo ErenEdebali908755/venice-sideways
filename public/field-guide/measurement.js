@@ -19,23 +19,44 @@ export function createMeasurementCollector(options = {}) {
   let storage = options.storage; if (!storage) { try { storage = win.localStorage; } catch {} }
   let consent = false, ready = false, pageClaimed = false, language = 'en', current = null, sequence = 0, disposed = false, generation = 0;
   const claimed = new Set(), pending = new Set(), widgets = new Set();
+  let consentEpoch, admission = null, admissionPending = null;
   const privacy = () => nav.doNotTrack === '1' || nav.doNotTrack === 'yes' || nav.globalPrivacyControl === true || win.doNotTrack === '1';
   const allowed = () => !disposed && consent && !privacy() && !doc.hidden;
   try { consent = storage?.getItem('sideways-measurement') === 'yes' && !privacy(); } catch {}
   const locale = value => locales.includes(value) ? value : 'other';
   const id = () => Array.from(random.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2,'0')).join('');
-  function stop() { generation++; for (const item of pending) { item.abort.abort(); clearTimeout(item.timer); item.resume?.(); } pending.clear(); }
+  consentEpoch = id();
+  function stop() { generation++; admission = null; admissionPending = null; consentEpoch = id(); for (const item of pending) { item.abort.abort(); clearTimeout(item.timer); item.resume?.(); } pending.clear(); }
+  async function capability(version) {
+    if (!allowed() || version !== generation) return null;
+    if (admission && admission.expiresAt * 1000 - 30000 > Date.now()) return admission.capability;
+    if (admissionPending) return admissionPending;
+    const item = {abort:new AbortController(),timer:null,resume:null}; pending.add(item);
+    item.timer = setTimeout(() => item.abort.abort(),5000);
+    let job; job = (async () => {
+      try {
+        const response = await Promise.resolve().then(() => { if (!allowed() || version !== generation || item.abort.signal.aborted) throw Error('Measurement stopped'); return request('/api/community/admission',{method:'POST',credentials:'omit',headers:{'content-type':'application/json'},body:JSON.stringify({consent:true,schemaVersion:1,consentEpoch}),signal:item.abort.signal,cache:'no-store'}); });
+        if (!response.ok) return null;
+        const value = await response.json();
+        if (!allowed() || version !== generation || typeof value.capability !== 'string' || value.capability.length > 1024 || !Number.isSafeInteger(value.expiresAt) || value.expiresAt * 1000 <= Date.now()) return null;
+        admission = {capability:value.capability,expiresAt:value.expiresAt}; return value.capability;
+      } catch { return null; }
+      finally { clearTimeout(item.timer); pending.delete(item); if (admissionPending === job) admissionPending = null; }
+    })();
+    admissionPending = job; return job;
+  }
   async function send(metric, route) {
-    if (!allowed()) return;
+    if (!allowed() || pending.size >= 4) return;
+    const version = generation, token = await capability(version);
+    if (!token || !allowed() || version !== generation || pending.size >= 4) return;
     // This ephemeral ID belongs to one logical event, including both retries.
-    const data = {consent:true,event:id(),metric,route,language:locale(language),device:win.innerWidth < 900 ? 'mobile':'desktop'};
-    const version = generation;
+    const data = {consent:true,event:id(),metric,route,language:locale(language),device:win.innerWidth < 900 ? 'mobile':'desktop',schemaVersion:1,consentEpoch};
     for (let attempt = 0; attempt < 2; attempt++) {
       if (!allowed() || version !== generation) return;
       const item = {abort:new AbortController(),timer:null,resume:null}; pending.add(item);
       item.timer = setTimeout(() => item.abort.abort(),8000);
       try {
-        const response = await request('/api/community/statistics',{method:'POST',credentials:'omit',headers:{'content-type':'application/json'},body:JSON.stringify(data),signal:item.abort.signal,cache:'no-store'});
+        const response = await request('/api/community/statistics',{method:'POST',credentials:'omit',headers:{'content-type':'application/json','X-Measurement-Capability':token},body:JSON.stringify(data),signal:item.abort.signal,cache:'no-store'});
         if (response.ok) return;
         // Invalid events and permission failures cannot be repaired by repeating.
         if (response.status < 500 && ![408,429].includes(response.status)) return;
@@ -51,7 +72,7 @@ export function createMeasurementCollector(options = {}) {
   function flush() {
     if (!ready || !allowed()) return;
     if (!pageClaimed) { pageClaimed = true; void send('page_view','home'); }
-    if (current && !claimed.has(current.identity)) { claimed.add(current.identity); void send('route_open',current.route); }
+    if (current && !claimed.has(current.identity)) { claimed.add(current.identity); if (claimed.size > 128) claimed.delete(claimed.values().next().value); void send('route_open',current.route); }
   }
   function updateWidgets() {
     for (const widget of widgets) {

@@ -122,15 +122,15 @@ calculate=async function(force=false){
  const id=++requestId;if(aborter)aborter.abort();walkResults=null;networkState='loading';schematic();mainStatus('loading');$('refresh').disabled=true;
  const phases=phasePoints(),key='walk-mixed-v13-trearchi-11-main',controller=new AbortController();aborter=controller;let packs=[null,null];
  try{
-  if(!force){try{const cached=JSON.parse(localStorage.getItem(key)||'null');if(cached&&Date.now()-cached.at<86400000){buildMetrics(cached.packs,phases);packs=cached.packs;}}catch{}}
+  if(!force){try{const cached=JSON.parse(localStorage.getItem(key)||'null');if(cached){if(cached.source!==phases.map(SidewaysOSRM.fingerprint).join('|')||!Number.isFinite(cached.at)||cached.at>Date.now()||Date.now()-cached.at>=86400000)throw Error('Stale route cache');buildMetrics(cached.packs,phases);packs=cached.packs;}}catch{try{localStorage.removeItem(key);}catch{}}}
   for(let k=0;k<2;k++){
    if(packs[k])continue;await new Promise(r=>setTimeout(r,Math.max(0,1300-(Date.now()-lastRequest))));if(id!==requestId||controller.signal.aborted)return;lastRequest=Date.now();
    const part=new AbortController(),cancel=()=>part.abort();controller.signal.addEventListener('abort',cancel,{once:true});const timer=setTimeout(cancel,20000);
-   try{const coords=phases[k].map(p=>p.lon+','+p.lat).join(';');const r=await fetch('https://routing.openstreetmap.de/routed-foot/route/v1/driving/'+coords+'?overview=full&geometries=geojson&steps=true&continue_straight=false',{signal:part.signal,referrerPolicy:'strict-origin-when-cross-origin'});if(!r.ok)throw Error('Routing unavailable');const data=await r.json();validateRoute(data,phases[k]);packs[k]=data;}catch{}finally{clearTimeout(timer);controller.signal.removeEventListener('abort',cancel);}
+   try{const coords=phases[k].map(p=>p.lon+','+p.lat).join(';');const r=await fetch('https://routing.openstreetmap.de/routed-foot/route/v1/driving/'+coords+'?overview=full&geometries=geojson&steps=true&continue_straight=false',{signal:part.signal,referrerPolicy:'strict-origin-when-cross-origin'});if(!r.ok)throw Error('Routing unavailable');const data=await SidewaysOSRM.readJSON(r,part.signal);validateRoute(data,phases[k]);packs[k]=data;}catch{}finally{clearTimeout(timer);controller.signal.removeEventListener('abort',cancel);}
   }
   if(id!==requestId||mode!=='main')return;
   paintPhases(packs,phases);
-  if(packs.every(Boolean)){walkResults=buildMetrics(packs,phases);networkState='ready';routeDistance=(walkResults.distance/1000).toFixed(1);try{localStorage.setItem(key,JSON.stringify({at:Date.now(),packs}));}catch{}mainStatus('ready');}
+  if(packs.every(Boolean)){walkResults=buildMetrics(packs,phases);networkState='ready';routeDistance=(walkResults.distance/1000).toFixed(1);try{localStorage.setItem(key,JSON.stringify({at:Date.now(),source:phases.map(SidewaysOSRM.fingerprint).join('|'),packs}));}catch{}mainStatus('ready');}
   else {networkState='partial';mainStatus('partial');}
   updateBadge();renderSun();window.dispatchEvent(new CustomEvent('walkrouteviewchange'));
  }catch{if(id===requestId){networkState='partial';walkResults=null;mainStatus('partial');renderSun();}}

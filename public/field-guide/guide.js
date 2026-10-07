@@ -1,3 +1,4 @@
+import { officialTimetableURL } from './timetable-policy.js?v=20261007-security';
 /* Shared visitor presentation: public releases and private in-memory admin previews. */
 import {
   BASE_STYLE,
@@ -13,8 +14,8 @@ import {
 } from "./map-art.js?v=20261006-kit05";
 import { directionFeatures, installDirections } from "./directions.js?v=20261006-kit05";
 import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit05";
-import { uiCopy } from "./ui-copy.js?v=20261006-kit05";
-import { galleryForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js?v=20261005-mobile";
+import { uiCopy } from "./ui-copy.js?v=20261007-security";
+import { galleryForVisit, photosForVisit, galleryText, coverPhoto, imageVariant } from "./gallery.js?v=20261007-security";
 import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261005-mobile";
 import { icon } from "./icons.js?v=20261005-mobile";
 const THEME_KEY = "sideways-field-guide-theme";
@@ -251,8 +252,7 @@ export class FieldGuide {
     return `<figure class="fg-photo ${stopPreview ? "fg-stop-preview" : cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}">${stopPreview ? `<button class="fg-stop-preview-open" data-open-stop-photo aria-label="${escape(this.t("Open full photograph"))}">${image}</button>` : image}${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${escape(photo.credit || "")}</figcaption>` : ""}</figure>`;
   }
   visitPhotos(visit) {
-    const photos = galleryForVisit(visit);
-    return photos.length ? photos : this.referencePhotos;
+    return photosForVisit(visit, this.referencePhotos);
   }
   galleryLabel(visit) {
     const photos = this.visitPhotos(visit);
@@ -495,8 +495,8 @@ export class FieldGuide {
   transfer(s) {
     const t = (en, tr) => this.t(en, tr),
       parts = s.transitStops || [],
-      source = s.timetableURL || this.water?.timetable;
-    return `<div class="fg-panel-head"><span class="fg-kicker">⛴ ${t("WALK → BOAT → WALK", "YAYA → TEKNE → YAYA")}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div><div class="fg-stop-copy"><h1>${t("Across the water.", "Su üzerinden devam.")}<br><i>${t("Then on foot.", "Sonra yeniden yaya.")}</i></h1><ol class="fg-transfer">${parts.map((p, i) => `<li><span>${i === 0 ? t("BOARD", "BİNİŞ") : i === parts.length - 1 ? t("LEAVE THE BOAT", "İNİŞ") : t("CHANGE", "AKTARMA")}</span><h2>${escape(p.name)}</h2><p>${p.lineTo ? "ACTV " + escape(p.lineTo) : t("Continue to the next photo stop on foot.", "Sıradaki fotoğraf durağına yürüyerek devam et.")}</p></li>`).join("")}</ol><p class="fg-muted">${t("Check the departure board and current service before boarding.", "Binmeden önce iskele panosunu ve güncel seferleri kontrol et.")}</p>${source ? `<a href="${escape(safeURL(source))}" target="_blank" rel="noopener">${t("ACTV · timetables & notices", "ACTV · seferler ve duyurular")} ↗</a>` : ""}<p class="fg-muted">${t("Geometry source", "Güzergâh kaynağı")}: ${escape(this.water?.source || "ACTV")} · ${escape(this.water?.retrievedAt || this.water?.downloadedAt || this.water?.checkedAt || t("Verification date unavailable", "Doğrulama tarihi yok"))}</p><button class="fg-primary" data-action="next">${t("Continue after the boat", "Tekneden sonra devam et")} →</button><button data-action="previous">← ${t("Previous stop", "Önceki durak")}</button></div>`;
+      source = officialTimetableURL(s.timetableURL) || officialTimetableURL(this.water?.timetable);
+    return `<div class="fg-panel-head"><span class="fg-kicker">⛴ ${t("WALK → BOAT → WALK", "YAYA → TEKNE → YAYA")}</span><button data-action="list">${t("All stops", "Duraklar")} ≡</button></div><div class="fg-stop-copy"><h1>${t("Across the water.", "Su üzerinden devam.")}<br><i>${t("Then on foot.", "Sonra yeniden yaya.")}</i></h1><ol class="fg-transfer">${parts.map((p, i) => `<li><span>${i === 0 ? t("BOARD", "BİNİŞ") : i === parts.length - 1 ? t("LEAVE THE BOAT", "İNİŞ") : t("CHANGE", "AKTARMA")}</span><h2>${escape(p.name)}</h2><p>${p.lineTo ? "ACTV " + escape(p.lineTo) : t("Continue to the next photo stop on foot.", "Sıradaki fotoğraf durağına yürüyerek devam et.")}</p></li>`).join("")}</ol><p class="fg-muted">${t("Check the departure board and current service before boarding.", "Binmeden önce iskele panosunu ve güncel seferleri kontrol et.")}</p>${source ? `<a href="${escape(safeURL(source))}" target="_blank" rel="noopener noreferrer">${t("ACTV · timetables & notices", "ACTV · seferler ve duyurular")} ↗</a>` : ""}<p class="fg-muted">${t("Geometry source", "Güzergâh kaynağı")}: ${escape(this.water?.source || "ACTV")} · ${escape(this.water?.retrievedAt || this.water?.downloadedAt || this.water?.checkedAt || t("Verification date unavailable", "Doğrulama tarihi yok"))}</p><button class="fg-primary" data-action="next">${t("Continue after the boat", "Tekneden sonra devam et")} →</button><button data-action="previous">← ${t("Previous stop", "Önceki durak")}</button></div>`;
   }
   choose(key) {
     const route = this.routes.find((r) => r.key === key);
@@ -1096,7 +1096,7 @@ export class FieldGuide {
     const signature = `${this.lang}:${!!active}:${this.ready}:${this.locationAllowed()}`;
     if (controls && signature !== this.locationControlsSignature) {
       this.locationControlsSignature = signature;
-      controls.innerHTML = !this.locationAllowed() ? "" : `${active ? `<button data-action="location-return" ${!fix ? "disabled" : ""}>${icon("recenter")} ${this.t("Return to my location")}</button><button data-action="location-off">${icon("location-stop")} ${this.t("Turn location off")}</button>` : `<button data-action="location" ${!this.ready ? "disabled" : ""}>${icon("location")} ${this.t("Show my location")}</button>`}<span class="fg-location-copy">${this.t("Your position stays on this device; it is not sent to the organiser.")}</span>`;
+      controls.innerHTML = !this.locationAllowed() ? "" : `${active ? `<button data-action="location-return" ${!fix ? "disabled" : ""}>${icon("recenter")} ${this.t("Return to my location")}</button><button data-action="location-off">${icon("location-stop")} ${this.t("Turn location off")}</button>` : `<button data-action="location" ${!this.ready ? "disabled" : ""}>${icon("location")} ${this.t("Show my location")}</button>`}<span class="fg-location-copy">${this.t("Raw coordinates are not sent to organisers or analytics. Location starts as a marker only. Follow or recenter sends map requests for the area you view.")}</span>`;
       controls.querySelectorAll("[data-action]").forEach(button => { button.onclick = () => this.action(button.dataset.action); });
     }
     controls?.querySelector('[data-action="location-return"]')?.toggleAttribute("disabled", !fix || state === "stale");
@@ -1104,7 +1104,7 @@ export class FieldGuide {
   }
   locate() {
     if (this.preview || this.disposed || this.locationEngine.active) return;
-    this.cameraMode = "free"; this.cameraTouched = !!this.modalMode; this.locationFirstFix = true;
+    this.cameraMode = "free"; this.cameraTouched = !!this.modalMode; this.locationFirstFix = false;
     this.locationEngine.start(this.map);
   }
   paintLocation(fix, map) {
@@ -1119,7 +1119,7 @@ export class FieldGuide {
       map.addLayer({ id: "fg-gps-accuracy-fill", type: "fill", source: "fg-gps-accuracy", paint: { "fill-color": "#2454d4", "fill-opacity": 0.1 } });
       map.addLayer({ id: "fg-gps-accuracy-line", type: "line", source: "fg-gps-accuracy", paint: { "line-color": "#2454d4", "line-opacity": 0.5, "line-width": 1 } });
     } else map.getSource("fg-gps-accuracy").setData(data);
-    if (!this.modalMode && (this.cameraMode === "follow" || (this.locationFirstFix && !this.cameraTouched && !fix.outside && !map.getBounds().contains(fix.coordinates)))) this.focusLocation(fix);
+    if (!this.modalMode && this.cameraMode === "follow") this.focusLocation(fix);
     this.locationFirstFix = false;
     this.renderLocation();
     this.scheduleAnnotations();

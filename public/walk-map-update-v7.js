@@ -159,9 +159,9 @@
     $('place-details').innerHTML='<div class="eyebrow">NEARBY PLACE · NOT AN EXTRA STOP</div><h3>'+esc(name)+'</h3><p>'+esc(type)+'</p><p class="small-note">From OpenStreetMap. Listings may be incomplete or outdated; no live opening hours or ratings are shown.</p><div class="stop-actions"><a class="btn primary small" href="'+esc(u)+'" target="_blank" rel="noopener">Look up in Google Maps ↗</a><a class="btn small" href="'+esc(pin)+'" target="_blank" rel="noopener">Exact mapped point ↗</a></div>';
     sheet.hidden=false;
   }
-  function loadScript(url){return new Promise((resolve,reject)=>{const s=document.createElement('script'),t=setTimeout(()=>{s.remove();reject(Error('Script timed out'));},14000);s.src=url;s.crossOrigin='anonymous';s.onload=()=>{clearTimeout(t);resolve();};s.onerror=()=>{clearTimeout(t);s.remove();reject(Error('Script unavailable'));};document.head.append(s);});}
-  function loadCSS(url){const link=document.createElement('link');link.rel='stylesheet';link.href=url;link.onerror=()=>{link.onerror=null;link.href=url.replace('https://cdn.jsdelivr.net/npm/','https://unpkg.com/');};document.head.append(link);}
-  async function scriptWithFallback(path){for(const host of ['https://cdn.jsdelivr.net/npm/','https://unpkg.com/']){try{await loadScript(host+path);return;}catch{}}throw Error('Map dependency unavailable');}
+  const vettedAssets = {"maplibre-gl-5.24.0.js":{"url":"/classic-vendor/maplibre-gl-5.24.0.js","integrity":"sha384-5+cfbwT0iiub6VsQAdn6yz16nr6sDiQoHx6tm4O8OVYXHYOxcffFmCJBL0dgdvGp"},"maplibre-gl-5.24.0.css":{"url":"/classic-vendor/maplibre-gl-5.24.0.css","integrity":"sha384-uTttxo/aOKbdE5RlD/SPzSDoDmNvGlUYPjONi2MN/b7c9HPSvW07OIuyP7uL6jxK"},"leaflet-maplibre-gl-0.1.3.js":{"url":"/classic-vendor/leaflet-maplibre-gl-0.1.3.js","integrity":"sha384-LIxE/QjpJKC2A91yD40ZisdYtFbgAjl58jqpo9/MUZNgwhqsTfzwrTlqv6nDdzzB"}};
+  function loadScript(name){return new Promise((resolve,reject)=>{const asset=vettedAssets[name];if(!asset)return reject(Error('Unapproved dependency'));const s=document.createElement('script'),t=setTimeout(()=>{s.remove();reject(Error('Script timed out'));},14000);s.src=asset.url;s.integrity=asset.integrity;s.crossOrigin='anonymous';s.onload=()=>{clearTimeout(t);resolve();};s.onerror=()=>{clearTimeout(t);s.remove();reject(Error('Script integrity or load failure'));};document.head.append(s);});}
+  function loadCSS(name){return new Promise((resolve,reject)=>{const asset=vettedAssets[name];if(!asset)return reject(Error('Unapproved dependency'));const link=document.createElement('link'),timer=setTimeout(()=>{link.remove();reject(Error('Style timed out'));},14000);link.rel='stylesheet';link.href=asset.url;link.integrity=asset.integrity;link.crossOrigin='anonymous';link.onload=()=>{clearTimeout(timer);resolve();};link.onerror=()=>{clearTimeout(timer);link.remove();reject(Error('Style integrity or load failure'));};document.head.append(link);});}
   function restoreRaster(message){
     if(vectorLayer&&map?.hasLayer(vectorLayer))map.removeLayer(vectorLayer);
     vectorLayer=null;gl=null;vectorReady=false;unavailable=true;
@@ -172,9 +172,9 @@
   async function upgradeMap(){
     if(!map||upgrading||vectorReady||unavailable)return;upgrading=true;const generation=++vectorGeneration;
     try{
-      loadCSS('https://cdn.jsdelivr.net/npm/maplibre-gl@5.24.0/dist/maplibre-gl.css');
-      await scriptWithFallback('maplibre-gl@5.24.0/dist/maplibre-gl.js');
-      await scriptWithFallback('@maplibre/maplibre-gl-leaflet@0.1.3/leaflet-maplibre-gl.js');
+      await loadCSS('maplibre-gl-5.24.0.css');
+      await loadScript('maplibre-gl-5.24.0.js');
+      await loadScript('leaflet-maplibre-gl-0.1.3.js');
       if(!L.maplibreGL)throw Error('Map adapter unavailable');
       const ctl=new AbortController(),t=setTimeout(()=>ctl.abort(),15000);
       let style;try{const r=await fetch('https://tiles.openfreemap.org/styles/positron',{signal:ctl.signal});if(!r.ok)throw Error('Style unavailable');style=await r.json();}finally{clearTimeout(t);}

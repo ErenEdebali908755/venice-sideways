@@ -1,0 +1,10 @@
+{
+  "name": "libphonenumber-js",
+  "version": "1.13.14",
+  "source": "pinned installed libphonenumber-js/bundle/libphonenumber-max.js",
+  "license": "MIT",
+  "file": "libphonenumber-max.cjs",
+  "bytes": 252255,
+  "sha256": "6c58e399bf59e4d55f7adc56cf0e4b2643be7538eb3ab028fad5d820bc29853a",
+  "purpose": "private relay-only canonical international phone validation; not served"
+}

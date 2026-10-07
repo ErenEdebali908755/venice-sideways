@@ -23,3 +23,4 @@ test('v1 photo becomes a stable single gallery; an explicitly empty gallery rema
  assert.equal(galleryForVisit({gallery:Array.from({length:13},(_,i)=>({...sample,assetID:String(i),order:i}))}).length,12);
  const v1=projectPublishedRoute({...release,schemaVersion:1,visits:[{key:'old',visible:true,copy:[],photo:legacy}]});assert.equal(v1.visits[0].photo.url,legacy.url);assert.equal(v1.visits[0].gallery,undefined);
 });
+test('relay projection preserves explicit removals and never strips the only denial marker into a reference fallback',()=>{const data=structuredClone(release);data.visits[0].gallery[0].revoked=true;assert.deepEqual(projectPublishedRoute(data).visits[0].gallery,[]);const v1=projectPublishedRoute({...release,schemaVersion:1,visits:[{key:'old',visible:true,copy:[],photo:{url:'https://erenedebali.com/image/3/web',removed:true}}]});assert.equal(v1.visits[0].photo,null);assert.equal(Object.hasOwn(v1.visits[0],'photo'),true);});

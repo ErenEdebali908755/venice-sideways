@@ -139,7 +139,7 @@ test('v1/v2 remain readable and unknown future release schemas stay closed',asyn
     assert.equal(result.status,200,key);
     assert.equal(JSON.parse(result.body).schemaVersion,version);
   }
-  assert.equal((await readPublishedRoute('future-schema',async()=>Response.json(release('future-schema',{schemaVersion:4})))).status,503);
+  assert.equal((await readPublishedRoute('future-schema',async()=>Response.json(release('future-schema',{schemaVersion:4})))).status,502);
 });
 
 test('draft and unknown route paths cannot be proxied',async()=>{
@@ -149,5 +149,5 @@ test('draft and unknown route paths cannot be proxied',async()=>{
 
 test('missing releases retain the original route and failures do not expose upstream data',async()=>{
   assert.equal((await readPublishedRoute('short',async()=>new Response(null,{status:404}))).status,404);
-  assert.equal((await readPublishedRoute('full',async()=>Response.json({secret:'private'}))).status,503);
+  assert.equal((await readPublishedRoute('full',async()=>Response.json({secret:'private'}))).status,502);
 });

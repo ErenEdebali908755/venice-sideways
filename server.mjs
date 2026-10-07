@@ -1,3 +1,4 @@
+import {clientSignal} from './relay-security.mjs';
 import {communityProxy} from './community-proxy.mjs';
 import {eventProxy} from './event-proxy.mjs';
 /** Static website with fixed, consent-based Sideways service endpoints. */
@@ -44,11 +45,12 @@ export async function createServer(){
   if(aliases.has(url.pathname)){res.writeHead(308,{Location:'/'+url.search});res.end();return;}
   let path;try{path=decodeURIComponent(url.pathname);}catch{res.writeHead(400);res.end('Invalid path');return;}
   if(path.includes('\\')||path.includes('\0')||path.split('/').some(s=>s.startsWith('.'))){res.writeHead(404);res.end('Not found');return;}
-  if(path==='/api/route-catalog'){const result=await readRouteCatalog();res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||'{}');return;}
+  if(path==='/api/route-catalog'){const client=clientSignal(req,res);let result;try{result=await readRouteCatalog(undefined,{method:req.method,signal:client.signal});}finally{client.close();}res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');if(result.retryAfter)res.setHeader('Retry-After',String(result.retryAfter));res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||'{}');return;}
   if(path.startsWith('/api/routes/')){
-   const result=await readPublishedRoute(path.slice('/api/routes/'.length));
+   const client=clientSignal(req,res);let result;try{result=await readPublishedRoute(path.slice('/api/routes/'.length),undefined,{method:req.method,signal:client.signal});}finally{client.close();}
    res.setHeader('Content-Type','application/json; charset=utf-8');
-   res.setHeader('Cache-Control',result.status===200?'public, max-age=60':'no-store');
+   res.setHeader('Cache-Control',result.status===200?'public, max-age=0, must-revalidate':'no-store');
+   if(result.retryAfter)res.setHeader('Retry-After',String(result.retryAfter));
    res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||JSON.stringify({message:'Published route unavailable'}));return;
   }
   const file=files.get(path==='/'?'/index.html':/^\/events\/[a-z][a-z0-9-]{0,79}\/?$/.test(path)?'/events.html':path);
