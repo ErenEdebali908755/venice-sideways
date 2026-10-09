@@ -1,0 +1,214 @@
+{
+  "checkedAt": "2026-10-09T21:50:21.221856+00:00",
+  "scope": "anonymous read-only registry metadata; no image layers pulled; no Docker config or infrastructure changes",
+  "registries": {
+    "docker": {
+      "anonymousAuth": "success",
+      "22-alpine": {
+        "status": 200,
+        "digest": "sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402",
+        "responseDigest": "sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402",
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "bytes": 6406,
+        "platforms": [
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.digest": "sha256:d56c381f961d307a21b3ca004cf1e3910f106644aefb1f43e654c8a56c4fd395",
+              "org.opencontainers.image.base.name": "alpine:3.24",
+              "org.opencontainers.image.created": "2026-09-23T21:08:54Z",
+              "org.opencontainers.image.revision": "81f419144a1251854c6d9afb09eaa39928e724e8",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#81f419144a1251854c6d9afb09eaa39928e724e8:22/alpine3.24",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "22-alpine"
+            },
+            "digest": "sha256:2c752226d477b4a886378baa95b9af252be59301b725fdb0b7e15208131505a8",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            },
+            "size": 1720
+          },
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.digest": "sha256:260479a1cfaf304c4c20da7f8405d3ce313513dcd534bb743257bdd2fe0f3e2d",
+              "org.opencontainers.image.base.name": "alpine:3.24",
+              "org.opencontainers.image.created": "2026-09-23T21:08:57Z",
+              "org.opencontainers.image.revision": "81f419144a1251854c6d9afb09eaa39928e724e8",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#81f419144a1251854c6d9afb09eaa39928e724e8:22/alpine3.24",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "22-alpine"
+            },
+            "digest": "sha256:85cdd100016a2e09927c0776bb7ebebcfefce5cd0af49893ada91cbc4d78ee22",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            },
+            "size": 1722
+          }
+        ]
+      },
+      "24-bookworm-slim": {
+        "status": 200,
+        "digest": "sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20",
+        "responseDigest": "sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20",
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "bytes": 3929,
+        "platforms": [
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.digest": "sha256:a4672c0cb26fbdde88e38fa2dfb6c681942306680e41e4378b28770b6e79ee91",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2026-10-06T01:44:56Z",
+              "org.opencontainers.image.revision": "93a7bafc324a85ac1ee461604cff87cffacb6d7a",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#93a7bafc324a85ac1ee461604cff87cffacb6d7a:24/bookworm-slim",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "24-bookworm-slim"
+            },
+            "digest": "sha256:51b1100cc2a83d370c6a60952e3f2989c8a43159d0e38586e090f3b3326efefd",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            },
+            "size": 1929
+          },
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.digest": "sha256:a1b86db52ce3daef089e45aabe36dfec4091f82464c25c1fdcf03de197cbe82a",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2026-10-06T01:48:01Z",
+              "org.opencontainers.image.revision": "93a7bafc324a85ac1ee461604cff87cffacb6d7a",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#93a7bafc324a85ac1ee461604cff87cffacb6d7a:24/bookworm-slim",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "24-bookworm-slim"
+            },
+            "digest": "sha256:ba6b7d0ee561d9d49deb99e2b93c98632cc287b6cca1a6b18d66127054efa4dc",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            },
+            "size": 1931
+          }
+        ]
+      }
+    },
+    "ecr": {
+      "anonymousAuth": "success",
+      "22-alpine": {
+        "status": 200,
+        "digest": "sha256:0a7108bf6c7bf5de370ffb1a3ed6be93d405b43ff159f681a8d18c0e2bc2e402",
+        "responseDigest": null,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "bytes": 6406,
+        "platforms": [
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.digest": "sha256:d56c381f961d307a21b3ca004cf1e3910f106644aefb1f43e654c8a56c4fd395",
+              "org.opencontainers.image.base.name": "alpine:3.24",
+              "org.opencontainers.image.created": "2026-09-23T21:08:54Z",
+              "org.opencontainers.image.revision": "81f419144a1251854c6d9afb09eaa39928e724e8",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#81f419144a1251854c6d9afb09eaa39928e724e8:22/alpine3.24",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "22-alpine"
+            },
+            "digest": "sha256:2c752226d477b4a886378baa95b9af252be59301b725fdb0b7e15208131505a8",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            },
+            "size": 1720
+          },
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.digest": "sha256:260479a1cfaf304c4c20da7f8405d3ce313513dcd534bb743257bdd2fe0f3e2d",
+              "org.opencontainers.image.base.name": "alpine:3.24",
+              "org.opencontainers.image.created": "2026-09-23T21:08:57Z",
+              "org.opencontainers.image.revision": "81f419144a1251854c6d9afb09eaa39928e724e8",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#81f419144a1251854c6d9afb09eaa39928e724e8:22/alpine3.24",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "22-alpine"
+            },
+            "digest": "sha256:85cdd100016a2e09927c0776bb7ebebcfefce5cd0af49893ada91cbc4d78ee22",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            },
+            "size": 1722
+          }
+        ]
+      },
+      "24-bookworm-slim": {
+        "status": 200,
+        "digest": "sha256:d6aa754f16b3197301076f047b5def2f02ea1dbbc2ca920407d46d7ec7f87b20",
+        "responseDigest": null,
+        "mediaType": "application/vnd.oci.image.index.v1+json",
+        "bytes": 3929,
+        "platforms": [
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "amd64",
+              "org.opencontainers.image.base.digest": "sha256:a4672c0cb26fbdde88e38fa2dfb6c681942306680e41e4378b28770b6e79ee91",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2026-10-06T01:44:56Z",
+              "org.opencontainers.image.revision": "93a7bafc324a85ac1ee461604cff87cffacb6d7a",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#93a7bafc324a85ac1ee461604cff87cffacb6d7a:24/bookworm-slim",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "24-bookworm-slim"
+            },
+            "digest": "sha256:51b1100cc2a83d370c6a60952e3f2989c8a43159d0e38586e090f3b3326efefd",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "amd64",
+              "os": "linux"
+            },
+            "size": 1929
+          },
+          {
+            "annotations": {
+              "com.docker.official-images.bashbrew.arch": "arm64v8",
+              "org.opencontainers.image.base.digest": "sha256:a1b86db52ce3daef089e45aabe36dfec4091f82464c25c1fdcf03de197cbe82a",
+              "org.opencontainers.image.base.name": "debian:bookworm-slim",
+              "org.opencontainers.image.created": "2026-10-06T01:48:01Z",
+              "org.opencontainers.image.revision": "93a7bafc324a85ac1ee461604cff87cffacb6d7a",
+              "org.opencontainers.image.source": "https://github.com/nodejs/docker-node.git#93a7bafc324a85ac1ee461604cff87cffacb6d7a:24/bookworm-slim",
+              "org.opencontainers.image.url": "https://hub.docker.com/_/node",
+              "org.opencontainers.image.version": "24-bookworm-slim"
+            },
+            "digest": "sha256:ba6b7d0ee561d9d49deb99e2b93c98632cc287b6cca1a6b18d66127054efa4dc",
+            "mediaType": "application/vnd.oci.image.manifest.v1+json",
+            "platform": {
+              "architecture": "arm64",
+              "os": "linux",
+              "variant": "v8"
+            },
+            "size": 1931
+          }
+        ]
+      }
+    }
+  },
+  "comparison": {
+    "22-alpine": {
+      "indexDigestEqual": true,
+      "selectedPlatformDescriptorsEqual": true
+    },
+    "24-bookworm-slim": {
+      "indexDigestEqual": true,
+      "selectedPlatformDescriptorsEqual": true
+    }
+  }
+}
