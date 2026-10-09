@@ -1,6 +1,16 @@
 # Venice Sideways
 
-## Kit 05 — iki kod dağıtıldı, son ziyaretçi kanıtı ve QA ayrımı
+## Güncel yürüyüş/görsel UX yayını — 9 Ekim 2026
+
+Sınırlandırılmış yeni yürüyüş/görsel UX sürümü [canlı rehberde](https://venicesideways.com/) yayımlandı. Admin `fca7d09563d7f4eecd44e38d469393441adb9654` / Railway `63b42b7a-3456-483f-9059-0e76ec44c803` **18:51:45 UTC SUCCESS**, ziyaretçi `4ebe7a528264bb73b9ebf447764769fdbfa488be` / Railway `fe2ad236-736c-4408-a550-db459f1a9b99` **18:57:13 UTC SUCCESS**. Yeni CI/üretim kapıları, iki hostta 325 HTTPS kontrolü ve 128 dosyanın bayt eşitliği, gerçek canlı 50 kontrol/72 GET ve native Chrome sekiz dil/tema/%200 kontrolleri geçti. Fiziksel telefon ve saha kabulü ayrı bekliyor.
+
+**Kullanım:** Santa Lucia'da **Buradayım — yürüyüşe başla**; sonra adlı hedefe varış/fotoğraf molası/sonraki durağa devam manuel ilerler. **Harita / Duraklar / Fotoğraflar** veya başka durak incelemesi yürüyüş hedefini değiştirmez. Main 11 fotoğraf durağı + iki bacaklı ayrı vaporetto, Full 28; GPS otomatik ilerletmez. Eksik fotoğraf kapağı dürüst boş durumdur, izinli arşiv örnekleri ayrı İlham alanındadır. 40 kitap dosyası kamuya eklenmedi. Google üretimi pasif; mevcut 11 Ekim etkinliği taslak, başlangıç saati boş, kayıt açılmadı. Yeni migration veya editoryal snapshot yayını yoktur.
+
+[9 Ekim yayın, güncel kullanım ve kalan sınırlar](docs/WALKING-RELEASE-20261009.md) · [tek güncel durum](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/CURRENT-STATE.md) · [sistem kılavuzu](https://github.com/ErenEdebali908755/eren-visual-archive/blob/main/docs/VENICE-SIDEWAYS-SYSTEM.md)
+
+Aşağıdaki 5–6 Ekim bölümleri tarihli önceki kanıttır; yeni test/canlı durumun yerine kullanılmaz.
+
+## Tarihsel Kit 05 — 6 Ekim, iki kod dağıtıldı ve QA ayrımı
 
 **İlk ziyaretçi dağıtım kesiti (PR #14):** Kit 05 ziyaretçi kodu ortak durak hikâyesi, optik harita kalibrasyonu, tam kadraj fotoğraflar ve kısa özel önizleme düzenini içerir. Admin `fe4bbbb16e781694f069cb64ad174334eb2067d6` / Railway `8cdb369f-bb7c-45db-b25c-c140cfbdd674` **6 Ekim 20:52:32 UTC SUCCESS**; korumalı admin kabulü 172 denetim/30 kayıtta, ayrı hikâye/özel önizleme kabulü 21:15:38 UTC’de 11/11 geçti. Ziyaretçi [PR #14](https://github.com/ErenEdebali908755/venice-sideways/pull/14) kaynak başı `b018318` ana dala `df6e28e53937bf06c14624030ace326ba0022567` olarak birleşti; Railway `743724a1-e59d-405e-8503-83698e285650` **21:17:49.798 UTC SUCCESS**; **Kit 05 ziyaretçi canlı kabulü o sırada sürüyordu**. Ortak 126 dosyanın admin HTTPS eşitliği 128 denetimde geçti. Üretim hikâye şeması 30 migration ile hazır; araştırma paketindeki 30 Türkçe öneri 21:00:23.719 UTC’de yalnız özel üretim taslağına inceleme bekler durumda aktarıldı; insan onayı ve yayın 0. Google otomatik çevirisi pasif; Tre Archi, 25 çözülmemiş mimari dayanak ve iki yeni bahçe çizimi bekliyor. Etkinlik için CX Lobby / 15:45 Europe/Rome biliniyor; tarih onaylanmadı, kesin QR veya kayıt açılışı yok.
 
@@ -74,7 +84,7 @@ Attach `venicesideways.com` and use the exact DNS records returned by the host. 
 
 ## Own location only
 
-Location starts **off**. A visitor explicitly selects **Show my location / Konumumu göster** and grants browser permission. The device-only explanation is beside the control. The guide draws one marker and an accuracy circle; **Turn location off / Konumu kapat** clears its watcher, marker, circle and temporary fix. Hidden pages and hidden maps stop tracking; returning does not restart it. Late callbacks cannot revive a stopped watcher. Denial or timeout leaves browsing usable. Gallery inspection and manual pan suspend camera following; only **Return to my location / Konumuma dön** resumes it. Local lifecycle/denial tests passed; current release live and physical-device acceptance remains in the table above.
+Location starts **off**. A visitor explicitly selects **Show my location / Konumumu göster** and grants browser permission. The device-only explanation is beside the control. The guide draws one marker and an accuracy circle; **Turn location off / Konumu kapat** clears its watcher, marker, circle and temporary fix. Hidden pages and hidden maps stop tracking; returning does not restart it. Late callbacks cannot revive a stopped watcher. Denial or timeout leaves browsing usable. Gallery inspection and manual pan suspend camera following; only **Return to my location / Konumuma dön** resumes it. Local lifecycle/denial and 9 October live location with an existing grant passed; native denial and physical-device acceptance remain separate limits in the [current release note](docs/WALKING-RELEASE-20261009.md).
 
 Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or other visitors. There is no organiser dashboard or location endpoint. Normal map-tile requests can reveal the area displayed to the map provider; browser/OS services may perform their own lookups. HTTPS and user permission are required. Background/lock-screen tracking is not guaranteed.
 
@@ -85,7 +95,7 @@ Coordinates are not posted, logged, saved, placed in URLs or shared with Eren or
 - On phones, a compact/standard/expanded stop panel uses the same map; map options and explicit location controls stay above the canvas. Settings contain the existing language/theme preferences. Expanding until the map is hidden stops GPS; returning does not restart it.
 - Dark page controls with a permanently light basemap.
 - Separate walking and waterbus navigation; all stops retained across exported links.
-- OpenFreeMap / OpenStreetMap / MapLibre, three user-supplied illustrative PNG derivatives and two attributed OSM garden polygons. A curated stop gallery takes precedence; otherwise the authorized temporary selection is explicitly labeled. The empty-gallery state is separately tested.
+- OpenFreeMap / OpenStreetMap / MapLibre, three user-supplied illustrative PNG derivatives and two attributed OSM garden polygons. Explicit authorized stop galleries stay separate from inspiration. An empty stop gallery remains empty; the temporary archive selection never becomes its stop cover. See the [current photo and walking contracts](docs/WALKING-RELEASE-20261009.md).
 
 ## Migration safety
 
