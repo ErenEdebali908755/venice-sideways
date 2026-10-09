@@ -7,8 +7,8 @@ test('shared guide controls have a translation in every supported non-source loc
   assert.deepEqual(UI_LANGUAGES, ['en', 'tr', 'it', 'fr', 'ru', 'zh', 'ja', 'ko']);
   const guide = await readFile(new URL('../public/field-guide/guide.js', import.meta.url), 'utf8');
   // Editorial payload is reviewed separately. These literals are control/status copy.
-  const keys = [...new Set([...guide.matchAll(/(?:this\.t|\bt)\("([^"\n]+)"/g)].map(match => match[1]))];
-  assert.ok(keys.includes('Directions to this stop'));
+  const keys = [...new Set([...guide.matchAll(/(?:this\.t|this\.named|\bt)\("([^"\n]+)"/g)].map(match => match[1]))];
+  assert.ok(keys.includes('Directions to {name}'));
   assert.ok(keys.includes('Illustration awaiting identity review.'));
   for (const key of keys) for (const language of UI_LANGUAGES.slice(1)) {
     const translated = uiCopy(key, language);

@@ -1,6 +1,6 @@
-import {createMeasurementCollector} from './measurement.js?v=20261006-kit05';
-import {FieldGuide} from './guide.js?v=20261006-kit05';
-import {temporarySelection} from './temporary-selection.js?v=20261005-mobile';
+import {createMeasurementCollector} from './measurement.js?v=20261009-walk';
+import {FieldGuide} from './guide.js?v=20261009-walk';
+import {temporarySelection} from './temporary-selection.js?v=20261009-walk';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];
 export const normalizeLanguage = value => typeof value === 'string' ? value.toLowerCase().split(/[-_]/)[0] : '';

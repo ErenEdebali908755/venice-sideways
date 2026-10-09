@@ -1,10 +1,11 @@
-"""Current field-guide UI acceptance with local routes, explicit synthetic portrait
-geometry fixtures, and no external map or photograph traffic. Real owned photographs
-and actual MapLibre are validated separately by photo-preview-browser.mjs."""
+"""Current field-guide UI acceptance with local routes and explicit synthetic archive
+inspiration geometry fixtures. Empty stop covers never fall back to these examples.
+Real MapLibre/geography and walking behavior are checked separately."""
 from pathlib import Path
 from urllib.parse import urlparse
 import json
 import mimetypes
+import os
 from playwright.sync_api import sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +13,18 @@ PUBLIC = ROOT / "public"
 BASE = "https://venicesideways.test"
 LANGUAGES = ("en", "tr", "it", "fr", "ru", "zh", "ja", "ko")
 WIDTHS = (320, 375, 768, 1440)
+ROUTES = json.loads((PUBLIC / "field-guide/routes.json").read_text())["routes"]
+MAIN = next(route for route in ROUTES if route["key"] == "main")
+
+
+def stop_title(key, language):
+    visit = next(visit for visit in MAIN["visits"] if visit["key"] == key)
+    return next(copy["title"] for copy in visit["copy"] if copy["locale"] == language)
+
+
+def progress(page):
+    return page.locator(".fg-walking-dock").inner_text()
+
 issues = []
 checks = 0
 
@@ -19,7 +32,7 @@ checks = 0
 def serve(route):
     url = urlparse(route.request.url)
     # Deliberately synthetic geometry, not an archive photograph or stop assignment.
-    # The approved derivative URL and actual metadata remain unchanged in the renderer.
+    # These permitted archive samples remain separate inspiration, not stop covers.
     if url.netloc == "erenedebali.com" and url.path in {
             f"/image/{photo}/{variant}" for photo in (3, 6, 18) for variant in ("web", "thumb")}:
         width = 1373 if url.path.split("/")[2] == "18" else 1238
@@ -66,7 +79,8 @@ def check(condition, description):
 
 
 with sync_playwright() as playwright:
-    browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"])
+    browser = playwright.chromium.launch(headless=True, args=["--no-sandbox"],
+                                          executable_path=os.environ.get("BROWSER_EXECUTABLE"))
     for language in LANGUAGES:
         for width in WIDTHS:
             context = browser.new_context(viewport={"width": width, "height": 900},
@@ -91,51 +105,85 @@ with sync_playwright() as playwright:
             page.locator('[data-route="main"]').click()
             check(root.get_attribute("data-view") == "walk", f"{language}/{width}: route selection")
             check(page.locator(".fg-stop-copy h1").is_visible(), f"{language}/{width}: active stop")
-            check(page.locator('[data-action="focus"]').count() == 1,
-                  f"{language}/{width}: active stop control")
-            page.wait_for_function("""()=>{const i=document.querySelector('.fg-stop-preview img');
-                return i?.complete&&i.naturalWidth>0} """)
-            preview = page.locator(".fg-stop-preview")
-            portrait = preview.evaluate("""figure=>{const i=figure.querySelector('img'),
-                b=figure.querySelector('button'),p=figure.closest('.fg-editorial'),
-                s=getComputedStyle(i),ps=getComputedStyle(p);return {
-                width:i.getAttribute('width'),height:i.getAttribute('height'),
-                naturalPortrait:i.naturalHeight>i.naturalWidth,fit:s.objectFit,
-                aspect:s.aspectRatio,filter:s.filter,imageHeight:i.getBoundingClientRect().height,
-                touchHeight:b.getBoundingClientRect().height,figureHeight:figure.getBoundingClientRect().height,
-                usable:p.clientHeight-parseFloat(ps.paddingTop)-parseFloat(ps.paddingBottom),
-                credit:figure.querySelector('figcaption')?.textContent}}""")
-            check(portrait["width"] == "1238" and portrait["height"] == "2200"
-                  and portrait["naturalPortrait"], f"{language}/{width}: portrait metadata retained")
-            check(portrait["fit"] == "contain" and portrait["aspect"] == "auto"
-                  and portrait["filter"] == "none", f"{language}/{width}: normal preview full frame without crop or filter")
-            check(43.5 <= portrait["imageHeight"] <= 240.5
-                  and portrait["touchHeight"] >= 43.5
-                  and portrait["figureHeight"] <= portrait["usable"] * .36 + 1,
-                  f"{language}/{width}: normal preview and credit fit usable panel budget")
-            check(portrait["credit"] == "Eren Edebali", f"{language}/{width}: normal preview credit")
-            opener = page.locator(".fg-stop-preview-open")
+            check(page.locator('.fg-walking-dock [data-action="focus"]').count() == 1,
+                  f"{language}/{width}: one explicitly named walking-target control in dock")
+            dock_action = page.locator('.fg-walking-dock [data-action="walk-advance"]')
+            check(dock_action.count() == 1 and dock_action.is_visible()
+                  and bool(dock_action.inner_text().strip()),
+                  f"{language}/{width}: singleton named walking action")
+            check(stop_title("lucia", language) in progress(page)
+                  and "1 / 11" in progress(page) and "/ 12" not in progress(page),
+                  f"{language}/{width}: Santa Lucia start and eleven-photo progress")
+            check(page.locator(".fg-stop-copy .fg-compact-empty").is_visible()
+                  and page.locator(".fg-stop-copy .fg-compact-empty").evaluate("e=>e.getBoundingClientRect().height") <= 120,
+                  f"{language}/{width}: honest compact empty stop photograph")
+            check(page.locator(".fg-stop-copy .fg-stop-preview img").count() == 0,
+                  f"{language}/{width}: archive portrait is not a stop cover")
+            check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
+                  f"{language}/{width}: Map, Stops and Photographs are separate views")
+            dock_action.click()
+            check(root.get_attribute("data-walking-phase") == "walking"
+                  and stop_title("giacomo", language) in progress(page),
+                  f"{language}/{width}: start advances once to Giacomo walking target")
+            before = progress(page)
+
+            page.locator('[data-panel="photos"]').click()
+            check(root.get_attribute("data-panel") == "photos",
+                  f"{language}/{width}: photographs view reachable")
+            page.locator('[data-photo-stop]').select_option("vino")
+            check(stop_title("vino", language) in page.locator('.fg-stop-copy h1').inner_text()
+                  and progress(page) == before,
+                  f"{language}/{width}: future-photo inspection preserves walking progress")
+            check(page.locator('.fg-stop-copy .fg-stop-preview img').count() == 0
+                  and page.locator('.fg-stop-copy .fg-compact-empty').is_visible(),
+                  f"{language}/{width}: future empty stop does not revive archive fallback")
+            check(page.locator('.fg-inspiration [data-inspiration]').count() == 3
+                  and page.locator('.fg-inspiration > p').is_visible(),
+                  f"{language}/{width}: archive examples live in explicitly explained inspiration")
+            opener = page.locator('.fg-inspiration [data-inspiration]').first
             opener.focus()
             page.keyboard.press("Enter")
-            page.locator(".fg-dialog.fg-lightbox[open]").wait_for()
-            page.wait_for_function("""()=>{const i=document.querySelector('.fg-gallery-stage img');
-                return i?.complete&&i.naturalWidth>0} """)
-            check(page.locator(".fg-gallery-stage img").evaluate("""i=>
-                getComputedStyle(i).objectFit==='contain'&&!i.closest('.fg-stop-preview')"""),
-                  f"{language}/{width}: native Enter opens separate unzoomed full view")
-            page.go_back()
-            page.wait_for_function("""()=>{const d=document.querySelector('.fg-dialog');
-                return d?.open&&!d.classList.contains('fg-lightbox')}""")
+            page.locator('.fg-dialog[open] .fg-reference-note').wait_for()
+            page.wait_for_function("""()=>{const i=document.querySelector('.fg-dialog .fg-photo-full img');
+                return i?.complete&&i.naturalWidth>0}""")
+            portrait = page.locator('.fg-dialog .fg-photo-full img').evaluate("""i=>({
+                width:i.getAttribute('width'),height:i.getAttribute('height'),
+                naturalPortrait:i.naturalHeight>i.naturalWidth,fit:getComputedStyle(i).objectFit,
+                filter:getComputedStyle(i).filter,alt:i.getAttribute('alt'),
+                credit:i.closest('figure').querySelector('figcaption')?.textContent})""")
+            check(portrait["width"] == "1238" and portrait["height"] == "2200"
+                  and portrait["naturalPortrait"] and bool(portrait["alt"]),
+                  f"{language}/{width}: separate inspiration retains dimensions and natural alt")
+            check(portrait["fit"] == "contain" and portrait["filter"] == "none"
+                  and portrait["credit"] == "Eren Edebali",
+                  f"{language}/{width}: inspiration full frame and credit preserved")
             page.keyboard.press("Escape")
             page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
-            check(opener.evaluate("b=>document.activeElement===b"),
-                  f"{language}/{width}: natural Back and Escape return preview focus")
-            page.locator('[data-action="list"]').click()
-            check(page.locator(".fg-stop-list [data-step]").count() >= 11,
-                  f"{language}/{width}: all stops remain selectable")
-            page.locator(".fg-stop-list [data-step]").last.click()
-            check(page.locator(".fg-stop-copy h1").is_visible(),
-                  f"{language}/{width}: last stop selection")
+            check(opener.evaluate("b=>document.activeElement===b") and progress(page) == before,
+                  f"{language}/{width}: inspiration close returns focus without advancing walk")
+
+            page.locator('[data-panel="stops"]').click()
+            check(page.locator('.fg-stop-list [data-inspect]').count() == 11
+                  and page.locator('.fg-stop-list [data-inspect-transfer]').count() == 1,
+                  f"{language}/{width}: eleven photo stops and one separate transfer inspectable")
+            last = page.locator('.fg-stop-list [data-inspect]').last
+            last.click()
+            check(stop_title("vino", language) in page.locator('.fg-dialog h1').inner_text()
+                  and progress(page) == before,
+                  f"{language}/{width}: stop list inspects Vino without changing walking target")
+            page.keyboard.press("Escape")
+            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
+            check(last.evaluate("b=>document.activeElement===b"),
+                  f"{language}/{width}: stop inspection restores opening control focus")
+            # Allow the deliberately bounded double-tap guard before a distinct resume action.
+            page.wait_for_timeout(660)
+            page.locator('.fg-stop-list [data-resume="vino"]').click()
+            check(root.get_attribute("data-panel") == "map"
+                  and root.get_attribute("data-walking-phase") == "walking"
+                  and stop_title("vino", language) in progress(page),
+                  f"{language}/{width}: only explicit resume changes target to Vino")
+            check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
+                  f"{language}/{width}: inspection and resume leave one walking action")
 
             theme = page.locator(".fg-desktop-preferences .fg-theme")
             if not theme.is_visible():
