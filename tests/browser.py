@@ -1,6 +1,6 @@
-"""Current field-guide UI acceptance with local routes and explicit synthetic archive
-inspiration geometry fixtures. Empty stop covers never fall back to these examples.
-Real MapLibre/geography and walking behavior are checked separately."""
+"""Main Walk visitor acceptance with the actual local photo files and explicit
+synthetic archive inspiration geometry fixtures. Real MapLibre/geography and
+walking behavior are checked separately; no production data is written."""
 from pathlib import Path
 from urllib.parse import urlparse
 import json
@@ -91,11 +91,19 @@ with sync_playwright() as playwright:
             page = context.new_page()
             page.route("**/*", serve)
             page.goto(f"{BASE}/?lang={language}", wait_until="domcontentloaded")
-            page.locator(".fg-route-card").first.wait_for()
+            page.locator(".fg-main-summary h1").wait_for()
             root = page.locator("#field-guide")
             check(root.get_attribute("lang") == language, f"{language}/{width}: language")
-            check(page.locator(".fg-route-card").count() == 2, f"{language}/{width}: two routes")
-            check(page.locator(".fg-intro h1").is_visible(), f"{language}/{width}: introduction")
+            check(page.locator('.fg-main-summary [data-route="main"]').count() == 1
+                  and page.locator('[data-route="full"],.fg-route-switch,.fg-route-card').count() == 0,
+                  f"{language}/{width}: only Main summary and one opening action")
+            check(page.locator(".fg-intro").count() == 0
+                  and page.locator('.fg-main-summary img').count() == 0,
+                  f"{language}/{width}: removed introduction and temporary cover stay absent")
+            check(root.get_attribute("data-view") == "explore"
+                  and root.get_attribute("data-walking-phase") == "reaching-start"
+                  and page.locator('.fg-walking-dock').is_hidden(),
+                  f"{language}/{width}: summary does not automatically start walking")
             check(page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"),
                   f"{language}/{width}: no horizontal overflow")
             map_background = page.locator(".fg-map-shell").evaluate("e=>getComputedStyle(e).backgroundColor")
@@ -104,6 +112,10 @@ with sync_playwright() as playwright:
 
             page.locator('[data-route="main"]').click()
             check(root.get_attribute("data-view") == "walk", f"{language}/{width}: route selection")
+            if width < 768:
+                check(root.get_attribute("data-sheet") == "collapsed",
+                      f"{language}/{width}: walking opens with the compact map-first sheet")
+                page.locator('[data-sheet="standard"]').click()
             check(page.locator(".fg-stop-copy h1").is_visible(), f"{language}/{width}: active stop")
             check(page.locator('.fg-walking-dock [data-action="focus"]').count() == 1,
                   f"{language}/{width}: one explicitly named walking-target control in dock")
@@ -114,11 +126,12 @@ with sync_playwright() as playwright:
             check(stop_title("lucia", language) in progress(page)
                   and "1 / 11" in progress(page) and "/ 12" not in progress(page),
                   f"{language}/{width}: Santa Lucia start and eleven-photo progress")
-            check(page.locator(".fg-stop-copy .fg-compact-empty").is_visible()
-                  and page.locator(".fg-stop-copy .fg-compact-empty").evaluate("e=>e.getBoundingClientRect().height") <= 120,
-                  f"{language}/{width}: honest compact empty stop photograph")
-            check(page.locator(".fg-stop-copy .fg-stop-preview img").count() == 0,
-                  f"{language}/{width}: archive portrait is not a stop cover")
+            check(page.locator(".fg-stop-copy .fg-compact-empty").count() == 0
+                  and page.locator(".fg-stop-copy .fg-stop-preview img").is_visible(),
+                  f"{language}/{width}: Santa Lucia has an actual visible stop photograph")
+            check('/field-guide/photos/main-20261009/lucia-' in page.locator(
+                  '.fg-stop-copy .fg-stop-preview img').get_attribute('src'),
+                  f"{language}/{width}: stop cover is its verified local photograph")
             check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
                   f"{language}/{width}: Map, Stops and Photographs are separate views")
             dock_action.click()
@@ -130,13 +143,48 @@ with sync_playwright() as playwright:
             page.locator('[data-panel="photos"]').click()
             check(root.get_attribute("data-panel") == "photos",
                   f"{language}/{width}: photographs view reachable")
+            for visit in MAIN["visits"]:
+                page.locator('[data-photo-stop]').select_option(visit["key"])
+                cover = page.locator('.fg-stop-copy .fg-stop-preview img')
+                cover.scroll_into_view_if_needed()
+                page.wait_for_function("""()=>{const image=document.querySelector('.fg-stop-copy .fg-stop-preview img');
+                    return image?.complete && image.naturalWidth > 0}""")
+                expected = visit["gallery"][0]
+                caption = page.locator('.fg-stop-copy .fg-stop-preview figcaption')
+                links = caption.locator('a').evaluate_all('(links)=>links.map(link=>link.getAttribute("href"))')
+                check(urlparse(cover.get_attribute('src')).path == expected['derivatives'][0]['url']
+                      and cover.get_attribute('alt') == next(row['alt'] for row in expected['copy'] if row['locale'] == language)
+                      and expected['credit'] in caption.inner_text()
+                      and expected['sourceURL'] in links and expected['licenseURL'] in links,
+                      f"{language}/{width}: {visit['placeKey']} loads its exact licensed photograph with alt and credits")
+                check(progress(page) == before,
+                      f"{language}/{width}: {visit['placeKey']} photo inspection does not change target")
             page.locator('[data-photo-stop]').select_option("vino")
             check(stop_title("vino", language) in page.locator('.fg-stop-copy h1').inner_text()
                   and progress(page) == before,
                   f"{language}/{width}: future-photo inspection preserves walking progress")
-            check(page.locator('.fg-stop-copy .fg-stop-preview img').count() == 0
-                  and page.locator('.fg-stop-copy .fg-compact-empty').is_visible(),
-                  f"{language}/{width}: future empty stop does not revive archive fallback")
+            vino_photo = next(visit for visit in MAIN["visits"] if visit['key'] == 'vino')['gallery'][0]
+            check(page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
+                  and next(row['caption'] for row in vino_photo['copy'] if row['locale'] == language)
+                      in page.locator('.fg-stop-copy .fg-stop-preview figcaption').inner_text()
+                  and page.locator('.fg-stop-copy .fg-photo-kind').is_visible(),
+                  f"{language}/{width}: Vino photograph is honestly labelled as surroundings")
+            photo_opener = page.locator('.fg-stop-copy [data-open-stop-photo]')
+            photo_opener.click()
+            page.locator('.fg-dialog[open] .fg-photo-full img').wait_for()
+            full_photo = page.locator('.fg-dialog[open] .fg-photo-full img').evaluate("""image=>({
+                fit:getComputedStyle(image).objectFit,source:image.getAttribute('src'),
+                credit:image.closest('figure').querySelector('figcaption')?.textContent})""")
+            check(full_photo['fit'] == 'contain' and urlparse(full_photo['source']).path == vino_photo['derivatives'][0]['url']
+                  and vino_photo['credit'] in full_photo['credit'],
+                  f"{language}/{width}: real stop photo opens uncropped with its credit")
+            page.keyboard.press('Escape')
+            page.wait_for_function("()=>document.querySelector('.fg-dialog')?.open && !document.querySelector('.fg-dialog').classList.contains('fg-lightbox')")
+            check(progress(page) == before, f"{language}/{width}: leaving the full photograph restores stop details without advancing")
+            page.keyboard.press('Escape')
+            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
+            check(photo_opener.evaluate('button=>document.activeElement===button') and progress(page) == before,
+                  f"{language}/{width}: real photo close restores opener and target")
             check(page.locator('.fg-inspiration [data-inspiration]').count() == 3
                   and page.locator('.fg-inspiration > p').is_visible(),
                   f"{language}/{width}: archive examples live in explicitly explained inspiration")
@@ -185,18 +233,19 @@ with sync_playwright() as playwright:
             check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
                   f"{language}/{width}: inspection and resume leave one walking action")
 
-            theme = page.locator(".fg-desktop-preferences .fg-theme")
-            if not theme.is_visible():
-                # The consent details have their own summary inside Settings.
-                # Open the direct Settings control, not a nested consent disclosure.
-                page.locator(".fg-mobile-settings > summary").click()
-                theme = page.locator(".fg-mobile-settings .fg-theme")
+            preferences = page.locator('.fg-preferences')
+            preferences.locator(':scope > summary').click()
+            theme = preferences.locator('.fg-theme')
             theme.select_option("dark")
             check(root.get_attribute("data-theme") == "dark", f"{language}/{width}: manual dark theme")
             check(page.locator(".fg-map-shell").evaluate("e=>getComputedStyle(e).backgroundColor") == map_background,
                   f"{language}/{width}: map appearance unaffected by theme")
             check(page.evaluate("document.documentElement.scrollWidth <= innerWidth + 1"),
                   f"{language}/{width}: dark theme no overflow")
+            page.keyboard.press('Escape')
+            check(preferences.get_attribute('open') is None
+                  and preferences.locator(':scope > summary').evaluate('button=>document.activeElement===button'),
+                  f"{language}/{width}: Preferences closes with Escape and returns focus")
             check(page.evaluate("window.__geoCalls") == 0, f"{language}/{width}: no GPS after navigation")
             context.close()
     unavailable = {

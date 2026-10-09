@@ -1,4 +1,4 @@
-import { officialTimetableURL } from './timetable-policy.js?v=20261009-walk';
+import { officialTimetableURL } from './timetable-policy.js?v=20261009-main';
 /* Shared visitor presentation: public releases and private in-memory admin previews. */
 import {
   BASE_STYLE,
@@ -11,14 +11,15 @@ import {
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261009-walk";
-import { directionFeatures, installDirections } from "./directions.js?v=20261009-walk";
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261009-walk";
-import { uiCopy } from "./ui-copy.js?v=20261009-walk";
-import { galleryForVisit, photosForVisit, galleryText, coverPhoto, imageVariant, photoContentKind, inspirationPhotosForVisit } from "./gallery.js?v=20261009-walk";
-import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261005-mobile";
-import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261009-walk";
-import { icon } from "./icons.js?v=20261005-mobile";
+} from "./map-art.js?v=20261009-main";
+import { directionFeatures, installDirections } from "./directions.js?v=20261009-main";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261009-main";
+import { uiCopy } from "./ui-copy.js?v=20261009-main";
+import { galleryForVisit, photosForVisit, galleryText, coverPhoto, imageVariant, photoContentKind, inspirationPhotosForVisit } from "./gallery.js?v=20261009-main";
+import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261009-main";
+import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261009-main";
+import { icon } from "./icons.js?v=20261009-main";
+import { presentedRoutes } from "./presentation.js?v=20261009-main";
 const THEME_KEY = "sideways-field-guide-theme";
 const THEME_LABELS = {
   en: ["Theme", "System", "Light", "Dark"],
@@ -108,12 +109,17 @@ export class FieldGuide {
       localTestLocation = false,
       referencePhotos = [],
       bundledNotice = false,
+      presentation = null,
+      hiddenRouteNotice = false,
     } = {},
   ) {
     this.root = root;
     this.routes = routes;
     this.lang = lang;
     this.preview = preview;
+    this.presentation = preview ? null : presentation;
+    this.mainFocus = !!this.presentation?.singleRoute;
+    this.hiddenRouteNotice = hiddenRouteNotice;
     this.compactPreview = preview && compactPreview === true;
     this.previewPanelOpen = false;
     this.publicLocation = publicLocation;
@@ -126,7 +132,7 @@ export class FieldGuide {
     this.onPreferences = onPreferences;
     this.water = water;
     this.events = events;
-    this.route = routes[0];
+    this.route = this.visibleRoutes().find(route => route.key === this.presentation?.homeRouteKey) || this.visibleRoutes()[0];
     this.view = "explore";
     this.index = 0;
     this.pins = [];
@@ -138,7 +144,7 @@ export class FieldGuide {
     this.list = false;
     this.started = false;
     this.completed = false;
-    this.sheet = "standard";
+    this.sheet = this.defaultSheet();
     this.activePanel = "map";
     this.progressByRoute = {};
     try { if (!this.preview) this.progressByRoute = loadWalkingProgress(localStorage); } catch {}
@@ -190,8 +196,7 @@ export class FieldGuide {
     this.initMap();
     this.viewportResize = () => {
       this.root.style.setProperty("--fg-viewport-height", `${globalThis.visualViewport?.height || innerHeight}px`);
-      const settings = this.el(".fg-mobile-settings"); if (settings) settings.open = false;
-      const options = this.el(".fg-map-options"); if (options && matchMedia("(max-width: 900px)").matches) options.open = false;
+      this.closeDisclosures();
       this.scheduleResize();
     };
     globalThis.visualViewport?.addEventListener("resize", this.viewportResize);
@@ -212,10 +217,9 @@ export class FieldGuide {
     addEventListener("pagehide", this.pagehide);
     addEventListener("pageshow", this.pageshow);
     this.settingsOutside = event => {
-      const settings = this.el(".fg-mobile-settings");
-      if (settings?.open && !settings.contains(event.target)) settings.open = false;
-      const options = this.el(".fg-map-options");
-      if (options?.open && !options.contains(event.target) && matchMedia("(max-width: 900px)").matches) options.open = false;
+      this.root.querySelectorAll(".fg-preferences[open],.fg-map-options[open],.fg-location-copy[open]").forEach(details => {
+        if (!details.contains(event.target)) details.open = false;
+      });
     };
     document.addEventListener("pointerdown", this.settingsOutside);
     this.previewKeyboard = event => {
@@ -227,6 +231,35 @@ export class FieldGuide {
   }
   t(en, tr) {
     return uiCopy(en, this.lang, tr);
+  }
+  visibleRoutes() { return presentedRoutes(this.routes, this.presentation); }
+  isVisibleRoute(key) { return this.visibleRoutes().some(route => route.key === key); }
+  defaultSheet() { return this.mainFocus ? "collapsed" : "standard"; }
+  closeDisclosures() {
+    this.root.querySelectorAll(".fg-preferences[open],.fg-map-options[open],.fg-location-copy[open]").forEach(details => {
+      const focused = details.contains(document.activeElement); details.open = false;
+      if (focused) details.querySelector("summary")?.focus({ preventScroll: true });
+    });
+  }
+  bindDisclosure(details) {
+    if (!details) return;
+    const summary = details.querySelector(":scope > summary"), body = summary?.nextElementSibling;
+    if (!summary || !body) return;
+    body.id = `${this.overlayID}-${details.classList.contains("fg-preferences") ? "preferences" : details.classList.contains("fg-map-options") ? "map-options" : "privacy"}`;
+    summary.setAttribute("aria-controls", body.id);
+    summary.setAttribute("aria-expanded", String(details.open));
+    details.addEventListener("toggle", () => {
+      summary.setAttribute("aria-expanded", String(details.open)); this.scheduleAnnotations();
+    });
+    details.addEventListener("keydown", event => {
+      if (event.key === "Escape" && details.open) {
+        event.preventDefault(); details.open = false; summary.setAttribute("aria-expanded", "false"); summary.focus({ preventScroll: true });
+      }
+    });
+  }
+  mediaCredit(asset) {
+    const source = safeURL(asset.sourceURL), license = safeURL(asset.licenseURL);
+    return [asset.credit ? escape(asset.credit) : "", source ? `<a href="${escape(source)}" target="_blank" rel="noopener noreferrer">${escape(this.t("Photo source"))}</a>` : "", license ? `<a href="${escape(license)}" target="_blank" rel="noopener noreferrer">${escape(asset.licenseLabel || this.t("License"))}</a>` : escape(asset.licenseLabel || "")].filter(Boolean).join(" · ");
   }
   applyTheme() {
     const dark =
@@ -248,7 +281,7 @@ export class FieldGuide {
     const asset = ILLUSTRATIONS.find(item => item.key === (visit.placeKey || visit.key));
     if (!asset) return '';
     if (!asset.approved) return '<p class="fg-source-note">' + escape(this.t("Illustration awaiting identity review.")) + '</p>';
-    return '<figure class="fg-vignette"><img src="' + escape(asset.cardURL) + '" alt="' + escape(this.text(visit.copy).title || asset.title) + '" width="' + asset.cardWidth + '" height="' + asset.cardHeight + '" loading="lazy" decoding="async"><figcaption>' + escape(this.t("AI illustration · not a photograph")) + '</figcaption></figure>';
+    return '<figure class="fg-vignette"><img src="' + escape(asset.cardURL) + '" alt="' + escape(this.text(visit.copy).title || asset.title) + '" width="' + asset.cardWidth + '" height="' + asset.cardHeight + '" loading="lazy" decoding="async"><figcaption>' + escape(this.t("AI illustration · not a photograph")) + (this.mediaCredit(asset) ? ' · ' + this.mediaCredit(asset) : '') + '</figcaption></figure>';
   }
   title(route = this.route) {
     return this.text(route?.copy, route).title || route?.key || "";
@@ -258,7 +291,7 @@ export class FieldGuide {
     if (!items.length) return kind === "cover" ? "" : `<p class="fg-photo-missing">${this.t("No photographs at this stop yet.")}</p>`;
     return this.galleryImage(items[0], { cover: kind === "cover", eager: kind === "cover" });
   }
-  galleryImage(photo, { cover = false, thumbnail = false, eager = false, full = false, stopPreview = false } = {}) {
+  galleryImage(photo, { cover = false, thumbnail = false, eager = false, full = false, stopPreview = false, interactive = false } = {}) {
     const selected = imageVariant(photo, thumbnail ? 400 : full ? 1600 : 900), url = safeURL(selected?.url);
     if (!url) return `<p class="fg-photo-missing">${this.t("Photograph unavailable")}</p>`;
     const copy = galleryText(photo, this.lang);
@@ -267,7 +300,7 @@ export class FieldGuide {
     const dimensions = selected.width > 0 && selected.height > 0 ? `width="${selected.width}" height="${selected.height}"` : "";
     const focal = photo.focalPoint || { x: 50, y: 50 };
     const image = `<img src="${escape(url)}" ${source ? `srcset="${source}" sizes="${thumbnail ? "80px" : full ? "95vw" : stopPreview ? "(max-width: 900px) 92vw, 380px" : "(max-width: 900px) 92vw, 650px"}"` : ""} ${dimensions} alt="${escape(copy.alt || "")}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" style="object-position:${Math.max(0, Math.min(100, Number(focal.x) || 0))}% ${Math.max(0, Math.min(100, Number(focal.y) || 0))}%">`;
-    return `<figure class="fg-photo ${stopPreview ? "fg-stop-preview" : cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}">${stopPreview ? `<button class="fg-stop-preview-open" data-open-stop-photo aria-label="${escape(this.t("Open full photograph"))}">${image}</button>` : image}${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${escape(photo.credit || "")}</figcaption>` : ""}</figure>`;
+    return `<figure class="fg-photo ${stopPreview ? "fg-stop-preview" : cover || thumbnail ? "fg-photo-cover" : "fg-photo-full"}">${stopPreview ? `<button class="fg-stop-preview-open" data-open-stop-photo aria-label="${escape(this.t("Open full photograph"))}">${image}</button>` : interactive ? `<button class="fg-open-photo" data-open-photo aria-label="${escape(this.t("Open full photograph"))}">${image}</button>` : image}${!thumbnail && (copy.caption || photo.credit) ? `<figcaption ${copy.locale ? `lang="${escape(copy.locale)}"` : ""}>${escape(copy.caption || "")}${copy.caption && photo.credit ? " · " : ""}${this.mediaCredit(photo)}${full && photo.changes ? `<small class="fg-photo-changes" lang="en">${escape(photo.changes)}</small>` : ""}</figcaption>` : ""}</figure>`;
   }
   visitPhotos(visit) {
     return photosForVisit(visit, this.referencePhotos);
@@ -295,7 +328,7 @@ export class FieldGuide {
     if (routes) this.routes = routes;
     if (lang) this.lang = lang;
     if (compactPreview !== undefined) this.compactPreview = this.preview && compactPreview === true;
-    this.route = this.routes.find(route => route.key === key) || this.routes[0];
+    this.route = this.visibleRoutes().find(route => route.key === key) || this.visibleRoutes()[0];
     this.walking = restoreWalkingState(this.route, this.walking);
     // Editor selection inspects a visit; it never silently advances the walk.
     if (visitKey && this.steps().some(step => step.key === visitKey && !step.boat)) {
@@ -341,17 +374,23 @@ export class FieldGuide {
       heading = `ACTV ${from?.lineTo || ""} · ${from?.name || ""} → ${to?.name || ""}`;
       label = this.walking.transitLeg < (step.transitStops?.length || 1) - 2 ? this.named("I am at {name} · change boat", to?.name) : this.named("I left the boat · walk to {name}", this.text(next?.copy).title || next?.key);
     } else { heading = this.named("Finish: {name}", name); label = this.t("Return to walks"); }
-    return `<div class="fg-walking-target"><span class="fg-kicker">${escape(this.photoProgress(step))}</span><h2>${escape(heading)}</h2></div><div class="fg-dock-actions"><button class="fg-primary" data-action="${this.completed ? "explore" : "walk-advance"}">${escape(label)} <span aria-hidden="true">→</span></button><div class="fg-dock-secondary">${Number.isFinite(target.latitude) && Number.isFinite(target.longitude) ? `<a href="${pointLink(target)}" target="_blank" rel="noopener">${escape(this.named("Directions to {name}", target.name || name))} ↗</a>` : ""}<button data-action="previous" ${this.index === 0 ? "disabled" : ""}>← ${escape(this.t("Previous stop"))}</button><button data-action="focus">${escape(this.t("Show walking target"))}</button></div></div>`;
+    return `<div class="fg-walking-target"><span class="fg-kicker">${escape(this.photoProgress(step))}</span><h2>${escape(heading)}</h2></div><div class="fg-dock-actions"><button class="fg-primary" data-action="${this.completed ? "explore" : "walk-advance"}">${escape(label)} ${icon("arrow-right")}</button><div class="fg-dock-secondary">${Number.isFinite(target.latitude) && Number.isFinite(target.longitude) ? `<a href="${pointLink(target)}" target="_blank" rel="noopener">${escape(this.named("Directions to {name}", target.name || name))} ${icon("external-link")}</a>` : ""}<button data-action="previous" ${this.index === 0 ? "disabled" : ""}>${icon("arrow-left")} ${escape(this.t("Previous stop"))}</button><button data-action="focus">${escape(this.t("Show walking target"))}</button></div></div>`;
   }
   routeCard(r) {
     const visits = orderedVisits(r);
-    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2>${this.copyNote(r.copy, r)}<p lang="${this.text(r.copy, r).locale || this.lang}">${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl>${this.durationSummary(r)}<button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} <span aria-hidden="true">↗</span></button></div></article>`;
+    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2>${this.copyNote(r.copy, r)}<p lang="${this.text(r.copy, r).locale || this.lang}">${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl>${this.durationSummary(r)}<button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} ${icon("external-link")}</button></div></article>`;
+  }
+  mainSummary() {
+    const route = this.route, visits = orderedVisits(route).filter(visit => visit.isPhotoStop);
+    const continuing = this.started && !this.completed;
+    return `<section class="fg-main-summary"><span class="fg-kicker">${visits.length} ${escape(this.t("stops"))} · ${escape(this.t("Walk + vaporetto"))}</span><h1>${escape(this.title(route))}</h1><button data-route="${escape(route.key)}" class="fg-primary">${escape(this.t(continuing ? "Continue walking" : "Open walk"))} ${icon("arrow-right")}</button>${this.hiddenRouteNotice ? `<p class="fg-source-note" role="status">${escape(this.t("This guide now focuses on Main Walk. Your other saved walks are preserved."))}</p>` : ""}<dl><div><dt>${escape(this.t("Start"))}</dt><dd>${escape(this.text(visits[0]?.copy, route).title || "—")}</dd></div><div><dt>${escape(this.t("Finish"))}</dt><dd>${escape(this.text(visits.at(-1)?.copy, route).title || "—")}</dd></div></dl>${this.durationSummary(route)}</section>`;
   }
   render() {
     const t = (en, tr) => this.t(en, tr),
       step = this.steps()[this.index];
     const settingsOpen = !!this.el(".fg-mobile-settings")?.open;
     this.root.dataset.view = this.view;
+    this.root.dataset.mainFocus = String(this.mainFocus);
     this.root.dataset.sheet = this.sheet;
     this.root.dataset.panel = this.activePanel;
     this.root.dataset.walkingPhase = this.walking?.phase || "reaching-start";
@@ -368,11 +407,11 @@ export class FieldGuide {
       THEME_LABELS[this.lang] || THEME_LABELS.en;
     const languages = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
     const languageNames = ["English", "Türkçe", "Italiano", "Français", "Русский", "中文", "日本語", "한국어"];
-    const languageSelect = `<select class="fg-language" aria-label="${escape(languageName)}">${languages.map((lang, i) => `<option value="${lang}" ${lang === this.lang ? "selected" : ""}>${languageNames[i]}</option>`).join("")}</select>`;
-    const themeSelect = `<select class="fg-theme" aria-label="${escape(themeName)}">${[["system", systemName], ["light", lightName], ["dark", darkName]].map(([value, label]) => `<option value="${value}" ${value === this.themePreference ? "selected" : ""}>${escape(label)}</option>`).join("")}</select>`;
+    const languageSelect = `<span class="fg-select-wrap"><select class="fg-language" aria-label="${escape(languageName)}">${languages.map((lang, i) => `<option value="${lang}" ${lang === this.lang ? "selected" : ""}>${languageNames[i]}</option>`).join("")}</select>${icon("chevron-down")}</span>`;
+    const themeSelect = `<span class="fg-select-wrap"><select class="fg-theme" aria-label="${escape(themeName)}">${[["system", systemName], ["light", lightName], ["dark", darkName]].map(([value, label]) => `<option value="${value}" ${value === this.themePreference ? "selected" : ""}>${escape(label)}</option>`).join("")}</select>${icon("chevron-down")}</span>`;
     const preferences = `<label class="fg-language-control"><span>${escape(languageName)}</span>${languageSelect}</label><label class="fg-theme-control"><span>${escape(themeName)}</span>${themeSelect}</label>`;
     this.el(".fg-header").innerHTML =
-      `<button class="fg-brand" data-action="explore" aria-label="${t("Return to route selection", "Rota seçimine dön")}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk", "Rota seç")}">${icon("back")}</button><select aria-label="${t("Change route", "Rotayı değiştir")}" class="fg-route-switch">${this.routes.map((r) => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>` : ""}<div class="fg-desktop-preferences">${preferences}<div data-measurement-preference></div></div><details class="fg-mobile-settings"><summary>${escape(settingsName)}</summary><div class="fg-settings-panel">${preferences}<div data-measurement-preference></div></div></details></div>`;
+      `<button class="fg-brand" data-action="explore" aria-label="${escape(t(this.mainFocus ? "Main Walk overview" : "Return to route selection"))}"><img class="fg-brand-mark" src="/field-guide/yana-mark.svg" alt="" aria-hidden="true"><span class="fg-brand-name"><i>Venice</i> <strong>Sideways</strong></span></button><div class="fg-header-actions">${this.view === "walk" && !this.mainFocus ? `<button class="fg-back" data-action="explore" aria-label="${t("Choose a walk")}">${icon("arrow-left")}</button><span class="fg-select-wrap"><select aria-label="${t("Change route")}" class="fg-route-switch">${this.visibleRoutes().map(r => `<option value="${escape(r.key)}" ${r === this.route ? "selected" : ""}>${escape(this.title(r))}</option>`).join("")}</select>${icon("chevron-down")}</span>` : ""}<details class="fg-preferences fg-mobile-settings"><summary>${escape(t("Preferences"))} ${icon("chevron-down")}</summary><div class="fg-settings-panel">${preferences}<div data-measurement-preference></div></div></details></div>`;
     const panel = this.el(".fg-editorial");
     panel.id = "fg-preview-panel";
     panel.hidden = this.compactPreview && !this.previewPanelOpen;
@@ -383,10 +422,11 @@ export class FieldGuide {
       toggle.onclick = () => { this.previewPanelOpen = !this.previewPanelOpen; this.render(); if (this.previewPanelOpen) this.el(".fg-editorial").scrollTop = 0; this.el(".fg-preview-panel-toggle")?.focus({preventScroll:true}); };
       this.el(".fg-header-actions").append(toggle);
     }
-    if (!this.routes.length)
+    if (!this.visibleRoutes().length)
       panel.innerHTML = `<h1>${t("No walks available", "Henüz rota yok")}</h1><p>${t("Published walks will appear here.", "Yayımlanan rotalar burada görünecek.")}</p>`;
+    else if (this.view === "explore" && this.mainFocus) panel.innerHTML = this.mainSummary();
     else if (this.view === "explore")
-      panel.innerHTML = `<div class="fg-intro">${this.route?.photo?.url ? this.photo(this.route.photo, "cover") : this.referencePhotos[0] ? this.galleryImage(this.referencePhotos[0], {cover:true,eager:true}) + `<p class="fg-reference-note">${this.t("Temporary photo selection")} · Eren Edebali</p>` : ""}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ↓</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.routes
+      panel.innerHTML = `<div class="fg-intro">${this.route?.photo?.url ? this.photo(this.route.photo, "cover") : this.referencePhotos[0] ? this.galleryImage(this.referencePhotos[0], {cover:true,eager:true}) + `<p class="fg-reference-note">${this.t("Temporary photo selection")} · Eren Edebali</p>` : ""}<span class="fg-kicker">VENEZIA · ${t("ON FOOT, WITH CURIOSITY", "YÜRÜYEREK, MERAKLA")}</span><h1>${t("Look a little<br><i>sideways.</i>", "Biraz da<br><i>başka türlü bak.</i>")}</h1><p>${t("A reflection. A quiet square. The space between two places. Find your own photographs of Venice.", "Bir yansıma. Sakin bir meydan. İki yer arasındaki boşluk. Venedik’te kendi fotoğraflarını bul.")}</p><a class="fg-primary" href="#fg-walks">${t("Explore the walks", "Rotayı keşfet")} ${icon("chevron-down")}</a></div><section id="fg-walks" aria-label="${t("Choose a walk", "Rota seç")}">${this.visibleRoutes()
         .filter((r) => this.preview || ["main", "full"].includes(r.key))
         .map((r) => this.routeCard(r))
         .join("")}</section>`;
@@ -394,19 +434,20 @@ export class FieldGuide {
       panel.innerHTML = `<div class="fg-panel-head"><h2>${t("All stops")}</h2></div><p class="fg-muted">${t("Looking at another stop does not change your walking target.")}</p><ol class="fg-stop-list">${this.steps().map((item, number) => `<li><button ${item.boat ? `data-inspect-transfer="${number}"` : `data-inspect="${escape(item.key)}"`} aria-current="${number === this.index ? "step" : "false"}"><span>${item.boat ? "⛴" : item.n || "·"}</span><span>${escape(item.boat ? t("Vaporetto transfer") : this.text(item.copy).title)}<small>${escape(number === this.index ? t("Walking target") : this.walking.completedVisitKeys.includes(item.key) ? t("Completed") : t("Upcoming"))}</small></span></button><button class="fg-list-resume" data-resume="${escape(item.key)}">${t("Continue the walk from here")}</button></li>`).join("")}</ol>`;
     else if (this.activePanel === "photos") {
       const inspected = this.steps().find(item => !item.boat && item.key === this.inspectedVisit) || this.steps().find(item => !item.boat && item.key === step?.key) || this.steps().find(item => !item.boat);
-      panel.innerHTML = `<div class="fg-panel-head"><h2>${t("Photographs")}</h2></div><label class="fg-photo-stop-select">${t("Choose a stop to inspect")}<select data-photo-stop>${this.steps().filter(item => !item.boat).map(item => `<option value="${escape(item.key)}" ${item.key === inspected?.key ? "selected" : ""}>${item.n || "·"} · ${escape(this.text(item.copy).title)}</option>`).join("")}</select></label>${inspected ? `<div class="fg-stop-copy"><span class="fg-kicker">${t("Inspecting · walking progress stays unchanged")}</span><h1>${escape(this.text(inspected.copy).title)}</h1>${this.cover(inspected)}<button data-inspect="${escape(inspected.key)}">${escape(this.galleryLabel(inspected))} ↗</button><button class="fg-text-link" data-resume="${escape(inspected.key)}">${t("Continue the walk from here")}</button></div>` : ""}${this.inspirationSection(inspected)}`;
+      this.inspectedVisit = inspected?.key || null;
+      panel.innerHTML = `<div class="fg-panel-head"><h2>${t("Photographs")}</h2></div><label class="fg-photo-stop-select">${t("Choose a stop to inspect")}<span class="fg-select-wrap"><select data-photo-stop>${this.steps().filter(item => !item.boat).map(item => `<option value="${escape(item.key)}" ${item.key === inspected?.key ? "selected" : ""}>${item.n || "·"} · ${escape(this.text(item.copy).title)}</option>`).join("")}</select>${icon("chevron-down")}</span></label>${inspected ? `<div class="fg-stop-copy"><span class="fg-kicker">${t("Inspecting · walking progress stays unchanged")}</span><h1>${escape(this.text(inspected.copy).title)}</h1>${this.cover(inspected)}<button data-inspect="${escape(inspected.key)}">${escape(this.galleryLabel(inspected))} ${icon("external-link")}</button><button class="fg-text-link" data-resume="${escape(inspected.key)}">${t("Continue the walk from here")}</button></div>` : ""}${this.inspirationSection(inspected)}`;
     } else if (!step) panel.innerHTML = `<h2>${t("No stops yet")}</h2>`;
     else if (this.completed)
       panel.innerHTML = `<div class="fg-stop-copy fg-completion"><span class="fg-kicker">${escape(this.photoProgress())}</span><h1>${t("Walk completed")}</h1><p>${t("You have manually completed the final step.")}</p><p>${escape(this.text(step.copy).title || step.key)}</p><button data-inspect="${escape(step.key)}">${t("Inspect the final stop")}</button></div>`;
     else if (step.boat) panel.innerHTML = this.transfer(step);
-    else panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${escape(this.photoProgress(step))}</span></div><div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.cover(step)}${this.storyIntroduction(step)}${this.copyNote(step.copy)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas")} ↗</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ↗</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop")} ↗</button>` : ""}${this.index === 0 ? this.durationSummary() : ""}</div>`;
-    if (this.view === "walk") {
+    else panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${escape(this.photoProgress(step))}</span></div><div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.cover(step)}${this.storyIntroduction(step)}${this.copyNote(step.copy)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas")} ${icon("external-link")}</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ${icon("external-link")}</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop")} ${icon("external-link")}</button>` : ""}${this.index === 0 ? this.durationSummary() : ""}</div>`;
+    if (this.view === "walk" || this.mainFocus) {
       const controls = document.createElement("div"); controls.className = "fg-sheet-controls";
-      controls.innerHTML = `<button class="fg-sheet-handle" data-sheet-drag aria-label="${escape(t("Drag or use arrow keys to resize the stop panel"))}"><span aria-hidden="true"></span></button><span role="status">${t({collapsed:"Compact panel",standard:"Standard panel",expanded:"Expanded panel"}[this.sheet])}</span>${[["collapsed", "Collapse stop panel", "⌄"], ["standard", "Standard stop panel", "↔"], ["expanded", "Expand stop panel", "⌃"]].map(([state,label,symbol]) => `<button data-sheet="${state}" aria-label="${escape(t(label))}" aria-pressed="${state === this.sheet}" aria-controls="fg-sheet-content">${symbol}<small>${escape(t({collapsed:"More map",standard:"Balanced",expanded:"More stop"}[state]))}</small></button>`).join("")}`;
+      controls.innerHTML = `<button class="fg-sheet-handle" data-sheet-drag aria-label="${escape(t("Drag or use arrow keys to resize the stop panel"))}"><span aria-hidden="true"></span></button><span role="status">${t({collapsed:"Compact panel",standard:"Standard panel",expanded:"Expanded panel"}[this.sheet])}</span>${[["collapsed", "Collapse stop panel", "chevron-down"], ["standard", "Standard stop panel", "resize"], ["expanded", "Expand stop panel", "chevron-up"]].map(([state,label,symbol]) => `<button data-sheet="${state}" aria-label="${escape(t(label))}" aria-pressed="${state === this.sheet}" aria-controls="fg-sheet-content">${icon(symbol)}<small>${escape(t({collapsed:"More map",standard:"Balanced",expanded:"More stop"}[state]))}</small></button>`).join("")}`;
       const content = document.createElement("div"); content.className = "fg-sheet-content"; content.id = "fg-sheet-content";
       while (panel.firstChild) content.append(panel.firstChild);
       panel.append(controls, content);
-      if (this.activePanel === "map" && !this.completed && step && !step.boat) {
+      if (this.view === "walk" && this.activePanel === "map" && !this.completed && step && !step.boat) {
         const story = document.createElement("section"); story.className = "fg-sheet-story";
         story.innerHTML = this.story(step, { introduction: false }); content.append(story);
       }
@@ -422,13 +463,13 @@ export class FieldGuide {
       for (const event of this.events) {
         if (!/^[a-z][a-z0-9-]{0,79}$/.test(event.slug)) continue;
         const target = this.view === "explore"
-          ? [...panel.querySelectorAll(".fg-route-card")].find(card => card.querySelector("[data-route]")?.dataset.route === event.routeKey)?.querySelector("div")
+          ? this.mainFocus && event.routeKey === this.route?.key ? panel.querySelector(".fg-main-summary") : [...panel.querySelectorAll(".fg-route-card")].find(card => card.querySelector("[data-route]")?.dataset.route === event.routeKey)?.querySelector("div")
           : event.routeKey === this.route?.key ? panel.querySelector(".fg-stop-copy") : null;
         if (!target) continue;
         const link = document.createElement("a");
         link.className = "fg-event-link";
         link.href = `/events/${event.slug}?lang=${encodeURIComponent(this.lang)}`;
-        link.textContent = `${labels[this.lang] || labels.en} · ${event.eventDate} ↗`;
+        link.textContent = `${labels[this.lang] || labels.en} · ${event.eventDate}`; link.insertAdjacentHTML("beforeend", icon("external-link"));
         target.append(link);
       }
     }
@@ -442,13 +483,12 @@ export class FieldGuide {
     this.root.querySelectorAll("[data-inspect-transfer]").forEach(button => { button.onclick = () => { this.openTransferInspection(this.steps()[Number(button.dataset.inspectTransfer)]?.key, button); }; });
     this.el("[data-photo-stop]")?.addEventListener("change", event => { this.inspectedVisit = event.target.value; this.render(); this.draw(); });
     this.el(".fg-map-tools").innerHTML =
-      `<details class="fg-map-options"><summary>${t("Route map")}</summary><div class="fg-map-option-actions"><button data-action="fit">${t("Whole route", "Rotanın tamamı")}</button>${this.view === "walk" ? `<button data-action="focus">${t("Active stop", "Aktif durak")}</button>` : ""}<button data-action="places">${t("Places on the map", "Haritadaki yerler")}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button></div></details><div class="fg-location-controls"></div>${this.view === "walk" ? `<span class="fg-map-legend">● ${t("Walking target")} · ○ ${t("Inspected stop")}</span>` : ""}`;
-    if (!this.compactPreview && matchMedia("(min-width: 901px)").matches) this.el(".fg-map-options").open = true;
+      `<button data-action="fit">${escape(t("Whole route"))}</button><div class="fg-location-controls"></div><details class="fg-map-options"><summary aria-label="${escape(t("Map options"))}">${icon("options")}<span>${escape(t("Map options"))}</span></summary><div class="fg-map-option-actions">${this.view === "walk" ? `<button data-action="focus">${escape(t("Active stop"))}</button>` : ""}<button data-action="places">${escape(t("Places on the map"))}</button><button data-action="dimension" aria-pressed="${this.threeD}" ${!this.ready ? "disabled" : ""}>${this.threeD ? "2D" : "3D"}</button></div></details>${this.view === "walk" ? `<span class="fg-map-legend"><i></i> ${t("Walking target")} · <i class="fg-legend-inspected"></i> ${t("Inspected stop")}</span>` : ""}`;
     this.locationControlsSignature = "";
     this.renderLocation();
     this.root.querySelectorAll("[data-inspect]").forEach(button => { button.onclick = () => this.openDetail(button.dataset.inspect, button); });
     this.root.querySelectorAll("[data-open-stop-photo]").forEach(button => {
-      button.onclick = () => { this.openDetail(this.steps()[this.index]?.key, button); this.openLightbox(); };
+      button.onclick = () => { this.openDetail(this.activePanel === "photos" ? (this.inspectedVisit || this.steps().find(item => !item.boat)?.key) : this.steps()[this.index]?.key, button); this.openLightbox(); };
     });
     this.root
       .querySelectorAll("[data-route]")
@@ -487,8 +527,8 @@ export class FieldGuide {
     const closeSettings = document.createElement("button"); closeSettings.className = "fg-settings-close";
     closeSettings.textContent = t("Close settings"); closeSettings.onclick = () => { settings.open = false; settings.querySelector("summary").focus(); };
     settings.querySelector(".fg-settings-panel").append(closeSettings);
-    settings.addEventListener("keydown", event => { if (event.key === "Escape" && settings.open) { event.preventDefault(); settings.open = false; settings.querySelector("summary").focus(); } });
-    const options = this.el(".fg-map-options"); options.addEventListener("keydown", event => { if (event.key === "Escape") { options.open = false; options.querySelector("summary").focus(); } });
+    this.bindDisclosure(settings);
+    this.bindDisclosure(this.el(".fg-map-options"));
     this.onPreferences([...this.root.querySelectorAll('[data-measurement-preference]')], this.lang);
     this.bindPhotoErrors(panel);
     this.applyTheme();
@@ -501,7 +541,7 @@ export class FieldGuide {
   nearbyGreenSpaces(visit) {
     const key = visit.placeKey || visit.key;
     const spaces = NEARBY_GREEN_SPACES.filter(space => space.placeKey === key || space.placeKeys?.includes(key));
-    return spaces.length ? `<details class="fg-story-sources fg-nearby-green"><summary>${escape(this.t("Nearby green spaces"))}</summary><ul>${spaces.map(space => `<li><a href="${escape(space.url)}" target="_blank" rel="noopener noreferrer">${escape(space.name)} ↗</a><small>${escape(this.t(space.access))}</small></li>`).join('')}</ul></details>` : '';
+    return spaces.length ? `<details class="fg-story-sources fg-nearby-green"><summary>${escape(this.t("Nearby green spaces"))}</summary><ul>${spaces.map(space => `<li><a href="${escape(space.url)}" target="_blank" rel="noopener noreferrer">${escape(space.name)} ${icon("external-link")}</a><small>${escape(this.t(space.access))}</small></li>`).join('')}</ul></details>` : '';
   }
   storyIntroduction(visit) {
     const story = storyFor(visit, this.route, this.lang, this.preview);
@@ -515,7 +555,7 @@ export class FieldGuide {
     if (!story?.sources.length) return '';
     const rows = story.sources.filter(source => source && ['primary','book','other'].includes(source.kind) && source.title).map(source => {
       const link = safeURL(source.url), bibliography = [source.author, source.publisher, source.edition, source.year, source.locator].filter(Boolean).map(escape).join(' · ');
-      return `<li>${link ? `<a href="${escape(link)}" target="_blank" rel="noopener noreferrer">${escape(source.title)} ↗</a>` : escape(source.title)}${bibliography ? `<small>${bibliography}</small>` : ''}</li>`;
+      return `<li>${link ? `<a href="${escape(link)}" target="_blank" rel="noopener noreferrer">${escape(source.title)} ${icon("external-link")}</a>` : escape(source.title)}${bibliography ? `<small>${bibliography}</small>` : ''}</li>`;
     });
     return rows.length ? `<details class="fg-story-sources"><summary>${escape(this.t("Sources"))}</summary><ul>${rows.join('')}</ul></details>` : '';
   }
@@ -532,7 +572,7 @@ export class FieldGuide {
   transfer(s) {
     const t = key => this.t(key), parts = s.transitStops || [];
     const source = officialTimetableURL(s.timetableURL) || officialTimetableURL(this.water?.timetable);
-    return `<div class="fg-panel-head"><span class="fg-kicker">⛴ ${t("Vaporetto transfer")}</span></div><div class="fg-stop-copy"><h1>${t("Two boats, then on foot")}</h1><p>${t("The boat transfer is separate from the photo-stop count.")}</p><ol class="fg-transfer">${parts.map((part, index) => `<li ${index === this.walking.transitLeg ? 'aria-current="step"' : ""}><span>${t(index === 0 ? "BOARD" : index === parts.length - 1 ? "LEAVE THE BOAT" : "CHANGE")}</span><h2>${escape(part.name)}</h2><p>${part.lineTo ? `ACTV ${escape(part.lineTo)} → ${escape(parts[index + 1]?.name || "")}` : t("Continue to the next photo stop on foot.")}</p></li>`).join("")}</ol><p class="fg-muted">${t("Check the departure board and current service before boarding.")}</p>${source ? `<a href="${escape(safeURL(source))}" target="_blank" rel="noopener noreferrer">${t("ACTV · timetables & notices")} ↗</a>` : ""}<p class="fg-muted">${t("The map is a route overview, not verified turn-by-turn navigation.")}</p></div>`;
+    return `<div class="fg-panel-head"><span class="fg-kicker">⛴ ${t("Vaporetto transfer")}</span></div><div class="fg-stop-copy"><h1>${t("Two boats, then on foot")}</h1><p>${t("The boat transfer is separate from the photo-stop count.")}</p><ol class="fg-transfer">${parts.map((part, index) => `<li ${index === this.walking.transitLeg ? 'aria-current="step"' : ""}><span>${t(index === 0 ? "BOARD" : index === parts.length - 1 ? "LEAVE THE BOAT" : "CHANGE")}</span><h2>${escape(part.name)}</h2><p>${part.lineTo ? `ACTV ${escape(part.lineTo)} → ${escape(parts[index + 1]?.name || "")}` : t("Continue to the next photo stop on foot.")}</p></li>`).join("")}</ol><p class="fg-muted">${t("Check the departure board and current service before boarding.")}</p>${source ? `<a href="${escape(safeURL(source))}" target="_blank" rel="noopener noreferrer">${t("ACTV · timetables & notices")} ${icon("external-link")}</a>` : ""}<p class="fg-muted">${t("The map is a route overview, not verified turn-by-turn navigation.")}</p></div>`;
   }
   bindSheetHandle(handle) {
     if (!handle) return;
@@ -558,7 +598,7 @@ export class FieldGuide {
     if (this.activePanel === "map" && panel !== "map") this.panelCamera = this.cameraSnapshot();
     if (panel === "map" && this.panelCamera) { this.pendingPanelCamera = this.panelCamera; this.panelCamera = null; }
     this.activePanel = panel; this.list = panel === "stops";
-    this.sheet = "standard"; this.render(); this.draw();
+    this.sheet = panel === "map" ? this.defaultSheet() : "standard"; this.render(); this.draw();
     if (!this.mapVisible() && this.locationEngine.active) this.stopLocation("suspended");
     this.el(`[data-panel="${panel}"]`)?.focus({ preventScroll: true });
   }
@@ -575,12 +615,16 @@ export class FieldGuide {
     this.lastWalkingAction = now; return true;
   }
   choose(key) {
+    if (!this.isVisibleRoute(key)) {
+      this.hiddenRouteNotice = true; this.view = "explore"; this.sheet = this.defaultSheet(); this.activePanel = "map"; this.list = false;
+      this.render(); this.draw(); return;
+    }
     const route = this.routes.find(item => item.key === key);
     if (!route) return;
     this.persistWalkingState(); this.route = route;
     this.walking = restoreWalkingState(route, this.progressByRoute[key]);
     this.syncWalkingState(); this.view = "walk";
-    this.activePanel = "map"; this.sheet = "standard"; this.list = false;
+    this.activePanel = "map"; this.sheet = this.defaultSheet(); this.list = false;
     this.inspectedVisit = null; this.panelCamera = null; this.pendingPanelCamera = null;
     if (this.modalMode) this.restoreOverlay(null);
     this.render(); this.el(".fg-editorial").scrollTop = 0;
@@ -589,7 +633,8 @@ export class FieldGuide {
   }
   action(action) {
     if (action === "explore") {
-      this.persistWalkingState(); this.view = "explore"; this.list = false;
+      this.persistWalkingState(); this.view = "explore"; this.list = false; this.sheet = this.defaultSheet(); this.activePanel = "map";
+      if (this.panelCamera) { this.pendingPanelCamera = this.panelCamera; this.panelCamera = null; }
       this.render(); this.draw();
     }
     if (action === "list" || action === "close-list") this.setPanel(action === "list" ? "stops" : "map");
@@ -611,6 +656,7 @@ export class FieldGuide {
       this.threeD = !this.threeD;
       this.map.easeTo({ pitch: this.threeD ? 50 : 0, duration: reduced() ? 0 : 220 });
       applyWatercolorPresentation(this.map, { threeD: this.threeD }); this.render();
+      this.el(".fg-map-options > summary")?.focus({ preventScroll: true });
     }
   }
   cameraSnapshot() {
@@ -670,7 +716,7 @@ export class FieldGuide {
     if (!photo) { this.restoreOverlay(null); return; }
     const dialog = this.el(".fg-dialog"); dialog.classList.remove("fg-photo-zoomed"); dialog.classList.add("fg-lightbox");
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
-    dialog.innerHTML = `<p class="fg-dialog-target">${escape(this.photoProgress())} · ${escape(this.steps()[this.index]?.boat ? this.t("Vaporetto transfer") : this.text(this.steps()[this.index]?.copy).title || "")}</p><button class="fg-close">${icon("back")} ${escape(this.t("Back to photographs"))}</button><h1 id="fg-dialog-title">${escape(this.t("Photo examples"))}</h1><p class="fg-reference-note">${escape(this.t("Inspiration · these photographs do not identify the stop"))}</p>${this.galleryImage(photo, { full: true })}<div class="fg-gallery-controls"><button data-inspiration-previous aria-label="${escape(this.t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>←</button><span>${photos.indexOf(photo) + 1} / ${photos.length}</span><button data-inspiration-next aria-label="${escape(this.t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>→</button></div>`;
+    dialog.innerHTML = `<p class="fg-dialog-target">${escape(this.photoProgress())} · ${escape(this.steps()[this.index]?.boat ? this.t("Vaporetto transfer") : this.text(this.steps()[this.index]?.copy).title || "")}</p><button class="fg-close">${icon("back")} ${escape(this.t("Back to photographs"))}</button><h1 id="fg-dialog-title">${escape(this.t("Photo examples"))}</h1><p class="fg-reference-note">${escape(this.t("Inspiration · these photographs do not identify the stop"))}</p>${this.galleryImage(photo, { full: true })}<div class="fg-gallery-controls"><button data-inspiration-previous aria-label="${escape(this.t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("arrow-left")}</button><span>${photos.indexOf(photo) + 1} / ${photos.length}</span><button data-inspiration-next aria-label="${escape(this.t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("arrow-right")}</button></div>`;
     const select = offset => {
       const next = photos[(photos.indexOf(photo) + offset + photos.length) % photos.length];
       this.selectedPhoto = next.assetID; history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState() }, ""); this.renderInspiration();
@@ -730,7 +776,7 @@ export class FieldGuide {
     dialog.classList.toggle("fg-lightbox", lightbox);
     dialog.classList.toggle("fg-photo-zoomed", lightbox && !!this.photoZoom);
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
-    const gallery = photo ? `<section class="fg-gallery" aria-label="${escape(this.galleryLabel(visit))}"><div class="fg-gallery-stage"><button class="fg-open-photo" data-open-photo aria-label="${escape(t("Open full photograph"))}">${this.galleryImage(photo, { full: lightbox })}</button></div><div class="fg-gallery-controls"><button data-photo-previous aria-label="${escape(t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("previous")}</button><span role="status">${t("Photograph")} ${index + 1} / ${photos.length}</span><button data-photo-next aria-label="${escape(t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("next")}</button>${lightbox ? `<button data-photo-zoom aria-pressed="${!!this.photoZoom}">${icon(this.photoZoom ? "zoom-out" : "zoom-in")} ${escape(t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph"))}</button>` : ""}</div><div class="fg-thumbnails">${photos.map((item, number) => `<button data-photo-id="${escape(item.assetID)}" aria-pressed="${item === photo}" aria-label="${escape(t("Select photograph"))} ${number + 1}">${this.galleryImage(item, { thumbnail: true })}</button>`).join("")}</div></section>` : `<p class="fg-photo-missing">${t("No photographs at this stop yet.")}</p>`;
+    const gallery = photo ? `<section class="fg-gallery" aria-label="${escape(this.galleryLabel(visit))}"><div class="fg-gallery-stage">${this.galleryImage(photo, { full: lightbox, interactive: true })}</div><div class="fg-gallery-controls"><button data-photo-previous aria-label="${escape(t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("previous")}</button><span role="status">${t("Photograph")} ${index + 1} / ${photos.length}</span><button data-photo-next aria-label="${escape(t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("next")}</button>${lightbox ? `<button data-photo-zoom aria-pressed="${!!this.photoZoom}">${icon(this.photoZoom ? "zoom-out" : "zoom-in")} ${escape(t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph"))}</button>` : ""}</div><div class="fg-thumbnails">${photos.map((item, number) => `<button data-photo-id="${escape(item.assetID)}" aria-pressed="${item === photo}" aria-label="${escape(t("Select photograph"))} ${number + 1}">${this.galleryImage(item, { thumbnail: true })}</button>`).join("")}</div></section>` : `<p class="fg-photo-missing">${t("No photographs at this stop yet.")}</p>`;
     const editorial = lightbox ? "" : this.story(visit);
     dialog.innerHTML = `<p class="fg-dialog-target">${escape(this.photoProgress())} · ${escape(this.steps()[this.index]?.boat ? this.t("Vaporetto transfer") : this.text(this.steps()[this.index]?.copy).title || "")}</p><button class="fg-close">${icon("back")} ${t(lightbox ? "Back to stop" : "Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${t("Stop")} ${visit.n || "·"} / ${this.steps().filter(step => step.isPhotoStop).length}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${temporary ? `<p class="fg-reference-note">${t("Temporary photographs by Eren Edebali; their connection to this stop has not been verified.")}</p>` : ""}${editorial}${gallery}`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
@@ -814,7 +860,7 @@ export class FieldGuide {
     dialog.onkeydown = null;
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
     const keys = [...landmarkFeatures(this.route).map(place => place.properties.key), ...GARDENS.map(place => place.key)];
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1 id="fg-dialog-title">${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} →</button>`).join("")}</div>`;
+    dialog.innerHTML = `<button class="fg-close">${icon("arrow-left")} ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${t("VENICE SIDEWAYS · MAP NOTES", "VENICE SIDEWAYS · HARİTA NOTLARI")}</span><h1 id="fg-dialog-title">${t("Places on the map", "Haritadaki yerler")}</h1><p class="fg-muted">${t("Small original drawings mark places to notice. They are not extra walk stops.", "Küçük özgün çizimler dikkat edilecek yerleri gösterir; ek yürüyüş durağı değildir.")}</p><div class="fg-place-list">${keys.map((key) => `<button data-place="${key}">${escape(placeCopy(key, this.lang)?.name || key)} ${icon("arrow-right")}</button>`).join("")}</div>`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelectorAll("[data-place]").forEach((button) => {
       button.onclick = () => this.openPlace(button.dataset.place);
@@ -841,7 +887,7 @@ export class FieldGuide {
     const stop = this.route?.visits?.find((item) => item.key === key);
     const focus = garden?.focus || (stop ? [stop.longitude, stop.latitude] : null);
     const englishFallback = !["en", "tr"].includes(this.lang);
-    dialog.innerHTML = `<button class="fg-close">← ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="' + escape(this.lang) + '">' + escape(t("Description in English")) + '</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ↗</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ↗</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ↗</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ↗</a>` : ""}</p>`;
+    dialog.innerHTML = `<button class="fg-close">${icon("arrow-left")} ${t("Back to map", "Haritaya dön")}</button><span class="fg-kicker">${garden ? t("MAPPED GREEN SPACE", "HARİTALANMIŞ YEŞİL ALAN") : t("A PLACE TO NOTICE", "DİKKAT EDİLECEK BİR YER")}</span><h1 id="fg-dialog-title">${escape(place.name)}</h1><div class="fg-photo-missing">${t("No photograph yet.", "Henüz fotoğraf yok.")}</div>${englishFallback ? '<span class="fg-kicker" lang="' + escape(this.lang) + '">' + escape(t("Description in English")) + '</span>' : ""}<p lang="${englishFallback ? "en" : this.lang}">${escape(place.text)}</p><p class="fg-muted">${garden ? t("Garden boundary: OpenStreetMap contributors (ODbL). Base map: OpenFreeMap. Check current access and hours locally.", "Bahçe sınırı: OpenStreetMap katkıcıları (ODbL). Alt harita: OpenFreeMap. Güncel erişim ve saatleri yerinde kontrol et.") : t("Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.")}</p>${focus ? `<button class="fg-primary" data-focus-place>${t("Show on map", "Haritada göster")} ${icon("external-link")}</button>` : ""}<p class="fg-muted"><a href="https://www.openstreetmap.org/copyright" rel="noopener" target="_blank">© OpenStreetMap contributors ${icon("external-link")}</a>${garden ? ` · <a href="https://www.openstreetmap.org/way/${garden.osmWayId}" rel="noopener" target="_blank">${t("Mapped boundary", "Haritalanmış sınır")} ${icon("external-link")}</a> · <a href="https://www.comune.venezia.it/it/node/44238" rel="noopener" target="_blank">${t("City garden information", "Belediye bahçe bilgisi")} ${icon("external-link")}</a>` : ""}</p>`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
     dialog.querySelector("[data-focus-place]")?.addEventListener("click", () => {
       this.savedCamera = null; this.closeOverlay();
@@ -1206,7 +1252,10 @@ export class FieldGuide {
     const signature = `${this.lang}:${!!active}:${this.ready}:${this.locationAllowed()}`;
     if (controls && signature !== this.locationControlsSignature) {
       this.locationControlsSignature = signature;
-      controls.innerHTML = !this.locationAllowed() ? "" : `${active ? `<button data-action="location-return" ${!fix ? "disabled" : ""}>${icon("recenter")} ${this.t("Return to my location")}</button><button data-action="location-off">${icon("location-stop")} ${this.t("Turn location off")}</button>` : `<button data-action="location" ${!this.ready ? "disabled" : ""}>${icon("location")} ${this.t("Show my location")}</button>`}<details class="fg-location-copy"><summary>${escape(this.t("Location & map privacy"))}</summary><p>${this.t("Raw coordinates are not sent to organisers or analytics. Location starts as a marker only. Follow or recenter sends map requests for the area you view.")}</p></details>`;
+      const focused = controls.contains(document.activeElement), privacyFocused = !!document.activeElement?.closest(".fg-location-copy");
+      controls.innerHTML = !this.locationAllowed() ? "" : `${active ? `<button data-action="location-return" aria-label="${escape(this.t("Return to my location"))}" ${!fix ? "disabled" : ""}>${icon("recenter")} ${this.t("My location")}</button>` : `<button data-action="location" aria-label="${escape(this.t("Show my location"))}" ${!this.ready ? "disabled" : ""}>${icon("location")} ${this.t("My location")}</button>`}<details class="fg-location-copy"><summary aria-label="${escape(this.t("Location & map privacy"))}">${icon("info")}</summary><div class="fg-privacy-panel"><p>${escape(this.t("Raw coordinates are not sent to organisers or analytics. Location starts as a marker only. Follow or recenter sends map requests for the area you view."))}</p>${active ? `<button data-action="location-off">${icon("location-stop")} ${escape(this.t("Turn location off"))}</button>` : ""}</div></details>`;
+      this.bindDisclosure(controls.querySelector(".fg-location-copy"));
+      if (focused) controls.querySelector(privacyFocused ? ".fg-location-copy > summary" : "[data-action]")?.focus({ preventScroll: true });
       controls.querySelectorAll("[data-action]").forEach(button => { button.onclick = () => this.action(button.dataset.action); });
     }
     controls?.querySelector('[data-action="location-return"]')?.toggleAttribute("disabled", !fix || state === "stale");

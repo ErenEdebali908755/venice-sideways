@@ -38,11 +38,11 @@ function decodeAlpha(bytes) {
   return { width, height, zero, painted, translucent };
 }
 
-test('Kit 04 has 30 transparent hash derivatives, 39 own-route mappings and an explicit Tre Archi hold', async () => {
+test('Thirty illustrated places retain alpha and route mappings; five Main replacements have reference-reviewed identities', async () => {
   assert.equal(manifest.assets.length, 30); assert.equal(ILLUSTRATIONS.length, 30);
-  assert.equal(manifest.assets.filter(asset => asset.approved).length, 29);
-  assert.deepEqual(manifest.assets.filter(asset => !asset.approved).map(asset => asset.placeKey), ['trearchi']);
-  assert.equal(ILLUSTRATIONS.find(asset => asset.key === 'trearchi').humanSpecificReviewRequired, true);
+  assert.equal(manifest.assets.filter(asset => asset.approved).length, 30);
+  assert.deepEqual(manifest.assets.filter(asset => !asset.approved).map(asset => asset.placeKey), []);
+  assert.equal(ILLUSTRATIONS.find(asset => asset.key === 'trearchi').humanSpecificReviewRequired, false);
   assert.equal(ILLUSTRATION_PLACEMENTS.length, 39);
   for (const route of routes.filter(route => ['main', 'full'].includes(route.key))) {
     const mapped = ILLUSTRATION_PLACEMENTS.filter(row => row.route === route.key);
@@ -52,6 +52,7 @@ test('Kit 04 has 30 transparent hash derivatives, 39 own-route mappings and an e
   assert.notEqual(routes.find(route => route.key === 'main').visits.find(visit => visit.key === 'lucia').latitude, routes.find(route => route.key === 'full').visits.find(visit => visit.key === 'lucia').latitude);
   const files = await readdir(new URL('art/', directory));
   assert.equal(files.filter(name => /^kit-.*\.png$/.test(name)).length, 90, 'only reduced 1x/2x/card assets are public');
+  assert.equal(files.filter(name => /^main-20261009-.*\.png$/.test(name)).length, 15, 'five renewed subjects each have 1x, 2x and detail assets');
   for (const asset of manifest.assets) {
     assert.equal(asset.illustrationNotPhotograph, true); assert.ok(asset.qa.sourceLinks.length);
     const exported = ILLUSTRATIONS.find(row => row.key === asset.placeKey);

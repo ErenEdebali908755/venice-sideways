@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "version": "20261006-kit05",
+  "version": "20261009-main",
   "source": "User supplied venice-sideways-unified-visual-kit-04-2026-10-06",
   "registrySHA256": "82feed012da66ca0e90e1da3341b46d110df4d86040927c31a7e339d54f95216",
   "placementRegistrySHA256": "69cbf68d8c3e0d355abd46dbc768186bc493c3ca79d6c4c30a3a3daebb53954d",
@@ -61,8 +61,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        187.59361851332397,
-        202.6712990936556
+        151.91853360488798,
+        129.67832167832168
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -78,8 +78,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        187.59361851332397,
-        202.6712990936556
+        151.91853360488798,
+        129.67832167832168
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -135,8 +135,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        225.55155010814707,
-        256.7535211267606
+        122.76706036745406,
+        104.9747219413549
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -152,8 +152,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        225.55155010814707,
-        256.7535211267606
+        122.76706036745406,
+        104.9747219413549
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -169,8 +169,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        225.72957839262187,
-        213.96326368159203
+        125.8891820580475,
+        115.85600794438928
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -186,8 +186,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        225.72957839262187,
-        213.96326368159203
+        125.8891820580475,
+        115.85600794438928
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -237,8 +237,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        168.14212058212058,
-        192.7723170731707
+        113.90346766635426,
+        57.252857142857145
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -254,8 +254,8 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        168.14212058212058,
-        192.7723170731707
+        113.90346766635426,
+        57.252857142857145
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
       "placementMode": "bounded-callout",
@@ -351,11 +351,11 @@
       ],
       "artAnchor": null,
       "imageGroundPointPx": [
-        165.69688947716745,
-        139.81548979591835
+        72.52190847127557,
+        55.989085948158255
       ],
       "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
-      "placementMode": "held",
+      "placementMode": "bounded-callout",
       "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
@@ -711,7 +711,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/lucia-watercolor.png",
         "sha256": "ca19b057fbd470e827a20ef1d391345a5da011ad70338cdf23652751f1053adc",
@@ -748,17 +748,19 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Stazione_di_Venezia_Santa_Lucia_2024.jpg",
           "https://www.grandistazioni.it/it/le-nostre-stazioni/venezia-s--lucia.html",
           "https://www.gsretail.it/it/network/venezia-santa-lucia/"
         ],
         "architecturalChecks": [
-          "Modern low horizontal railway-station front, flat roof and glazed entries; no church substitution",
-          "Entire facade and steps visible; exact bay count and adjacent details remain interpretive"
+          "Horizontal pale stone railway facade, flat canopy, long steps and glazed entrance fit Santa Lucia. FS logo and pontoon foreground omitted; building bays simplified."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -881,6 +883,15 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Horizontal pale stone railway facade, flat canopy, long steps and glazed entrance fit Santa Lucia. FS logo and pontoon foreground omitted; building bays simplified.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Stazione_di_Venezia_Santa_Lucia_2024.jpg",
+        "referencePhotographer": "kallerna"
       }
     },
     {
@@ -891,10 +902,10 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
-        "file": "reference/visual-pack-03/landmarks/giacomo-watercolor.png",
-        "sha256": "e7bb5ae93d4c5957c87c5208fb691173230a3183931892fcbe536e9bf3c27fb5",
+        "file": "main-walk-focus-20261009/art/masters/giacomo-watercolor.png",
+        "sha256": "c6270b0a111ff82c607fe23fed83ab74f7f4896327eeebe7799ed9ecb94ea445",
         "width": 1536,
         "height": 1024,
         "alpha": true,
@@ -905,115 +916,119 @@
           0
         ],
         "strictAlphaBoundsPx": [
-          0,
           31,
-          1426,
+          23,
+          1504,
           1024
         ],
         "visibleAlpha16BoundsPx": [
-          112,
-          51,
-          1421,
-          949
+          56,
+          37,
+          1499,
+          991
         ],
         "croppedTransparentExteriorPx": {
-          "left": 0,
-          "top": 31,
-          "width": 1426,
-          "height": 993
+          "left": 31,
+          "top": 23,
+          "width": 1473,
+          "height": 1001
         },
         "imageGroundPointPx": [
-          766.5,
-          859.2
-        ]
+          1030,
+          877
+        ],
+        "generationTool": "built-in image_gen",
+        "generatedAt": "2026-10-09"
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg",
           "https://chorusvenezia.org/visita/chiesa-di-san-giacomo-dallorio/"
         ],
         "architecturalChecks": [
-          "Rounded apsidal ensemble, warm brick/plaster and white upper arcades; no Rialto clock",
-          "Campanile and window detail are stylized; not a complete measured church reconstruction"
+          "Plain pink campo-facing gable, circular openings, lower arched windows, brick campanile and small cylindrical chapel replace the unrelated ornate apse. Minor belfry/window detailing remains illustrative."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
-          "file": "art/kit-giacomo-map1x-8bad09694df5.png",
-          "sha256": "8bad09694df5860e4763fe121b16a1b8639c29152f9afa849800d0fc66806489",
-          "bytes": 34224,
-          "width": 174,
-          "height": 121,
+          "file": "art/main-20261009-giacomo-map1x-53a8f5786757.png",
+          "sha256": "53a8f5786757182d407da5f8e3f5b1ed0d5544d43fb37775030d4a2e14c9b78b",
+          "bytes": 14551,
+          "width": 112,
+          "height": 76,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            14,
             2,
-            173,
-            112
+            2,
+            112,
+            74
           ],
-          "targetVisibleSpanPx": 160,
-          "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.23766364551864694,
           "imageGroundPointPx": [
-            93.52805049088359,
-            100.91863041289024
+            75.95926680244399,
+            64.83916083916084
           ],
           "sourceScale": [
-            0.12201963534361851,
-            0.12185297079556898
-          ]
+            0.07603530210454854,
+            0.07592407592407592
+          ],
+          "targetVisibleSpanPx": 112,
+          "sourcePaintedAspect": 1.4715284715284715,
+          "aspectErrorPx": 0.16383616383615607
         },
         "map2x": {
-          "file": "art/kit-giacomo-map2x-81212cc241ea.png",
-          "sha256": "81212cc241ea116061431b1210ceacd78e5bdfd4d62884fe4b7e06569bd5f3cf",
-          "bytes": 133227,
-          "width": 349,
-          "height": 243,
+          "file": "art/main-20261009-giacomo-map2x-62a60c2e3010.png",
+          "sha256": "62a60c2e3010abbdaf647bf9f08de0ad5046b73c7a62f4268993d02530372911",
+          "bytes": 50702,
+          "width": 224,
+          "height": 152,
           "pixelRatio": 2,
           "visibleAlpha16BoundsPx": [
-            27,
-            5,
-            348,
-            225
+            4,
+            4,
+            224,
+            147
           ],
-          "targetVisibleSpanPx": 320,
-          "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.0392749244713122,
           "imageGroundPointPx": [
-            187.59361851332397,
-            202.6712990936556
+            151.91853360488798,
+            129.67832167832168
           ],
           "sourceScale": [
-            0.2447405329593268,
-            0.24471299093655588
-          ]
+            0.15207060420909707,
+            0.15184815184815184
+          ],
+          "targetVisibleSpanPx": 224,
+          "sourcePaintedAspect": 1.4715284715284715,
+          "aspectErrorPx": 0.32767232767231214
         },
         "card": {
-          "file": "art/kit-giacomo-card-3ec877c627cd.png",
-          "sha256": "3ec877c627cd153ff09011826dc54d9c571240e4cf827ada13b92fbe0e4f7ae2",
-          "bytes": 517624,
-          "width": 697,
-          "height": 485,
+          "file": "art/main-20261009-giacomo-card-961c3cf0fed8.png",
+          "sha256": "961c3cf0fed8c14ddfa3a427d126f8981d40649ba6f8e7a10d78304437c0a7a9",
+          "bytes": 617979,
+          "width": 801,
+          "height": 544,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            55,
-            10,
-            694,
-            449
+            13,
+            8,
+            798,
+            526
           ],
-          "targetVisibleSpanPx": 640,
-          "sourcePaintedAspect": 1.4360523665659617,
-          "aspectErrorPx": 0.5146022155085805,
           "imageGroundPointPx": [
-            374.6497194950912,
-            404.50855991943604
+            543.2443991853361,
+            464.1118881118881
           ],
           "sourceScale": [
-            0.4887798036465638,
-            0.48841893252769386
-          ]
+            0.5437881873727087,
+            0.5434565434565435
+          ],
+          "targetVisibleSpanPx": 800,
+          "sourcePaintedAspect": 1.4715284715284715,
+          "aspectErrorPx": 0.4885114885114703
         }
       },
       "artAnchor": null,
@@ -1024,10 +1039,10 @@
         "maxDisplacementCSSPx": 72,
         "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
         "opticalReview": {
-          "checkedAt": "2026-10-06",
-          "status": "AI visual optical annotation review; human architectural approval not claimed",
-          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
-          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+          "checkedAt": "2026-10-09",
+          "status": "Technical pixel-ground annotation; no human architectural approval",
+          "method": "Ground point on dry entry/quay/pier or well base, excluding painted water and foreground wash",
+          "space": "Original generated RGBA raster pixels; transformed through strict alpha crop and independent derivative rounding"
         },
         "geographicReview": {
           "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
@@ -1035,7 +1050,101 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
-      }
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "regenerated",
+        "checks": "Plain pink campo-facing gable, circular openings, lower arched windows, brick campanile and small cylindrical chapel replace the unrelated ornate apse. Minor belfry/window detailing remains illustrative.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg",
+        "referencePhotographer": "Wolfgang Moroder"
+      },
+      "superseded": {
+        "sourceSHA256": "e7bb5ae93d4c5957c87c5208fb691173230a3183931892fcbe536e9bf3c27fb5",
+        "derivatives": {
+          "map1x": {
+            "file": "art/kit-giacomo-map1x-8bad09694df5.png",
+            "sha256": "8bad09694df5860e4763fe121b16a1b8639c29152f9afa849800d0fc66806489",
+            "bytes": 34224,
+            "width": 174,
+            "height": 121,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              14,
+              2,
+              173,
+              112
+            ],
+            "targetVisibleSpanPx": 160,
+            "sourcePaintedAspect": 1.4360523665659617,
+            "aspectErrorPx": 0.23766364551864694,
+            "imageGroundPointPx": [
+              93.52805049088359,
+              100.91863041289024
+            ],
+            "sourceScale": [
+              0.12201963534361851,
+              0.12185297079556898
+            ]
+          },
+          "map2x": {
+            "file": "art/kit-giacomo-map2x-81212cc241ea.png",
+            "sha256": "81212cc241ea116061431b1210ceacd78e5bdfd4d62884fe4b7e06569bd5f3cf",
+            "bytes": 133227,
+            "width": 349,
+            "height": 243,
+            "pixelRatio": 2,
+            "visibleAlpha16BoundsPx": [
+              27,
+              5,
+              348,
+              225
+            ],
+            "targetVisibleSpanPx": 320,
+            "sourcePaintedAspect": 1.4360523665659617,
+            "aspectErrorPx": 0.0392749244713122,
+            "imageGroundPointPx": [
+              187.59361851332397,
+              202.6712990936556
+            ],
+            "sourceScale": [
+              0.2447405329593268,
+              0.24471299093655588
+            ]
+          },
+          "card": {
+            "file": "art/kit-giacomo-card-3ec877c627cd.png",
+            "sha256": "3ec877c627cd153ff09011826dc54d9c571240e4cf827ada13b92fbe0e4f7ae2",
+            "bytes": 517624,
+            "width": 697,
+            "height": 485,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              55,
+              10,
+              694,
+              449
+            ],
+            "targetVisibleSpanPx": 640,
+            "sourcePaintedAspect": 1.4360523665659617,
+            "aspectErrorPx": 0.5146022155085805,
+            "imageGroundPointPx": [
+              374.6497194950912,
+              404.50855991943604
+            ],
+            "sourceScale": [
+              0.4887798036465638,
+              0.48841893252769386
+            ]
+          }
+        },
+        "reason": "Plain pink campo-facing gable, circular openings, lower arched windows, brick campanile and small cylindrical chapel replace the unrelated ornate apse. Minor belfry/window detailing remains illustrative."
+      },
+      "credit": "AI watercolor adaptation by Venice Sideways; reference photo: Wolfgang Moroder",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg",
+      "licenseLabel": "CC BY-SA 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0"
     },
     {
       "placeKey": "frari",
@@ -1045,7 +1154,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/frari-watercolor.png",
         "sha256": "04013fe8f4dadcd31936f46e3ae5e2bc8ca2958093d762182025d7189485c3b1",
@@ -1082,17 +1191,19 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG",
           "https://www.basilicadeifrari.it/esterno-della-basilica/",
           "https://www.basilicadeifrari.it/il-campanile/"
         ],
         "architecturalChecks": [
-          "Brick Gothic main front, three principal roses plus smaller upper oculus, pointed portal and non-pyramidal tower",
-          "Fine tracery/statue placement and gable proportions are artistic simplifications"
+          "Brick Gothic facade, three main round windows, pointed central portal and tall brick campanile identify Frari. Tracery and statues simplified, no survey fidelity claimed."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -2128,6 +2239,15 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Brick Gothic facade, three main round windows, pointed central portal and tall brick campanile identify Frari. Tracery and statues simplified, no survey fidelity claimed.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG",
+        "referencePhotographer": "Divot"
       }
     },
     {
@@ -2138,10 +2258,10 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
-        "file": "reference/visual-pack-03/landmarks/margherita-watercolor.png",
-        "sha256": "967648d3a39b7e806902186aeec1ff0ba8c30ad7fa88cc8ff51e22ad0d6487a1",
+        "file": "main-walk-focus-20261009/art/masters/margherita-watercolor.png",
+        "sha256": "32f7fc469d05fe6651e14b4f29580c96577b881eae83604668bc2aa42203a1e7",
         "width": 1536,
         "height": 1024,
         "alpha": true,
@@ -2152,115 +2272,119 @@
           0
         ],
         "strictAlphaBoundsPx": [
-          65,
-          30,
-          1452,
-          1024
+          11,
+          19,
+          1535,
+          1008
         ],
         "visibleAlpha16BoundsPx": [
-          272,
-          86,
-          1280,
-          924
+          17,
+          74,
+          1524,
+          962
         ],
         "croppedTransparentExteriorPx": {
-          "left": 65,
-          "top": 30,
-          "width": 1387,
-          "height": 994
+          "left": 11,
+          "top": 19,
+          "width": 1524,
+          "height": 989
         },
         "imageGroundPointPx": [
-          776,
-          840.2
-        ]
+          850,
+          735
+        ],
+        "generationTool": "built-in image_gen",
+        "generatedAt": "2026-10-09"
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Campo_Santa_Margherita_(Venice).jpg",
           "https://live.comune.venezia.it/index.php/it/node/125866"
         ],
         "architecturalChecks": [
-          "Final candidate has plain broken truncated tower and regular rectangular neighbouring windows",
-          "Limited campo atmosphere; neighbours and well placement do not claim exact survey"
+          "Dry paved campo, stone wellhead, modest colorful residential facades, trees and cafe context replace the invented dominant truncated-tower composition."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
-          "file": "art/kit-margherita-map1x-93a9724e7d6d.png",
-          "sha256": "93a9724e7d6d60cb6c46fd14aaa2e033b616b6ef24960f82730371bfa5f02919",
-          "bytes": 40423,
-          "width": 220,
-          "height": 158,
+          "file": "art/main-20261009-margherita-map1x-f710e2f06e85.png",
+          "sha256": "f710e2f06e85f4c10363e896c7d2f38329d2c222bf6e28a9b99bb95c9ca37349",
+          "bytes": 17631,
+          "width": 112,
+          "height": 73,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            33,
-            9,
-            192,
-            142
+            0,
+            4,
+            111,
+            70
           ],
-          "targetVisibleSpanPx": 160,
-          "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.4688128772635638,
           "imageGroundPointPx": [
-            112.77577505407353,
-            128.78430583501006
+            61.658792650918635,
+            52.849342770475225
           ],
           "sourceScale": [
-            0.15861571737563085,
-            0.158953722334004
-          ]
+            0.07349081364829396,
+            0.07381193124368049
+          ],
+          "targetVisibleSpanPx": 112,
+          "sourcePaintedAspect": 1.5409504550050557,
+          "aspectErrorPx": 0.4893832153690705
         },
         "map2x": {
-          "file": "art/kit-margherita-map2x-c7510a363410.png",
-          "sha256": "c7510a3634107cb187bb4a643c435a6b381cb353490d3358952f6145f6a68b98",
-          "bytes": 157021,
-          "width": 440,
-          "height": 315,
+          "file": "art/main-20261009-margherita-map2x-ee72401daf60.png",
+          "sha256": "ee72401daf6074c2eb95f0247ced97cb8907ce9f2066ea93127d3fd89414cc21",
+          "bytes": 62564,
+          "width": 223,
+          "height": 145,
           "pixelRatio": 2,
           "visibleAlpha16BoundsPx": [
-            66,
-            17,
-            385,
-            284
+            1,
+            8,
+            222,
+            139
           ],
-          "targetVisibleSpanPx": 320,
-          "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.45774647887322106,
           "imageGroundPointPx": [
-            225.55155010814707,
-            256.7535211267606
+            122.76706036745406,
+            104.9747219413549
           ],
           "sourceScale": [
-            0.3172314347512617,
-            0.31690140845070425
-          ]
+            0.1463254593175853,
+            0.14661274014155712
+          ],
+          "targetVisibleSpanPx": 224,
+          "sourcePaintedAspect": 1.5409504550050557,
+          "aspectErrorPx": 0.43781597573307796
         },
         "card": {
-          "file": "art/kit-margherita-card-ae224bb5d4fa.png",
-          "sha256": "ae224bb5d4faa9dc89bf1151b08ba5f9ad1898cb01c2a4e9f85ef2ff9694a1fe",
-          "bytes": 605587,
-          "width": 881,
-          "height": 631,
+          "file": "art/main-20261009-margherita-card-2d46dbf00b33.png",
+          "sha256": "2d46dbf00b33ed504f6fbb70d99b8a77c6b35e6d0c15caed0ed47599e70ba98f",
+          "bytes": 755323,
+          "width": 800,
+          "height": 519,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            131,
-            35,
-            772,
-            568
+            3,
+            29,
+            794,
+            495
           ],
-          "targetVisibleSpanPx": 640,
-          "sourcePaintedAspect": 1.3953722334004024,
-          "aspectErrorPx": 0.5201207243461288,
           "imageGroundPointPx": [
-            451.6157173756309,
-            514.3221327967807
+            440.4199475065617,
+            375.737108190091
           ],
           "sourceScale": [
-            0.635183850036049,
-            0.6348088531187123
-          ]
+            0.5249343832020997,
+            0.5247724974721941
+          ],
+          "targetVisibleSpanPx": 800,
+          "sourcePaintedAspect": 1.5409504550050557,
+          "aspectErrorPx": 0.24671385237612764
         }
       },
       "artAnchor": null,
@@ -2271,10 +2395,10 @@
         "maxDisplacementCSSPx": 72,
         "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
         "opticalReview": {
-          "checkedAt": "2026-10-06",
-          "status": "AI visual optical annotation review; human architectural approval not claimed",
-          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
-          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+          "checkedAt": "2026-10-09",
+          "status": "Technical pixel-ground annotation; no human architectural approval",
+          "method": "Ground point on dry entry/quay/pier or well base, excluding painted water and foreground wash",
+          "space": "Original generated RGBA raster pixels; transformed through strict alpha crop and independent derivative rounding"
         },
         "geographicReview": {
           "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
@@ -2282,7 +2406,101 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
-      }
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "regenerated",
+        "checks": "Dry paved campo, stone wellhead, modest colorful residential facades, trees and cafe context replace the invented dominant truncated-tower composition.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_Santa_Margherita_(Venice).jpg",
+        "referencePhotographer": "Didier Descouens"
+      },
+      "superseded": {
+        "sourceSHA256": "967648d3a39b7e806902186aeec1ff0ba8c30ad7fa88cc8ff51e22ad0d6487a1",
+        "derivatives": {
+          "map1x": {
+            "file": "art/kit-margherita-map1x-93a9724e7d6d.png",
+            "sha256": "93a9724e7d6d60cb6c46fd14aaa2e033b616b6ef24960f82730371bfa5f02919",
+            "bytes": 40423,
+            "width": 220,
+            "height": 158,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              33,
+              9,
+              192,
+              142
+            ],
+            "targetVisibleSpanPx": 160,
+            "sourcePaintedAspect": 1.3953722334004024,
+            "aspectErrorPx": 0.4688128772635638,
+            "imageGroundPointPx": [
+              112.77577505407353,
+              128.78430583501006
+            ],
+            "sourceScale": [
+              0.15861571737563085,
+              0.158953722334004
+            ]
+          },
+          "map2x": {
+            "file": "art/kit-margherita-map2x-c7510a363410.png",
+            "sha256": "c7510a3634107cb187bb4a643c435a6b381cb353490d3358952f6145f6a68b98",
+            "bytes": 157021,
+            "width": 440,
+            "height": 315,
+            "pixelRatio": 2,
+            "visibleAlpha16BoundsPx": [
+              66,
+              17,
+              385,
+              284
+            ],
+            "targetVisibleSpanPx": 320,
+            "sourcePaintedAspect": 1.3953722334004024,
+            "aspectErrorPx": 0.45774647887322106,
+            "imageGroundPointPx": [
+              225.55155010814707,
+              256.7535211267606
+            ],
+            "sourceScale": [
+              0.3172314347512617,
+              0.31690140845070425
+            ]
+          },
+          "card": {
+            "file": "art/kit-margherita-card-ae224bb5d4fa.png",
+            "sha256": "ae224bb5d4faa9dc89bf1151b08ba5f9ad1898cb01c2a4e9f85ef2ff9694a1fe",
+            "bytes": 605587,
+            "width": 881,
+            "height": 631,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              131,
+              35,
+              772,
+              568
+            ],
+            "targetVisibleSpanPx": 640,
+            "sourcePaintedAspect": 1.3953722334004024,
+            "aspectErrorPx": 0.5201207243461288,
+            "imageGroundPointPx": [
+              451.6157173756309,
+              514.3221327967807
+            ],
+            "sourceScale": [
+              0.635183850036049,
+              0.6348088531187123
+            ]
+          }
+        },
+        "reason": "Dry paved campo, stone wellhead, modest colorful residential facades, trees and cafe context replace the invented dominant truncated-tower composition."
+      },
+      "credit": "AI watercolor adaptation by Venice Sideways; reference photo: Didier Descouens",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_Santa_Margherita_(Venice).jpg",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
     },
     {
       "placeKey": "barnaba",
@@ -2292,130 +2510,134 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
-        "file": "reference/visual-pack-03/landmarks/barnaba-watercolor.png",
-        "sha256": "d8225a8965ed290cc18eb322648e019d011a98b962fcb19687cfa5e1be75e0c7",
-        "width": 1536,
-        "height": 1024,
+        "file": "main-walk-focus-20261009/art/masters/barnaba-watercolor.png",
+        "sha256": "ea3bdb57c5232dd86c6d749088dec726486ae059805200002ff7d43391367bf7",
+        "width": 1533,
+        "height": 1026,
         "alpha": true,
         "cornerAlpha": [
           0,
           0,
-          0,
+          1,
           0
         ],
         "strictAlphaBoundsPx": [
           0,
           19,
-          1518,
-          1024
+          1516,
+          1026
         ],
         "visibleAlpha16BoundsPx": [
-          184,
+          31,
           22,
-          1369,
-          986
+          1514,
+          1012
         ],
         "croppedTransparentExteriorPx": {
           "left": 0,
           "top": 19,
-          "width": 1518,
-          "height": 1005
+          "width": 1516,
+          "height": 1007
         },
         "imageGroundPointPx": [
-          835.75,
-          812.4799999999999
-        ]
+          852,
+          802
+        ],
+        "generationTool": "built-in image_gen",
+        "generatedAt": "2026-10-09"
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Campo_San_Barnaba_and_San_Barnaba_-_Venice_2016.jpg",
           "https://leonardoavenezia.com/en/mostra/",
           "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district"
         ],
         "architecturalChecks": [
-          "Four Corinthian columns in two side pairs, circular pediment relief, triangular door pediment and conical brick tower",
-          "Minor ornament and waterfront apron simplified"
+          "Four frontal columns in paired groups, triangular pediment, central door and left brick tower; broad dry campo replaces water directly at church door."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
-          "file": "art/kit-barnaba-map1x-393cd1e500c8.png",
-          "sha256": "393cd1e500c833753d68288ea950b2a0621cc0275ad3c4a53f57bc2f7180e5dc",
-          "bytes": 41335,
-          "width": 205,
-          "height": 136,
+          "file": "art/main-20261009-barnaba-map1x-e163d383e309.png",
+          "sha256": "e163d383e30981a848b4088144759e9f925575a78668fdb61ec97a9827ea9b78",
+          "bytes": 14514,
+          "width": 111,
+          "height": 74,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            25,
-            1,
-            185,
-            131
+            2,
+            0,
+            111,
+            73
           ],
-          "targetVisibleSpanPx": 160,
-          "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.4208955223880704,
           "imageGroundPointPx": [
-            112.86478919631094,
-            107.37639800995024
+            62.382585751978894,
+            57.53922542204568
           ],
           "sourceScale": [
-            0.13504611330698288,
-            0.13532338308457711
-          ]
+            0.07321899736147758,
+            0.07348560079443893
+          ],
+          "targetVisibleSpanPx": 112,
+          "sourcePaintedAspect": 1.5054617676266138,
+          "aspectErrorPx": 0.40417080436941877
         },
         "map2x": {
-          "file": "art/kit-barnaba-map2x-bd4c74b25174.png",
-          "sha256": "bd4c74b2517418f1196794c20114e08a548b5ac39d7cf69c44d1e7f7c0f9cb93",
-          "bytes": 157233,
-          "width": 410,
-          "height": 271,
+          "file": "art/main-20261009-barnaba-map2x-bdf92274cd8f.png",
+          "sha256": "bdf92274cd8ff71a9583ca060f77361937e9606c9d5e41a9f7f3b9246c0e8e67",
+          "bytes": 52253,
+          "width": 224,
+          "height": 149,
           "pixelRatio": 2,
           "visibleAlpha16BoundsPx": [
-            50,
-            1,
-            370,
-            261
+            4,
+            0,
+            224,
+            147
           ],
-          "targetVisibleSpanPx": 320,
-          "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.6686567164178789,
           "imageGroundPointPx": [
-            225.72957839262187,
-            213.96326368159203
+            125.8891820580475,
+            115.85600794438928
           ],
           "sourceScale": [
-            0.27009222661396576,
-            0.26965174129353237
-          ]
+            0.14775725593667546,
+            0.14796425024826215
+          ],
+          "targetVisibleSpanPx": 224,
+          "sourcePaintedAspect": 1.5054617676266138,
+          "aspectErrorPx": 0.31380337636544375
         },
         "card": {
-          "file": "art/kit-barnaba-card-24f4f4bcd9e1.png",
-          "sha256": "24f4f4bcd9e16698995b7dd27ff0bfd3562ad14d1d6b706952f0128da34ae5c5",
-          "bytes": 597670,
-          "width": 820,
-          "height": 543,
+          "file": "art/main-20261009-barnaba-card-e93c7be51e8c.png",
+          "sha256": "e93c7be51e8c026300619eb644f73a539fffead72d307ac74f37739433cb3dc7",
+          "bytes": 631099,
+          "width": 799,
+          "height": 531,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            100,
+            16,
             2,
-            739,
-            523
+            798,
+            524
           ],
-          "targetVisibleSpanPx": 640,
-          "sourcePaintedAspect": 1.51044776119403,
-          "aspectErrorPx": 0.17313432835828158,
           "imageGroundPointPx": [
-            451.45915678524375,
-            428.7160597014925
+            449.042216358839,
+            412.8828202581926
           ],
           "sourceScale": [
-            0.5401844532279315,
-            0.5402985074626866
-          ]
+            0.5270448548812665,
+            0.5273088381330685
+          ],
+          "targetVisibleSpanPx": 800,
+          "sourcePaintedAspect": 1.5054617676266138,
+          "aspectErrorPx": 0.4001986097319432
         }
       },
       "artAnchor": null,
@@ -2426,10 +2648,10 @@
         "maxDisplacementCSSPx": 72,
         "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
         "opticalReview": {
-          "checkedAt": "2026-10-06",
-          "status": "AI visual optical annotation review; human architectural approval not claimed",
-          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
-          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+          "checkedAt": "2026-10-09",
+          "status": "Technical pixel-ground annotation; no human architectural approval",
+          "method": "Ground point on dry entry/quay/pier or well base, excluding painted water and foreground wash",
+          "space": "Original generated RGBA raster pixels; transformed through strict alpha crop and independent derivative rounding"
         },
         "geographicReview": {
           "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
@@ -2437,7 +2659,101 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
-      }
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "regenerated",
+        "checks": "Four frontal columns in paired groups, triangular pediment, central door and left brick tower; broad dry campo replaces water directly at church door.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_San_Barnaba_and_San_Barnaba_-_Venice_2016.jpg",
+        "referencePhotographer": "José Luiz"
+      },
+      "superseded": {
+        "sourceSHA256": "d8225a8965ed290cc18eb322648e019d011a98b962fcb19687cfa5e1be75e0c7",
+        "derivatives": {
+          "map1x": {
+            "file": "art/kit-barnaba-map1x-393cd1e500c8.png",
+            "sha256": "393cd1e500c833753d68288ea950b2a0621cc0275ad3c4a53f57bc2f7180e5dc",
+            "bytes": 41335,
+            "width": 205,
+            "height": 136,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              25,
+              1,
+              185,
+              131
+            ],
+            "targetVisibleSpanPx": 160,
+            "sourcePaintedAspect": 1.51044776119403,
+            "aspectErrorPx": 0.4208955223880704,
+            "imageGroundPointPx": [
+              112.86478919631094,
+              107.37639800995024
+            ],
+            "sourceScale": [
+              0.13504611330698288,
+              0.13532338308457711
+            ]
+          },
+          "map2x": {
+            "file": "art/kit-barnaba-map2x-bd4c74b25174.png",
+            "sha256": "bd4c74b2517418f1196794c20114e08a548b5ac39d7cf69c44d1e7f7c0f9cb93",
+            "bytes": 157233,
+            "width": 410,
+            "height": 271,
+            "pixelRatio": 2,
+            "visibleAlpha16BoundsPx": [
+              50,
+              1,
+              370,
+              261
+            ],
+            "targetVisibleSpanPx": 320,
+            "sourcePaintedAspect": 1.51044776119403,
+            "aspectErrorPx": 0.6686567164178789,
+            "imageGroundPointPx": [
+              225.72957839262187,
+              213.96326368159203
+            ],
+            "sourceScale": [
+              0.27009222661396576,
+              0.26965174129353237
+            ]
+          },
+          "card": {
+            "file": "art/kit-barnaba-card-24f4f4bcd9e1.png",
+            "sha256": "24f4f4bcd9e16698995b7dd27ff0bfd3562ad14d1d6b706952f0128da34ae5c5",
+            "bytes": 597670,
+            "width": 820,
+            "height": 543,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              100,
+              2,
+              739,
+              523
+            ],
+            "targetVisibleSpanPx": 640,
+            "sourcePaintedAspect": 1.51044776119403,
+            "aspectErrorPx": 0.17313432835828158,
+            "imageGroundPointPx": [
+              451.45915678524375,
+              428.7160597014925
+            ],
+            "sourceScale": [
+              0.5401844532279315,
+              0.5402985074626866
+            ]
+          }
+        },
+        "reason": "Four frontal columns in paired groups, triangular pediment, central door and left brick tower; broad dry campo replaces water directly at church door."
+      },
+      "credit": "AI watercolor adaptation by Venice Sideways; reference photo: José Luiz",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_San_Barnaba_and_San_Barnaba_-_Venice_2016.jpg",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0/"
     },
     {
       "placeKey": "trovaso",
@@ -2447,7 +2763,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/trovaso-watercolor.png",
         "sha256": "6c8b85ec0d3a73e59c229e3a7a77e45630ace196dda52ff272bd986c98a555b0",
@@ -2484,17 +2800,19 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Squero_di_San_Trovaso_(Venice)_01.jpg",
           "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district",
           "https://www.squerosantrovaso.com/"
         ],
         "architecturalChecks": [
-          "Timber pitched workshops, balcony and two black gondola hulls on slipway",
-          "Editorial working-boatyard vignette, not a current operations report"
+          "Low timber pitched-roof workshops, slipway and gondola hulls fit Squero di San Trovaso. Neighboring church and current boat inventory intentionally omitted."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -2592,22 +2910,31 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Low timber pitched-roof workshops, slipway and gondola hulls fit Squero di San Trovaso. Neighboring church and current boat inventory intentionally omitted.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Squero_di_San_Trovaso_(Venice)_01.jpg",
+        "referencePhotographer": "Abxbay"
       }
     },
     {
       "placeKey": "zattere",
-      "title": "Zattere · Gesuati",
+      "title": "Zattere · waterfront",
       "kind": "kit-zattere",
       "approved": true,
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
-        "file": "reference/visual-pack-03/landmarks/zattere-watercolor.png",
-        "sha256": "114ca9588bba5932aa46e3327877dc40643f895a34dc6f29fbaf813fcc650f1a",
-        "width": 1536,
-        "height": 1024,
+        "file": "main-walk-focus-20261009/art/masters/zattere-watercolor.png",
+        "sha256": "9cf9bfb09d11b43d1dd02fb8d1f9c8d723c92d005ceb68cadd73ddeb7fc57f3d",
+        "width": 2148,
+        "height": 732,
         "alpha": true,
         "cornerAlpha": [
           0,
@@ -2616,115 +2943,119 @@
           0
         ],
         "strictAlphaBoundsPx": [
-          79,
+          0,
           16,
-          1522,
-          1000
+          2134,
+          716
         ],
         "visibleAlpha16BoundsPx": [
-          87,
-          19,
-          1448,
-          993
+          20,
+          61,
+          2127,
+          700
         ],
         "croppedTransparentExteriorPx": {
-          "left": 79,
+          "left": 0,
           "top": 16,
-          "width": 1443,
-          "height": 984
+          "width": 2134,
+          "height": 700
         },
         "imageGroundPointPx": [
-          794.72,
-          837.16
-        ]
+          1090,
+          565
+        ],
+        "generationTool": "built-in image_gen",
+        "generatedAt": "2026-10-09"
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Fondamenta_Zattere_Ai_Gesuati.jpg",
           "https://chorusvenezia.org/visita/facciata-9/"
         ],
         "architecturalChecks": [
-          "Four columns, oval opening, curved portal pediment and four statue niches",
-          "Modest dome and belfries behind; fine proportions illustrative"
+          "Low continuous waterfront facades, pedestrian quay, small bridge and Giudecca Canal replace the misidentified single Gesuati facade. The panorama is context, not one building footprint."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
-          "file": "art/kit-zattere-map1x-5c03e1ceddb9.png",
-          "sha256": "5c03e1ceddb9ab43d83cffad2c884e716b1085fa15a43b993d4982be222c5688",
-          "bytes": 35038,
-          "width": 170,
-          "height": 116,
+          "file": "art/main-20261009-zattere-map1x-799a733f3019.png",
+          "sha256": "799a733f3019b757fb70525aaf76ad8183ec030e8347237c0876777bfdc81797",
+          "bytes": 9970,
+          "width": 113,
+          "height": 37,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
             1,
-            0,
-            162,
-            116
+            2,
+            113,
+            37
           ],
-          "targetVisibleSpanPx": 160,
-          "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.10975609756099303,
           "imageGroundPointPx": [
-            84.31905751905752,
-            96.80341463414634
+            57.71790065604499,
+            29.018571428571427
           ],
           "sourceScale": [
-            0.11781011781011781,
-            0.11788617886178862
-          ]
+            0.05295220243673852,
+            0.05285714285714286
+          ],
+          "targetVisibleSpanPx": 112,
+          "sourcePaintedAspect": 3.0485714285714285,
+          "aspectErrorPx": 0.20285714285714196
         },
         "map2x": {
-          "file": "art/kit-zattere-map2x-b34a90d186d2.png",
-          "sha256": "b34a90d186d2f7b85cddaaf3b0af04af214cf1aea6f5817f9836a96cfa0251ec",
-          "bytes": 130327,
-          "width": 339,
-          "height": 231,
+          "file": "art/main-20261009-zattere-map2x-19a62afdeb5f.png",
+          "sha256": "19a62afdeb5f5fb9b6b02b9d89bbdf7dc95b76badd464144f33db98e3b58c460",
+          "bytes": 33873,
+          "width": 223,
+          "height": 73,
           "pixelRatio": 2,
           "visibleAlpha16BoundsPx": [
             2,
-            1,
-            322,
-            230
+            4,
+            223,
+            72
           ],
-          "targetVisibleSpanPx": 320,
-          "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.24695121951216104,
           "imageGroundPointPx": [
-            168.14212058212058,
-            192.7723170731707
+            113.90346766635426,
+            57.252857142857145
           ],
           "sourceScale": [
-            0.23492723492723494,
-            0.2347560975609756
-          ]
+            0.10449859418931584,
+            0.10428571428571429
+          ],
+          "targetVisibleSpanPx": 224,
+          "sourcePaintedAspect": 3.0485714285714285,
+          "aspectErrorPx": 0.4542857142857364
         },
         "card": {
-          "file": "art/kit-zattere-card-5775963efdca.png",
-          "sha256": "5775963efdca3e5e244a8878ebe69804f3cd245682abcd3b20a5626802103d8e",
-          "bytes": 498096,
-          "width": 679,
-          "height": 463,
+          "file": "art/main-20261009-zattere-card-be54f46dc5b0.png",
+          "sha256": "be54f46dc5b0a090635dea8278e695304a51e64dbd111616bc45d7b9ccdda285",
+          "bytes": 391731,
+          "width": 799,
+          "height": 262,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            4,
-            2,
-            644,
-            460
+            7,
+            17,
+            796,
+            256
           ],
-          "targetVisibleSpanPx": 640,
-          "sourcePaintedAspect": 1.4664634146341464,
-          "aspectErrorPx": 0.027439024390243594,
           "imageGroundPointPx": [
-            336.7802356202356,
-            386.37914634146335
+            408.1115276476101,
+            205.48285714285714
           ],
           "sourceScale": [
-            0.47054747054747054,
-            0.47052845528455284
-          ]
+            0.3744142455482662,
+            0.3742857142857143
+          ],
+          "targetVisibleSpanPx": 800,
+          "sourcePaintedAspect": 3.0485714285714285,
+          "aspectErrorPx": 0.27428571428574333
         }
       },
       "artAnchor": null,
@@ -2735,10 +3066,10 @@
         "maxDisplacementCSSPx": 72,
         "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
         "opticalReview": {
-          "checkedAt": "2026-10-06",
-          "status": "AI visual optical annotation review; human architectural approval not claimed",
-          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
-          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+          "checkedAt": "2026-10-09",
+          "status": "Technical pixel-ground annotation; no human architectural approval",
+          "method": "Ground point on dry entry/quay/pier or well base, excluding painted water and foreground wash",
+          "space": "Original generated RGBA raster pixels; transformed through strict alpha crop and independent derivative rounding"
         },
         "geographicReview": {
           "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
@@ -2746,7 +3077,101 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
-      }
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "regenerated",
+        "checks": "Low continuous waterfront facades, pedestrian quay, small bridge and Giudecca Canal replace the misidentified single Gesuati facade. The panorama is context, not one building footprint.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Fondamenta_Zattere_Ai_Gesuati.jpg",
+        "referencePhotographer": "Derbrauni"
+      },
+      "superseded": {
+        "sourceSHA256": "114ca9588bba5932aa46e3327877dc40643f895a34dc6f29fbaf813fcc650f1a",
+        "derivatives": {
+          "map1x": {
+            "file": "art/kit-zattere-map1x-5c03e1ceddb9.png",
+            "sha256": "5c03e1ceddb9ab43d83cffad2c884e716b1085fa15a43b993d4982be222c5688",
+            "bytes": 35038,
+            "width": 170,
+            "height": 116,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              1,
+              0,
+              162,
+              116
+            ],
+            "targetVisibleSpanPx": 160,
+            "sourcePaintedAspect": 1.4664634146341464,
+            "aspectErrorPx": 0.10975609756099303,
+            "imageGroundPointPx": [
+              84.31905751905752,
+              96.80341463414634
+            ],
+            "sourceScale": [
+              0.11781011781011781,
+              0.11788617886178862
+            ]
+          },
+          "map2x": {
+            "file": "art/kit-zattere-map2x-b34a90d186d2.png",
+            "sha256": "b34a90d186d2f7b85cddaaf3b0af04af214cf1aea6f5817f9836a96cfa0251ec",
+            "bytes": 130327,
+            "width": 339,
+            "height": 231,
+            "pixelRatio": 2,
+            "visibleAlpha16BoundsPx": [
+              2,
+              1,
+              322,
+              230
+            ],
+            "targetVisibleSpanPx": 320,
+            "sourcePaintedAspect": 1.4664634146341464,
+            "aspectErrorPx": 0.24695121951216104,
+            "imageGroundPointPx": [
+              168.14212058212058,
+              192.7723170731707
+            ],
+            "sourceScale": [
+              0.23492723492723494,
+              0.2347560975609756
+            ]
+          },
+          "card": {
+            "file": "art/kit-zattere-card-5775963efdca.png",
+            "sha256": "5775963efdca3e5e244a8878ebe69804f3cd245682abcd3b20a5626802103d8e",
+            "bytes": 498096,
+            "width": 679,
+            "height": 463,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              4,
+              2,
+              644,
+              460
+            ],
+            "targetVisibleSpanPx": 640,
+            "sourcePaintedAspect": 1.4664634146341464,
+            "aspectErrorPx": 0.027439024390243594,
+            "imageGroundPointPx": [
+              336.7802356202356,
+              386.37914634146335
+            ],
+            "sourceScale": [
+              0.47054747054747054,
+              0.47052845528455284
+            ]
+          }
+        },
+        "reason": "Low continuous waterfront facades, pedestrian quay, small bridge and Giudecca Canal replace the misidentified single Gesuati facade. The panorama is context, not one building footprint."
+      },
+      "credit": "AI watercolor adaptation by Venice Sideways; reference photo: Derbrauni",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Fondamenta_Zattere_Ai_Gesuati.jpg",
+      "licenseLabel": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0"
     },
     {
       "placeKey": "dogana",
@@ -2756,7 +3181,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/dogana-watercolor.png",
         "sha256": "f8891ac3d2b5461aa7075a6a5dae827793c05ccdac5d231c78bbf22b5bf2744e",
@@ -2793,16 +3218,18 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Punta_della_Dogana_Canal_Grande_Venezia.jpg",
           "https://www.pinaultcollection.com/palazzograssi/it/punta-della-dogana"
         ],
         "architecturalChecks": [
-          "Golden globe, Fortune windvane figure and two supporting Atlas figures; long warehouse roof",
-          "Warehouse fenestration/detail simplified; no Salute dome"
+          "Customs-house corner tower, gold globe and Fortune figure with elongated warehouse identify Punta della Dogana. Roof/opening count interpretive."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -3006,6 +3433,15 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Customs-house corner tower, gold globe and Fortune figure with elongated warehouse identify Punta della Dogana. Roof/opening count interpretive.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Punta_della_Dogana_Canal_Grande_Venezia.jpg",
+        "referencePhotographer": "Wolfgang Moroder"
       }
     },
     {
@@ -3016,7 +3452,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/accademia-watercolor.png",
         "sha256": "4a0e9811467382ec2b13e9952acaf60d3f81db646298cf7557203333d47f34ea",
@@ -3053,17 +3489,19 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Accademia_bridge_in_Venice_(South_East_exposure).jpg",
           "https://live.comune.venezia.it/it/2025/04/ponte-dellaccademia-libera-al-progetto-definitivo",
           "https://www.veneziaunica.it/en/things-to-do-in-venice/itineraries/dorsoduro-the-art-district"
         ],
         "architecturalChecks": [
-          "Single wooden span, timber triangular bracing, both stepped ends",
-          "Timber pattern and landing ornaments simplified; not exact structural drawing"
+          "Single timber arch, triangular bracing and two stepped ends match Ponte dell’Accademia. The gallery building is not substituted."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -3251,22 +3689,31 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Single timber arch, triangular bracing and two stepped ends match Ponte dell’Accademia. The gallery building is not substituted.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Accademia_bridge_in_Venice_(South_East_exposure).jpg",
+        "referencePhotographer": "Didier Descouens"
       }
     },
     {
       "placeKey": "trearchi",
       "title": "Ponte dei Tre Archi",
       "kind": "kit-trearchi",
-      "approved": false,
-      "humanSpecificReviewRequired": true,
+      "approved": true,
+      "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
-        "file": "reference/visual-pack-03/landmarks/trearchi-watercolor.png",
-        "sha256": "a95991cca2ec28c0d7158a168880ecfaf036b78fef9cf1055e05d7b7e56a26d7",
-        "width": 1536,
-        "height": 1024,
+        "file": "main-walk-focus-20261009/art/masters/trearchi-watercolor.png",
+        "sha256": "c93a23cda8ad75d5e9e7f37a5e97f444ed8930e6b1459ae5c08d0ea41aca061c",
+        "width": 2073,
+        "height": 758,
         "alpha": true,
         "cornerAlpha": [
           0,
@@ -3276,129 +3723,133 @@
         ],
         "strictAlphaBoundsPx": [
           0,
-          20,
-          1511,
-          1000
+          9,
+          2054,
+          742
         ],
         "visibleAlpha16BoundsPx": [
-          27,
-          252,
-          1509,
-          761
+          26,
+          114,
+          2048,
+          678
         ],
         "croppedTransparentExteriorPx": {
           "left": 0,
-          "top": 20,
-          "width": 1511,
-          "height": 980
+          "top": 9,
+          "width": 2054,
+          "height": 733
         },
         "imageGroundPointPx": [
-          768,
-          669.38
-        ]
+          665,
+          522
+        ],
+        "generationTool": "built-in image_gen",
+        "generatedAt": "2026-10-09"
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-1.json",
         "sourceLinks": [
+          "https://commons.wikimedia.org/wiki/File:Ponte_dei_Tre_Archi_(Venice).jpg",
           "https://live.comune.venezia.it/it/node/119182",
           "https://www.comune.venezia.it/zh-hans/node/68628?d=MzUzMDE0OA%3D%3D&e=YXBwbGljYXRpb24vcGRm&n=QS4xIDE0OTU5IDI1IFJFTEFaSU9ORSBWQVJJQU5URSBuLjI%3D"
         ],
         "architecturalChecks": [
-          "Three open arch passages, larger central span, solid stepped brick/stone parapet and both ends",
-          "Primary municipal text checked; photo retrieval failed; explicit human visual approval needed"
+          "Exactly three open passages: wider central arch and two smaller side arches; continuous stepped brick parapet with flat central top, pale stone trim and side relief panels match actual bridge."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
-          "file": "art/kit-trearchi-map1x-971aa3436716.png",
-          "sha256": "971aa343671640cb39052387268d33c7a0be515f46d3edc848b1c40064718549",
-          "bytes": 19222,
-          "width": 163,
-          "height": 106,
+          "file": "art/main-20261009-trearchi-map1x-8c432210771a.png",
+          "sha256": "8c432210771a479f7481f53454c24d6fc5a68a3a21b03bc0a0cc8ab0e964671e",
+          "bytes": 8533,
+          "width": 112,
+          "height": 40,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            3,
-            25,
-            163,
-            80
+            1,
+            5,
+            112,
+            37
           ],
-          "targetVisibleSpanPx": 160,
-          "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.43469387755101563,
           "imageGroundPointPx": [
-            82.84844473858372,
-            70.23906122448979
+            36.26095423563778,
+            27.994542974079128
           ],
           "sourceScale": [
-            0.10787557908669755,
-            0.10816326530612246
-          ]
+            0.054527750730282376,
+            0.054570259208731244
+          ],
+          "targetVisibleSpanPx": 112,
+          "sourcePaintedAspect": 2.802182810368349,
+          "aspectErrorPx": 0.08731241473396878
         },
         "map2x": {
-          "file": "art/kit-trearchi-map2x-46060f44e759.png",
-          "sha256": "46060f44e759bf942902970731425ac8eeaf234b49aadd0531b747bfb7024c85",
-          "bytes": 68710,
-          "width": 326,
-          "height": 211,
+          "file": "art/main-20261009-trearchi-map2x-98e099d4573d.png",
+          "sha256": "98e099d4573d0d015f9ced583c5e30ded28d9725a4fdc5c79d738f5e88b90376",
+          "bytes": 28089,
+          "width": 224,
+          "height": 80,
           "pixelRatio": 2,
           "visibleAlpha16BoundsPx": [
-            6,
-            49,
-            325,
-            160
+            3,
+            11,
+            223,
+            73
           ],
-          "targetVisibleSpanPx": 320,
-          "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.6724489795918407,
           "imageGroundPointPx": [
-            165.69688947716745,
-            139.81548979591835
+            72.52190847127557,
+            55.989085948158255
           ],
           "sourceScale": [
-            0.2157511581733951,
-            0.2153061224489796
-          ]
+            0.10905550146056475,
+            0.10914051841746249
+          ],
+          "targetVisibleSpanPx": 224,
+          "sourcePaintedAspect": 2.802182810368349,
+          "aspectErrorPx": 0.17462482946793756
         },
         "card": {
-          "file": "art/kit-trearchi-card-5fa345f39fe8.png",
-          "sha256": "5fa345f39fe890e84954869b17a3921b438f679d9a480175e656c6f86b9a397e",
-          "bytes": 254718,
-          "width": 653,
-          "height": 424,
+          "file": "art/main-20261009-trearchi-card-d9120ad630c5.png",
+          "sha256": "d9120ad630c508c523d5ae427143f1864db4c5e36c152423052df5208b9efbb1",
+          "bytes": 321789,
+          "width": 799,
+          "height": 285,
           "pixelRatio": 1,
           "visibleAlpha16BoundsPx": [
-            12,
-            100,
-            652,
-            320
+            10,
+            40,
+            796,
+            260
           ],
-          "targetVisibleSpanPx": 640,
-          "sourcePaintedAspect": 1.5418367346938775,
-          "aspectErrorPx": 0.738775510204098,
           "imageGroundPointPx": [
-            331.90205162144275,
-            280.95624489795915
+            258.6830574488802,
+            199.46111869031378
           ],
           "sourceScale": [
-            0.43216412971542023,
-            0.4326530612244898
-          ]
+            0.3889970788704966,
+            0.3888130968622101
+          ],
+          "targetVisibleSpanPx": 800,
+          "sourcePaintedAspect": 2.802182810368349,
+          "aspectErrorPx": 0.37789904502047555
         }
       },
       "artAnchor": null,
       "placement": {
-        "mode": "held",
+        "mode": "bounded-callout",
         "minZoom": 13,
         "maxZoom": 24,
         "maxDisplacementCSSPx": 72,
         "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only",
         "opticalReview": {
-          "checkedAt": "2026-10-06",
-          "status": "Held for original human identity review",
-          "method": "Contact point selected against full painted image; excludes water/reflection/foreground wash where present",
-          "space": "Normalized visible-alpha16 master bounds; converted through strict crop and derivative rounding"
+          "checkedAt": "2026-10-09",
+          "status": "Technical pixel-ground annotation; no human architectural approval",
+          "method": "Ground point on dry entry/quay/pier or well base, excluding painted water and foreground wash",
+          "space": "Original generated RGBA raster pixels; transformed through strict alpha crop and independent derivative rounding"
         },
         "geographicReview": {
           "status": "Architectural reference unresolved; use existing route visit only as explicit tethered callout",
@@ -3406,7 +3857,101 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
-      }
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "regenerated",
+        "checks": "Exactly three open passages: wider central arch and two smaller side arches; continuous stepped brick parapet with flat central top, pale stone trim and side relief panels match actual bridge.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Ponte_dei_Tre_Archi_(Venice).jpg",
+        "referencePhotographer": "Didier Descouens"
+      },
+      "superseded": {
+        "sourceSHA256": "a95991cca2ec28c0d7158a168880ecfaf036b78fef9cf1055e05d7b7e56a26d7",
+        "derivatives": {
+          "map1x": {
+            "file": "art/kit-trearchi-map1x-971aa3436716.png",
+            "sha256": "971aa343671640cb39052387268d33c7a0be515f46d3edc848b1c40064718549",
+            "bytes": 19222,
+            "width": 163,
+            "height": 106,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              3,
+              25,
+              163,
+              80
+            ],
+            "targetVisibleSpanPx": 160,
+            "sourcePaintedAspect": 1.5418367346938775,
+            "aspectErrorPx": 0.43469387755101563,
+            "imageGroundPointPx": [
+              82.84844473858372,
+              70.23906122448979
+            ],
+            "sourceScale": [
+              0.10787557908669755,
+              0.10816326530612246
+            ]
+          },
+          "map2x": {
+            "file": "art/kit-trearchi-map2x-46060f44e759.png",
+            "sha256": "46060f44e759bf942902970731425ac8eeaf234b49aadd0531b747bfb7024c85",
+            "bytes": 68710,
+            "width": 326,
+            "height": 211,
+            "pixelRatio": 2,
+            "visibleAlpha16BoundsPx": [
+              6,
+              49,
+              325,
+              160
+            ],
+            "targetVisibleSpanPx": 320,
+            "sourcePaintedAspect": 1.5418367346938775,
+            "aspectErrorPx": 0.6724489795918407,
+            "imageGroundPointPx": [
+              165.69688947716745,
+              139.81548979591835
+            ],
+            "sourceScale": [
+              0.2157511581733951,
+              0.2153061224489796
+            ]
+          },
+          "card": {
+            "file": "art/kit-trearchi-card-5fa345f39fe8.png",
+            "sha256": "5fa345f39fe890e84954869b17a3921b438f679d9a480175e656c6f86b9a397e",
+            "bytes": 254718,
+            "width": 653,
+            "height": 424,
+            "pixelRatio": 1,
+            "visibleAlpha16BoundsPx": [
+              12,
+              100,
+              652,
+              320
+            ],
+            "targetVisibleSpanPx": 640,
+            "sourcePaintedAspect": 1.5418367346938775,
+            "aspectErrorPx": 0.738775510204098,
+            "imageGroundPointPx": [
+              331.90205162144275,
+              280.95624489795915
+            ],
+            "sourceScale": [
+              0.43216412971542023,
+              0.4326530612244898
+            ]
+          }
+        },
+        "reason": "Exactly three open passages: wider central arch and two smaller side arches; continuous stepped brick parapet with flat central top, pale stone trim and side relief panels match actual bridge."
+      },
+      "credit": "AI watercolor adaptation by Venice Sideways; reference photo: Didier Descouens",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Ponte_dei_Tre_Archi_(Venice).jpg",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
     },
     {
       "placeKey": "vino",
@@ -3416,7 +3961,7 @@
       "humanSpecificReviewRequired": false,
       "illustrationNotPhotograph": true,
       "classification": "AI watercolor illustration; reference-checked candidate, not surveyed architecture or route geometry",
-      "reviewProvenance": "Reference identity inherited from the supplied package. Implementation checks file identity, full painted alpha bounds and reduced derivatives; no new human architectural approval is claimed.",
+      "reviewProvenance": "Runtime eligibility is based on technical source identity and alpha checks. No human approvedAt/approvedBy is recorded.",
       "source": {
         "file": "reference/visual-pack-03/landmarks/vino-watercolor.png",
         "sha256": "fef2aafe44692e013ecde9cc77b06fed97c32c5c4d945a722aca27ef5213054f",
@@ -3453,17 +3998,17 @@
         ]
       },
       "qa": {
-        "status": "source-pack reference-checked illustration candidate; final human review required",
+        "status": "Technical reference identity checked on 2026-10-09; not human architectural approval",
         "referencePath": "reference/visual-pack-03/research/reference-group-2.json",
         "sourceLinks": [
           "https://vinovero.wine/luoghi/venezia/"
         ],
         "architecturalChecks": [
-          "Small wine bar at Fondamenta della Misericordia 2497; canal-side frontage",
-          "Official venue photograph visually inspected: broad glass-fronted opening with slim dark blue-gray frames and warm wooden bottle shelving",
-          "Wine-bottle interior cue and modest outdoor furniture; storefront vignette rather than panoramic quay; surrounding facade fragments are simplified art direction"
+          "Official storefront reference confirms broad dark blue-gray framed glazing and timber wine shelving. Surrounding facade, furniture and quay are a simplified vignette; not an exact current facade survey."
         ],
-        "caveats": []
+        "caveats": [
+          "Illustrative simplification; not a surveyed reconstruction or current operating-condition claim."
+        ]
       },
       "derivatives": {
         "map1x": {
@@ -3574,6 +4119,15 @@
         },
         "notSurveyedFootprint": true,
         "humanArchitecturalApproval": false
+      },
+      "identityReview": {
+        "checkedAt": "2026-10-09",
+        "method": "Codex technical source-photo and raster visual comparison",
+        "decision": "retained",
+        "checks": "Official storefront reference confirms broad dark blue-gray framed glazing and timber wine shelving. Surrounding facade, furniture and quay are a simplified vignette; not an exact current facade survey.",
+        "humanArchitecturalApproval": false,
+        "sourceURL": "https://vinovero.wine/luoghi/venezia/",
+        "referencePhotographer": "Vino Vero (official reference; photograph not republished)"
       }
     },
     {
@@ -6696,5 +7250,26 @@
     ],
     "opticalToleranceCSSPx": 2,
     "toleranceScope": "Pixel transform equivalence only; does not certify geographic accuracy or human architectural approval."
+  },
+  "mainWalkReview": {
+    "checkedAt": "2026-10-09",
+    "reviewer": "Codex technical review",
+    "humanArchitecturalApproval": false,
+    "regenerated": [
+      "giacomo",
+      "margherita",
+      "barnaba",
+      "zattere",
+      "trearchi"
+    ],
+    "retained": [
+      "lucia",
+      "frari",
+      "trovaso",
+      "dogana",
+      "accademia",
+      "vino"
+    ],
+    "groundAnchors": "Pixel annotation ground points are independent from route GPS; unset artAnchor remains a bounded route-visit callout."
   }
 }

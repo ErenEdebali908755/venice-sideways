@@ -1,6 +1,7 @@
-import {createMeasurementCollector} from './measurement.js?v=20261009-walk';
-import {FieldGuide} from './guide.js?v=20261009-walk';
-import {temporarySelection} from './temporary-selection.js?v=20261009-walk';
+import {createMeasurementCollector} from './measurement.js?v=20261009-main';
+import {FieldGuide} from './guide.js?v=20261009-main';
+import {temporarySelection} from './temporary-selection.js?v=20261009-main';
+import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261009-main';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];
 export const normalizeLanguage = value => typeof value === 'string' ? value.toLowerCase().split(/[-_]/)[0] : '';
@@ -42,27 +43,28 @@ async function boot(bundled=false) {
   root.className='fg-loading';root.setAttribute('aria-busy','true');root.replaceChildren();
   const loading=document.createElement('p');loading.setAttribute('role','status');loading.textContent=copy.loading;root.append(loading);
   try {
-    const [base,water]=await Promise.all([json('/field-guide/routes.json'),json('/sideways/actv-water-paths.json')]);
+    const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261009-main'),json('/sideways/actv-water-paths.json')]);
     if(!Array.isArray(base.routes)||!base.routes.length)throw Error('No bundled routes');
     let routes=base.routes;
-    const requested=new URLSearchParams(location.hash.slice(1)).get('route');
+    const requested=new URLSearchParams(location.hash.slice(1)).get('route') || new URLSearchParams(location.search).get('route');
     if(!bundled) {
       const catalog=await json('/api/route-catalog');
-      if(!Array.isArray(catalog.routes)||(requested&&!catalog.routes.some(route=>route.key===requested)))throw Error('Unavailable route');
-      const available=catalog.routes.filter(route=>['main','full'].includes(route.key)||route.key===requested);
-      routes=await Promise.all(available.map(async route=>route.published?await json('/api/routes/'+encodeURIComponent(route.key)):base.routes.find(bundledRoute=>bundledRoute.key===route.key)));
+      if(!Array.isArray(catalog.routes)||!catalog.routes.some(route=>route.key==='main'))throw Error('Unavailable route');
+      const available=catalog.routes.filter(route=>MAIN_WALK_PRESENTATION.routeKeys.includes(route.key));
+      const published=await Promise.all(available.map(async route=>route.published?await json('/api/routes/'+encodeURIComponent(route.key)):null));
+      routes=replacePublishedRoutes(base.routes,published);
     }
     routes=routes.filter(Boolean);
-    if(!routes.length)throw Error('No available routes');
+    if(!routes.some(route=>route.key==='main'))throw Error('No available routes');
     if(current!==generation)return;
     root.removeAttribute('aria-busy');
-    guide=new FieldGuide(root,{routes,lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
+    guide=new FieldGuide(root,{routes,presentation:MAIN_WALK_PRESENTATION,hiddenRouteNotice:!!requested&&!MAIN_WALK_PRESENTATION.routeKeys.includes(requested),lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
     measurement?.pageReady(guide.lang);
     if(!bundled)json('/api/events').then(data=>{
       if(current!==generation||guide.disposed)return;
       guide.events=(data.events||[]).filter(event=>['open','upcoming'].includes(event.state));guide.render();
     }).catch(()=>{});
-    if(requested&&routes.some(route=>route.key===requested))guide.choose(requested);
+    if(requested&&guide.isVisibleRoute(requested))guide.choose(requested);
   } catch {
     if(current!==generation)return;
     root.className='fg-loading';root.removeAttribute('aria-busy');root.replaceChildren();

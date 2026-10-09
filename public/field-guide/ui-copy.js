@@ -1,6 +1,15 @@
 export const UI_LANGUAGES = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
 // Controls use the existing eight locales. Editorial content keeps reviewed fallback.
 const rows = {
+  "License": ["Lisans", "Licenza", "Licence", "Лицензия", "许可", "ライセンス", "라이선스"],
+  "Photo source": ["Görsel kaynağı", "Fonte dell’immagine", "Source de l’image", "Источник изображения", "图像来源", "画像の出典", "이미지 출처"],
+  "My location": ["Konumum", "Dove sono", "Ma position", "Где я", "我的位置", "現在地", "내 위치"],
+  "Map options": ["Harita seçenekleri", "Opzioni mappa", "Options de carte", "Параметры карты", "地图选项", "地図の設定", "지도 옵션"],
+  "This guide now focuses on Main Walk. Your other saved walks are preserved.": ["Bu rehber artık Main Walk’a odaklanıyor. Diğer yürüyüşlerin kayıtlı ilerlemesi korunuyor.", "Questa guida ora si concentra su Main Walk. I progressi salvati degli altri percorsi restano conservati.", "Ce guide se concentre désormais sur Main Walk. Votre progression sur les autres parcours est conservée.", "Теперь этот путеводитель посвящён Main Walk. Прогресс других прогулок сохранён.", "本指南现专注于 Main Walk。其他步行路线的已保存进度保持不变。", "このガイドはMain Walkを中心に案内します。他の散歩の保存済み進行状況は保持されています。", "이 가이드는 이제 Main Walk에 집중합니다. 다른 산책의 저장된 진행 상황은 유지됩니다."],
+  "Continue walking": ["Yürüyüşe devam et", "Riprendi la passeggiata", "Reprendre la promenade", "Продолжить прогулку", "继续步行", "散歩を続ける", "산책 계속하기"],
+  "Open walk": ["Yürüyüşü aç", "Apri passeggiata", "Ouvrir la promenade", "Открыть прогулку", "打开步行指南", "散歩を開く", "산책 열기"],
+  "Main Walk overview": ["Main Walk özeti", "Riepilogo Main Walk", "Aperçu Main Walk", "Обзор Main Walk", "Main Walk 概览", "Main Walkの概要", "Main Walk 개요"],
+  "Preferences": ["Tercihler", "Preferenze", "Préférences", "Настройки", "偏好设置", "環境設定", "환경설정"],
   "Convent garden · guided visits by reservation": ["Manastır bahçesi · rezervasyonlu rehberli ziyaret", "Giardino del convento · visite accompagnate su prenotazione", "Jardin du couvent · visites guidées sur réservation", "Монастырский сад · экскурсии по предварительной записи", "修道院花园 · 导览参观须预约", "修道院の庭園・要予約のガイド付き見学", "수도원 정원 · 예약 가이드 방문"],
   "Museum garden · admission conditions apply": ["Müze bahçesi · müze giriş koşulları geçerli", "Giardino del museo · valgono le condizioni d’ingresso", "Jardin du musée · conditions d’admission applicables", "Сад музея · действуют условия входа в музей", "博物馆花园 · 须遵守博物馆入场条件", "美術館の庭園・美術館の入場条件が適用", "미술관 정원 · 미술관 입장 조건 적용"],
   "Exhibition grounds · ticket and event conditions apply": ["Sergi alanı · bilet ve etkinlik koşulları geçerli", "Area espositiva · valgono le condizioni dei biglietti e dell’evento", "Site d’exposition · conditions de billet et de l’événement applicables", "Выставочная территория · действуют условия билетов и мероприятия", "展览场地 · 须遵守票务和活动条件", "展覧会会場・チケットと催事の条件が適用", "전시 구역 · 티켓과 행사 조건 적용"],

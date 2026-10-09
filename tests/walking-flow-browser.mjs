@@ -1,4 +1,6 @@
 /* Controlled local browser: actual renderer and MapLibre, isolated map/image fixtures.
+   Route galleries are explicitly empty fixtures to test honest absence and separate inspiration;
+   this is not acceptance evidence for the bundled real-photograph selection.
    No production writes, real GPS, physical-device or human-usability acceptance. */
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {resolve,dirname,extname} from 'node:path';
@@ -27,7 +29,7 @@ async function open(lang,width,height,preview=false){
  const context=await browser.newContext({viewport:{width,height},locale:lang,colorScheme:'light'});
  await context.addInitScript(()=>{window.__gpsCalls=0;Object.defineProperty(navigator,'geolocation',{value:{watchPosition(success,error){window.__gpsCalls++;queueMicrotask(()=>error({code:1}));return 1;},clearWatch(){}}});});
  const page=await context.newPage();page.on('pageerror',error=>errors.push(error.message));await page.route('**/*',serve);await page.goto(base+'/');
- await page.evaluate(async({lang,preview})=>{const {FieldGuide}=await import('/field-guide/guide.js');const {routes}=await(await fetch('/field-guide/routes.json')).json();const water=await(await fetch('/sideways/actv-water-paths.json')).json();const {temporarySelection}=await import('/field-guide/temporary-selection.js');window.guide=new FieldGuide(document.querySelector('#field-guide'),{routes,water,lang,preview,compactPreview:preview,publicLocation:true,referencePhotos:temporarySelection});},{lang,preview});
+ await page.evaluate(async({lang,preview})=>{const {FieldGuide}=await import('/field-guide/guide.js');const {routes}=await(await fetch('/field-guide/routes.json')).json();for(const route of routes)for(const visit of route.visits)visit.gallery=[];const water=await(await fetch('/sideways/actv-water-paths.json')).json();const {temporarySelection}=await import('/field-guide/temporary-selection.js');window.guide=new FieldGuide(document.querySelector('#field-guide'),{routes,water,lang,preview,compactPreview:preview,publicLocation:true,referencePhotos:temporarySelection});},{lang,preview});
  await page.waitForFunction(()=>guide.ready);if(preview)await page.evaluate(()=>guide.choose("main"));else await page.locator('[data-route="main"]').click();return{page,context};
 }
 const visibleDock=async page=>page.locator('.fg-walking-dock').evaluate(dock=>{const r=dock.getBoundingClientRect(),action=dock.querySelector('.fg-primary').getBoundingClientRect();return r.top>=0&&r.bottom<=innerHeight+1&&action.top>=r.top&&action.bottom<=innerHeight+1&&action.height>=44&&document.documentElement.scrollWidth<=innerWidth+1;});
@@ -91,5 +93,5 @@ try{
  check(await preview.page.locator('.fg-editorial h1').innerText().then(text=>text.includes('Frari')),'Private preview details show the selected inspected stop');
  check(await preview.page.evaluate(()=>__gpsCalls===0),'Private preview never starts GPS');await preview.context.close();
  check(errors.length===0,'No uncaught application errors: '+errors.join('; '));
-}catch(error){errors.push(error.message);throw error;}finally{await browser.close();await writeFile(resolve(output,process.env.WALKING_QA_QUICK==='1'?'walking-final-targeted-report.json':'walking-browser-report.json'),JSON.stringify({observedAt:new Date().toISOString(),passed:issues.length===0&&errors.length===0,scope:'Controlled Chromium, actual renderer and MapLibre with isolated base map. 360/390/430, short viewport, landscape, 720x450 equivalent CSS viewport for 200% zoom. Simulated denial, not real GPS, phone or human usability testing.',checks,issues,errors},null,2));}
+}catch(error){errors.push(error.message);throw error;}finally{await browser.close();await writeFile(resolve(output,process.env.WALKING_QA_QUICK==='1'?'walking-final-targeted-report.json':'walking-browser-report.json'),JSON.stringify({observedAt:new Date().toISOString(),passed:issues.length===0&&errors.length===0,scope:'Controlled Chromium, actual renderer and MapLibre with isolated base map and explicit empty-gallery fixtures, not bundled-photograph acceptance. '+(process.env.WALKING_QA_QUICK==='1'?'Targeted Turkish at 390x844 and 390x460, plus compact private preview.':'Eight languages at 360/390/430, short viewport, landscape, 720x450 equivalent CSS viewport for 200% zoom.')+' Simulated denial, not real GPS, phone or human usability testing.',checks,issues,errors},null,2));}
 console.log(JSON.stringify({checks,issues,errors}));if(issues.length)process.exitCode=1;

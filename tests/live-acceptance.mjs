@@ -258,7 +258,7 @@ try {
       const expectedRoute=expectedRoutes.find(route=>route.key===routeKey),artBudget=state.mapSize.width<=600?3:6;
       check(Array.isArray(state.artAnchors)&&state.artAnchors.length>0&&state.artAnchors.length<=artBudget&&new Set(state.landmarks).size===state.landmarks.length,label+': viewport art budget and unique identities');
       check(state.artAnchors.every(feature=>{const visit=expectedRoute.visits.find(visit=>visit.key===feature.visitKey&&visit.key===feature.key&&(visit.placeKey===undefined||visit.placeKey===feature.key));return approvedArtKeys.has(feature.key)&&visit&&feature.coordinates[0]===visit.longitude&&feature.coordinates[1]===visit.latitude;}),label+': approved illustration anchors use this walk’s own stable coordinates, never titles or another walk');
-      check(!state.landmarks.includes('trearchi')&&state.artAnchors.filter(feature=>feature.active).length===1&&state.artAnchors.some(feature=>feature.active&&feature.visitKey==='lucia'),label+': selected first-stop artwork has priority and human-held Tre Archi stays hidden');
+      check(state.artAnchors.filter(feature=>feature.active).length===1&&state.artAnchors.some(feature=>feature.active&&feature.visitKey==='lucia'),label+': selected first-stop artwork has priority; approved references remain collision bounded');
       check(state.routeFeatures?.some(f=>!f.boat&&f.vertices>2),label+': real walking geometry');
       if(routeKey==='main'){
         record.phase='native-vaporetto-step';

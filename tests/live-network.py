@@ -76,11 +76,16 @@ try:
             page.route("**/*", fixture)
         response = page.goto(base + ("/?lang=tr" if remote else "/?lang=tr&gps-test=1"), wait_until="domcontentloaded", timeout=45000)
         check(response.status == 200, "Main document returns 200")
-        page.locator(".fg-route-card").first.wait_for()
+        page.locator(".fg-main-summary h1").wait_for()
         if not remote:
             # Finish the initial event update before testing the settled map tools.
             page.wait_for_load_state("networkidle", timeout=30000)
-        check(page.locator(".fg-route-card").count() == 2, "Main and Full Walk available")
+        check(page.locator('.fg-main-summary [data-route="main"]').count() == 1
+              and page.locator('[data-route="full"],.fg-route-switch,.fg-intro').count() == 0,
+              "Only Main Walk summary is visible; old introduction and Full controls are absent")
+        check(page.locator('#field-guide').get_attribute('data-view') == 'explore'
+              and page.locator('#field-guide').get_attribute('data-walking-phase') == 'reaching-start',
+              "Opening the site does not start the walk")
         check(page.evaluate("window.__geoRequests") == 0, "No location request on arrival")
         check(poll(page, "() => !!document.querySelector('.maplibregl-canvas')"),
               "MapLibre canvas initialized")
@@ -92,24 +97,38 @@ try:
         check(page.locator(".fg-pin.selected").count() == 1
               and page.locator(".fg-pin.selected").get_attribute("data-visit-key") == "lucia",
               "Santa Lucia is the single walking-target marker")
-        check(page.locator(".fg-stop-copy h1").is_visible(), "Active stop copy visible")
-        check(page.locator(".fg-stop-copy .fg-compact-empty").is_visible()
-              and page.locator(".fg-stop-copy .fg-stop-preview img").count() == 0,
-              "Missing stop photograph stays empty rather than using an unrelated bank image")
+        check(page.locator('#field-guide').get_attribute('data-sheet') == 'collapsed',
+              "The mobile walking panel opens compactly")
+        page.locator('[data-sheet="standard"]').click()
+        check(page.locator(".fg-stop-copy h1").is_visible(), "User can expand the sheet to read the active stop")
+        cover = page.locator('.fg-stop-copy .fg-stop-preview img')
+        cover.scroll_into_view_if_needed()
+        check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
+              "The actual Santa Lucia photograph loads in the expanded sheet")
+        check('/field-guide/photos/main-20261009/lucia-' in cover.get_attribute('src')
+              and page.locator('.fg-stop-copy .fg-compact-empty').count() == 0,
+              "Santa Lucia uses its place-specific licensed photograph")
         check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
               "Map, Stops and Photographs share one navigation level")
         check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
               "A singleton named walking action is available independently of panels")
         map_options = page.locator('.fg-map-options')
         fit = page.locator('[data-action="fit"]')
-        if not fit.is_visible():
-            map_options.locator(':scope > summary').click()
-        check(fit.is_visible(), "Whole route control is reachable through mobile map tools")
+        check(fit.is_visible() and map_options.get_attribute('open') is None,
+              "Whole route is directly reachable beside the closed compact options")
         fit.click()
-        if map_options.locator(':scope > summary').is_visible() and map_options.get_attribute('open') is not None:
-            map_options.locator(':scope > summary').click()
-        check(map_options.get_attribute('open') is None,
-              "Mobile map tools can close after fitting the route")
+        summary = map_options.locator(':scope > summary')
+        height_before_options = page.locator('.fg-map-shell').bounding_box()['height']
+        summary.click()
+        check(page.locator('[data-action="places"]').is_visible()
+              and page.locator('[data-action="dimension"]').is_visible(),
+              "Places and 2D/3D are reachable in the compact options panel")
+        check(abs(page.locator('.fg-map-shell').bounding_box()['height'] - height_before_options) < 1,
+              "Opening map options does not shrink the map")
+        page.keyboard.press('Escape')
+        check(map_options.get_attribute('open') is None
+              and summary.evaluate('button=>document.activeElement===button'),
+              "Map options close with Escape and return focus")
         page.evaluate("""() => {
             const canvas=document.querySelector('.maplibregl-canvas');
             canvas.dispatchEvent(new WheelEvent('wheel',{deltaY:200,bubbles:true}));
@@ -144,9 +163,27 @@ try:
         page.locator('[data-panel="photos"]').click()
         page.locator('[data-photo-stop]').select_option('vino')
         check(page.locator('.fg-inspiration > p').is_visible()
-              and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 0
+              and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
+              and page.locator('.fg-stop-copy .fg-photo-kind').is_visible()
               and page.locator('.fg-walking-dock').inner_text() == before,
-              "Photographs explains separate archive inspiration while keeping walking progress")
+              "Vino surroundings photo and separate archive inspiration preserve walking progress")
+        route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
+        main = next(route for route in route_data['routes'] if route['key'] == 'main')
+        for visit in main['visits']:
+            page.locator('[data-photo-stop]').select_option(visit['key'])
+            image = page.locator('.fg-stop-copy .fg-stop-preview img')
+            image.scroll_into_view_if_needed()
+            check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
+                  f"Stop photograph loads: {visit['placeKey']}")
+            photo = visit['gallery'][0]
+            caption = page.locator('.fg-stop-copy .fg-stop-preview figcaption')
+            links = caption.locator('a').evaluate_all('(links)=>links.map(link=>link.getAttribute("href"))')
+            check(urlparse(image.get_attribute('src')).path == photo['derivatives'][0]['url']
+                  and photo['credit'] in caption.inner_text()
+                  and photo['sourceURL'] in links and photo['licenseURL'] in links,
+                  f"Exact photograph, photographer, source and license: {visit['placeKey']}")
+            check(page.locator('.fg-walking-dock').inner_text() == before,
+                  f"Photo browsing retains walking target: {visit['placeKey']}")
         page.locator('[data-panel="map"]').click()
         check(page.locator('.fg-pin.selected').count() == 1
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',
@@ -164,6 +201,8 @@ try:
         page.locator('[data-action="location"]').click()
         check(poll(page, "() => window.__geoRequests === 1", 10),
               "Own position starts only after explicit action")
+        privacy = page.locator('.fg-location-copy')
+        privacy.locator(':scope > summary').click()
         page.locator('[data-action="location-off"]').click()
         check(page.evaluate("window.__geoRequests") == 1, "Own position can be stopped")
         for asset in ("/favicon.ico", "/favicon.svg", "/apple-touch-icon.png", "/site.webmanifest"):
