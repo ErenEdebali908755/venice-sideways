@@ -1,5 +1,5 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261006-kit05";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261009-main";
 
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
@@ -148,9 +148,9 @@ const ZOOM_STOPS = [[13, 0.64], [15, 0.88], [16.5, 1], [19, 1]];
 // These are screen annotation budgets, not architectural footprints. Height is
 // independently bounded so the tall Dogana cannot outweigh the station/bridge.
 export function watercolorLayout(width, height) {
-  const compact = width <= 600;
-  const maxWidth = Math.min(compact ? 104 : 124, Math.max(0, width) * 0.27);
-  const maxHeight = Math.min(compact ? 72 : 80, Math.max(0, height) * 0.24);
+  const compact = width < 768;
+  const maxWidth = Math.min(compact ? 96 : 112, Math.max(0, width) * 0.27);
+  const maxHeight = Math.min(compact ? 64 : 72, Math.max(0, height) * 0.24);
   const assets = ART_ASSETS.filter(asset => asset.kind !== "garden-leaves");
   return { gap: 0, maxWidth, maxHeight, visible: width >= 180 && height >= 160, sizes: Object.fromEntries(assets.map(asset => [asset.kind,
     Math.min(maxWidth / (asset.width / asset.pixelRatio), maxHeight / (asset.height / asset.pixelRatio))])) };
@@ -421,7 +421,10 @@ export function mapDOMObstacles(map) {
   const container=map.getContainer?.(), origin=container?.getBoundingClientRect?.();
   if (!origin) return [];
   const shell=container.closest?.('.fg-map-shell') || container.parentElement || container;
-  return [...(shell.querySelectorAll?.('.fg-pin,.fg-location-dot,.fg-map-tools,.maplibregl-ctrl-top-right,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-attrib') || [])]
+  // The floating toolbar wrapper is transparent and can span unused space.
+  // Reserve the actual controls and only the open disclosure surfaces instead.
+  const selector = '.fg-pin,.fg-location-dot,.fg-map-tools > button,.fg-location-controls > button,.fg-map-tools summary,.fg-map-options[open] > .fg-map-option-actions,.fg-location-copy[open] > .fg-privacy-panel,.fg-map-legend,.maplibregl-ctrl-top-right,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-attrib';
+  return [...(shell.querySelectorAll?.(selector) || [])]
     .map(element=>element.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0)
     .map(box=>({left:box.left-origin.left-5,top:box.top-origin.top-5,right:box.right-origin.left+5,bottom:box.bottom-origin.top+5}));
 }
@@ -465,7 +468,7 @@ export function visibleLandmarks(map, route, activeVisitKey = null, { obstacles 
   const container = map.getContainer?.(), width = container?.clientWidth || 800, height = container?.clientHeight || 500;
   const layout = watercolorLayout(width, height);
   if (!layout.visible || map.getZoom() < 13 || map.getPitch?.() > 0) return [];
-  const max = width <= 600 ? 3 : 6;
+  const max = width < 768 ? 3 : 6;
   const routeObstacles=protectRoute?routeScreenIndex(map,route,width,height):null;
   const previous=selectionState.get(map), retained=previous?.routeKey===route?.key ? previous.positions : new Map();
   const accepted=[],positions=new Map();

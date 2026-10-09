@@ -1,0 +1,263 @@
+{
+  "version": "20261009-main",
+  "review": "Technical reference comparison; no human architectural approval",
+  "rows": [
+    {
+      "placeKey": "lucia",
+      "title": "Venezia Santa Lucia",
+      "decision": "retained",
+      "check": "Horizontal pale stone railway facade, flat canopy, long steps and glazed entrance fit Santa Lucia. FS logo and pontoon foreground omitted; building bays simplified.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Stazione_di_Venezia_Santa_Lucia_2024.jpg",
+        "photographer": "kallerna",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "card": "art/kit-lucia-card-9c373ac455d9.png",
+      "map": "art/kit-lucia-map2x-7a02a01ba9b3.png",
+      "artAnchor": [
+        12.3207822,
+        45.44077515
+      ],
+      "groundPoint": [
+        160.83772700644406,
+        108.82193548387097
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "Separate pre-existing OSM representative point; not surveyed footprint"
+    },
+    {
+      "placeKey": "giacomo",
+      "title": "San Giacomo dell’Orio",
+      "decision": "regenerated",
+      "check": "Plain pink campo-facing gable, circular openings, lower arched windows, brick campanile and small cylindrical chapel replace the unrelated ornate apse. Minor belfry/window detailing remains illustrative.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg",
+        "photographer": "Wolfgang Moroder",
+        "licenseLabel": "CC BY-SA 3.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0"
+      },
+      "card": "art/main-20261009-giacomo-card-961c3cf0fed8.png",
+      "map": "art/main-20261009-giacomo-map2x-62a60c2e3010.png",
+      "artAnchor": null,
+      "groundPoint": [
+        151.91853360488798,
+        129.67832167832168
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "frari",
+      "title": "Frari · Campo dei Frari",
+      "decision": "retained",
+      "check": "Brick Gothic facade, three main round windows, pointed central portal and tall brick campanile identify Frari. Tracery and statues simplified, no survey fidelity claimed.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG",
+        "photographer": "Divot",
+        "licenseLabel": "Public domain",
+        "licenseURL": "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG#Licensing"
+      },
+      "card": "art/kit-frari-card-4f94d6c22a68.png",
+      "map": "art/kit-frari-map2x-62bf26a89cca.png",
+      "artAnchor": [
+        12.326363875008484,
+        45.436857719639036
+      ],
+      "groundPoint": [
+        232.06898817345598,
+        226.06308157099699
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "Separate pre-existing OSM representative point; not surveyed footprint"
+    },
+    {
+      "placeKey": "margherita",
+      "title": "Campo Santa Margherita",
+      "decision": "regenerated",
+      "check": "Dry paved campo, stone wellhead, modest colorful residential facades, trees and cafe context replace the invented dominant truncated-tower composition.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_Santa_Margherita_(Venice).jpg",
+        "photographer": "Didier Descouens",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "card": "art/main-20261009-margherita-card-2d46dbf00b33.png",
+      "map": "art/main-20261009-margherita-map2x-ee72401daf60.png",
+      "artAnchor": null,
+      "groundPoint": [
+        122.76706036745406,
+        104.9747219413549
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "barnaba",
+      "title": "Campo San Barnaba",
+      "decision": "regenerated",
+      "check": "Four frontal columns in paired groups, triangular pediment, central door and left brick tower; broad dry campo replaces water directly at church door.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_San_Barnaba_and_San_Barnaba_-_Venice_2016.jpg",
+        "photographer": "José Luiz",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0/"
+      },
+      "card": "art/main-20261009-barnaba-card-e93c7be51e8c.png",
+      "map": "art/main-20261009-barnaba-map2x-bdf92274cd8f.png",
+      "artAnchor": null,
+      "groundPoint": [
+        125.8891820580475,
+        115.85600794438928
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "trovaso",
+      "title": "San Trovaso · squero surroundings",
+      "decision": "retained",
+      "check": "Low timber pitched-roof workshops, slipway and gondola hulls fit Squero di San Trovaso. Neighboring church and current boat inventory intentionally omitted.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Squero_di_San_Trovaso_(Venice)_01.jpg",
+        "photographer": "Abxbay",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "card": "art/kit-trovaso-card-38f965af34a3.png",
+      "map": "art/kit-trovaso-map2x-7b1bc9541acc.png",
+      "artAnchor": null,
+      "groundPoint": [
+        172.8371409921671,
+        164.9259375
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "zattere",
+      "title": "Zattere · waterfront",
+      "decision": "regenerated",
+      "check": "Low continuous waterfront facades, pedestrian quay, small bridge and Giudecca Canal replace the misidentified single Gesuati facade. The panorama is context, not one building footprint.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Fondamenta_Zattere_Ai_Gesuati.jpg",
+        "photographer": "Derbrauni",
+        "licenseLabel": "CC BY 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by/4.0"
+      },
+      "card": "art/main-20261009-zattere-card-be54f46dc5b0.png",
+      "map": "art/main-20261009-zattere-map2x-19a62afdeb5f.png",
+      "artAnchor": null,
+      "groundPoint": [
+        113.90346766635426,
+        57.252857142857145
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "dogana",
+      "title": "Punta della Dogana",
+      "decision": "retained",
+      "check": "Customs-house corner tower, gold globe and Fortune figure with elongated warehouse identify Punta della Dogana. Roof/opening count interpretive.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Punta_della_Dogana_Canal_Grande_Venezia.jpg",
+        "photographer": "Wolfgang Moroder",
+        "licenseLabel": "CC BY-SA 3.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0"
+      },
+      "card": "art/kit-dogana-card-796ba886b59e.png",
+      "map": "art/kit-dogana-map2x-ee6513123635.png",
+      "artAnchor": [
+        12.336151621786827,
+        45.430794888061314
+      ],
+      "groundPoint": [
+        164.86608,
+        167.9079060265577
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "Separate pre-existing OSM representative point; not surveyed footprint"
+    },
+    {
+      "placeKey": "accademia",
+      "title": "Ponte dell’Accademia",
+      "decision": "retained",
+      "check": "Single timber arch, triangular bracing and two stepped ends match Ponte dell’Accademia. The gallery building is not substituted.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Accademia_bridge_in_Venice_(South_East_exposure).jpg",
+        "photographer": "Didier Descouens",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "card": "art/kit-accademia-card-b3f12aca1391.png",
+      "map": "art/kit-accademia-map2x-c520080ad1ab.png",
+      "artAnchor": [
+        12.328915970800372,
+        45.43164318814629
+      ],
+      "groundPoint": [
+        165.23798627002287,
+        116.41384965831435
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "Separate pre-existing OSM representative point; not surveyed footprint"
+    },
+    {
+      "placeKey": "trearchi",
+      "title": "Ponte dei Tre Archi",
+      "decision": "regenerated",
+      "check": "Exactly three open passages: wider central arch and two smaller side arches; continuous stepped brick parapet with flat central top, pale stone trim and side relief panels match actual bridge.",
+      "reference": {
+        "sourceURL": "https://commons.wikimedia.org/wiki/File:Ponte_dei_Tre_Archi_(Venice).jpg",
+        "photographer": "Didier Descouens",
+        "licenseLabel": "CC BY-SA 4.0",
+        "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0"
+      },
+      "card": "art/main-20261009-trearchi-card-d9120ad630c5.png",
+      "map": "art/main-20261009-trearchi-map2x-98e099d4573d.png",
+      "artAnchor": null,
+      "groundPoint": [
+        72.52190847127557,
+        55.989085948158255
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "No separate verified architectural reference; explicitly tethered callout to unchanged route visit"
+    },
+    {
+      "placeKey": "vino",
+      "title": "Vino Vero",
+      "decision": "retained",
+      "check": "Official storefront reference confirms broad dark blue-gray framed glazing and timber wine shelving. Surrounding facade, furniture and quay are a simplified vignette; not an exact current facade survey.",
+      "reference": {
+        "sourceURL": "https://vinovero.wine/luoghi/venezia/",
+        "photographer": "Vino Vero (official reference; photograph not republished)",
+        "licenseLabel": null,
+        "licenseURL": null
+      },
+      "card": "art/kit-vino-card-a34b741f0a83.png",
+      "map": "art/kit-vino-map2x-0d72945a3671.png",
+      "artAnchor": [
+        12.3330905,
+        45.4440492
+      ],
+      "groundPoint": [
+        170.27634660421546,
+        228.10091379310344
+      ],
+      "sourceAndMapIdentityVerified": true,
+      "humanArchitecturalApproval": false,
+      "geographicLimitation": "Separate pre-existing OSM representative point; not surveyed footprint"
+    }
+  ]
+}

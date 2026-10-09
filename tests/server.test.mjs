@@ -17,3 +17,5 @@ test('event links resolve to a versioned form script without exposing private fi
  assert.equal(r.status,200);assert.match(await r.text(),/events\/events\.js\?v=[\w-]+/);
  assert.equal((await fetch(base+'/events/invalid.slug')).status,404);
 });
+
+test('legacy classic entry redirects to the same Main presentation without rewriting the route fragment',async()=>{const r=await fetch(base+'/classic.html?lang=tr',{redirect:'manual'});assert.equal(r.status,308);assert.equal(r.headers.get('location'),'/?lang=tr');});

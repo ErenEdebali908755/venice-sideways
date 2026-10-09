@@ -5,9 +5,19 @@ import {resolve,dirname} from 'node:path';
 import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const target=process.argv[2];if(!target)throw Error('Usage: node tools/sync-field-guide.mjs <admin-checkout> [--check]');
-const names=['walking-state.js','timetable-policy.js','guide.js','guide.css','map-art.js','illustrations.js','directions.js','gardens.json','yana-mark.svg','yana-logo.svg','yana-mark-light.svg','yana-mark-dark.svg','icons.js','icons.svg','gallery.js','location-engine.js','ui-copy.js','temporary-selection.js','serif.woff2','sans.woff2','serif-latin-ext.woff2','serif-cyrillic.woff2','sans-latin-ext.woff2','sans-cyrillic.woff2','Cormorant-LICENSE.txt','Manrope-LICENSE.txt'];
+const names=['presentation.js','stop-photos.js','walking-state.js','timetable-policy.js','guide.js','guide.css','map-art.js','illustrations.js','directions.js','gardens.json','yana-mark.svg','yana-logo.svg','yana-mark-light.svg','yana-mark-dark.svg','icons.js','icons.svg','gallery.js','location-engine.js','ui-copy.js','temporary-selection.js','serif.woff2','sans.woff2','serif-latin-ext.woff2','serif-cyrillic.woff2','sans-latin-ext.woff2','sans-cyrillic.woff2','Cormorant-LICENSE.txt','Manrope-LICENSE.txt'];
 const art=await readdir(resolve(root,'public/field-guide/art'),{withFileTypes:true});
 for(const file of art){if(!file.isFile()||!/^([a-z0-9-]+\.png|(?:illustrations-)?manifest\.json)$/.test(file.name))throw Error('Unexpected shared artwork file');names.push('art/'+file.name);}
+async function collectPhotos(relative = 'photos') {
+ for (const entry of await readdir(resolve(root,'public/field-guide',relative),{withFileTypes:true})) {
+  if (!/^[a-z0-9.-]+$/.test(entry.name)) throw Error('Unexpected shared photograph path');
+  const name = relative+'/'+entry.name;
+  if (entry.isDirectory()) await collectPhotos(name);
+  else if (entry.isFile() && /\.(jpg|webp|png)$/.test(entry.name)) names.push(name);
+  else throw Error('Unexpected shared photograph file');
+ }
+}
+await collectPhotos();
 const proof=[];
 for(const name of names){
  const from=resolve(root,'public/field-guide',name),to=resolve(target,'public/field-guide',name);

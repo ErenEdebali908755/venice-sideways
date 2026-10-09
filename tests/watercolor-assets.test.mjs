@@ -53,8 +53,8 @@ function registered(map,asset){map.images.set('fg-art-'+asset.kind,{data:asset})
 
 test('thirty content-addressed alpha-preserving catalog derivatives have actual PNG dimensions and distinct identities',async()=>{
  assert.equal(ILLUSTRATIONS.length,30);assert.equal(new Set(ILLUSTRATIONS.map(a=>a.key)).size,30);
- assert.equal(ILLUSTRATIONS.filter(a=>a.approved).length,29);
- assert.deepEqual(ILLUSTRATIONS.filter(a=>!a.approved).map(a=>[a.key,a.humanSpecificReviewRequired]),[['trearchi',true]]);
+ assert.equal(ILLUSTRATIONS.filter(a=>a.approved).length,30);
+ assert.deepEqual(ILLUSTRATIONS.filter(a=>!a.approved).map(a=>[a.key,a.humanSpecificReviewRequired]),[]);
  for(const asset of ILLUSTRATIONS){
   assert.equal(asset.illustrationNotPhotograph,true);assert.equal(asset.pixelRatio,2);
   for(const [url,width,height]of [[asset.url,asset.width,asset.height],[asset.url1x,asset.width1x,asset.height1x],[asset.cardURL,asset.cardWidth,asset.cardHeight]]){
@@ -68,7 +68,7 @@ test('thirty content-addressed alpha-preserving catalog derivatives have actual 
   assert.ok(Math.abs(asset.width/asset.height-asset.cardWidth/asset.cardHeight)<.012,'integer resizing preserves natural aspect');
  }
  for(const asset of legacy){const bytes=await readFile(assetFile(asset));assert.deepEqual([bytes.readUInt32BE(16),bytes.readUInt32BE(20)],[asset.width,asset.height]);}
- assert.equal(ART_ASSETS.some(a=>a.key==='trearchi'),false,'held art is not a map load candidate');
+ assert.equal(ART_ASSETS.some(a=>a.key==='trearchi'),true,'new three-arch reference-reviewed asset is a map candidate');
 });
 test('initial fallback registration is bounded and idempotent; layer order protects routes and native collision',async()=>withCanvas(async()=>{
  const map=mapFixture();assert.equal(addWatercolorLayers(map),true);
@@ -85,7 +85,7 @@ test('initial fallback registration is bounded and idempotent; layer order prote
 }));
 test('thirty-nine placements preserve each route’s own canonical anchor and never invent locations from titles',()=>{
  const before=JSON.stringify(routes);assert.equal(ILLUSTRATION_PLACEMENTS.length,39);
- assert.deepEqual(routes.map(route=>landmarkFeatures(route).length),[10,28]);
+ assert.deepEqual(routes.map(route=>landmarkFeatures(route).length),[11,28]);
  for(const route of routes)for(const feature of landmarkFeatures(route)){
   const visit=route.visits.find(v=>v.key===feature.properties.visitKey);assert.equal(feature.properties.placeKey,visit.placeKey);assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude]);assert.deepEqual(feature.geometry.coordinates,feature.properties.artAnchor||feature.properties.visitCoordinate);assert.equal(feature.properties.number,undefined);
  }
@@ -95,7 +95,7 @@ test('thirty-nine placements preserve each route’s own canonical anchor and ne
  assert.deepEqual(landmarkFeatures({key:'full',visits:[{key:'dogana',placeKey:'other-place',longitude:12.3,latitude:45.4}]}),[]);
 });
 test('viewport budget is three mobile/six desktop, active first, and offscreen/low zoom/3D art yields without moving anchors',()=>{
- for(const width of [390,1440]){const map=mapFixture({width,height:700});let features=visibleLandmarks(map,routes[1],'elena');assert.ok(features.length>0&&features.length<=(width<=600?3:6));assert.equal(features[0].properties.visitKey,'elena');assert.equal(features.filter(f=>f.properties.active).length,1);
+ for(const width of [390,1440]){const map=mapFixture({width,height:700});let features=visibleLandmarks(map,routes[1],'elena');assert.ok(features.length>0&&features.length<=(width<768?3:6));assert.equal(features[0].properties.visitKey,'elena');assert.equal(features.filter(f=>f.properties.active).length,1);
   for(const f of features){const visit=routes[1].visits.find(v=>v.key===f.properties.visitKey);assert.deepEqual(f.properties.visitCoordinate,[visit.longitude,visit.latitude]);}
   map.zoom=12.9;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);map.zoom=17;map.pitch=45;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);map.pitch=0;map.height=100;assert.deepEqual(visibleLandmarks(map,routes[1],'elena'),[]);
  }
@@ -119,17 +119,17 @@ test('presentation repairs partially removed art and reapplies 2D/3D without rep
  assert.equal(map.getLayer('fg-landmark-tether').maxzoom,24);assert.equal(map.getLayer('fg-landmark-overview').minzoom,13);
  assert.deepEqual(map.getLayer('fg-landmark-detail').filter,['==',['get','key'],'__unused__'],'unused duplicate family cannot show a second copy of the same art');
 }));
-test('one active approved landmark has priority while secondary art retains native collision and held/unknown selection cannot activate',async()=>withCanvas(async()=>{
+test('one active approved landmark has priority while secondary art retains native collision and unknown selection cannot activate',async()=>withCanvas(async()=>{
  const map=mapFixture();addWatercolorLayers(map);setWatercolorLandmarks(map,routes[0],'dogana');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,1);
  assert.equal(map.getSource('fg-landmarks').data.features[0].properties.key,'dogana');assert.equal(map.getLayer('fg-landmark-active').minzoom,13);assert.equal(map.getPaintProperty('fg-landmark-active','icon-opacity'),1);
  assert.equal(map.getLayoutProperty('fg-landmark-active','icon-allow-overlap'),false);assert.equal(map.getLayoutProperty('fg-landmark-active','icon-ignore-placement'),false);
  for(const id of ['fg-landmark-overview','fg-landmark-detail'])assert.equal(map.getLayoutProperty(id,'icon-allow-overlap'),false);
- setWatercolorLandmarks(map,routes[0],'trearchi');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,0);assert.equal(map.calls.loads.some(url=>url.includes('trearchi')),false);
+ setWatercolorLandmarks(map,routes[0],'trearchi');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,1);assert.equal(map.calls.loads.some(url=>url.includes('trearchi')),true);
  setWatercolorLandmarks(map,routes[0],'unknown');assert.equal(map.getSource('fg-landmarks').data.features.filter(f=>f.properties.active).length,0);
 }));
 test('all approved aspect ratios and legacy fallbacks fit independent width/height budgets including short containers',()=>{
  for(const [width,height]of [[390,360],[1440,700],[320,100],[844,150]]){const {sizes,gap,visible}=watercolorLayout(width,height);assert.equal(gap,0,"no shared artificial lift");assert.equal(visible,width>=180&&height>=160);
-  for(const asset of ART_ASSETS.filter(a=>a.kind!=='garden-leaves')){const w=asset.width/asset.pixelRatio*sizes[asset.kind],h=asset.height/asset.pixelRatio*sizes[asset.kind];assert.ok(w<=Math.min(width<=600?104:124,width*.27)+.001);assert.ok(h<=Math.min(width<=600?72:80,height*.24)+.001);assert.ok(Math.abs(w/h-asset.width/asset.height)<.0001);}
+  for(const asset of ART_ASSETS.filter(a=>a.kind!=='garden-leaves')){const w=asset.width/asset.pixelRatio*sizes[asset.kind],h=asset.height/asset.pixelRatio*sizes[asset.kind];assert.ok(w<=Math.min(width<768?96:112,width*.27)+.001);assert.ok(h<=Math.min(width<768?64:72,height*.24)+.001);assert.ok(Math.abs(w/h-asset.width/asset.height)<.0001);}
  }
 });
 test('late optional image completion cannot modify a replacement style',async()=>{

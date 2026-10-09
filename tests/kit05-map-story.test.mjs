@@ -43,7 +43,7 @@ test('separate sourced references keep all thirty-nine visit coordinates intact,
     if(asset.artAnchor) assert.match(asset.placement.geographicReview.sourceURL,/^https:\/\/www\.openstreetmap\.org\/(node|way|relation)\/[0-9]+$/);
     else if(asset.approved) assert.match(asset.placement.calibrationStatus,/unresolved/);
   }
-  assert.equal(ILLUSTRATIONS.find(asset=>asset.key==='trearchi').approved,false);
+  assert.equal(ILLUSTRATIONS.find(asset=>asset.key==='trearchi').approved,true);
   for(const candidate of GARDEN_ILLUSTRATIONS) {
     assert.equal(candidate.runtimeEnabledByDefault,false);assert.equal(candidate.approved,false);
     assert.equal(candidate.artAnchor,null);assert.equal(candidate.imageGroundPoint,null);assert.equal(candidate.calibrationRequired,true);
@@ -54,6 +54,16 @@ test('DOM marker boxes use actual CSS bounds relative to the map rather than nat
   const pin={getBoundingClientRect:()=>({left:122,top:232,right:166,bottom:276,width:44,height:44})};
   const container={getBoundingClientRect:()=>({left:100,top:200}),closest:()=>({querySelectorAll:()=>[pin]})};
   assert.deepEqual(mapDOMObstacles({getContainer:()=>container}),[{left:17,top:27,right:71,bottom:81}]);
+});
+test('floating artwork obstacles reserve control and open panel boxes without consuming transparent toolbar space', () => {
+  let selector='';
+  const box={getBoundingClientRect:()=>({left:190,top:210,right:310,bottom:390,width:120,height:180})};
+  const container={getBoundingClientRect:()=>({left:100,top:200}),closest:()=>({querySelectorAll:value=>{selector=value;return [box]}})};
+  assert.deepEqual(mapDOMObstacles({getContainer:()=>container}),[{left:85,top:5,right:215,bottom:195}]);
+  assert.ok(selector.includes('.fg-map-options[open] > .fg-map-option-actions'));
+  assert.ok(selector.includes('.fg-location-copy[open] > .fg-privacy-panel'));
+  assert.ok(selector.includes('.fg-map-tools > button'));
+  assert.equal(selector.split(',').includes('.fg-map-tools'),false);
 });
 test('collision culling preserves anchors, avoids opaque art boxes and retains accepted positions during small pan jitter', () => {
   let jitter=0;const map={getContainer:()=>({clientWidth:390,clientHeight:500}),getZoom:()=>16.5,getPitch:()=>0,project:()=>({x:195+jitter,y:300})};

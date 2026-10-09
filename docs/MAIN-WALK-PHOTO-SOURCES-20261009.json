@@ -1,0 +1,532 @@
+{
+  "version": "20261009-main-photos-1",
+  "records": [
+    {
+      "placeKey": "lucia",
+      "assetID": "commons-155425696",
+      "sourceTitle": "File:Stazione di Venezia Santa Lucia 2024.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Stazione_di_Venezia_Santa_Lucia_2024.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Stazione_di_Venezia_Santa_Lucia_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Stazione_di_Venezia_Santa_Lucia_2024.jpg/960px-Stazione_di_Venezia_Santa_Lucia_2024.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "kallerna",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "takenDate": "2024-11-17 13:57:22",
+      "sourceDescription": "Venice Santa Lucia train station.",
+      "original": {
+        "width": 5400,
+        "height": 3600,
+        "bytes": 6337061,
+        "sha1FromCommons": "136c6c7ed49bf725975d1f3e57f0b874a320d12f",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/lucia-956aef9be1d7.jpg",
+        "width": 960,
+        "height": 640,
+        "bytes": 179974,
+        "sha256": "956aef9be1d7ec92afc6be6314b852fd50bd3d161e81ac74f46d1da1b9094ed7",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Modern horizontal pale-stone facade and FS emblem; station steps and Ferrovia floating pontoons visible. Exact source names Venice Santa Lucia.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "giacomo",
+      "assetID": "commons-25639506",
+      "sourceTitle": "File:San Giacomo dell Orio facciata sud con campanile.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/5/5a/San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5a/San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg/1280px-San_Giacomo_dell_Orio_facciata_sud_con_campanile.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Wolfgang Moroder",
+      "licenseLabel": "CC BY-SA 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0",
+      "takenDate": "2013-04-16",
+      "sourceDescription": "Church of San Giacomo dall'Orio in Venice. South facade  and Bell Tower.",
+      "original": {
+        "width": 7360,
+        "height": 4912,
+        "bytes": 16891842,
+        "sha1FromCommons": "1ac0b1e6491d1909a1c9ab389b34a7f53d5008d4",
+        "downloadVerification": {
+          "sha1": "1ac0b1e6491d1909a1c9ab389b34a7f53d5008d4",
+          "sha256": "6c3725b9d107d1e1f810b9c3df7679616df3f54b19f2f5689e47f00db0b40b39",
+          "bytes": 16891842,
+          "retrievedAt": "2026-10-09T21:00:48.957669+00:00"
+        }
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/giacomo-37ef48af374f.jpg",
+        "width": 1280,
+        "height": 854,
+        "bytes": 302202,
+        "sha256": "37ef48af374f8233e92ed4d29ecc942961101564f5d900b61292da71e0a55638",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Irregular pink south facade, circular windows, tall square brick campanile, rounded chapel and campo match named source.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "frari",
+      "assetID": "commons-50295161",
+      "sourceTitle": "File:Santa Maria Gloriosa dei Frari, facade.JPG",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Santa_Maria_Gloriosa_dei_Frari%2C_facade.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Santa_Maria_Gloriosa_dei_Frari%2C_facade.JPG/1280px-Santa_Maria_Gloriosa_dei_Frari%2C_facade.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Divot",
+      "licenseLabel": "Public domain",
+      "licenseURL": "https://commons.wikimedia.org/wiki/File:Santa_Maria_Gloriosa_dei_Frari,_facade.JPG#Licensing",
+      "takenDate": "2006-03-12",
+      "sourceDescription": "Santa Maria Gloriosa dei Frari, facade",
+      "original": {
+        "width": 3456,
+        "height": 2304,
+        "bytes": 5674132,
+        "sha1FromCommons": "670a0ef69572e92a183003cac14931f246ff17ad",
+        "downloadVerification": {
+          "sha1": "670a0ef69572e92a183003cac14931f246ff17ad",
+          "sha256": "d47ad3ed5d91ed392042b0a74a33869f223f7fe944dfb7952bc6b4316d8c8643",
+          "bytes": 5674132,
+          "retrievedAt": "2026-10-09T21:00:53.230879+00:00"
+        }
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/frari-50a6fc5a5ead.jpg",
+        "width": 1280,
+        "height": 853,
+        "bytes": 320158,
+        "sha256": "50a6fc5a5eade9947737b9675783d9b2ea43cb9d60ea82ad35c84c6a4a83edaf",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Brick Gothic facade, large circular rose window, pointed white-stone doorway; Campo dei Frari street plaque visible.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "margherita",
+      "assetID": "commons-60645810",
+      "sourceTitle": "File:Campo Santa Margherita (Venice).jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_Santa_Margherita_(Venice).jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/3/39/Campo_Santa_Margherita_%28Venice%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/39/Campo_Santa_Margherita_%28Venice%29.jpg/1280px-Campo_Santa_Margherita_%28Venice%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Didier Descouens",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "takenDate": "Taken on 4 November 2016",
+      "sourceDescription": "Campo Santa Margherita in Venice.",
+      "original": {
+        "width": 7360,
+        "height": 4912,
+        "bytes": 32936819,
+        "sha1FromCommons": "f6fd1b460fc154208492c065fac7522d2c4b9a0c",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/margherita-34bc22c18d2a.jpg",
+        "width": 1280,
+        "height": 854,
+        "bytes": 443323,
+        "sha256": "34bc22c18d2ab4bdd601cae1c5f2ccac3f9cba994550541171e8dfc246e874a7",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Wide paved campo, trees, benches, wellhead and surrounding mixed-height housing match named source.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "barnaba",
+      "assetID": "commons-62348995",
+      "sourceTitle": "File:Campo San Barnaba (VE).jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Campo_San_Barnaba_(VE).jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Campo_San_Barnaba_%28VE%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/Campo_San_Barnaba_%28VE%29.jpg/1280px-Campo_San_Barnaba_%28VE%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "SIG SG 510",
+      "licenseLabel": "CC0",
+      "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/deed.en",
+      "takenDate": "2017-09-01 16:39:39",
+      "sourceDescription": "Campo San Barnaba, Venezia.",
+      "original": {
+        "width": 3968,
+        "height": 2976,
+        "bytes": 2818691,
+        "sha1FromCommons": "20d1f5b3f65a4589aa2a1b48a85be459088a35fe",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/barnaba-fde9134b3703.jpg",
+        "width": 1280,
+        "height": 960,
+        "bytes": 299513,
+        "sha256": "fde9134b370357aa6fa68ba5fc6c7561d6f783aa64f9eceb7ec70b37dcbf48a6",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Campo S. Barnaba street plaque visibly confirms square; central wellhead and housing visible. Church is outside this view.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "trovaso",
+      "assetID": "commons-81847439",
+      "sourceTitle": "File:Squero di San Trovaso (Venice) 01.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Squero_di_San_Trovaso_(Venice)_01.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Squero_di_San_Trovaso_%28Venice%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7d/Squero_di_San_Trovaso_%28Venice%29_01.jpg/1280px-Squero_di_San_Trovaso_%28Venice%29_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Abxbay",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "takenDate": "2019-08-16 08:35:51",
+      "sourceDescription": "Squero di San Trovaso (Venice)",
+      "original": {
+        "width": 3888,
+        "height": 3888,
+        "bytes": 3748685,
+        "sha1FromCommons": "616e52533933c50371ae7961043b9c78a04f3146",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/trovaso-657e917496fb.jpg",
+        "width": 1280,
+        "height": 1280,
+        "bytes": 416060,
+        "sha256": "657e917496fba50fed6e94f581361b63dbb305c43d62cc75a1e4f07e7a606113",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Working sloped squero, low wooden workshops and San Trovaso church behind; no invented bridge.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "zattere",
+      "assetID": "commons-123263279",
+      "sourceTitle": "File:Fondamenta Zattere Ai Gesuati.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Fondamenta_Zattere_Ai_Gesuati.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/6/67/Fondamenta_Zattere_Ai_Gesuati.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/67/Fondamenta_Zattere_Ai_Gesuati.jpg/1280px-Fondamenta_Zattere_Ai_Gesuati.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Derbrauni",
+      "licenseLabel": "CC BY 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by/4.0",
+      "takenDate": "2022-05-09 11:04:04",
+      "sourceDescription": "Fondamenta Zattere Ai Gesuati",
+      "original": {
+        "width": 4032,
+        "height": 2268,
+        "bytes": 1112353,
+        "sha1FromCommons": "dc275da3b5f6081abe0f1e14962ddefa16e0fcc2",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/zattere-9170b5ecf727.jpg",
+        "width": 1280,
+        "height": 720,
+        "bytes": 217581,
+        "sha256": "9170b5ecf727852d2dfe074674f2a6a5f2cf5ab1a9caa28fafe099338de6a4e6",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Broad Zattere waterfront seen from water, Gesuati landmark in wider waterfront context. Image is explicitly a waterfront view, not a close church portrait.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "dogana",
+      "assetID": "commons-49223109",
+      "sourceTitle": "File:Punta della Dogana Canal Grande Venezia.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Punta_della_Dogana_Canal_Grande_Venezia.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/e/ec/Punta_della_Dogana_Canal_Grande_Venezia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Punta_della_Dogana_Canal_Grande_Venezia.jpg/1280px-Punta_della_Dogana_Canal_Grande_Venezia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Wolfgang Moroder",
+      "licenseLabel": "CC BY-SA 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0",
+      "takenDate": "2016-05-17",
+      "sourceDescription": "Punta della Dogana of Punta della Dogana customs building   in Venice - View from Canal Grande .",
+      "original": {
+        "width": 6500,
+        "height": 4338,
+        "bytes": 13366470,
+        "sha1FromCommons": "f95a712372a735f7e1fd4275bfcd98e35dacb565",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/dogana-27d3d0226072.jpg",
+        "width": 1280,
+        "height": 854,
+        "bytes": 295111,
+        "sha256": "27d3d02260721e7a8b9eb7cda05c4e4107d157bac8186e3a921b9d96b1d1c4f9",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Long low customs warehouse, tower and golden globe at canal junction match named source; not the Salute basilica.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "accademia",
+      "assetID": "commons-41549971",
+      "sourceTitle": "File:Accademia bridge in Venice (South East exposure).jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Accademia_bridge_in_Venice_(South_East_exposure).jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/7/70/Accademia_bridge_in_Venice_%28South_East_exposure%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/70/Accademia_bridge_in_Venice_%28South_East_exposure%29.jpg/1280px-Accademia_bridge_in_Venice_%28South_East_exposure%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Didier Descouens",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "takenDate": "Taken on 9 May 2015",
+      "sourceDescription": "Ponte dell'Accademia on Grand canal - Venice.",
+      "original": {
+        "width": 7360,
+        "height": 4912,
+        "bytes": 30124893,
+        "sha1FromCommons": "c7cb5bc482be4009cc9e9a615dc80c13852f2108",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/accademia-ab1357434a31.jpg",
+        "width": 1280,
+        "height": 854,
+        "bytes": 361005,
+        "sha256": "ab1357434a317d5ea1a03eea489d81cba6dd3f86522f5b7f8a721ce4724efe12",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "Dark timber arched bridge and timber balustrades over Grand Canal, southeast exposure; not the gallery building.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "trearchi",
+      "assetID": "commons-33807895",
+      "sourceTitle": "File:Ponte dei Tre Archi (Venice).jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Ponte_dei_Tre_Archi_(Venice).jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/e/e1/Ponte_dei_Tre_Archi_%28Venice%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/Ponte_dei_Tre_Archi_%28Venice%29.jpg/1280px-Ponte_dei_Tre_Archi_%28Venice%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Didier Descouens",
+      "licenseLabel": "CC BY-SA 4.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/4.0",
+      "takenDate": "Taken on 12 May 2014",
+      "sourceDescription": "Ponte dei Tre Archi, on Canal di Cannaregio in Venice",
+      "original": {
+        "width": 7201,
+        "height": 4764,
+        "bytes": 22445919,
+        "sha1FromCommons": "3b200364d9349dd62e69832f02480a80da22b9fe",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/trearchi-2191207a4fe2.jpg",
+        "width": 1280,
+        "height": 847,
+        "bytes": 363011,
+        "sha256": "2191207a4fe2e0d04124e6116cc2b8537d2bdf9c66f88a1afadb7a09bb0dec8f",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "stop-view",
+      "identityCheck": "One high central masonry arch and two lower side arches are all visible.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": true
+    },
+    {
+      "placeKey": "vino",
+      "assetID": "commons-49002972",
+      "sourceTitle": "File:Chiesa San Marziale da est Fondamenta Misericordia Venezia.jpg",
+      "sourceURL": "https://commons.wikimedia.org/wiki/File:Chiesa_San_Marziale_da_est_Fondamenta_Misericordia_Venezia.jpg",
+      "originalURL": "https://upload.wikimedia.org/wikipedia/commons/a/a5/Chiesa_San_Marziale_da_est_Fondamenta_Misericordia_Venezia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "sourceDerivativeURL": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Chiesa_San_Marziale_da_est_Fondamenta_Misericordia_Venezia.jpg/960px-Chiesa_San_Marziale_da_est_Fondamenta_Misericordia_Venezia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+      "photographer": "Wolfgang Moroder",
+      "licenseLabel": "CC BY-SA 3.0",
+      "licenseURL": "https://creativecommons.org/licenses/by-sa/3.0",
+      "takenDate": "2016-04-26",
+      "sourceDescription": "View  of the Chiesa San Marziale church in Venice.",
+      "original": {
+        "width": 7360,
+        "height": 4912,
+        "bytes": 14984857,
+        "sha1FromCommons": "b503ead69f928d96f2850680a1739f4d9c3bb0fb",
+        "downloadVerification": null
+      },
+      "publicDerivative": {
+        "path": "/field-guide/photos/main-20261009/vino-3aee816c39cd.jpg",
+        "width": 960,
+        "height": 641,
+        "bytes": 194116,
+        "sha256": "3aee816c39cdf160f3cdbab90fc80faecc45fd45972f38970e3e5d216f441479",
+        "processing": "Wikimedia reduced-size JPEG; original framing retained. No retouching."
+      },
+      "relationship": "context",
+      "identityCheck": "Photo names San Marziale church and shows the adjacent Misericordia canal/quay and bridge. Adjacent context is verified, Vino Vero bar facade itself is not.",
+      "review": {
+        "sourceAndVisualInspection": "Codex, 2026-10-09",
+        "humanEditorialApproval": false,
+        "captionTranslations": "Original descriptive captions prepared in eight locales; no independent human translation review claimed."
+      },
+      "publicEligible": true,
+      "facadeIdentified": false
+    }
+  ],
+  "assignedVisits": [
+    [
+      "main",
+      "lucia",
+      "lucia"
+    ],
+    [
+      "main",
+      "giacomo",
+      "giacomo"
+    ],
+    [
+      "main",
+      "frari",
+      "frari"
+    ],
+    [
+      "main",
+      "margherita",
+      "margherita"
+    ],
+    [
+      "main",
+      "barnaba",
+      "barnaba"
+    ],
+    [
+      "main",
+      "trovaso",
+      "trovaso"
+    ],
+    [
+      "main",
+      "zattere",
+      "zattere"
+    ],
+    [
+      "main",
+      "dogana",
+      "dogana"
+    ],
+    [
+      "main",
+      "accademia",
+      "accademia"
+    ],
+    [
+      "main",
+      "trearchi",
+      "trearchi"
+    ],
+    [
+      "main",
+      "vino",
+      "vino"
+    ],
+    [
+      "full",
+      "lucia",
+      "lucia"
+    ],
+    [
+      "full",
+      "giacomo",
+      "giacomo"
+    ],
+    [
+      "full",
+      "frari",
+      "frari"
+    ],
+    [
+      "full",
+      "margherita",
+      "margherita"
+    ],
+    [
+      "full",
+      "barnaba",
+      "barnaba"
+    ],
+    [
+      "full",
+      "trovaso",
+      "trovaso"
+    ],
+    [
+      "full",
+      "zattere",
+      "zattere"
+    ],
+    [
+      "full",
+      "dogana",
+      "dogana"
+    ],
+    [
+      "full",
+      "accademia",
+      "accademia"
+    ]
+  ],
+  "sourceReview": "Source metadata and visual inspection; no human architectural approval is implied.",
+  "ownerArchiveReview": {
+    "recordsInspected": 196,
+    "file": "import-data/entries.json",
+    "result": "No explicit Venice or requested stop relation in title, alt, note or filename. This is a metadata check, not a claim that no related photograph exists elsewhere in the owner archive."
+  },
+  "bookReview": "Previous exact-file40 assessment has0publicEligible; none reused.",
+  "remainingGap": "Vino Vero has a verified photograph of its immediate canal environment, not an identified bar facade. Two exact facade Flickr candidates were All rights reserved."
+}

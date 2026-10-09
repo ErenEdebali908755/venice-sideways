@@ -7,3 +7,6 @@
 - Own-device location remains opt-in and local to the browser. Never send device coordinates to admins or a server. Denial must not block browsing.
 - Validate start/stop/race/visibility, language changes and phone layout before deploying.
 - Do not redirect the old site until custom-domain HTTPS and smoke tests pass. Do not claim DNS, deployment or repository creation without successful evidence.
+
+- Public Main-only visibility belongs to the explicit presentation setting. Keep all route records when saving progress; private Full previews and saved Full progress must remain intact.
+- Bundled stop photos have explicit gallery relations and source/license metadata. Never fill administrator-empty or revoked galleries automatically from a static catalog.
