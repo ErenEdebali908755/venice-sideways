@@ -1,4 +1,4 @@
-import {FieldGuide} from './guide.js?v=20261006-kit05';
+import {FieldGuide} from './guide.js?v=20261009-walk';
 const root=document.getElementById('field-guide');let guide=null;
 // No draft endpoint, token URL, persistence, analytics or location in this shell.
 // Only the embedding same-origin admin may provide an entire snapshot.
