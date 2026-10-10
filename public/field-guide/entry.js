@@ -1,7 +1,6 @@
-import {createMeasurementCollector} from './measurement.js?v=20261010-main-ten';
-import {FieldGuide} from './guide.js?v=20261010-main-ten';
-import {temporarySelection} from './temporary-selection.js?v=20261010-main-ten';
-import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261010-main-ten';
+import {createMeasurementCollector} from './measurement.js?v=20261010-evening-eight';
+import {FieldGuide} from './guide.js?v=20261010-evening-eight';
+import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261010-evening-eight';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];
 export const normalizeLanguage = value => typeof value === 'string' ? value.toLowerCase().split(/[-_]/)[0] : '';
@@ -43,7 +42,7 @@ async function boot(bundled=false) {
   root.className='fg-loading';root.setAttribute('aria-busy','true');root.replaceChildren();
   const loading=document.createElement('p');loading.setAttribute('role','status');loading.textContent=copy.loading;root.append(loading);
   try {
-    const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261010-main-ten'),json('/sideways/actv-water-paths.json')]);
+    const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261010-evening-eight'),json('/sideways/actv-water-paths.json')]);
     if(!Array.isArray(base.routes)||!base.routes.length)throw Error('No bundled routes');
     let routes=base.routes;
     const requested=new URLSearchParams(location.hash.slice(1)).get('route') || new URLSearchParams(location.search).get('route');
@@ -58,7 +57,7 @@ async function boot(bundled=false) {
     if(!routes.some(route=>route.key==='main'))throw Error('No available routes');
     if(current!==generation)return;
     root.removeAttribute('aria-busy');
-    guide=new FieldGuide(root,{routes,presentation:MAIN_WALK_PRESENTATION,hiddenRouteNotice:!!requested&&!MAIN_WALK_PRESENTATION.routeKeys.includes(requested),lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
+    guide=new FieldGuide(root,{routes,presentation:MAIN_WALK_PRESENTATION,hiddenRouteNotice:!!requested&&!MAIN_WALK_PRESENTATION.routeKeys.includes(requested),lang:language(),water,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
     measurement?.pageReady(guide.lang);
     if(!bundled)json('/api/events').then(data=>{
       if(current!==generation||guide.disposed)return;

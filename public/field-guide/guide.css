@@ -957,7 +957,6 @@ body {
 .fg-source-note { font: 12px/1.5 var(--sans,Arial,sans-serif); border-left: 3px solid #315dd7; padding-left: 10px; color: var(--muted); }
 .fg-vignette { margin: 20px 0; text-align: center; }
 .fg-vignette img { display: block; width: auto; max-width: 100%; height: auto; max-height: 240px; margin: 0 auto; object-fit: contain; }
-.fg-vignette figcaption { font-size: 12px; color: var(--muted); margin: 8px 0; }
 
 /* Story hierarchy uses readable paragraphs and quiet, expandable evidence. */
 .fg-place-story { margin-block:16px; font-size:16px; line-height:1.55; }
@@ -966,14 +965,13 @@ body {
 .fg-interesting-detail { border-left:3px solid var(--accent); padding:8px 12px; background:var(--accent-soft); border-radius:0 6px 6px 0; }
 .fg-interesting-detail p { margin:0; }
 .fg-story-sources,.fg-photo-ideas { margin:14px 0; }
-.fg-story-sources summary,.fg-photo-ideas summary { border:0; padding:8px 0; color:var(--accent); background:transparent; font-size:14px; }
+.fg-story-sources summary { border:0; padding:8px 0; color:var(--accent); background:transparent; font-size:14px; }
 .fg-story-sources ul { margin:4px 0; padding-left:20px; font-size:14px; line-height:1.5; }
 .fg-story-sources li { margin:10px 0; overflow-wrap:anywhere; }
 .fg-story-sources small { display:block; font-size:12px; color:var(--muted); }
 .fg-route-guidance { line-height:1.55; }
 .fg-vignette { max-width:280px; margin:18px auto; }
 .fg-vignette img { max-height:240px; }
-.fg-vignette figcaption { font-size:11px; line-height:1.4; }
 .fg-photo-ideas { clear:both; }
 .fg[data-sheet="collapsed"] .fg-stop-copy > :is(.fg-stop-preview,.fg-place-story,.fg-story-sources) { display:none; }
 .fg-dialog:not(.fg-lightbox) .fg-gallery-stage { background:var(--empty); border-radius:6px; }
@@ -1082,13 +1080,6 @@ body {
   .fg-sheet-controls > [role="status"] { display:none; }
   .fg-sheet-controls button { flex:1; }
 }
-.fg-inspiration { margin-top:28px; padding-top:20px; border-top:1px solid var(--line); }
-.fg-inspiration h2 { font-size:22px; }
-.fg-inspiration > p { color:var(--muted); font-size:13px; }
-.fg-inspiration-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
-.fg-inspiration-grid button { padding:0; overflow:hidden; min-width:0; }
-.fg-inspiration-grid .fg-photo { margin:0; }
-.fg-inspiration-grid img { height:90px; width:100%; object-fit:contain; background:var(--empty); }
 
 /* The editor’s compact preview keeps its map visible while details are closed. */
 .fg[data-compact-preview="true"] .fg-map-shell { display:block !important; }
@@ -1225,3 +1216,14 @@ body {
 }
 
 .fg-photo-changes { display:block; margin-top:6px; line-height:1.4; }
+
+/* The five existing ideas stay in their original order behind a native disclosure. */
+.fg-photo-ideas > summary { display:flex; align-items:center; gap:12px; width:100%; min-height:64px; padding:14px; border:2px solid var(--accent); border-radius:12px; background:var(--surface); color:var(--ink); list-style:none; cursor:pointer; }
+.fg-photo-ideas > summary::-webkit-details-marker { display:none; }
+.fg-photo-ideas > summary > span { flex:1; min-width:0; }
+.fg-photo-ideas > summary strong { display:block; font-size:17px; line-height:1.35; font-weight:650; }
+.fg-photo-ideas > summary small { display:block; margin-top:5px; font-size:13px; line-height:1.45; color:var(--muted); }
+.fg-photo-ideas > summary > .fg-icon { flex-shrink:0; color:var(--accent); }
+.fg-photo-ideas[open] > summary > .fg-icon:last-child { transform:rotate(180deg); }
+.fg-photo-ideas > summary:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
+.fg-photo-ideas > article { padding:8px 2px; }

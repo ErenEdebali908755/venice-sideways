@@ -1,5 +1,5 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-main-ten";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-evening-eight";
 
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
@@ -56,23 +56,23 @@ export const NEARBY_GREEN_SPACES = [
 export const PLACE_COPY = {
   lucia: {
     name: "Venezia Santa Lucia",
-    text: { en: "The railway station marks the beginning of Main Walk, beside the Grand Canal.", tr: "Ana Yürüyüş, Büyük Kanal kıyısındaki tren istasyonundan başlar." },
+    text: { en: "The railway station marks the beginning of Main Walk, beside the Grand Canal.", tr: "Ana Yürüyüş, Büyük Kanal kıyısındaki tren istasyonundan başlar.", it: "La stazione ferroviaria segna l’inizio di Main Walk, accanto al Canal Grande.", fr: "La gare marque le départ de Main Walk, au bord du Canal Grande.", ru: "Вокзал у Canal Grande — начало маршрута Main Walk.", zh: "Canal Grande旁的火车站是Main Walk的起点。", ja: "Canal Grandeのそばにある駅が、Main Walkの出発点です。", ko: "Canal Grande 옆 기차역이 Main Walk의 출발점입니다." },
   },
   accademia: {
     name: "Ponte dell’Accademia",
-    text: { en: "Pause on the bridge to watch the Grand Canal change with the light.", tr: "Büyük Kanal’ın ışıkla değişen görünümünü izlemek için köprüde dur." },
+    text: { en: "Pause on the bridge to watch the Grand Canal change with the light.", tr: "Büyük Kanal’ın ışıkla değişen görünümünü izlemek için köprüde dur.", it: "Fermati sul ponte per osservare il Canal Grande cambiare con la luce.", fr: "Faites une pause sur le pont pour voir le Canal Grande changer avec la lumière.", ru: "Остановитесь на мосту и посмотрите, как свет меняет Canal Grande.", zh: "在桥上停一停，看看Canal Grande如何随光线变化。", ja: "橋でひと休みして、光とともに変わるCanal Grandeを眺めましょう。", ko: "다리 위에서 잠시 멈춰 빛에 따라 달라지는 Canal Grande를 바라보세요." },
   },
   dogana: {
     name: "Punta della Dogana",
-    text: { en: "At Dorsoduro’s tip, the former customs house stands where two waterways meet.", tr: "Dorsoduro’nun ucundaki eski gümrük binası iki su yolunun birleştiği yerde durur." },
+    text: { en: "At Dorsoduro’s tip, the former customs house stands where two waterways meet.", tr: "Dorsoduro’nun ucundaki eski gümrük binası iki su yolunun birleştiği yerde durur.", it: "Sulla punta di Dorsoduro, l’ex dogana sorge dove si incontrano due vie d’acqua.", fr: "À la pointe de Dorsoduro, l’ancienne douane se dresse au confluent de deux voies d’eau.", ru: "На оконечности Dorsoduro, у слияния двух водных путей, стоит бывшая таможня.", zh: "在Dorsoduro的尖端，昔日的海关建筑立于两条水道交汇处。", ja: "Dorsoduroの先端、二つの水路が出会う場所に旧税関が立っています。", ko: "Dorsoduro 끝자락에서 두 물길이 만나는 곳에 옛 세관이 서 있습니다." },
   },
   papadopoli: {
     name: "Giardini Papadopoli",
-    text: { en: "A mapped green space near the station. Check current access on site before visiting.", tr: "İstasyon yakınında haritalanmış bir yeşil alan. Gitmeden önce güncel erişimi yerinde kontrol et." },
+    text: { en: "A mapped green space near the station. Check current access on site before visiting.", tr: "İstasyon yakınında haritalanmış bir yeşil alan. Gitmeden önce güncel erişimi yerinde kontrol et.", it: "Uno spazio verde mappato vicino alla stazione. Verifica sul posto le condizioni d’accesso prima della visita.", fr: "Un espace vert cartographié près de la gare. Vérifiez sur place les conditions d’accès avant la visite.", ru: "Отмеченная на карте зелёная зона рядом с вокзалом. Перед посещением уточните условия входа на месте.", zh: "地图上标示的车站附近绿地。参观前请在现场确认开放情况。", ja: "駅の近くにある、地図に記載された緑地です。訪れる前に、現在の入場条件を現地で確認してください。", ko: "역 근처 지도에 표시된 녹지입니다. 방문 전 현장에서 현재 출입 조건을 확인하세요." },
   },
   savorgnan: {
     name: "Parco Savorgnan",
-    text: { en: "A mapped green space in Cannaregio. Check current access on site before visiting.", tr: "Cannaregio’da haritalanmış bir yeşil alan. Gitmeden önce güncel erişimi yerinde kontrol et." },
+    text: { en: "A mapped green space in Cannaregio. Check current access on site before visiting.", tr: "Cannaregio’da haritalanmış bir yeşil alan. Gitmeden önce güncel erişimi yerinde kontrol et.", it: "Uno spazio verde mappato a Cannaregio. Verifica sul posto le condizioni d’accesso prima della visita.", fr: "Un espace vert cartographié à Cannaregio. Vérifiez sur place les conditions d’accès avant la visite.", ru: "Отмеченная на карте зелёная зона в Cannaregio. Перед посещением уточните условия входа на месте.", zh: "地图上标示的Cannaregio绿地。参观前请在现场确认开放情况。", ja: "Cannaregioにある、地図に記載された緑地です。訪れる前に、現在の入場条件を現地で確認してください。", ko: "Cannaregio의 지도에 표시된 녹지입니다. 방문 전 현장에서 현재 출입 조건을 확인하세요." },
   },
 };
 

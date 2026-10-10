@@ -68,7 +68,7 @@ test('art landmarks use each verified walk’s coordinates and never become extr
  assert.equal(features.some(feature=>feature.properties.key==='trearchi'),true);
  assert.equal(GARDENS.length,2);
  assert.ok(placeCopy('dogana','tr').text);
- assert.equal(placeCopy('dogana','ja').text,placeCopy('dogana','en').text,'missing art copy uses explicit English fallback');
+ assert.notEqual(placeCopy('dogana','ja').text,placeCopy('dogana','en').text,'Japanese map note has its own approved translation');
  assert.equal(placeCopy('unknown','tr'),null);
 });
 test('garden artwork stays within the two attributed OSM polygon boundaries',()=>{
