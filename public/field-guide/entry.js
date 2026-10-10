@@ -45,12 +45,13 @@ async function boot(bundled=false) {
   try {
     const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261009-main'),json('/sideways/actv-water-paths.json')]);
     if(!Array.isArray(base.routes)||!base.routes.length)throw Error('No bundled routes');
-    let routes=base.routes;
+    let routes=base.routes,forcedBundled=false;
     const requested=new URLSearchParams(location.hash.slice(1)).get('route') || new URLSearchParams(location.search).get('route');
     if(!bundled) {
       const catalog=await json('/api/route-catalog');
+      forcedBundled=catalog.source==='bundled'&&catalog.reason==='operator_override';
       if(!Array.isArray(catalog.routes)||!catalog.routes.some(route=>route.key==='main'))throw Error('Unavailable route');
-      const available=catalog.routes.filter(route=>MAIN_WALK_PRESENTATION.routeKeys.includes(route.key));
+      const available=forcedBundled?[]:catalog.routes.filter(route=>MAIN_WALK_PRESENTATION.routeKeys.includes(route.key));
       const published=await Promise.all(available.map(async route=>route.published?await json('/api/routes/'+encodeURIComponent(route.key)):null));
       routes=replacePublishedRoutes(base.routes,published);
     }
@@ -58,7 +59,7 @@ async function boot(bundled=false) {
     if(!routes.some(route=>route.key==='main'))throw Error('No available routes');
     if(current!==generation)return;
     root.removeAttribute('aria-busy');
-    guide=new FieldGuide(root,{routes,presentation:MAIN_WALK_PRESENTATION,hiddenRouteNotice:!!requested&&!MAIN_WALK_PRESENTATION.routeKeys.includes(requested),lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
+    guide=new FieldGuide(root,{routes,presentation:MAIN_WALK_PRESENTATION,hiddenRouteNotice:!!requested&&!MAIN_WALK_PRESENTATION.routeKeys.includes(requested),lang:language(),water,referencePhotos:temporarySelection,publicLocation:true,localTestLocation:new URLSearchParams(location.search).get('gps-test')==='1',bundledNotice:bundled||forcedBundled,onRouteOpen:event=>measurement?.routeOpened(event),onLanguageChange:lang=>measurement?.languageChanged(lang),onPreferences:(containers,lang)=>measurement?.mountPreferences(containers,lang)});
     measurement?.pageReady(guide.lang);
     if(!bundled)json('/api/events').then(data=>{
       if(current!==generation||guide.disposed)return;

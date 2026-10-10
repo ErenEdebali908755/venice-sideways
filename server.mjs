@@ -22,8 +22,12 @@ async function filesIn(dir,prefix=''){
  }
  return files;
 }
-export async function createServer(){
+export async function createServer({env=process.env}={}){
  const files=await filesIn(ROOT);
+ // Operator-only recovery: captured at startup, never from query/cookies/headers.
+ // Bypass both the upstream and its stale cache without changing CMS publications.
+ const forceBundled=env.SIDEWAYS_FORCE_BUNDLED==='1';
+ const bundledCatalog=forceBundled?JSON.stringify({source:'bundled',reason:'operator_override',routes:JSON.parse(files.get('/field-guide/routes.json').body).routes.map(route=>({key:route.key,published:false}))}):null;
  return http.createServer(async(req,res)=>{
   res.setHeader('Content-Security-Policy',CSP);
   res.setHeader('X-Content-Type-Options','nosniff');
@@ -44,8 +48,9 @@ export async function createServer(){
   if(aliases.has(url.pathname)){res.writeHead(308,{Location:'/'+url.search});res.end();return;}
   let path;try{path=decodeURIComponent(url.pathname);}catch{res.writeHead(400);res.end('Invalid path');return;}
   if(path.includes('\\')||path.includes('\0')||path.split('/').some(s=>s.startsWith('.'))){res.writeHead(404);res.end('Not found');return;}
-  if(path==='/api/route-catalog'){const result=await readRouteCatalog();res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||'{}');return;}
+  if(path==='/api/route-catalog'){const result=forceBundled?{status:200,body:bundledCatalog}:await readRouteCatalog();res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.writeHead(result.status);res.end(req.method==='HEAD'?undefined:result.body||'{}');return;}
   if(path.startsWith('/api/routes/')){
+   if(forceBundled){res.setHeader('Content-Type','application/json');res.setHeader('Cache-Control','no-store');res.writeHead(404);res.end(req.method==='HEAD'?undefined:JSON.stringify({message:'Bundled guide recovery is active'}));return;}
    const result=await readPublishedRoute(path.slice('/api/routes/'.length));
    res.setHeader('Content-Type','application/json; charset=utf-8');
    res.setHeader('Cache-Control',result.status===200?'public, max-age=60':'no-store');
