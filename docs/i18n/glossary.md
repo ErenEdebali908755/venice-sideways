@@ -178,4 +178,3 @@ All reviewed prose is polite. Friendly photography prompts use 해요/하세요;
 Retain Italian names so captions match stop headings and signs: «Santa Lucia 기차역과 Ferrovia 선착장», «Campo San Barnaba», «Squero di San Trovaso», «Ponte dell’Accademia», «Ponte dei Tre Archi». Preserve Canale di Cannaregio, Canal Grande and Fondamente Nove where used as full names.
 
 Natural Korean spacing is retained around words and Latin names. History dates such as 1846년 1월 11일 and 15~16세기 are readable. Let text wrap naturally; the review does not claim rendered phone-line verification. Guided visits by reservation should explicitly say 가이드 동반 방문은 예약 필수.
-
