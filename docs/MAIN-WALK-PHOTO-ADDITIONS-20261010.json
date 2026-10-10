@@ -1538,8 +1538,8 @@
   },
   "measuredInitialLoad": {
     "beforeBytes": 2703392,
-    "afterBytes": 2770965,
-    "deltaBytes": 67573,
+    "afterBytes": 2771310,
+    "deltaBytes": 67918,
     "deltaPercent": 2.5,
     "beforeRuns": [
       2703392,
@@ -1547,9 +1547,9 @@
       2703392
     ],
     "afterRuns": [
-      2770965,
-      2770965,
-      2770965
+      2771310,
+      2771310,
+      2771310
     ],
     "newPhotoBytesOnOverview": 0,
     "method": "Three empty-cache Chromium/412px overview loads; same-origin resource timing bytes, API fixture identical, fonts ready and network idle plus 500ms; maps/photographs not opened.",

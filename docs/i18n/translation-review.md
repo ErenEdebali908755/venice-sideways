@@ -167,6 +167,10 @@ Distances and duration ranges use Intl.NumberFormat; stop counts use Intl.Plural
 
 Browser gate: all eight locales at 390px, all ten stop stories, all 50 photo ideas, gallery/detail/lightbox, overview/settings/map/privacy/stop list/photo panel/transit/completion; screenshots plus DOM text-overflow checks. Geographic markers partially outside the map viewport and provider map attribution are not treated as text-layout failures. Main walkthrough also runs WebKit 390/TR and Chromium 412/EN. Results are recorded separately from this review.
 
+## Visual line-break correction
+
+Parent screenshot review caught Korean 아이디어 and Japanese 5つ splitting across title lines despite zero horizontal overflow. Korean prose/controls now keep words together, Chinese/Japanese use strict punctuation breaks, and the Japanese photo-idea heading balances its lines. The mobile browser gate measures the full word/count range on every stop title as one rendered line fragment.
+
 ## Scope limits
 
 This audits Main Walk and its shared visitor controls, not Full Walk editorial copy. No geometry, permissions, schema, production database or publishing policy is changed. Newly added photograph captions are separately checked against their photographed content and must have eight localized alternatives.

@@ -63,6 +63,14 @@ try{
     if(i===0||i===main.visits.length-1)await page.screenshot({path:resolve(out,`${i===0?'first':'last'}-stop-${lang}.png`)});
     const summary=page.locator('.fg-photo-ideas > summary');await summary.scrollIntoViewIfNeeded();
     check((await summary.innerText()).includes(uiCopy('5 photo ideas to try at this stop',lang)),visit.key+': localized five-ideas button');
+    if(lang==='ko'||lang==='ja'){
+     const word=lang==='ko'?'아이디어':'5つ';
+     const unbroken=await summary.locator('strong').evaluate((element,word)=>{
+      const text=element.firstChild,index=text.textContent.indexOf(word);if(index<0)return false;
+      const range=document.createRange();range.setStart(text,index);range.setEnd(text,index+word.length);return range.getClientRects().length===1;
+     },word);check(unbroken,visit.key+': natural '+lang+' title word/count wrapping');
+    }
+
     await summary.click();const articles=page.locator('.fg-photo-ideas > article');check(await articles.count()===5,visit.key+': five ideas');
     for(let j=0;j<5;j++){
      await articles.nth(j).scrollIntoViewIfNeeded();const idea=visit.ideas[j].copy.find(c=>c.locale===lang),shown=await articles.nth(j).innerText();

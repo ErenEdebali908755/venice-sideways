@@ -49,4 +49,4 @@ No Full Walk gallery, geometry, original cover image, empty/revoked admin galler
 
 ## Measured initial load
 
-Three empty-cache 412px Chromium overview runs per revision, fonts ready and network idle. Before: **2,703,392 B** in each run; after: **2,770,965 B** in each run; **+67,573 B / 2.5%**. Added gallery image bytes on overview: **0 B**. This measures same-origin resource body size locally, including scripts, bundled data, fonts and artwork. It does not measure cellular latency or CDN compression. Third-party map traffic is excluded from the comparison.
+Three empty-cache 412px Chromium overview runs per revision, fonts ready and network idle. Before: **2,703,392 B** in each run; after: **2,771,310 B** in each run; **+67,918 B / 2.5%**. Added gallery image bytes on overview: **0 B**. This measures same-origin resource body size locally, including scripts, bundled data, fonts and artwork. It does not measure cellular latency or CDN compression. Third-party map traffic is excluded from the comparison.
