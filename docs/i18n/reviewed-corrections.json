@@ -1,0 +1,2545 @@
+[
+  {
+    "id": "west-1",
+    "inventoryId": 407,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[en].theme",
+    "locale": "en",
+    "old": "Light",
+    "new": "Balance",
+    "reason": "Theme is stale after the idea changed to comparing foreground/background balance.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-2",
+    "inventoryId": 461,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[en].theme",
+    "locale": "en",
+    "old": "Colour",
+    "new": "Negative space",
+    "reason": "Theme is stale after the idea changed to observing gaps between boats.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-3",
+    "inventoryId": 407,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[tr].theme",
+    "locale": "tr",
+    "old": "Işık",
+    "new": "Denge",
+    "reason": "Theme is stale after the idea changed to comparing foreground/background balance.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-4",
+    "inventoryId": 461,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[tr].theme",
+    "locale": "tr",
+    "old": "Renk",
+    "new": "Boşluk",
+    "reason": "Theme is stale after the idea changed to observing gaps between boats.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-5",
+    "inventoryId": 407,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[it].theme",
+    "locale": "it",
+    "old": "Luce",
+    "new": "Equilibrio",
+    "reason": "Theme is stale after the idea changed to comparing foreground/background balance.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-6",
+    "inventoryId": 461,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[it].theme",
+    "locale": "it",
+    "old": "Colore",
+    "new": "Spazio negativo",
+    "reason": "Theme is stale after the idea changed to observing gaps between boats.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-7",
+    "inventoryId": 407,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[fr].theme",
+    "locale": "fr",
+    "old": "Lumière",
+    "new": "Équilibre",
+    "reason": "Theme is stale after the idea changed to comparing foreground/background balance.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-8",
+    "inventoryId": 461,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[fr].theme",
+    "locale": "fr",
+    "old": "Couleur",
+    "new": "Espace vide",
+    "reason": "Theme is stale after the idea changed to observing gaps between boats.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-9",
+    "inventoryId": 222,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[1].copy[en].title",
+    "locale": "en",
+    "old": "Vaporetto",
+    "new": "Vaporetto · waterbus",
+    "reason": "Explain the local transport term once without changing the route.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-10",
+    "inventoryId": 193,
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy[en].alt",
+    "locale": "en",
+    "old": "San Giacomo dell’Orio: church, bell tower and open campo.",
+    "new": "San Giacomo dell’Orio: church, bell tower and open campo (square).",
+    "reason": "Explain campo for a visitor without translating the place name.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-11",
+    "inventoryId": 275,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[1].gallery[0].copy[en].alt",
+    "locale": "en",
+    "old": "San Giacomo dell’Orio: church, bell tower and open campo.",
+    "new": "San Giacomo dell’Orio: church, bell tower and open campo (square).",
+    "reason": "Explain campo for a visitor without translating the place name.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-12",
+    "inventoryId": 194,
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy[en].caption",
+    "locale": "en",
+    "old": "San Giacomo dell’Orio: church, bell tower and open campo. · 2013",
+    "new": "San Giacomo dell’Orio: church, bell tower and open campo (square). · 2013",
+    "reason": "Explain campo for a visitor; preserve the date.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-13",
+    "inventoryId": 276,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[1].gallery[0].copy[en].caption",
+    "locale": "en",
+    "old": "San Giacomo dell’Orio: church, bell tower and open campo. · 2013",
+    "new": "San Giacomo dell’Orio: church, bell tower and open campo (square). · 2013",
+    "reason": "Explain campo for a visitor; preserve the date.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-14",
+    "inventoryId": 26,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Illustration awaiting identity review.\"]",
+    "locale": "tr",
+    "old": "Çizimin yer kimliği kontrol bekliyor.",
+    "new": "Çizimde gösterilen yer henüz doğrulanmadı.",
+    "reason": "Replace the unclear literal phrase yer kimliği kontrol bekliyor with a natural review status.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-15",
+    "inventoryId": 80,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Retry photograph\"]",
+    "locale": "tr",
+    "old": "Fotoğrafı yeniden dene",
+    "new": "Fotoğrafı yeniden yükle",
+    "reason": "The action retries loading an existing image; it does not retry taking a photo.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-16",
+    "inventoryId": 128,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Explore the walks\"]",
+    "locale": "tr",
+    "old": "Rotayı keşfet",
+    "new": "Rotaları keşfet",
+    "reason": "Preserve the plural walks in the source, consistent with route selection.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-17",
+    "inventoryId": 166,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"The boat transfer is separate from the photo-stop count.\"]",
+    "locale": "tr",
+    "old": "Tekne aktarımı fotoğraf durağı sayısına dahil değildir.",
+    "new": "Tekne aktarması fotoğraf durağı sayısına dahil değildir.",
+    "reason": "Use aktarma for a transport connection; aktarım describes transfer of content or material.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-18",
+    "inventoryId": 184,
+    "file": "public/field-guide/map-art.js",
+    "path": "PLACE_COPY.lucia.text.tr",
+    "locale": "tr",
+    "old": "Ana Yürüyüş, Büyük Kanal kıyısındaki tren istasyonundan başlar.",
+    "new": "Main Walk, Büyük Kanal kıyısındaki tren istasyonundan başlar.",
+    "reason": "Keep the same route name used in the route title and overview.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-19",
+    "inventoryId": 221,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[0].copy[tr].title",
+    "locale": "tr",
+    "old": "Walking",
+    "new": "Yürüyüş",
+    "reason": "Translate the remaining English segment title.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-20",
+    "inventoryId": 224,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[2].copy[tr].title",
+    "locale": "tr",
+    "old": "Walking",
+    "new": "Yürüyüş",
+    "reason": "Translate the remaining English segment title.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-21",
+    "inventoryId": 222,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[1].copy[tr].title",
+    "locale": "tr",
+    "old": "Vaporetto",
+    "new": "Vaporetto · su otobüsü",
+    "reason": "Explain the local transport term once.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-22",
+    "inventoryId": 336,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[4].ideas[0].copy[tr].text",
+    "locale": "tr",
+    "old": "Meydanda bir renk seç, kanal yakınında onun gevşek bir yankısını ara. Başka türlü ilgisiz görünen ayrıntıları birbirine bağlasın.",
+    "new": "Meydanda bir renk seç, kanal yakınında o rengi çağrıştıran bir ayrıntı ara. Başka türlü ilgisiz görünen ayrıntıları birbirine bağlasın.",
+    "reason": "Gevşek bir yankı is a literal calque that obscures the visual colour connection.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-23",
+    "inventoryId": 388,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].copy[tr].text",
+    "locale": "tr",
+    "old": "Giudecca Kanalı kıyısı. İki yürüyüşte de soluklanma adayıdır; artık ana rotanın sonu değildir.",
+    "new": "Giudecca Kanalı boyunca uzanan Dorsoduro kıyısı. Mola verebilirsin; Main Walk buradan devam eder.",
+    "reason": "Reconcile with approved TR: Zattere is no longer Main Walk’s finish. Keep the present visitor route clear and omit legacy two-walk/original-finish framing; no historical assertion added.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-24",
+    "inventoryId": 80,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Retry photograph\"]",
+    "locale": "it",
+    "old": "Riprova la fotografia",
+    "new": "Ricarica la foto",
+    "reason": "Riprova la fotografia is not a natural image-loading action.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-25",
+    "inventoryId": 136,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Retry map\"]",
+    "locale": "it",
+    "old": "Riprova la mappa",
+    "new": "Ricarica la mappa",
+    "reason": "Use a clear loading action rather than retrying the map itself.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-26",
+    "inventoryId": 99,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Raw coordinates are not sent to organisers or analytics. Location starts as a marker only. Follow or recenter sends map requests for the area you view.\"]",
+    "locale": "it",
+    "old": "Le coordinate non vengono inviate agli organizzatori o alle statistiche. La posizione mostra prima solo un punto. Segui o ricentra invia richieste per l’area visualizzata.",
+    "new": "Le coordinate grezze non vengono inviate agli organizzatori o ai sistemi di analisi. All’inizio la posizione appare solo come un indicatore. Seguire la posizione o ricentrare la mappa invia richieste per l’area visualizzata.",
+    "reason": "Restore raw coordinates, replace alle statistiche with a valid recipient, and use grammatical infinitives for the two map actions.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-27",
+    "inventoryId": 262,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[1].ideas[2].copy[it].title",
+    "locale": "it",
+    "old": "Cambia atmosfera, conserva il quadro",
+    "new": "Cambia atmosfera, conserva l’inquadratura",
+    "reason": "Use the photographic term inquadratura consistently; quadro is ambiguous.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-28",
+    "inventoryId": 315,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[3].ideas[1].copy[it].phoneTip",
+    "locale": "it",
+    "old": "Se il quadro è affollato, fai foto separate. Non devi inscenare nulla.",
+    "new": "Se l’inquadratura è troppo affollata, scatta foto separate in modalità normale. Non devi inscenare nulla.",
+    "reason": "Use the photographic term and retain the ordinary-camera instruction.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-29",
+    "inventoryId": 390,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[0].copy[it].text",
+    "locale": "it",
+    "old": "Prova con l’orizzonte alto, poi basso. Come cambiano la sensazione acqua e cielo senza cambiare luogo?",
+    "new": "Prova con l’orizzonte alto, poi basso. Nota come acqua e cielo cambiano la sensazione senza cambiare luogo.",
+    "reason": "Repair unnatural subject order while preserving the visual comparison.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-30",
+    "inventoryId": 394,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[1].copy[it].text",
+    "locale": "it",
+    "old": "Accosta un dettaglio pubblico vicino al Canale della Giudecca. Lascia lavorare la differenza di scala.",
+    "new": "Inquadra un piccolo dettaglio dello spazio pubblico in primo piano, con il Canale della Giudecca sullo sfondo. Lascia agire la differenza di scala.",
+    "reason": "The existing wording loses foreground-versus-background and sounds like moving an object near the canal.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-31",
+    "inventoryId": 402,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[3].copy[it].text",
+    "locale": "it",
+    "old": "Lascia che una forma lontana interrompa il panorama ampio. Cambia la sua posizione nel quadro o conserva il vuoto.",
+    "new": "Lascia che una forma lontana interrompa il panorama ampio. Cambia la sua posizione nell’inquadratura o conserva il vuoto.",
+    "reason": "Use inquadratura consistently for the photographic frame.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-32",
+    "inventoryId": 405,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[it].title",
+    "locale": "it",
+    "old": "Un colore serale altrove",
+    "new": "Una scena, due equilibri",
+    "reason": "The current Italian title belongs to the superseded evening-colour task.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-33",
+    "inventoryId": 406,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[it].text",
+    "locale": "it",
+    "old": "La sera guarda lontano dal cielo più luminoso e cerca colore sull’acqua o sulla pietra. In altri momenti cerca una luce più morbida.",
+    "new": "Scegli una piccola forma in primo piano e una barca o un dettaglio della riva in lontananza. In una foto lascia che prevalga la forma vicina; in un’altra dai più spazio alla distanza. Che cosa cambia anche se i due soggetti restano gli stessi?",
+    "reason": "Replace the superseded evening-colour task with the current approved EN/TR foreground/background comparison.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-34",
+    "inventoryId": 408,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].ideas[4].copy[it].phoneTip",
+    "locale": "it",
+    "old": "Se disponibile, regola delicatamente la luminosità. Va bene anche l’automatismo.",
+    "new": "Resta ben lontano dal bordo. Cambia angolazione o ritaglia una copia: una normale foto a 1× basta per confrontare le due scelte.",
+    "reason": "Replace the stale brightness instruction and restore the current safe-viewpoint instruction.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-35",
+    "inventoryId": 450,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[1].copy[it].phoneTip",
+    "locale": "it",
+    "old": "Foto normale mantiene visibile l’ambiente. Non servono sfocature o sporgenze.",
+    "new": "La modalità Foto normale mantiene visibile l’ambiente. Non servono la sfocatura da ritratto né sporgersi.",
+    "reason": "Sporgenze means protrusions; the source refers to leaning out.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-36",
+    "inventoryId": 458,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[3].copy[it].phoneTip",
+    "locale": "it",
+    "old": "Cambia solo quadro o ritaglio. Mantieni semplici le impostazioni.",
+    "new": "Cambia solo l’inquadratura o il ritaglio. Mantieni semplici le impostazioni per confrontare chiaramente le due immagini.",
+    "reason": "Use inquadratura and retain the purpose of keeping the settings simple.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-37",
+    "inventoryId": 459,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[it].title",
+    "locale": "it",
+    "old": "Una vista collegata dal colore",
+    "new": "Lascia che il vuoto diventi il soggetto",
+    "reason": "The current Italian title belongs to the superseded near/far colour task.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-38",
+    "inventoryId": 460,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[it].text",
+    "locale": "it",
+    "old": "Trova un colore discreto vicino e uno simile lontano. Lascia collegare le distanze al colore invece che a una linea.",
+    "new": "Da un punto in cui puoi fermarti in sicurezza, osserva come cambiano gli spazi tra le barche sul canale. Invece di seguire una barca, scegli una zona d’acqua e lascia che arrivi una nuova disposizione. Potresti preferire proprio la versione vuota.",
+    "reason": "Replace the superseded colour task with the current approved EN/TR gaps-between-boats task.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-39",
+    "inventoryId": 462,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[8].ideas[4].copy[it].phoneTip",
+    "locale": "it",
+    "old": "Includi entrambi. Non serve un teleobiettivo: il colore lontano può restare piccolo.",
+    "new": "Tieni la fotocamera normale nella stessa posizione e usa il pulsante di scatto abituale. Non servono raffica, zoom o soste sui gradini del ponte.",
+    "reason": "Replace the stale telephoto instruction with the current stable-camera instruction.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-40",
+    "inventoryId": 471,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[9].ideas[0].copy[it].text",
+    "locale": "it",
+    "old": "Scegli un quadro semplice dalla fondamenta e ripetilo al cambiare della luce. Confronta l’atmosfera senza inseguire il sole.",
+    "new": "Scegli un’inquadratura semplice dalla fondamenta e ripetila al cambiare della luce. Confronta l’atmosfera senza inseguire il sole.",
+    "reason": "Use inquadratura consistently for the photographic frame.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-41",
+    "inventoryId": 486,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[9].ideas[4].copy[it].title",
+    "locale": "it",
+    "old": "Un piccolo bagliore in un quadro grande",
+    "new": "Un piccolo bagliore in un’inquadratura ampia",
+    "reason": "Use inquadratura consistently for the photographic frame.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-42",
+    "inventoryId": 80,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Retry photograph\"]",
+    "locale": "fr",
+    "old": "Réessayer la photographie",
+    "new": "Recharger la photo",
+    "reason": "Réessayer la photographie sounds like taking the photograph again rather than loading it.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-43",
+    "inventoryId": 136,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Retry map\"]",
+    "locale": "fr",
+    "old": "Réessayer la carte",
+    "new": "Recharger la carte",
+    "reason": "Name the loading action naturally.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-44",
+    "inventoryId": 92,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Map could not load. Stops and directions remain available.\"]",
+    "locale": "fr",
+    "old": "La carte n’a pas pu charger. Les étapes et itinéraires restent disponibles.",
+    "new": "La carte n’a pas pu se charger. Les étapes et itinéraires restent disponibles.",
+    "reason": "Use the reflexive se charger for content loading.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-45",
+    "inventoryId": 93,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Some map details could not load. Stops and directions remain available.\"]",
+    "locale": "fr",
+    "old": "Certains détails n’ont pas chargé. Les étapes et itinéraires restent disponibles.",
+    "new": "Certains détails de la carte n’ont pas pu se charger. Les étapes et itinéraires restent disponibles.",
+    "reason": "Use the reflexive se charger and keep the map context.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-46",
+    "inventoryId": 99,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Raw coordinates are not sent to organisers or analytics. Location starts as a marker only. Follow or recenter sends map requests for the area you view.\"]",
+    "locale": "fr",
+    "old": "Les coordonnées ne sont envoyées ni aux organisateurs ni aux statistiques. La position affiche d’abord un point. Suivre ou recentrer envoie des requêtes pour la zone affichée.",
+    "new": "Les coordonnées brutes ne sont envoyées ni aux organisateurs ni aux outils d’analyse. Au début, votre position apparaît seulement sous forme de repère. Suivre la position ou recentrer la carte envoie des requêtes pour la zone affichée.",
+    "reason": "Restore raw coordinates and use natural wording for analytics recipients and the position marker.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-47",
+    "inventoryId": 176,
+    "file": "public/field-guide/ui-copy.js",
+    "path": "rows[\"Location & map privacy\"]",
+    "locale": "fr",
+    "old": "Confidentialité de la position et carte",
+    "new": "Confidentialité de la position et de la carte",
+    "reason": "Repair the missing second preposition/article.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-48",
+    "inventoryId": 179,
+    "file": "public/field-guide/entry.js",
+    "path": "bootCopy.fr.detail",
+    "locale": "fr",
+    "old": "La publication actuelle n’a pas pu être vérifiée. Aucun arrêt n’a été sélectionné.",
+    "new": "La dernière publication n’a pas pu être vérifiée. Aucune étape n’a été sélectionnée.",
+    "reason": "Use étape consistently for a walk stop and preserve latest publication.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-49",
+    "inventoryId": 221,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[0].copy[fr].title",
+    "locale": "fr",
+    "old": "Walking",
+    "new": "À pied",
+    "reason": "Translate the remaining English segment title.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-50",
+    "inventoryId": 224,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[2].copy[fr].title",
+    "locale": "fr",
+    "old": "Walking",
+    "new": "À pied",
+    "reason": "Translate the remaining English segment title.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-51",
+    "inventoryId": 222,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[1].copy[fr].title",
+    "locale": "fr",
+    "old": "Vaporetto",
+    "new": "Vaporetto · bateau-bus",
+    "reason": "Explain the local transport term once.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-52",
+    "inventoryId": 223,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].segments[1].copy[fr].text",
+    "locale": "fr",
+    "old": "Une correspondance : Accademia → Ferrovia par l’ACTV 1 vers Piazzale Roma, puis Ferrovia → Tre Archi par la 5.2 vers Guglie / Fondamente Nove. Suivez les panneaux actuels : le ponton peut changer. Le trait bleu est schématique, pas un suivi en direct ni une trajectoire exacte. Vérifiez horaires, avis de service et billet.",
+    "new": "Une correspondance : Accademia → Ferrovia par l’ACTV 1 vers Piazzale Roma, puis Ferrovia → Tre Archi par la 5.2 vers Guglie / Fondamente Nove. Suivez les panneaux actuels : le ponton peut changer. Les pointillés bleus indiquent une liaison approximative en bateau, sans suivi en direct ni trajet exact. Vérifiez les horaires, les avis de service et la validité du billet.",
+    "reason": "Restore dashed-line meaning and ticket validity, both weakened in the current shortened translation.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-53",
+    "inventoryId": 193,
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy[fr].alt",
+    "locale": "fr",
+    "old": "San Giacomo dell’Orio : église, campanile et campo.",
+    "new": "San Giacomo dell’Orio : église, campanile et campo (place).",
+    "reason": "Explain campo without changing the place name.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-54",
+    "inventoryId": 275,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[1].gallery[0].copy[fr].alt",
+    "locale": "fr",
+    "old": "San Giacomo dell’Orio : église, campanile et campo.",
+    "new": "San Giacomo dell’Orio : église, campanile et campo (place).",
+    "reason": "Explain campo without changing the place name.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-55",
+    "inventoryId": 194,
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy[fr].caption",
+    "locale": "fr",
+    "old": "San Giacomo dell’Orio : église, campanile et campo. · 2013",
+    "new": "San Giacomo dell’Orio : église, campanile et campo (place). · 2013",
+    "reason": "Explain campo and preserve the date.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-56",
+    "inventoryId": 276,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[1].gallery[0].copy[fr].caption",
+    "locale": "fr",
+    "old": "San Giacomo dell’Orio : église, campanile et campo. · 2013",
+    "new": "San Giacomo dell’Orio : église, campanile et campo (place). · 2013",
+    "reason": "Explain campo and preserve the date.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-57",
+    "inventoryId": 347,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[4].ideas[3].copy[fr].title",
+    "locale": "fr",
+    "old": "Une forme et son jumeau imparfait",
+    "new": "Une forme et sa jumelle imparfaite",
+    "reason": "Make the twin agree with the feminine forme.",
+    "severity": "minor"
+  },
+  {
+    "id": "west-58",
+    "inventoryId": 370,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[5].ideas[2].copy[fr].title",
+    "locale": "fr",
+    "old": "Qu’est-ce qui tient ensemble ?",
+    "new": "Qu’est-ce qui relie les choses ?",
+    "reason": "The current question asks what stays together rather than what holds the parts together.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-59",
+    "inventoryId": 388,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].copy[fr].text",
+    "locale": "fr",
+    "old": "Le quai du canal de la Giudecca. Une respiration possible dans les deux parcours, plus l’arrivée du principal.",
+    "new": "Le quai de Dorsoduro au bord du canal de la Giudecca. Un lieu où faire une pause ; Main Walk se poursuit ensuite.",
+    "reason": "Reconcile with approved TR: Zattere is no longer Main Walk’s finish. Keep the present visitor route clear and omit legacy two-walk/original-finish framing; no historical assertion added.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-60",
+    "inventoryId": 388,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].copy[en].text",
+    "locale": "en",
+    "old": "The Dorsoduro waterfront beside the Giudecca Canal. This is the original first walk’s finish.",
+    "new": "The Dorsoduro waterfront beside the Giudecca Canal. A place to pause; Main Walk continues from here.",
+    "reason": "Reconcile with approved TR: Zattere is no longer Main Walk’s finish. Keep the present visitor route clear and omit legacy two-walk/original-finish framing; no historical assertion added.",
+    "severity": "meaning"
+  },
+  {
+    "id": "west-61",
+    "inventoryId": 388,
+    "file": "public/field-guide/routes.json",
+    "path": "routes[key=main].visits[6].copy[it].text",
+    "locale": "it",
+    "old": "La fondamenta di Dorsoduro lungo il Canale della Giudecca. Era il punto di arrivo del primo itinerario originale.",
+    "new": "La fondamenta di Dorsoduro lungo il Canale della Giudecca. Una pausa lungo Main Walk, che prosegue da qui.",
+    "reason": "Reconcile with approved TR: Zattere is no longer Main Walk’s finish. Keep the present visitor route clear and omit legacy two-walk/original-finish framing; no historical assertion added.",
+    "severity": "meaning"
+  },
+  {
+    "id": "ru-2",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[0].copy.title",
+    "locale": "ru",
+    "old": "Walking",
+    "new": "Пешком",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ru-5",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[2].copy.title",
+    "locale": "ru",
+    "old": "Walking",
+    "new": "Пешком",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ru-3",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.title",
+    "locale": "ru",
+    "old": "Vaporetto",
+    "new": "Вапоретто (водный автобус)",
+    "reason": "Explain vaporetto with the local waterbus term; original transit type remains recognizable."
+  },
+  {
+    "id": "ru-4",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.text",
+    "locale": "ru",
+    "old": "Одна пересадка: Accademia → Ferrovia на ACTV 1 в сторону Piazzale Roma, затем Ferrovia → Tre Archi на 5.2 в сторону Guglie / Fondamente Nove. Следуйте актуальным указателям: причал может меняться. Синий пунктир — примерная схема, а не отслеживание судна или точный путь. Проверьте расписание, объявления и билет.",
+    "new": "Одна пересадка: Accademia → Ferrovia на ACTV 1 в сторону Piazzale Roma, затем Ferrovia → Tre Archi на 5.2 в сторону Guglie / Fondamente Nove. Следуйте актуальным указателям: причал может меняться. Синий пунктир — примерная схема, а не отслеживание судна или точный путь. Проверьте расписание, объявления и действительность билета.",
+    "reason": "Both approved EN and TR require checking ticket validity. Translation currently only says to check the ticket."
+  },
+  {
+    "id": "ru-141",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].copy.title",
+    "locale": "ru",
+    "old": "San Trovaso · окрестности squero",
+    "new": "San Trovaso · окрестности верфи (squero)",
+    "reason": "Explain squero where it first appears as a stop label; the supplied description already defines it as a boatbuilding and repair yard."
+  },
+  {
+    "id": "zh-2",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[0].copy.title",
+    "locale": "zh",
+    "old": "Walking",
+    "new": "步行",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "zh-5",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[2].copy.title",
+    "locale": "zh",
+    "old": "Walking",
+    "new": "步行",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "zh-3",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.title",
+    "locale": "zh",
+    "old": "Vaporetto",
+    "new": "Vaporetto（水上巴士）",
+    "reason": "Explain vaporetto with the local waterbus term; original transit type remains recognizable."
+  },
+  {
+    "id": "zh-4",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.text",
+    "locale": "zh",
+    "old": "需要换乘一次：从Accademia乘Piazzale Roma方向的ACTV 1路到Ferrovia，再乘Guglie / Fondamente Nove方向的5.2路到Tre Archi。以现场站牌为准，乘船码头可能变化。蓝色虚线只是大致乘船连接，并非船只实时位置或准确航迹。请核对时刻、服务公告及船票。",
+    "new": "需要换乘一次：从Accademia乘Piazzale Roma方向的ACTV 1路到Ferrovia，再乘Guglie / Fondamente Nove方向的5.2路到Tre Archi。以现场站牌为准，乘船码头可能变化。蓝色虚线只是大致乘船连接，并非船只实时位置或准确航迹。请核对时刻、服务公告及船票是否有效。",
+    "reason": "Both approved EN and TR require checking ticket validity. Translation currently only says to check the ticket."
+  },
+  {
+    "id": "zh-141",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].copy.title",
+    "locale": "zh",
+    "old": "San Trovaso · squero周边",
+    "new": "San Trovaso · squero（造船修船场）周边",
+    "reason": "Explain squero where it first appears as a stop label; the supplied description already defines it as a boatbuilding and repair yard."
+  },
+  {
+    "id": "ja-2",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[0].copy.title",
+    "locale": "ja",
+    "old": "Walking",
+    "new": "徒歩",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ja-5",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[2].copy.title",
+    "locale": "ja",
+    "old": "Walking",
+    "new": "徒歩",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ja-3",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.title",
+    "locale": "ja",
+    "old": "Vaporetto",
+    "new": "ヴァポレット（水上バス）",
+    "reason": "Explain vaporetto with the local waterbus term; original transit type remains recognizable."
+  },
+  {
+    "id": "ja-4",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.text",
+    "locale": "ja",
+    "old": "乗り換えは一回です。AccademiaからPiazzale Roma方面のACTV 1番でFerroviaへ、そこからGuglie / Fondamente Nove方面の5.2番でTre Archiへ。乗り場が変わる場合があるため現地の案内に従ってください。青い破線は概略であり、船の現在地や正確な航路ではありません。時刻・運行情報・切符を確認してください。",
+    "new": "乗り換えは一回です。AccademiaからPiazzale Roma方面のACTV 1番でFerroviaへ、そこからGuglie / Fondamente Nove方面の5.2番でTre Archiへ。乗り場が変わる場合があるため現地の案内に従ってください。青い破線は概略であり、船の現在地や正確な航路ではありません。時刻・運行情報・切符の有効性を確認してください。",
+    "reason": "Both approved EN and TR require checking ticket validity. Translation currently only says to check the ticket."
+  },
+  {
+    "id": "ja-141",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].copy.title",
+    "locale": "ja",
+    "old": "San Trovaso・squeroの周辺",
+    "new": "San Trovaso・squero（造船・修理場）の周辺",
+    "reason": "Explain squero where it first appears as a stop label; the supplied description already defines it as a boatbuilding and repair yard."
+  },
+  {
+    "id": "ko-2",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[0].copy.title",
+    "locale": "ko",
+    "old": "Walking",
+    "new": "도보",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ko-5",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[2].copy.title",
+    "locale": "ko",
+    "old": "Walking",
+    "new": "도보",
+    "reason": "Untranslated English segment label; use the same walking term as the localized visitor UI."
+  },
+  {
+    "id": "ko-3",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.title",
+    "locale": "ko",
+    "old": "Vaporetto",
+    "new": "바포레토(수상버스)",
+    "reason": "Explain vaporetto with the local waterbus term; original transit type remains recognizable."
+  },
+  {
+    "id": "ko-4",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].segments[1].copy.text",
+    "locale": "ko",
+    "old": "한 번 갈아탑니다. Accademia에서 Piazzale Roma 방향 ACTV 1번으로 Ferrovia까지, 이어 Guglie / Fondamente Nove 방향 5.2번으로 Tre Archi까지 갑니다. 승선장이 바뀔 수 있으니 현장 표지판을 따르세요. 파란 점선은 대략적인 배 연결이며 실시간 위치나 정확한 항로가 아닙니다. 시간표, 운행 공지, 승차권을 확인하세요.",
+    "new": "한 번 갈아탑니다. Accademia에서 Piazzale Roma 방향 ACTV 1번으로 Ferrovia까지, 이어 Guglie / Fondamente Nove 방향 5.2번으로 Tre Archi까지 갑니다. 승선장이 바뀔 수 있으니 현장 표지판을 따르세요. 파란 점선은 대략적인 배 연결이며 실시간 위치나 정확한 항로가 아닙니다. 시간표, 운행 공지, 승차권의 유효 여부를 확인하세요.",
+    "reason": "Both approved EN and TR require checking ticket validity. Translation currently only says to check the ticket."
+  },
+  {
+    "id": "ko-141",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].copy.title",
+    "locale": "ko",
+    "old": "San Trovaso · squero 주변",
+    "new": "San Trovaso · squero(조선·수리 작업장) 주변",
+    "reason": "Explain squero where it first appears as a stop label; the supplied description already defines it as a boatbuilding and repair yard."
+  },
+  {
+    "id": "ru-150",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].ideas[1].copy.phoneTip",
+    "locale": "ru",
+    "old": "Достаточно обрезки обычного снимка. Телекамера и особый доступ не нужны.",
+    "new": "Достаточно обрезки обычного снимка. Камера с телеобъективом и особый доступ не нужны.",
+    "reason": "Телекамера normally means television camera, not a telephoto camera. Restore the photographic equipment meaning."
+  },
+  {
+    "id": "ru-437",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Drag or use arrow keys to resize the stop panel",
+    "locale": "ru",
+    "old": "Потяните или используйте стрелки для размера панели",
+    "new": "Перетащите границу панели остановки или используйте клавиши со стрелками, чтобы изменить её размер.",
+    "reason": "The resize instruction lacks a grammatical verb phrase and the stop-panel object; make the stated interaction understandable."
+  },
+  {
+    "id": "ru-423",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "I left the boat · walk to {name}",
+    "locale": "ru",
+    "old": "Я сошёл · идти к {name}",
+    "new": "После высадки · пешком к {name}",
+    "reason": "The first-person past tense сошёл assumes a male visitor. Use a neutral arrival confirmation without changing the action."
+  },
+  {
+    "id": "ru-305",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Walk + vaporetto",
+    "locale": "ru",
+    "old": "Пешком + вапоретто",
+    "new": "Пешком + вапоретто (водный автобус)",
+    "reason": "Explain the unfamiliar Italian transport term on the overview where visitors first encounter it."
+  },
+  {
+    "id": "zh-121",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[1].copy.text",
+    "locale": "zh",
+    "old": "在公共建筑的边缘之间寻找狭窄的视角。只露出广场的一小条，像走过时偶然瞥见。",
+    "new": "在公共通道上，寻找建筑边缘之间的狭窄视角。只露出广场的一小条，像走过时偶然瞥见。",
+    "reason": "公共建筑 means public/institutional buildings; the source means framing architectural edges from public access, not a particular ownership class."
+  },
+  {
+    "id": "zh-167",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].story.copy.interestingDetail",
+    "locale": "zh",
+    "old": "木屋的山间小屋外观，与早期船厂主人来自Cadore的木工传统有关。",
+    "new": "木屋的山间小屋外观，与来自Cadore的早期squero船厂主人的木工传统有关。",
+    "reason": "Repair the attachment of 来自Cadore: it describes the early owners, not their tradition. Keep the squero term tied to its explanation."
+  },
+  {
+    "id": "zh-356",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Retry photograph",
+    "locale": "zh",
+    "old": "重试照片",
+    "new": "重新加载照片",
+    "reason": "A photo itself cannot be retried; identify reloading as the action."
+  },
+  {
+    "id": "zh-440",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "More stop",
+    "locale": "zh",
+    "old": "扩大站点",
+    "new": "扩大站点面板",
+    "reason": "The control enlarges the stop panel, not the physical stop."
+  },
+  {
+    "id": "ja-117",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[0].copy.text",
+    "locale": "ja",
+    "old": "広場の色をひとつ選び、運河の近くでゆるい響きを探します。無関係に見える細部を色で結びましょう。",
+    "new": "広場の色をひとつ選び、運河の近くで似た色を探します。無関係に見える細部を色で結びましょう。",
+    "reason": "響き is acoustic resonance here; use visual colour recurrence so the exercise is clear."
+  },
+  {
+    "id": "ja-129",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[3].copy.text",
+    "locale": "ja",
+    "old": "見えている形と、水の中の整わない響きを探します。不完全なほうが気になりますか。",
+    "new": "見えている形と、水面に映る少し崩れた姿を探します。不完全なほうが気になりますか。",
+    "reason": "The echo in the source is a reflection; 整わない響き reads as an untidy sound."
+  },
+  {
+    "id": "ja-315",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "ON FOOT, WITH CURIOSITY",
+    "locale": "ja",
+    "old": "好奇心とともに、歩こう",
+    "new": "好奇心とともに、歩きましょう",
+    "reason": "Align the visitor invitation with polite です・ます / ましょう used throughout the guide."
+  },
+  {
+    "id": "ja-316",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Look a little<br><i>sideways.</i>",
+    "locale": "ja",
+    "old": "少しだけ<br><i>横を見てみよう。</i>",
+    "new": "少しだけ<br><i>横を見てみましょう。</i>",
+    "reason": "Align the visitor invitation with polite ましょう; preserve the existing intentional line break and markup."
+  },
+  {
+    "id": "ja-317",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "A reflection. A quiet square. The space between two places. Find your own photographs of Venice.",
+    "locale": "ja",
+    "old": "水面の反射。静かな広場。二つの場所のあいだ。あなただけのベネチアの写真を見つけよう。",
+    "new": "水面の反射。静かな広場。二つの場所のあいだ。あなただけのベネチアの写真を見つけましょう。",
+    "reason": "Align the final invitation with the guide’s polite register."
+  },
+  {
+    "id": "ja-328",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Then on foot.",
+    "locale": "ja",
+    "old": "そのあとは、また歩こう。",
+    "new": "そのあとは、また歩きましょう。",
+    "reason": "Keep the transit invitation in the same polite register."
+  },
+  {
+    "id": "ja-348",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.",
+    "locale": "ja",
+    "old": "Venice Sidewaysのオリジナル画です。地図上の位置は、このルートの確認済みスポット座標に基づきます。",
+    "new": "Venice Sidewaysのオリジナル画です。地図上のおおよその位置は、このルートの確認済みスポット座標に基づきます。",
+    "reason": "Restore approximate; the original Japanese makes a stronger claim about map positioning than EN/TR."
+  },
+  {
+    "id": "ja-423",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "I left the boat · walk to {name}",
+    "locale": "ja",
+    "old": "下船した・{name}へ歩く",
+    "new": "下船しました・{name}へ歩く",
+    "reason": "The confirmation 下船した switches to plain speech next to the polite arrival confirmation 到着しました."
+  },
+  {
+    "id": "ja-305",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Walk + vaporetto",
+    "locale": "ja",
+    "old": "徒歩＋ヴァポレット",
+    "new": "徒歩＋ヴァポレット（水上バス）",
+    "reason": "Explain vaporetto on its first overview appearance with the familiar local waterbus term."
+  },
+  {
+    "id": "ja-356",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Retry photograph",
+    "locale": "ja",
+    "old": "写真を再試行",
+    "new": "写真を再読み込み",
+    "reason": "A photograph cannot itself be retried; name the reload action in natural Japanese."
+  },
+  {
+    "id": "ja-440",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "More stop",
+    "locale": "ja",
+    "old": "スポットを広げる",
+    "new": "スポットパネルを広げる",
+    "reason": "The control widens the panel, not the physical place."
+  },
+  {
+    "id": "ko-117",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[0].copy.text",
+    "locale": "ko",
+    "old": "광장에서 색 하나를 고르고 운하 근처에서 느슨한 메아리를 찾으세요. 달리 보면 무관해 보이는 세부를 연결하게 해 보세요.",
+    "new": "광장에서 색 하나를 고르고 운하 근처에서 비슷한 색을 찾아보세요. 달리 보면 무관해 보이는 세부를 연결하게 해 보세요.",
+    "reason": "느슨한 메아리 is a literal loose acoustic echo; use visual colour recurrence."
+  },
+  {
+    "id": "ko-129",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[3].copy.text",
+    "locale": "ko",
+    "old": "눈에 보이는 형태와 물에 비친 덜 정돈된 메아리를 찾으세요. 불완전한 쪽이 더 끌리나요?",
+    "new": "눈에 보이는 형태와 물에 비친 조금 흐트러진 모습을 찾아보세요. 불완전한 쪽이 더 끌리나요?",
+    "reason": "The echo is the reflected shape; avoid acoustic 메아리."
+  },
+  {
+    "id": "ko-121",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[1].copy.text",
+    "locale": "ko",
+    "old": "공공 건축물 가장자리 사이에 좁은 시야를 찾으세요. 지나가다 본 장면처럼 광장의 일부만 드러내 보세요.",
+    "new": "공공 통로에서 건축물 가장자리 사이로 보이는 좁은 풍경을 찾으세요. 지나가다 본 장면처럼 광장의 일부만 드러내 보세요.",
+    "reason": "공공 건축물 narrows the prompt to public-owned buildings. The intended constraint is photographing from public access."
+  },
+  {
+    "id": "ko-131",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].ideas[3].copy.phoneTip",
+    "locale": "ko",
+    "old": "휴대폰을 운하에서 안전하게 떨어뜨려 잡으세요. 넓게 찍은 뒤 자르는 방법도 좋아요.",
+    "new": "운하 가장자리에서 충분히 떨어진 곳에서 휴대폰을 안전하게 잡으세요. 넓게 찍은 뒤 자르는 방법도 좋아요.",
+    "reason": "Replace the awkward 떨어뜨려 잡으세요, which can evoke dropping the phone, with a clear instruction to keep away from the canal edge."
+  },
+  {
+    "id": "ko-290",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Convent garden · guided visits by reservation",
+    "locale": "ko",
+    "old": "수도원 정원 · 예약 가이드 방문",
+    "new": "수도원 정원 · 가이드 동반 방문은 예약 필수",
+    "reason": "예약 가이드 방문 is ambiguous about what must be reserved. State that guided visits require reservation."
+  },
+  {
+    "id": "ko-340",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Small original drawings mark places to notice. They are not extra walk stops.",
+    "locale": "ko",
+    "old": "작은 원본 그림은 눈여겨볼 장소를 표시합니다. 산책의 추가 정류장이 아닙니다.",
+    "new": "작은 원본 그림은 눈여겨볼 장소를 표시합니다. 산책의 추가 촬영 장소가 아닙니다.",
+    "reason": "정류장 means a transit stop; the contrast is extra photo-walk stops, consistently called 장소 elsewhere."
+  },
+  {
+    "id": "ko-356",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "Retry photograph",
+    "locale": "ko",
+    "old": "사진 다시 시도",
+    "new": "사진 다시 불러오기",
+    "reason": "Name reloading as the action rather than retrying a photograph."
+  },
+  {
+    "id": "ko-440",
+    "file": "public/field-guide/ui-copy.js",
+    "path": "More stop",
+    "locale": "ko",
+    "old": "장소 확대",
+    "new": "장소 패널 확대",
+    "reason": "The control expands the place panel, not a place or the map zoom."
+  },
+  {
+    "id": "ko-490",
+    "file": "public/field-guide/entry.js",
+    "path": "bootCopy.detail",
+    "locale": "ko",
+    "old": "현재 공개 버전을 확인할 수 없습니다. 아직 정류장이 선택되지 않았습니다.",
+    "new": "현재 공개 버전을 확인할 수 없습니다. 아직 촬영 장소가 선택되지 않았습니다.",
+    "reason": "정류장 implies a transit stop; this state means no visitor photo stop selected."
+  },
+  {
+    "id": "ru-169",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].copy.text",
+    "locale": "ru",
+    "old": "Набережная канала Джудекка. Место передышки на обеих прогулках, больше не финиш основного маршрута.",
+    "new": "Набережная Dorsoduro у канала Giudecca. Здесь можно сделать паузу; Main Walk продолжается дальше.",
+    "reason": "EN/TR source ambiguity reconciled against current Main route order: this is a pause, Main continues to Tre Archi. Parent approved replacement source; no new history facts."
+  },
+  {
+    "id": "ru-188",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].ideas[4].copy.theme",
+    "locale": "ru",
+    "old": "Свет",
+    "new": "Баланс",
+    "reason": "Source theme mismatch: this fifth Zattere prompt compares foreground/background balance. Parent approved EN Light to Balance."
+  },
+  {
+    "id": "ru-242",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].ideas[4].copy.theme",
+    "locale": "ru",
+    "old": "Цвет",
+    "new": "Свободное пространство",
+    "reason": "Source theme mismatch: this fifth Accademia prompt treats gaps between boats as the subject. Parent approved EN Colour to Negative space."
+  },
+  {
+    "id": "zh-169",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].copy.text",
+    "locale": "zh",
+    "old": "Giudecca运河岸边，两条路线中都可在此喘口气；已不再是主路线终点。",
+    "new": "Dorsoduro临Giudecca运河的岸边。可以在此稍作停留，Main Walk从这里继续。",
+    "reason": "EN/TR source ambiguity reconciled against current Main route order: this is a pause, Main continues to Tre Archi. Parent approved replacement source; no new history facts."
+  },
+  {
+    "id": "zh-188",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].ideas[4].copy.theme",
+    "locale": "zh",
+    "old": "光线",
+    "new": "平衡",
+    "reason": "Source theme mismatch: this fifth Zattere prompt compares foreground/background balance. Parent approved EN Light to Balance."
+  },
+  {
+    "id": "zh-242",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].ideas[4].copy.theme",
+    "locale": "zh",
+    "old": "色彩",
+    "new": "留白",
+    "reason": "Source theme mismatch: this fifth Accademia prompt treats gaps between boats as the subject. Parent approved EN Colour to Negative space."
+  },
+  {
+    "id": "ja-169",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].copy.text",
+    "locale": "ja",
+    "old": "ジュデッカ運河の岸辺。両ルートでひと息つける候補で、メインの終点ではありません。",
+    "new": "Giudecca運河沿いのDorsoduroの岸辺です。ひと休みできる場所で、Main Walkはここから先へ続きます。",
+    "reason": "EN/TR source ambiguity reconciled against current Main route order: this is a pause, Main continues to Tre Archi. Parent approved replacement source; no new history facts."
+  },
+  {
+    "id": "ja-188",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].ideas[4].copy.theme",
+    "locale": "ja",
+    "old": "光",
+    "new": "バランス",
+    "reason": "Source theme mismatch: this fifth Zattere prompt compares foreground/background balance. Parent approved EN Light to Balance."
+  },
+  {
+    "id": "ja-242",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].ideas[4].copy.theme",
+    "locale": "ja",
+    "old": "色",
+    "new": "余白",
+    "reason": "Source theme mismatch: this fifth Accademia prompt treats gaps between boats as the subject. Parent approved EN Colour to Negative space."
+  },
+  {
+    "id": "ko-169",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].copy.text",
+    "locale": "ko",
+    "old": "주데카 운하 물가예요. 두 경로 모두에서 숨 돌릴 수 있으며 더 이상 주 산책의 종점은 아니에요.",
+    "new": "Giudecca 운하 옆 Dorsoduro의 물가입니다. 잠시 쉬어 갈 수 있으며 Main Walk는 여기서 계속됩니다.",
+    "reason": "EN/TR source ambiguity reconciled against current Main route order: this is a pause, Main continues to Tre Archi. Parent approved replacement source; no new history facts."
+  },
+  {
+    "id": "ko-188",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].ideas[4].copy.theme",
+    "locale": "ko",
+    "old": "빛",
+    "new": "균형",
+    "reason": "Source theme mismatch: this fifth Zattere prompt compares foreground/background balance. Parent approved EN Light to Balance."
+  },
+  {
+    "id": "ko-242",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].ideas[4].copy.theme",
+    "locale": "ko",
+    "old": "색",
+    "new": "여백",
+    "reason": "Source theme mismatch: this fifth Accademia prompt treats gaps between boats as the subject. Parent approved EN Colour to Negative space."
+  },
+  {
+    "id": "ru-29",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Вокзал Санта-Лючия и причалы Ferrovia.",
+    "new": "Вокзал Santa Lucia и причалы Ferrovia.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-30",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Вокзал Санта-Лючия и причалы Ferrovia. · 2024",
+    "new": "Вокзал Santa Lucia и причалы Ferrovia. · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-454",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.alt",
+    "locale": "ru",
+    "old": "Вокзал Санта-Лючия и причалы Ferrovia.",
+    "new": "Вокзал Santa Lucia и причалы Ferrovia.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-455",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.caption",
+    "locale": "ru",
+    "old": "Вокзал Санта-Лючия и причалы Ferrovia. · 2024",
+    "new": "Вокзал Santa Lucia и причалы Ferrovia. · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-56",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь.",
+    "new": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo).",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-57",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь. · 2013",
+    "new": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo). · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-457",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.alt",
+    "locale": "ru",
+    "old": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь.",
+    "new": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo).",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-458",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.caption",
+    "locale": "ru",
+    "old": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь. · 2013",
+    "new": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo). · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-83",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал.",
+    "new": "Кирпичный фасад Frari, окно-роза и стрельчатый портал.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-84",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал. · 2006",
+    "new": "Кирпичный фасад Frari, окно-роза и стрельчатый портал. · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-460",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.alt",
+    "locale": "ru",
+    "old": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал.",
+    "new": "Кирпичный фасад Frari, окно-роза и стрельчатый портал.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-461",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.caption",
+    "locale": "ru",
+    "old": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал. · 2006",
+    "new": "Кирпичный фасад Frari, окно-роза и стрельчатый портал. · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-110",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Кампо Санта-Маргерита с деревьями, скамейками и кафе.",
+    "new": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-111",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Кампо Санта-Маргерита с деревьями, скамейками и кафе. · 2016",
+    "new": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-463",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.alt",
+    "locale": "ru",
+    "old": "Кампо Санта-Маргерита с деревьями, скамейками и кафе.",
+    "new": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-464",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.caption",
+    "locale": "ru",
+    "old": "Кампо Санта-Маргерита с деревьями, скамейками и кафе. · 2016",
+    "new": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-137",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Колодец и фасады домов на Кампо Сан-Барнаба.",
+    "new": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-138",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Колодец и фасады домов на Кампо Сан-Барнаба. · 2017",
+    "new": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba. · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-466",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.alt",
+    "locale": "ru",
+    "old": "Колодец и фасады домов на Кампо Сан-Барнаба.",
+    "new": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-467",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.caption",
+    "locale": "ru",
+    "old": "Колодец и фасады домов на Кампо Сан-Барнаба. · 2017",
+    "new": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba. · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-164",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Деревянные мастерские и спуск верфи Сан-Тровазо.",
+    "new": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-165",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Деревянные мастерские и спуск верфи Сан-Тровазо. · 2019",
+    "new": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso. · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-469",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.alt",
+    "locale": "ru",
+    "old": "Деревянные мастерские и спуск верфи Сан-Тровазо.",
+    "new": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-470",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.caption",
+    "locale": "ru",
+    "old": "Деревянные мастерские и спуск верфи Сан-Тровазо. · 2019",
+    "new": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso. · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-191",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати.",
+    "new": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-192",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати. · 2022",
+    "new": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati. · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-472",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.alt",
+    "locale": "ru",
+    "old": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати.",
+    "new": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-473",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.caption",
+    "locale": "ru",
+    "old": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати. · 2022",
+    "new": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati. · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-218",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала.",
+    "new": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-219",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала. · 2016",
+    "new": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-475",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.alt",
+    "locale": "ru",
+    "old": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала.",
+    "new": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-476",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.caption",
+    "locale": "ru",
+    "old": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала. · 2016",
+    "new": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-245",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Деревянный мост Академии через Гранд-канал.",
+    "new": "Деревянный Ponte dell’Accademia через Canal Grande.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-246",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Деревянный мост Академии через Гранд-канал. · 2015",
+    "new": "Деревянный Ponte dell’Accademia через Canal Grande. · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-478",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.alt",
+    "locale": "ru",
+    "old": "Деревянный мост Академии через Гранд-канал.",
+    "new": "Деревянный Ponte dell’Accademia через Canal Grande.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-479",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.caption",
+    "locale": "ru",
+    "old": "Деревянный мост Академии через Гранд-канал. · 2015",
+    "new": "Деревянный Ponte dell’Accademia через Canal Grande. · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-272",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.alt",
+    "locale": "ru",
+    "old": "Три арки моста Тре-Арки над каналом Каннареджо.",
+    "new": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-273",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.caption",
+    "locale": "ru",
+    "old": "Три арки моста Тре-Арки над каналом Каннареджо. · 2014",
+    "new": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio. · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-481",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.alt",
+    "locale": "ru",
+    "old": "Три арки моста Тре-Арки над каналом Каннареджо.",
+    "new": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ru-482",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.caption",
+    "locale": "ru",
+    "old": "Три арки моста Тре-Арки над каналом Каннареджо. · 2014",
+    "new": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio. · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-29",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "圣卢西亚火车站与Ferrovia码头。",
+    "new": "Santa Lucia火车站与Ferrovia码头。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-30",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "圣卢西亚火车站与Ferrovia码头。 · 2024",
+    "new": "Santa Lucia火车站与Ferrovia码头。 · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-454",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.alt",
+    "locale": "zh",
+    "old": "圣卢西亚火车站与Ferrovia码头。",
+    "new": "Santa Lucia火车站与Ferrovia码头。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-455",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.caption",
+    "locale": "zh",
+    "old": "圣卢西亚火车站与Ferrovia码头。 · 2024",
+    "new": "Santa Lucia火车站与Ferrovia码头。 · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-56",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "San Giacomo dell’Orio教堂、钟楼和广场。",
+    "new": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-57",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "San Giacomo dell’Orio教堂、钟楼和广场。 · 2013",
+    "new": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。 · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-457",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.alt",
+    "locale": "zh",
+    "old": "San Giacomo dell’Orio教堂、钟楼和广场。",
+    "new": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-458",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.caption",
+    "locale": "zh",
+    "old": "San Giacomo dell’Orio教堂、钟楼和广场。 · 2013",
+    "new": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。 · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-110",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "有树木、长椅和咖啡馆的Santa Margherita广场。",
+    "new": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-111",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "有树木、长椅和咖啡馆的Santa Margherita广场。 · 2016",
+    "new": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-463",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.alt",
+    "locale": "zh",
+    "old": "有树木、长椅和咖啡馆的Santa Margherita广场。",
+    "new": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-464",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.caption",
+    "locale": "zh",
+    "old": "有树木、长椅和咖啡馆的Santa Margherita广场。 · 2016",
+    "new": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-137",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "San Barnaba广场的井台和住宅立面。",
+    "new": "Campo San Barnaba广场的井台和住宅立面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-138",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "San Barnaba广场的井台和住宅立面。 · 2017",
+    "new": "Campo San Barnaba广场的井台和住宅立面。 · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-466",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.alt",
+    "locale": "zh",
+    "old": "San Barnaba广场的井台和住宅立面。",
+    "new": "Campo San Barnaba广场的井台和住宅立面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-467",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.caption",
+    "locale": "zh",
+    "old": "San Barnaba广场的井台和住宅立面。 · 2017",
+    "new": "Campo San Barnaba广场的井台和住宅立面。 · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-164",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "San Trovaso船厂的木制建筑与下水坡道。",
+    "new": "Squero di San Trovaso船厂的木制建筑与下水坡道。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-165",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "San Trovaso船厂的木制建筑与下水坡道。 · 2019",
+    "new": "Squero di San Trovaso船厂的木制建筑与下水坡道。 · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-469",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.alt",
+    "locale": "zh",
+    "old": "San Trovaso船厂的木制建筑与下水坡道。",
+    "new": "Squero di San Trovaso船厂的木制建筑与下水坡道。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-470",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.caption",
+    "locale": "zh",
+    "old": "San Trovaso船厂的木制建筑与下水坡道。 · 2019",
+    "new": "Squero di San Trovaso船厂的木制建筑与下水坡道。 · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-245",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "横跨大运河的木制Accademia桥。",
+    "new": "横跨Canal Grande的木桥Ponte dell’Accademia。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-246",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "横跨大运河的木制Accademia桥。 · 2015",
+    "new": "横跨Canal Grande的木桥Ponte dell’Accademia。 · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-478",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.alt",
+    "locale": "zh",
+    "old": "横跨大运河的木制Accademia桥。",
+    "new": "横跨Canal Grande的木桥Ponte dell’Accademia。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-479",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.caption",
+    "locale": "zh",
+    "old": "横跨大运河的木制Accademia桥。 · 2015",
+    "new": "横跨Canal Grande的木桥Ponte dell’Accademia。 · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-272",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.alt",
+    "locale": "zh",
+    "old": "Cannaregio运河上Tre Archi桥的三个桥洞。",
+    "new": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-273",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.caption",
+    "locale": "zh",
+    "old": "Cannaregio运河上Tre Archi桥的三个桥洞。 · 2014",
+    "new": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。 · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-481",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.alt",
+    "locale": "zh",
+    "old": "Cannaregio运河上Tre Archi桥的三个桥洞。",
+    "new": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "zh-482",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.caption",
+    "locale": "zh",
+    "old": "Cannaregio运河上Tre Archi桥的三个桥洞。 · 2014",
+    "new": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。 · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-29",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "サンタ・ルチア駅とフェッロヴィーアの船着き場。",
+    "new": "Santa Lucia駅とFerroviaの船着き場。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-30",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "サンタ・ルチア駅とフェッロヴィーアの船着き場。 · 2024",
+    "new": "Santa Lucia駅とFerroviaの船着き場。 · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-454",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.alt",
+    "locale": "ja",
+    "old": "サンタ・ルチア駅とフェッロヴィーアの船着き場。",
+    "new": "Santa Lucia駅とFerroviaの船着き場。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-455",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.caption",
+    "locale": "ja",
+    "old": "サンタ・ルチア駅とフェッロヴィーアの船着き場。 · 2024",
+    "new": "Santa Lucia駅とFerroviaの船着き場。 · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-56",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。",
+    "new": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-57",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。 · 2013",
+    "new": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。 · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-457",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.alt",
+    "locale": "ja",
+    "old": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。",
+    "new": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-458",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.caption",
+    "locale": "ja",
+    "old": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。 · 2013",
+    "new": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。 · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-83",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
+    "new": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-84",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
+    "new": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-460",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.alt",
+    "locale": "ja",
+    "old": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
+    "new": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-461",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.caption",
+    "locale": "ja",
+    "old": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
+    "new": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-110",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。",
+    "new": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-111",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。 · 2016",
+    "new": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-463",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.alt",
+    "locale": "ja",
+    "old": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。",
+    "new": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-464",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.caption",
+    "locale": "ja",
+    "old": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。 · 2016",
+    "new": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-137",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "サン・バルナバ広場の井戸と住宅の正面。",
+    "new": "Campo San Barnabaの井戸の縁と住宅の正面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-138",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "サン・バルナバ広場の井戸と住宅の正面。 · 2017",
+    "new": "Campo San Barnabaの井戸の縁と住宅の正面。 · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-466",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.alt",
+    "locale": "ja",
+    "old": "サン・バルナバ広場の井戸と住宅の正面。",
+    "new": "Campo San Barnabaの井戸の縁と住宅の正面。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-467",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.caption",
+    "locale": "ja",
+    "old": "サン・バルナバ広場の井戸と住宅の正面。 · 2017",
+    "new": "Campo San Barnabaの井戸の縁と住宅の正面。 · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-164",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。",
+    "new": "Squero di San Trovasoの木造工房と船台。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-165",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。 · 2019",
+    "new": "Squero di San Trovasoの木造工房と船台。 · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-469",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.alt",
+    "locale": "ja",
+    "old": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。",
+    "new": "Squero di San Trovasoの木造工房と船台。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-470",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.caption",
+    "locale": "ja",
+    "old": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。 · 2019",
+    "new": "Squero di San Trovasoの木造工房と船台。 · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-191",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。",
+    "new": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-192",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。 · 2022",
+    "new": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。 · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-472",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.alt",
+    "locale": "ja",
+    "old": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。",
+    "new": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-473",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.caption",
+    "locale": "ja",
+    "old": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。 · 2022",
+    "new": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。 · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-218",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。",
+    "new": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-219",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。 · 2016",
+    "new": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-475",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.alt",
+    "locale": "ja",
+    "old": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。",
+    "new": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-476",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.caption",
+    "locale": "ja",
+    "old": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。 · 2016",
+    "new": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。 · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-245",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "大運河に架かる木造のアッカデーミア橋。",
+    "new": "Canal Grandeに架かる木造のPonte dell’Accademia。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-246",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "大運河に架かる木造のアッカデーミア橋。 · 2015",
+    "new": "Canal Grandeに架かる木造のPonte dell’Accademia。 · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-478",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.alt",
+    "locale": "ja",
+    "old": "大運河に架かる木造のアッカデーミア橋。",
+    "new": "Canal Grandeに架かる木造のPonte dell’Accademia。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-479",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.caption",
+    "locale": "ja",
+    "old": "大運河に架かる木造のアッカデーミア橋。 · 2015",
+    "new": "Canal Grandeに架かる木造のPonte dell’Accademia。 · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-272",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.alt",
+    "locale": "ja",
+    "old": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。",
+    "new": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-273",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.caption",
+    "locale": "ja",
+    "old": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。 · 2014",
+    "new": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。 · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-481",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.alt",
+    "locale": "ja",
+    "old": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。",
+    "new": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ja-482",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.caption",
+    "locale": "ja",
+    "old": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。 · 2014",
+    "new": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。 · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-29",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "산타 루치아 기차역과 페로비아 선착장.",
+    "new": "Santa Lucia 기차역과 Ferrovia 선착장.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-30",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[0].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "산타 루치아 기차역과 페로비아 선착장. · 2024",
+    "new": "Santa Lucia 기차역과 Ferrovia 선착장. · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-454",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.alt",
+    "locale": "ko",
+    "old": "산타 루치아 기차역과 페로비아 선착장.",
+    "new": "Santa Lucia 기차역과 Ferrovia 선착장.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-455",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.lucia.copy.caption",
+    "locale": "ko",
+    "old": "산타 루치아 기차역과 페로비아 선착장. · 2024",
+    "new": "Santa Lucia 기차역과 Ferrovia 선착장. · 2024",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-56",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "산 자코모 델로리오 성당, 종탑과 광장.",
+    "new": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장).",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-57",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[1].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "산 자코모 델로리오 성당, 종탑과 광장. · 2013",
+    "new": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장). · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-457",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.alt",
+    "locale": "ko",
+    "old": "산 자코모 델로리오 성당, 종탑과 광장.",
+    "new": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장).",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-458",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.giacomo.copy.caption",
+    "locale": "ko",
+    "old": "산 자코모 델로리오 성당, 종탑과 광장. · 2013",
+    "new": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장). · 2013",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-83",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
+    "new": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-84",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[2].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
+    "new": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-460",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.alt",
+    "locale": "ko",
+    "old": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
+    "new": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-461",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.frari.copy.caption",
+    "locale": "ko",
+    "old": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
+    "new": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-110",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "나무와 벤치, 카페가 있는 산타 마르게리타 광장.",
+    "new": "Campo Santa Margherita의 나무, 벤치와 카페 정면.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-111",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[3].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "나무와 벤치, 카페가 있는 산타 마르게리타 광장. · 2016",
+    "new": "Campo Santa Margherita의 나무, 벤치와 카페 정면. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-463",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.alt",
+    "locale": "ko",
+    "old": "나무와 벤치, 카페가 있는 산타 마르게리타 광장.",
+    "new": "Campo Santa Margherita의 나무, 벤치와 카페 정면.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-464",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.margherita.copy.caption",
+    "locale": "ko",
+    "old": "나무와 벤치, 카페가 있는 산타 마르게리타 광장. · 2016",
+    "new": "Campo Santa Margherita의 나무, 벤치와 카페 정면. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-137",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "산 바르나바 광장의 우물과 주택 정면.",
+    "new": "Campo San Barnaba의 우물 윗부분과 주택 정면.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-138",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[4].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "산 바르나바 광장의 우물과 주택 정면. · 2017",
+    "new": "Campo San Barnaba의 우물 윗부분과 주택 정면. · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-466",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.alt",
+    "locale": "ko",
+    "old": "산 바르나바 광장의 우물과 주택 정면.",
+    "new": "Campo San Barnaba의 우물 윗부분과 주택 정면.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-467",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.barnaba.copy.caption",
+    "locale": "ko",
+    "old": "산 바르나바 광장의 우물과 주택 정면. · 2017",
+    "new": "Campo San Barnaba의 우물 윗부분과 주택 정면. · 2017",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-164",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "산 트로바소 조선소의 목조 작업장과 진수 경사로.",
+    "new": "Squero di San Trovaso의 목조 작업장과 진수 경사로.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-165",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[5].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "산 트로바소 조선소의 목조 작업장과 진수 경사로. · 2019",
+    "new": "Squero di San Trovaso의 목조 작업장과 진수 경사로. · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-469",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.alt",
+    "locale": "ko",
+    "old": "산 트로바소 조선소의 목조 작업장과 진수 경사로.",
+    "new": "Squero di San Trovaso의 목조 작업장과 진수 경사로.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-470",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trovaso.copy.caption",
+    "locale": "ko",
+    "old": "산 트로바소 조선소의 목조 작업장과 진수 경사로. · 2019",
+    "new": "Squero di San Trovaso의 목조 작업장과 진수 경사로. · 2019",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-191",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당.",
+    "new": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-192",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[6].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당. · 2022",
+    "new": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당. · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-472",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.alt",
+    "locale": "ko",
+    "old": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당.",
+    "new": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-473",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.zattere.copy.caption",
+    "locale": "ko",
+    "old": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당. · 2022",
+    "new": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당. · 2022",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-218",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구.",
+    "new": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-219",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[7].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구. · 2016",
+    "new": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-475",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.alt",
+    "locale": "ko",
+    "old": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구.",
+    "new": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-476",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.dogana.copy.caption",
+    "locale": "ko",
+    "old": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구. · 2016",
+    "new": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구. · 2016",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-245",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "대운하를 가로지르는 목조 아카데미아 다리.",
+    "new": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-246",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[8].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "대운하를 가로지르는 목조 아카데미아 다리. · 2015",
+    "new": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia. · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-478",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.alt",
+    "locale": "ko",
+    "old": "대운하를 가로지르는 목조 아카데미아 다리.",
+    "new": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-479",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.accademia.copy.caption",
+    "locale": "ko",
+    "old": "대운하를 가로지르는 목조 아카데미아 다리. · 2015",
+    "new": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia. · 2015",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-272",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.alt",
+    "locale": "ko",
+    "old": "칸나레조 운하 위 트레 아르키 다리의 세 아치.",
+    "new": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-273",
+    "file": "public/field-guide/routes.json",
+    "path": "routes[0].visits[9].gallery[0].copy.caption",
+    "locale": "ko",
+    "old": "칸나레조 운하 위 트레 아르키 다리의 세 아치. · 2014",
+    "new": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치. · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-481",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.alt",
+    "locale": "ko",
+    "old": "칸나레조 운하 위 트레 아르키 다리의 세 아치.",
+    "new": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치.",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  },
+  {
+    "id": "ko-482",
+    "file": "public/field-guide/stop-photos.js",
+    "path": "photosByPlace.trearchi.copy.caption",
+    "locale": "ko",
+    "old": "칸나레조 운하 위 트레 아르키 다리의 세 아치. · 2014",
+    "new": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치. · 2014",
+    "reason": "Preserve the original Italian place name for matching the stop/map. Restore any omitted visible feature (open square, cafe fronts, wellhead or customs building) without adding facts."
+  }
+]

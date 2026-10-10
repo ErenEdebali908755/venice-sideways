@@ -18,5 +18,5 @@ const paths = {
 export const icon = (name) => {
   const shape = paths[name];
   if (shape) return `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${shape}</svg>`;
-  return spriteNames.has(name) ? `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/field-guide/icons.svg?v=20261010-evening-eight#${name}"></use></svg>` : "";
+  return spriteNames.has(name) ? `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/field-guide/icons.svg?v=20261010-third-review#${name}"></use></svg>` : "";
 };

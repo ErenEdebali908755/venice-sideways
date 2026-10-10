@@ -44,29 +44,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Stazione di Venezia Santa Lucia 2024.jpg",
-        "alt": "Вокзал Санта-Лючия и причалы Ferrovia.",
-        "caption": "Вокзал Санта-Лючия и причалы Ferrovia. · 2024",
+        "alt": "Вокзал Santa Lucia и причалы Ferrovia.",
+        "caption": "Вокзал Santa Lucia и причалы Ferrovia. · 2024",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Stazione di Venezia Santa Lucia 2024.jpg",
-        "alt": "圣卢西亚火车站与Ferrovia码头。",
-        "caption": "圣卢西亚火车站与Ferrovia码头。 · 2024",
+        "alt": "Santa Lucia火车站与Ferrovia码头。",
+        "caption": "Santa Lucia火车站与Ferrovia码头。 · 2024",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Stazione di Venezia Santa Lucia 2024.jpg",
-        "alt": "サンタ・ルチア駅とフェッロヴィーアの船着き場。",
-        "caption": "サンタ・ルチア駅とフェッロヴィーアの船着き場。 · 2024",
+        "alt": "Santa Lucia駅とFerroviaの船着き場。",
+        "caption": "Santa Lucia駅とFerroviaの船着き場。 · 2024",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Stazione di Venezia Santa Lucia 2024.jpg",
-        "alt": "산타 루치아 기차역과 페로비아 선착장.",
-        "caption": "산타 루치아 기차역과 페로비아 선착장. · 2024",
+        "alt": "Santa Lucia 기차역과 Ferrovia 선착장.",
+        "caption": "Santa Lucia 기차역과 Ferrovia 선착장. · 2024",
         "needsReview": false
       }
     ],
@@ -102,8 +102,8 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "en",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "San Giacomo dell’Orio: church, bell tower and open campo.",
-        "caption": "San Giacomo dell’Orio: church, bell tower and open campo. · 2013",
+        "alt": "San Giacomo dell’Orio: church, bell tower and open campo (square).",
+        "caption": "San Giacomo dell’Orio: church, bell tower and open campo (square). · 2013",
         "needsReview": false
       },
       {
@@ -123,36 +123,36 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "fr",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "San Giacomo dell’Orio : église, campanile et campo.",
-        "caption": "San Giacomo dell’Orio : église, campanile et campo. · 2013",
+        "alt": "San Giacomo dell’Orio : église, campanile et campo (place).",
+        "caption": "San Giacomo dell’Orio : église, campanile et campo (place). · 2013",
         "needsReview": false
       },
       {
         "locale": "ru",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь.",
-        "caption": "Сан-Джакомо-дель-Орио: церковь, колокольня и площадь. · 2013",
+        "alt": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo).",
+        "caption": "San Giacomo dell’Orio: церковь, колокольня и открытая площадь (campo). · 2013",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "San Giacomo dell’Orio教堂、钟楼和广场。",
-        "caption": "San Giacomo dell’Orio教堂、钟楼和广场。 · 2013",
+        "alt": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。",
+        "caption": "San Giacomo dell’Orio教堂、钟楼和开阔的campo广场。 · 2013",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。",
-        "caption": "サン・ジャコモ・デッロリオの教会、鐘楼、広場。 · 2013",
+        "alt": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。",
+        "caption": "San Giacomo dell’Orioの教会、鐘楼、開けたcampo（広場）。 · 2013",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "San Giacomo dell Orio facciata sud con campanile.jpg",
-        "alt": "산 자코모 델로리오 성당, 종탑과 광장.",
-        "caption": "산 자코모 델로리오 성당, 종탑과 광장. · 2013",
+        "alt": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장).",
+        "caption": "San Giacomo dell’Orio 성당, 종탑과 탁 트인 campo(광장). · 2013",
         "needsReview": false
       }
     ],
@@ -216,8 +216,8 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Santa Maria Gloriosa dei Frari, facade.JPG",
-        "alt": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал.",
-        "caption": "Кирпичный фасад Фрари, окно-роза и стрельчатый портал. · 2006",
+        "alt": "Кирпичный фасад Frari, окно-роза и стрельчатый портал.",
+        "caption": "Кирпичный фасад Frari, окно-роза и стрельчатый портал. · 2006",
         "needsReview": false
       },
       {
@@ -230,15 +230,15 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ja",
         "title": "Santa Maria Gloriosa dei Frari, facade.JPG",
-        "alt": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
-        "caption": "フラーリ教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
+        "alt": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。",
+        "caption": "Frari教会の煉瓦の正面、バラ窓、尖頭アーチの入口。 · 2006",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Santa Maria Gloriosa dei Frari, facade.JPG",
-        "alt": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
-        "caption": "프라리 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
+        "alt": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구.",
+        "caption": "Frari 성당의 벽돌 정면, 장미창과 뾰족한 아치 입구. · 2006",
         "needsReview": false
       }
     ],
@@ -302,29 +302,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Campo Santa Margherita (Venice).jpg",
-        "alt": "Кампо Санта-Маргерита с деревьями, скамейками и кафе.",
-        "caption": "Кампо Санта-Маргерита с деревьями, скамейками и кафе. · 2016",
+        "alt": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе.",
+        "caption": "Campo Santa Margherita: площадь с деревьями, скамейками и фасадами кафе. · 2016",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Campo Santa Margherita (Venice).jpg",
-        "alt": "有树木、长椅和咖啡馆的Santa Margherita广场。",
-        "caption": "有树木、长椅和咖啡馆的Santa Margherita广场。 · 2016",
+        "alt": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。",
+        "caption": "Campo Santa Margherita广场的树木、长椅和咖啡馆门面。 · 2016",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Campo Santa Margherita (Venice).jpg",
-        "alt": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。",
-        "caption": "木々、ベンチ、カフェが並ぶサンタ・マルゲリータ広場。 · 2016",
+        "alt": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。",
+        "caption": "Campo Santa Margheritaの木々、ベンチ、カフェの正面。 · 2016",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Campo Santa Margherita (Venice).jpg",
-        "alt": "나무와 벤치, 카페가 있는 산타 마르게리타 광장.",
-        "caption": "나무와 벤치, 카페가 있는 산타 마르게리타 광장. · 2016",
+        "alt": "Campo Santa Margherita의 나무, 벤치와 카페 정면.",
+        "caption": "Campo Santa Margherita의 나무, 벤치와 카페 정면. · 2016",
         "needsReview": false
       }
     ],
@@ -388,29 +388,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Campo San Barnaba (VE).jpg",
-        "alt": "Колодец и фасады домов на Кампо Сан-Барнаба.",
-        "caption": "Колодец и фасады домов на Кампо Сан-Барнаба. · 2017",
+        "alt": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba.",
+        "caption": "Колодезный оголовок и фасады жилых домов на площади Campo San Barnaba. · 2017",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Campo San Barnaba (VE).jpg",
-        "alt": "San Barnaba广场的井台和住宅立面。",
-        "caption": "San Barnaba广场的井台和住宅立面。 · 2017",
+        "alt": "Campo San Barnaba广场的井台和住宅立面。",
+        "caption": "Campo San Barnaba广场的井台和住宅立面。 · 2017",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Campo San Barnaba (VE).jpg",
-        "alt": "サン・バルナバ広場の井戸と住宅の正面。",
-        "caption": "サン・バルナバ広場の井戸と住宅の正面。 · 2017",
+        "alt": "Campo San Barnabaの井戸の縁と住宅の正面。",
+        "caption": "Campo San Barnabaの井戸の縁と住宅の正面。 · 2017",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Campo San Barnaba (VE).jpg",
-        "alt": "산 바르나바 광장의 우물과 주택 정면.",
-        "caption": "산 바르나바 광장의 우물과 주택 정면. · 2017",
+        "alt": "Campo San Barnaba의 우물 윗부분과 주택 정면.",
+        "caption": "Campo San Barnaba의 우물 윗부분과 주택 정면. · 2017",
         "needsReview": false
       }
     ],
@@ -474,29 +474,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Squero di San Trovaso (Venice) 01.jpg",
-        "alt": "Деревянные мастерские и спуск верфи Сан-Тровазо.",
-        "caption": "Деревянные мастерские и спуск верфи Сан-Тровазо. · 2019",
+        "alt": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso.",
+        "caption": "Деревянные здания верфи и спуск для лодок в Squero di San Trovaso. · 2019",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Squero di San Trovaso (Venice) 01.jpg",
-        "alt": "San Trovaso船厂的木制建筑与下水坡道。",
-        "caption": "San Trovaso船厂的木制建筑与下水坡道。 · 2019",
+        "alt": "Squero di San Trovaso船厂的木制建筑与下水坡道。",
+        "caption": "Squero di San Trovaso船厂的木制建筑与下水坡道。 · 2019",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Squero di San Trovaso (Venice) 01.jpg",
-        "alt": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。",
-        "caption": "スクエーロ・ディ・サン・トロヴァーゾの木造工房と船台。 · 2019",
+        "alt": "Squero di San Trovasoの木造工房と船台。",
+        "caption": "Squero di San Trovasoの木造工房と船台。 · 2019",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Squero di San Trovaso (Venice) 01.jpg",
-        "alt": "산 트로바소 조선소의 목조 작업장과 진수 경사로.",
-        "caption": "산 트로바소 조선소의 목조 작업장과 진수 경사로. · 2019",
+        "alt": "Squero di San Trovaso의 목조 작업장과 진수 경사로.",
+        "caption": "Squero di San Trovaso의 목조 작업장과 진수 경사로. · 2019",
         "needsReview": false
       }
     ],
@@ -560,8 +560,8 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Fondamenta Zattere Ai Gesuati.jpg",
-        "alt": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати.",
-        "caption": "Набережная Дзаттере со стороны воды; в панораме видна церковь Джезуати. · 2022",
+        "alt": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati.",
+        "caption": "Набережная Zattere со стороны воды; в панораме видна церковь Gesuati. · 2022",
         "needsReview": false
       },
       {
@@ -574,15 +574,15 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ja",
         "title": "Fondamenta Zattere Ai Gesuati.jpg",
-        "alt": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。",
-        "caption": "水上から見たザッテレの岸辺。広い眺めの中にジェズアーティ教会。 · 2022",
+        "alt": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。",
+        "caption": "水上から見たZattereの岸辺。広い眺めの中にGesuati教会。 · 2022",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Fondamenta Zattere Ai Gesuati.jpg",
-        "alt": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당.",
-        "caption": "물 위에서 본 자테레 산책로와 넓은 풍경 속 제수아티 성당. · 2022",
+        "alt": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당.",
+        "caption": "물 위에서 본 Zattere 산책로와 넓은 풍경 속 Gesuati 성당. · 2022",
         "needsReview": false
       }
     ],
@@ -646,8 +646,8 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Punta della Dogana Canal Grande Venezia.jpg",
-        "alt": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала.",
-        "caption": "Здание Пунта-делла-Догана и золотой шар со стороны Гранд-канала. · 2016",
+        "alt": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande.",
+        "caption": "Таможенное здание Punta della Dogana и золотой шар со стороны Canal Grande. · 2016",
         "needsReview": false
       },
       {
@@ -660,15 +660,15 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ja",
         "title": "Punta della Dogana Canal Grande Venezia.jpg",
-        "alt": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。",
-        "caption": "大運河から見たプンタ・デッラ・ドガーナの税関建築と金色の球。 · 2016",
+        "alt": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。",
+        "caption": "Canal Grandeから見たPunta della Doganaの税関建築と金色の球。 · 2016",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Punta della Dogana Canal Grande Venezia.jpg",
-        "alt": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구.",
-        "caption": "대운하에서 본 푼타 델라 도가나 세관 건물과 금빛 구. · 2016",
+        "alt": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구.",
+        "caption": "Canal Grande에서 본 Punta della Dogana 세관 건물과 금빛 구. · 2016",
         "needsReview": false
       }
     ],
@@ -732,29 +732,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Accademia bridge in Venice (South East exposure).jpg",
-        "alt": "Деревянный мост Академии через Гранд-канал.",
-        "caption": "Деревянный мост Академии через Гранд-канал. · 2015",
+        "alt": "Деревянный Ponte dell’Accademia через Canal Grande.",
+        "caption": "Деревянный Ponte dell’Accademia через Canal Grande. · 2015",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Accademia bridge in Venice (South East exposure).jpg",
-        "alt": "横跨大运河的木制Accademia桥。",
-        "caption": "横跨大运河的木制Accademia桥。 · 2015",
+        "alt": "横跨Canal Grande的木桥Ponte dell’Accademia。",
+        "caption": "横跨Canal Grande的木桥Ponte dell’Accademia。 · 2015",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Accademia bridge in Venice (South East exposure).jpg",
-        "alt": "大運河に架かる木造のアッカデーミア橋。",
-        "caption": "大運河に架かる木造のアッカデーミア橋。 · 2015",
+        "alt": "Canal Grandeに架かる木造のPonte dell’Accademia。",
+        "caption": "Canal Grandeに架かる木造のPonte dell’Accademia。 · 2015",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Accademia bridge in Venice (South East exposure).jpg",
-        "alt": "대운하를 가로지르는 목조 아카데미아 다리.",
-        "caption": "대운하를 가로지르는 목조 아카데미아 다리. · 2015",
+        "alt": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia.",
+        "caption": "Canal Grande를 가로지르는 목조 Ponte dell’Accademia. · 2015",
         "needsReview": false
       }
     ],
@@ -818,29 +818,29 @@ export const photosByPlace = Object.freeze({
       {
         "locale": "ru",
         "title": "Ponte dei Tre Archi (Venice).jpg",
-        "alt": "Три арки моста Тре-Арки над каналом Каннареджо.",
-        "caption": "Три арки моста Тре-Арки над каналом Каннареджо. · 2014",
+        "alt": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio.",
+        "caption": "Все три арки Ponte dei Tre Archi над Canale di Cannaregio. · 2014",
         "needsReview": false
       },
       {
         "locale": "zh",
         "title": "Ponte dei Tre Archi (Venice).jpg",
-        "alt": "Cannaregio运河上Tre Archi桥的三个桥洞。",
-        "caption": "Cannaregio运河上Tre Archi桥的三个桥洞。 · 2014",
+        "alt": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。",
+        "caption": "Canale di Cannaregio上Ponte dei Tre Archi的三个桥拱。 · 2014",
         "needsReview": false
       },
       {
         "locale": "ja",
         "title": "Ponte dei Tre Archi (Venice).jpg",
-        "alt": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。",
-        "caption": "カンナレージョ運河に架かるトレ・アルキ橋の三つのアーチ。 · 2014",
+        "alt": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。",
+        "caption": "Canale di Cannaregioに架かるPonte dei Tre Archiの三つのアーチ。 · 2014",
         "needsReview": false
       },
       {
         "locale": "ko",
         "title": "Ponte dei Tre Archi (Venice).jpg",
-        "alt": "칸나레조 운하 위 트레 아르키 다리의 세 아치.",
-        "caption": "칸나레조 운하 위 트레 아르키 다리의 세 아치. · 2014",
+        "alt": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치.",
+        "caption": "Canale di Cannaregio 위 Ponte dei Tre Archi의 세 아치. · 2014",
         "needsReview": false
       }
     ],

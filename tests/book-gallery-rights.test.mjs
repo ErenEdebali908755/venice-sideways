@@ -15,15 +15,17 @@ test('the 38 bundled visits use only explicitly verified place photographs; all 
  let assigned=0;
  for(const route of routes)for(const visit of route.visits){
   const expected=photosByPlace[visit.placeKey];
-  assert.deepEqual(visit.gallery,expected?[expected]:[]);
-  assert.deepEqual(photosForVisit(visit,temporarySelection),expected?[expected]:[]);
+  // Full retains its already-packaged localized captions; photo identity/rights/bytes stay exact.
+  const identity = photo => { const {copy,...asset}=photo; return asset; };
+  assert.deepEqual(route.key==="main"?visit.gallery:visit.gallery.map(identity),expected?(route.key==="main"?[expected]:[identity(expected)]):[]);
+  assert.deepEqual(photosForVisit(visit,temporarySelection),visit.gallery);
   if(expected)assigned++;
  }
  assert.equal(assigned,19);
  // Main translations approved by delegation 10 October 2026; includes identities, order, every
  // coordinate, all stop/idea copy and segment geometry, not presentation metadata.
  const critical=routes.map(route=>({key:route.key,sourceLanguage:route.sourceLanguage,visits:route.visits.map(visit=>Object.fromEntries(['key','placeKey','order','longitude','latitude','segmentKey','copy','ideas'].map(key=>[key,visit[key]]))),segments:route.segments}));
- assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'f2061eb934fd8c24d430c6e05dab28bb677dc2c1ce35c103faf2fe49a09337c9');
+ assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'2a45d4787bc3fb909a6144af08ca4adceb0263439141d7eb41535523b931e43c');
 });
 
 test('book sources and private assessment material are not reachable through the real anonymous visitor server',async()=>{
