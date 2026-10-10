@@ -83,9 +83,9 @@ test('initial fallback registration is bounded and idempotent; layer order prote
  for(const id of ['fg-landmark-overview','fg-landmark-detail']){assert.equal(map.getLayoutProperty(id,'icon-allow-overlap'),false);assert.equal(map.getLayoutProperty(id,'icon-ignore-placement'),false);}
  const asset=legacy.find(a=>a.kind==='garden-leaves');map.pending.get(asset.url).resolve({data:asset});await loadWatercolorImages(map,['garden-leaves']);assert.deepEqual(map.calls.updates,['fg-garden-leaves']);
 }));
-test('thirty-nine placements preserve each route’s own canonical anchor and never invent locations from titles',()=>{
- const before=JSON.stringify(routes);assert.equal(ILLUSTRATION_PLACEMENTS.length,39);
- assert.deepEqual(routes.map(route=>landmarkFeatures(route).length),[11,28]);
+test('thirty-eight placements preserve each route’s own canonical anchor and never invent locations from titles',()=>{
+ const before=JSON.stringify(routes);assert.equal(ILLUSTRATION_PLACEMENTS.length,38);
+ assert.deepEqual(routes.map(route=>landmarkFeatures(route).length),[10,28]);
  for(const route of routes)for(const feature of landmarkFeatures(route)){
   const visit=route.visits.find(v=>v.key===feature.properties.visitKey);assert.equal(feature.properties.placeKey,visit.placeKey);assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude]);assert.deepEqual(feature.geometry.coordinates,feature.properties.artAnchor||feature.properties.visitCoordinate);assert.equal(feature.properties.number,undefined);
  }

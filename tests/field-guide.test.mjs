@@ -8,7 +8,7 @@ const {routes}=JSON.parse(await readFile(new URL('../public/field-guide/routes.j
 const gardens=JSON.parse(await readFile(new URL('../public/field-guide/gardens.json',import.meta.url),'utf8'));
 test('field guide keeps Main and Full stop counts, independent order and eight prompt languages',()=>{
  assert.deepEqual(routes.map(r=>r.key),['main','full']);
- assert.deepEqual(routes.map(r=>orderedVisits(r).length),[11,28]);
+ assert.deepEqual(routes.map(r=>orderedVisits(r).length),[10,28]);
  for(const route of routes) for(const visit of orderedVisits(route)) {
   assert.equal(visit.ideas.length,5);
   for(const idea of visit.ideas) for(const locale of ['en','tr','it','fr','ru','zh','ja','ko'])assert.ok(idea.copy.find(c=>c.locale===locale)?.text,`${visit.key} ${locale}`);
@@ -44,8 +44,8 @@ test('watercolor presentation preserves provider geometry, sources and attributi
 });
 test('art landmarks use each verified walk’s coordinates and never become extra numbered stops',()=>{
  const main=routes.find(route=>route.key==='main'),features=landmarkFeatures(main);
- assert.equal(features.length,11,'Main has eleven reference-reviewed artwork identities including the new three-arch Tre Archi');
- assert.equal(new Set(features.map(feature=>feature.properties.key)).size,11);
+ assert.equal(features.length,10,'Main has ten reference-reviewed artwork identities including the new three-arch Tre Archi');
+ assert.equal(new Set(features.map(feature=>feature.properties.key)).size,10);
  for(const feature of features){
   const visit=main.visits.find(visit=>visit.key===feature.properties.key);
   assert.deepEqual(feature.properties.visitCoordinate,[visit.longitude,visit.latitude]);
@@ -63,7 +63,7 @@ test('art landmarks use each verified walk’s coordinates and never become extr
  }
  assert.deepEqual(landmarkFeatures({key:'main',visits:[]}),[],'missing coordinates do not produce invented locations');
  assert.equal(ILLUSTRATIONS.length,30);
- assert.equal(ILLUSTRATION_PLACEMENTS.length,39);
+ assert.equal(ILLUSTRATION_PLACEMENTS.length,38);
  assert.deepEqual(ILLUSTRATIONS.filter(asset=>!asset.approved).map(asset=>asset.key),[]);
  assert.equal(features.some(feature=>feature.properties.key==='trearchi'),true);
  assert.equal(GARDENS.length,2);

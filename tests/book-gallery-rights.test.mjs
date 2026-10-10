@@ -7,11 +7,11 @@ import {photosForVisit} from '../public/field-guide/gallery.js';
 import {temporarySelection} from '../public/field-guide/temporary-selection.js';
 import {photosByPlace} from '../public/field-guide/stop-photos.js';
 
-test('the 39 bundled visits use only explicitly verified place photographs; all route content and geography are retained',async()=>{
+test('the 38 bundled visits use only explicitly verified place photographs; all route content and geography are retained',async()=>{
  const {routes}=JSON.parse(await readFile(new URL('../public/field-guide/routes.json',import.meta.url),'utf8'));
- assert.deepEqual(routes.map(route=>[route.key,route.visits.length]),[['main',11],['full',28]]);
- assert.equal(new Set(routes.flatMap(route=>route.visits.map(visit=>visit.placeKey))).size,30);
- assert.equal(routes.reduce((count,route)=>count+route.visits.reduce((n,visit)=>n+visit.ideas.length,0),0),195);
+ assert.deepEqual(routes.map(route=>[route.key,route.visits.length]),[['main',10],['full',28]]);
+ assert.equal(new Set(routes.flatMap(route=>route.visits.map(visit=>visit.placeKey))).size,29);
+ assert.equal(routes.reduce((count,route)=>count+route.visits.reduce((n,visit)=>n+visit.ideas.length,0),0),190);
  let assigned=0;
  for(const route of routes)for(const visit of route.visits){
   const expected=photosByPlace[visit.placeKey];
@@ -19,11 +19,11 @@ test('the 39 bundled visits use only explicitly verified place photographs; all 
   assert.deepEqual(photosForVisit(visit,temporarySelection),expected?[expected]:[]);
   if(expected)assigned++;
  }
- assert.equal(assigned,20);
- // Captured before the explicit empty-gallery edit; includes identities, order, every
+ assert.equal(assigned,19);
+ // Main endpoint change reviewed 10 October 2026; includes identities, order, every
  // coordinate, all stop/idea copy and segment geometry, not presentation metadata.
  const critical=routes.map(route=>({key:route.key,sourceLanguage:route.sourceLanguage,visits:route.visits.map(visit=>Object.fromEntries(['key','placeKey','order','longitude','latitude','segmentKey','copy','ideas'].map(key=>[key,visit[key]]))),segments:route.segments}));
- assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'799ef8168f2fe16f679cd7488a5c7c15ada741c1c5974d2d4eda4a780bd0ba2a');
+ assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'e5a0719d342ca6dea72df7455779ff49f42838f568c5172179b24c895600079e');
 });
 
 test('book sources and private assessment material are not reachable through the real anonymous visitor server',async()=>{

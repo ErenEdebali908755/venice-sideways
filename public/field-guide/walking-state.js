@@ -22,12 +22,17 @@ export function restoreWalkingState(route, saved) {
   const initial = { schemaVersion: 1, routeKey: route?.key, revision: walkingRevision(route),
     targetKey: first?.key || null, completedVisitKeys: [], phase: "reaching-start", transitLeg: 0 };
   if (!saved || saved.schemaVersion !== 1 || saved.routeKey !== route?.key || !PHASES.has(saved.phase)) return initial;
-  const target = steps.find(step => step.key === saved.targetKey);
+  let target = steps.find(step => step.key === saved.targetKey);
+  // Main ended at Vino Vero before 10 October 2026. Retain that walk's
+  // valid progress at its new endpoint without moving any real stop.
+  const retiredMainEnd = !target && route?.key === "main" && saved.targetKey === "vino" && steps.at(-1)?.key === "trearchi";
+  if (retiredMainEnd) target = steps.at(-1);
   if (!target) return initial;
   const keys = new Set(steps.filter(step => !step.boat).map(step => step.key));
   const completed = [...new Set(Array.isArray(saved.completedVisitKeys) ? saved.completedVisitKeys : [])]
     .filter(key => keys.has(key)).slice(0, keys.size);
   let phase = saved.phase;
+  if (retiredMainEnd) phase = completed.includes(target.key) ? "complete" : "walking";
   if (phase === "transit" && !target.boat) phase = "walking";
   if (target.boat && phase !== "complete") phase = "transit";
   if (phase === "reaching-start" && target !== first) phase = "walking";

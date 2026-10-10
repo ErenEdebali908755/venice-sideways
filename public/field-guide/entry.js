@@ -1,7 +1,7 @@
-import {createMeasurementCollector} from './measurement.js?v=20261009-main';
-import {FieldGuide} from './guide.js?v=20261009-main';
-import {temporarySelection} from './temporary-selection.js?v=20261009-main';
-import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261009-main';
+import {createMeasurementCollector} from './measurement.js?v=20261010-main-ten';
+import {FieldGuide} from './guide.js?v=20261010-main-ten';
+import {temporarySelection} from './temporary-selection.js?v=20261010-main-ten';
+import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261010-main-ten';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];
 export const normalizeLanguage = value => typeof value === 'string' ? value.toLowerCase().split(/[-_]/)[0] : '';
@@ -43,7 +43,7 @@ async function boot(bundled=false) {
   root.className='fg-loading';root.setAttribute('aria-busy','true');root.replaceChildren();
   const loading=document.createElement('p');loading.setAttribute('role','status');loading.textContent=copy.loading;root.append(loading);
   try {
-    const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261009-main'),json('/sideways/actv-water-paths.json')]);
+    const [base,water]=await Promise.all([json('/field-guide/routes.json?v=20261010-main-ten'),json('/sideways/actv-water-paths.json')]);
     if(!Array.isArray(base.routes)||!base.routes.length)throw Error('No bundled routes');
     let routes=base.routes;
     const requested=new URLSearchParams(location.hash.slice(1)).get('route') || new URLSearchParams(location.search).get('route');

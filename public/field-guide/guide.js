@@ -11,13 +11,13 @@ import {
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261009-main";
+} from "./map-art.js?v=20261010-main-ten";
 import { directionFeatures, installDirections } from "./directions.js?v=20261009-main";
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261009-main";
-import { uiCopy } from "./ui-copy.js?v=20261009-main";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-main-ten";
+import { uiCopy } from "./ui-copy.js?v=20261010-main-ten";
 import { galleryForVisit, photosForVisit, galleryText, coverPhoto, imageVariant, photoContentKind, inspirationPhotosForVisit } from "./gallery.js?v=20261009-main";
 import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261009-main";
-import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261009-main";
+import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261010-main-ten";
 import { icon } from "./icons.js?v=20261009-main";
 import { presentedRoutes } from "./presentation.js?v=20261009-main";
 const THEME_KEY = "sideways-field-guide-theme";
@@ -352,7 +352,7 @@ export class FieldGuide {
   }
   named(key, name) { return this.t(key).replace("{name}", name || ""); }
   durationSummary(route = this.route) {
-    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About 6 km on foot + 2 vaporetti"))}<br><strong>${escape(this.t("Plan 3–4 hours with photo stops"))}</strong><br>${escape(this.t("4–4½ hours for longer photos and site testing"))}<br><small>${escape(this.t("Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded."))}</small></p>`;
+    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About 4.6 km on foot + 2 vaporetti"))}<br><strong>${escape(this.t("Plan 3–4 hours with photo stops"))}</strong><br>${escape(this.t("4–4½ hours for longer photos and site testing"))}<br><small>${escape(this.t("Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded."))}</small></p>`;
     return `<p class="fg-muted">${escape(this.t("Distance and duration awaiting verification"))}</p>`;
   }
   walkingDock() {
