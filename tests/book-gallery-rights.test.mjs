@@ -5,6 +5,7 @@ import {createHash} from 'node:crypto';
 import {createServer} from '../server.mjs';
 import {photosForVisit} from '../public/field-guide/gallery.js';
 import {temporarySelection} from '../public/field-guide/temporary-selection.js';
+import {mainGalleryForPlace} from '../public/field-guide/main-photo-additions.js';
 import {photosByPlace} from '../public/field-guide/stop-photos.js';
 
 test('the 38 bundled visits use only explicitly verified place photographs; all route content and geography are retained',async()=>{
@@ -17,7 +18,7 @@ test('the 38 bundled visits use only explicitly verified place photographs; all 
   const expected=photosByPlace[visit.placeKey];
   // Full retains its already-packaged localized captions; photo identity/rights/bytes stay exact.
   const identity = photo => { const {copy,...asset}=photo; return asset; };
-  assert.deepEqual(route.key==="main"?visit.gallery:visit.gallery.map(identity),expected?(route.key==="main"?[expected]:[identity(expected)]):[]);
+  assert.deepEqual(route.key==="main"?visit.gallery:visit.gallery.map(identity),expected?(route.key==="main"?mainGalleryForPlace(visit.placeKey):[identity(expected)]):[]);
   assert.deepEqual(photosForVisit(visit,temporarySelection),visit.gallery);
   if(expected)assigned++;
  }
