@@ -26,13 +26,42 @@ test('explicit start owns one watch; stop clears coordinates, timers and late ca
  f.engine.stop('suspended');f.calls[1].success(f.position(12.4));assert.equal(f.fixes.length,1);
  assert.equal(f.engine.fix,null);assert.equal(f.engine.pending,null);assert.equal(f.jobs.size,0);assert.deepEqual(f.cleared,[1,2]);assert.equal(f.engine.state,'suspended');
 });
-test('invalid, old, reversed and future fixes are rejected; coalescing preserves the newest fix and stale state is truthful',()=>{
+test('invalid, old and reversed fixes are rejected; coalescing preserves the newest fix and stale state is truthful',()=>{
  const f=fixture();f.engine.start({});
- for(const p of [f.position(NaN),f.position(181),f.position(12.33,0),f.position(12.33,100001),f.position(12.33,20,f.now()-30001),f.position(12.33,20,f.now()+5001)])f.calls[0].success(p);
+ for(const p of [f.position(NaN),f.position(181),f.position(12.33,0),f.position(12.33,100001),f.position(12.33,20,f.now()-30001)])f.calls[0].success(p);
  assert.equal(f.fixes.length,0);f.calls[0].success(f.position());assert.equal(f.fixes.length,1);
  f.tick(100);f.calls[0].success(f.position(12.34));f.tick(100);f.calls[0].success(f.position(12.35));f.calls[0].success(f.position(12.36,20,f.now()-100));assert.equal(f.fixes.length,1);
  f.tick(800);assert.equal(f.fixes.length,2);assert.deepEqual(f.fixes.at(-1).fix.coordinates,[12.35,45.44]);
  f.tick(30000);assert.equal(f.engine.state,'stale');f.calls[0].success(f.position(12.37));assert.equal(f.engine.state,'tracking');f.engine.stop();
+});
+test('recent microsecond timestamps normalize to milliseconds, including delivery delay and window boundaries',()=>{
+ const f=fixture(),now=f.now();
+ for(const offset of [-30000,-1048,0,5000]){
+  const fix=validFix(f.position(12.33,20,(now+offset)*1000),now);
+  assert.equal(fix.timestamp,now+offset);
+ }
+ const native=validFix(f.position(12.33,20,1791618477685000),1791618478737);
+ assert.equal(native.timestamp,1791618477685);
+});
+test('future and non-finite timestamps fall back to receipt time without weakening coordinate validation',()=>{
+ const f=fixture(),now=f.now();
+ for(const timestamp of [now+5001,NaN,Infinity,undefined,(now+5001)*1000]){
+  const position={...f.position(),timestamp};
+  assert.equal(validFix(position,now).timestamp,now);
+  assert.equal(validFix({...position,coords:{...position.coords,longitude:NaN}},now),null);
+  assert.equal(validFix({...position,coords:{...position.coords,accuracy:0}},now),null);
+ }
+ assert.equal(validFix(f.position(28.97,20,NaN),now).outside,true);
+});
+test('ordinary milliseconds, stale rejection and strict ordering survive normalization and fallback',()=>{
+ const f=fixture(),now=f.now();
+ for(const offset of [-30000,-1,0,5000])assert.equal(validFix(f.position(12.33,20,now+offset),now).timestamp,now+offset);
+ assert.equal(validFix(f.position(12.33,20,now-30001),now),null);
+ for(const timestamp of [now,now-1,now*1000,(now-1)*1000,NaN,now+6000]){
+  assert.equal(validFix(f.position(12.33,20,timestamp),now,now),null);
+ }
+ assert.equal(validFix(f.position(12.33,20,NaN),now,now+1000),null);
+ assert.equal(validFix(f.position(12.33,20,NaN),now+1,now).timestamp,now+1);
 });
 test('denied/unavailable/timeout are GPS states; absent or throwing Permission API does not block start',()=>{
  for(const [code,state]of [[1,'denied'],[2,'unavailable'],[3,'timeout']]){const f=fixture();f.engine.start({});f.calls[0].error({code});assert.equal(f.engine.state,state);assert.equal(f.engine.watch,null);assert.equal(f.jobs.size,0)}
