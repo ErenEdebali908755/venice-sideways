@@ -6,7 +6,13 @@ export function locationCapability({ publicLocation = false, preview = false, lo
 }
 export function validFix(position, now, previous = 0) {
   const { longitude, latitude, accuracy } = position?.coords || {};
-  const timestamp = position?.timestamp;
+  let timestamp = position?.timestamp;
+  if (!Number.isFinite(timestamp) || timestamp > now + 5000) {
+    // A recent microsecond fix can be just below now * 1000 after delivery delay.
+    const milliseconds = timestamp / 1000;
+    timestamp = Number.isFinite(timestamp) && milliseconds >= now - 30000 && milliseconds <= now + 5000
+      ? milliseconds : now;
+  }
   if (![longitude, latitude, accuracy, timestamp].every(Number.isFinite) || Math.abs(longitude) > 180 || Math.abs(latitude) > 90 || accuracy <= 0 || accuracy > 100000 || timestamp <= previous || timestamp < now - 30000 || timestamp > now + 5000) return null;
   return { coordinates: [longitude, latitude], accuracy, timestamp, outside: !inVenice([longitude, latitude]) };
 }
