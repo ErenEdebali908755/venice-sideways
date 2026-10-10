@@ -1,5 +1,5 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-evening-eight";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-third-review";
 
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
@@ -56,7 +56,7 @@ export const NEARBY_GREEN_SPACES = [
 export const PLACE_COPY = {
   lucia: {
     name: "Venezia Santa Lucia",
-    text: { en: "The railway station marks the beginning of Main Walk, beside the Grand Canal.", tr: "Ana Yürüyüş, Büyük Kanal kıyısındaki tren istasyonundan başlar.", it: "La stazione ferroviaria segna l’inizio di Main Walk, accanto al Canal Grande.", fr: "La gare marque le départ de Main Walk, au bord du Canal Grande.", ru: "Вокзал у Canal Grande — начало маршрута Main Walk.", zh: "Canal Grande旁的火车站是Main Walk的起点。", ja: "Canal Grandeのそばにある駅が、Main Walkの出発点です。", ko: "Canal Grande 옆 기차역이 Main Walk의 출발점입니다." },
+    text: { en: "The railway station marks the beginning of Main Walk, beside the Grand Canal.", tr: "Main Walk, Büyük Kanal kıyısındaki tren istasyonundan başlar.", it: "La stazione ferroviaria segna l’inizio di Main Walk, accanto al Canal Grande.", fr: "La gare marque le départ de Main Walk, au bord du Canal Grande.", ru: "Вокзал у Canal Grande — начало маршрута Main Walk.", zh: "Canal Grande旁的火车站是Main Walk的起点。", ja: "Canal Grandeのそばにある駅が、Main Walkの出発点です。", ko: "Canal Grande 옆 기차역이 Main Walk의 출발점입니다." },
   },
   accademia: {
     name: "Ponte dell’Accademia",

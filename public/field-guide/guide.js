@@ -1,4 +1,5 @@
-import { officialTimetableURL } from './timetable-policy.js?v=20261010-evening-eight';
+import {distanceLabel,rangeLabel,dateLabel,stopCountLabel} from "./formatting.js?v=20261010-third-review";
+import { officialTimetableURL } from './timetable-policy.js?v=20261010-third-review';
 /* Shared visitor presentation: public releases and private in-memory admin previews. */
 import {
   BASE_STYLE,
@@ -11,15 +12,15 @@ import {
   placeCopy,
   setWatercolorLandmarks,
   watercolorStyle,
-} from "./map-art.js?v=20261010-evening-eight";
-import { directionFeatures, installDirections } from "./directions.js?v=20261010-evening-eight";
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-evening-eight";
-import { uiCopy } from "./ui-copy.js?v=20261010-evening-eight";
-import { photosForVisit, galleryText, coverPhoto, imageVariant, photoContentKind } from "./gallery.js?v=20261010-evening-eight";
-import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261010-evening-eight";
-import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261010-evening-eight";
-import { icon } from "./icons.js?v=20261010-evening-eight";
-import { presentedRoutes } from "./presentation.js?v=20261010-evening-eight";
+} from "./map-art.js?v=20261010-third-review";
+import { directionFeatures, installDirections } from "./directions.js?v=20261010-third-review";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-third-review";
+import { uiCopy } from "./ui-copy.js?v=20261010-third-review";
+import { photosForVisit, galleryText, coverPhoto, imageVariant, photoContentKind } from "./gallery.js?v=20261010-third-review";
+import { LocationEngine, locationCapability, accuracyGeometry } from "./location-engine.js?v=20261010-third-review";
+import { walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingAt, previousWalkingState, loadWalkingProgress, saveWalkingProgress, activeWalkingGeometry, transitLegGeometry } from "./walking-state.js?v=20261010-third-review";
+import { icon } from "./icons.js?v=20261010-third-review";
+import { presentedRoutes } from "./presentation.js?v=20261010-third-review";
 const THEME_KEY = "sideways-field-guide-theme";
 const THEME_LABELS = {
   en: ["Theme", "System", "Light", "Dark"],
@@ -346,7 +347,7 @@ export class FieldGuide {
   }
   named(key, name) { return this.t(key).replace("{name}", name || ""); }
   durationSummary(route = this.route) {
-    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About 4.6 km on foot + 2 vaporetti"))}<br><strong>${escape(this.t("Plan 3–4 hours with photo stops"))}</strong><br>${escape(this.t("4–4½ hours for longer photos and site testing"))}<br><small>${escape(this.t("Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded."))}</small></p>`;
+    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About {distance} on foot + 2 vaporetti").replace("{distance}", distanceLabel(4.6, this.lang)))}<br><strong>${escape(this.t("Plan {range} hours with photo stops").replace("{range}", rangeLabel(3,4,this.lang)))}</strong><br>${escape(this.t("{range} hours for longer photos and site testing").replace("{range}", rangeLabel(4,4.5,this.lang)))}<br><small>${escape(this.t("Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded."))}</small></p>`;
     return `<p class="fg-muted">${escape(this.t("Distance and duration awaiting verification"))}</p>`;
   }
   walkingDock() {
@@ -372,12 +373,12 @@ export class FieldGuide {
   }
   routeCard(r) {
     const visits = orderedVisits(r);
-    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${visits.filter((v) => v.isPhotoStop).length} ${this.t("stops", "durak")} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2><p lang="${this.text(r.copy, r).locale || this.lang}">${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl>${this.durationSummary(r)}<button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} ${icon("external-link")}</button></div></article>`;
+    return `<article class="fg-route-card">${r.photo?.url !== this.route?.photo?.url ? this.photo(r.photo, "cover") : ""}<div><span class="fg-kicker">${escape(stopCountLabel(visits.filter((v) => v.isPhotoStop).length,this.lang))} · ${r.segments.some((s) => s.type === "vaporetto") ? this.t("Walk + vaporetto", "Yürüyüş + vaporetto") : this.t("On foot", "Yaya")}</span><h2>${escape(this.title(r))}</h2><p lang="${this.text(r.copy, r).locale || this.lang}">${escape(this.text(r.copy, r).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><dl><div><dt>${this.t("Start", "Başlangıç")}</dt><dd>${escape(this.text(visits[0]?.copy, r).title || "—")}</dd></div><div><dt>${this.t("Finish", "Bitiş")}</dt><dd>${escape(this.text(visits.at(-1)?.copy, r).title || "—")}</dd></div></dl>${this.durationSummary(r)}<button data-route="${escape(r.key)}" class="fg-primary">${this.t("Explore this walk", "Rotayı keşfet")} ${icon("external-link")}</button></div></article>`;
   }
   mainSummary() {
     const route = this.route, visits = orderedVisits(route).filter(visit => visit.isPhotoStop);
     const continuing = this.started && !this.completed;
-    return `<section class="fg-main-summary"><span class="fg-kicker">${visits.length} ${escape(this.t("stops"))} · ${escape(this.t("Walk + vaporetto"))}</span><h1>${escape(this.title(route))}</h1><button data-route="${escape(route.key)}" class="fg-primary">${escape(this.t(continuing ? "Continue walking" : "Open walk"))} ${icon("arrow-right")}</button>${this.hiddenRouteNotice ? `<p class="fg-source-note" role="status">${escape(this.t("This guide now focuses on Main Walk. Your other saved walks are preserved."))}</p>` : ""}<dl><div><dt>${escape(this.t("Start"))}</dt><dd>${escape(this.text(visits[0]?.copy, route).title || "—")}</dd></div><div><dt>${escape(this.t("Finish"))}</dt><dd>${escape(this.text(visits.at(-1)?.copy, route).title || "—")}</dd></div></dl>${this.durationSummary(route)}</section>`;
+    return `<section class="fg-main-summary"><span class="fg-kicker">${escape(stopCountLabel(visits.length,this.lang))} · ${escape(this.t("Walk + vaporetto"))}</span><h1>${escape(this.title(route))}</h1><button data-route="${escape(route.key)}" class="fg-primary">${escape(this.t(continuing ? "Continue walking" : "Open walk"))} ${icon("arrow-right")}</button>${this.hiddenRouteNotice ? `<p class="fg-source-note" role="status">${escape(this.t("This guide now focuses on Main Walk. Your other saved walks are preserved."))}</p>` : ""}<dl><div><dt>${escape(this.t("Start"))}</dt><dd>${escape(this.text(visits[0]?.copy, route).title || "—")}</dd></div><div><dt>${escape(this.t("Finish"))}</dt><dd>${escape(this.text(visits.at(-1)?.copy, route).title || "—")}</dd></div></dl>${this.durationSummary(route)}</section>`;
   }
   render() {
     const t = (en, tr) => this.t(en, tr),
@@ -463,7 +464,7 @@ export class FieldGuide {
         const link = document.createElement("a");
         link.className = "fg-event-link";
         link.href = `/events/${event.slug}?lang=${encodeURIComponent(this.lang)}`;
-        link.textContent = `${labels[this.lang] || labels.en} · ${event.eventDate}`; link.insertAdjacentHTML("beforeend", icon("external-link"));
+        link.textContent = `${labels[this.lang] || labels.en} · ${dateLabel(event.eventDate,this.lang)}`; link.insertAdjacentHTML("beforeend", icon("external-link"));
         target.append(link);
       }
     }
@@ -1211,7 +1212,7 @@ export class FieldGuide {
     const fix = this.locationEngine?.fix;
     this.root.dataset.location = state;
     this.locationStatus = state === "off" ? "" : this.t(messages[state] || "");
-    if (fix && state === "tracking") this.locationStatus = fix.outside ? this.t("You are outside Venice. Your real position is available with Return to my location; the route stays here.") : `${this.t("Location is on")} · ${fix.accuracy > 200 ? this.t("Low accuracy") : this.t("Accuracy")} ±${Math.round(fix.accuracy)} m`;
+    if (fix && state === "tracking") this.locationStatus = fix.outside ? this.t("You are outside Venice. Your real position is available with Return to my location; the route stays here.") : `${this.t("Location is on")} · ${fix.accuracy > 200 ? this.t("Low accuracy") : this.t("Accuracy")} ±${distanceLabel(fix.accuracy,this.lang,"meter")}`;
     const signature = `${this.lang}:${!!active}:${this.ready}:${this.locationAllowed()}`;
     if (controls && signature !== this.locationControlsSignature) {
       this.locationControlsSignature = signature;

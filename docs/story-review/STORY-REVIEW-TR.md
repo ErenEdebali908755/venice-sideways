@@ -1527,3 +1527,8 @@ Eren’in bu turdaki açık yetki devriyle aşağıdaki IT/FR/RU/ZH/JA/KO çevir
 | trearchi | ZH | 横跨Canale di Cannaregio的Ponte dei Tre Archi由Andrea Tirali于1688年重建。 | 桥名来自它的三座拱，此前称作Ponte di San Giobbe。 | [x] Yetki devri |
 | trearchi | JA | Canale di Cannaregioに架かるPonte dei Tre Archiは、1688年にAndrea Tiraliによって再建されました。 | 橋の名は三つのアーチに由来します。以前はPonte di San Giobbeと呼ばれていました。 | [x] Yetki devri |
 | trearchi | KO | Canale di Cannaregio를 가로지르는 Ponte dei Tre Archi는 1688년 Andrea Tirali가 재건했습니다. | 다리 이름은 세 개의 아치에서 왔으며, 예전에는 Ponte di San Giobbe로 알려져 있었습니다. | [x] Yetki devri |
+
+
+## 10.10.2026 · Üçüncü tur bağımsız çeviri kontrolü
+
+çeviri: Codex, Eren adına, 10.10.2026. Main Walk, sekiz dilde ayrı inceleme geçişleriyle kontrol edildi. Tarihsel TR/EN olguları korundu; Zattere rota açıklaması mevcut Tre Archi bitişiyle eşitlendi. [Düzeltmeler, geri çeviriler ve sayım yöntemi](../i18n/translation-review.md).

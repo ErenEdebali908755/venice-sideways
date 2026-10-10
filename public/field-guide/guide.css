@@ -1227,3 +1227,8 @@ body {
 .fg-photo-ideas[open] > summary > .fg-icon:last-child { transform:rotate(180deg); }
 .fg-photo-ideas > summary:focus-visible { outline:3px solid var(--focus); outline-offset:3px; }
 .fg-photo-ideas > article { padding:8px 2px; }
+
+/* Keep Korean words together; use strict CJK punctuation and balanced Japanese headings. */
+.fg:lang(ko) :is(p,h1,h2,h3,button,summary,label,figcaption,li,small,strong,span) { word-break:keep-all; overflow-wrap:break-word; }
+.fg:lang(zh),.fg:lang(ja) { line-break:strict; }
+.fg:lang(ja) .fg-photo-ideas > summary strong { text-wrap:balance; }

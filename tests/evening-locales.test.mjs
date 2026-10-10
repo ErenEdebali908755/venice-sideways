@@ -62,7 +62,7 @@ test('illustration disclosure is in localized alt text; idea disclosure preserve
  }
 });
 
-test('all five ideas retain their exact pre-release order and text',()=>{
+test('all five ideas retain their independently reviewed order and eight-language text',()=>{
  const digest=createHash('sha256').update(JSON.stringify(main.visits.map(v=>({key:v.key,ideas:v.ideas})))).digest('hex');
- assert.equal(digest,'3801d7f7e9434726685ac3120d4351da910d936bd1922f078adf838d52e9a357');
+ assert.equal(digest,'7381587bc4f9b14884456a8e10e7f7c1adcbf2671f9bcb30b30c1b654e984eda');
 });
