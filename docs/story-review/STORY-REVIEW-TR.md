@@ -911,3 +911,160 @@ Ayrı öneri: Metin değişikliği uygulanmadı. Yukarıdaki kaynak açığını
 
 - [ ] `elena` için TR + EN çiftini birlikte onaylıyorum. Seçilen sürüm: özgün / yukarıdaki öneri / kendi düzeltmem.
 - Onaylayan, tarih ve kesin metin sürümü: ____________________
+
+---
+
+## Main Walk · kısa sürüm önerileri · 10 Ekim 2026
+
+**Yalnız aşağıdaki 11 çift yeni öneridir; yukarıdaki özgün metinler değiştirilmedi. Henüz içerik onayı verilmedi.**
+
+Doğrulanamayan cümleler bu kısa sürümlerden çıkarıldı. Yeni kaynakla doğrulanan veya yalnız kısaltılan bölümler ayrıca belirtiliyor; her çıkarma bir yanlışlık hükmü değildir. TR ve EN aynı bilgiyi taşır. Kutuyu işaretlemek için iki dili birlikte inceleyin. Bu belgeyi hazırlamak JSON’u, admin taslağını, inceleme durumunu veya canlı yayını değiştirmez. **EN onaylanmazsa diğer 6 dildeki ziyaretçiler Türkçe metni görür**; bunun için TR’nin ayrıca onaylanıp yayımlanması gerekir.
+
+Kaynaklar 10 Ekim 2026’da açık sayfalar üzerinden yeniden kontrol edildi. Kitap pasajları yeniden okunmuş sayılmıyor. Aşağıdaki tarihçe ve ayrıntılar giriş bileti, iç mekâna erişim veya ziyaret saatleri vaat etmez.
+
+### 1. Venezia Santa Lucia · `lucia` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | 11 Ocak 1846’da açılan demiryolu köprüsü, Venedik’i ana karaya bağladı. | The railway bridge opened on 11 January 1846, linking Venice to the mainland. |
+| İlginç bilgi | Bugünkü istasyonun son tasarımı, İkinci Dünya Savaşı’ndan sonra Paolo Perilli’nin projesiyle tamamlandı. | The station’s final design was completed after the Second World War, to a project by Paolo Perilli. |
+
+Çıkarılan: kilisenin yıkılması ve bu değişimin şehir girişini dönüştürdüğü yorumu. “1930’ların projeleri” ifadesi, 1924’te başlayan çalışmaları dışarıda bırakmamak için kullanılmadı.
+
+Kaynak: [Fondazione FS kronolojisi](https://www.fondazionefs.it/it/focus-tematici/2021/3/17/le-ferrovie-nell-unita-d-italia---cronologia-storica-1839-1861.html); [Grandi Stazioni — La Storia](https://www.grandistazioni.it/it/le-nostre-stazioni/venezia-s--lucia.html).
+
+- [ ] `lucia / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 2. San Giacomo dell’Orio · `giacomo` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | San Giacomo dall’Orio’nun bugünkü biçimi, 1225’te başlayan yeniden yapımın ve 15–16. yüzyıllardaki değişikliklerin sonucudur. | San Giacomo dall’Orio took its present form through rebuilding begun in 1225 and alterations in the 15th and 16th centuries. |
+| İlginç bilgi | İçerideki ahşap tavan, ters çevrilmiş bir gemi gövdesini andırır. | Inside, the wooden ceiling resembles an upturned ship’s hull. |
+
+Çıkarılan: Badoer ailesinin bu mahalledeki gücüne ilişkin cümle. 1225 tamamlanma tarihi gibi sunulmadı; kaynak yeniden yapımın başlangıcı diyor.
+
+Kaynak: [Chorus — San Giacomo, Cenni Storici](https://chorusvenezia.org/visita/chiesa-di-san-giacomo-dallorio/).
+
+- [ ] `giacomo / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 3. Frari · Campo dei Frari · `frari` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Fransiskenlerin Venedik’teki yerleşimi 13. yüzyıla uzanır. Bugünkü Frari Bazilikası’nın yapımına yaklaşık 1330’da başlandı. | The Franciscans settled in Venice in the 13th century. Construction of the present Frari basilica began around 1330. |
+| İlginç bilgi | Yaklaşık 70 metrelik çan kulesi, Venedik’te San Marco’nunkinden sonra en yüksek ikinci kuledir. | At about 70 metres, the bell tower is Venice’s second tallest after San Marco’s. |
+
+Kaynak açığı nedeniyle çıkarılan cümle yok; mevcut doğrulanmış içerik kısaltıldı. Bazilikanın ilk yerleşimi ile bugünkü yapının başlangıcı ayrı tutuldu.
+
+Kaynak: [Frari — Fransiskenler](https://www.basilicadeifrari.it/frati-minori-conventuali/); [Frari — çan kulesi](https://www.basilicadeifrari.it/il-campanile/).
+
+- [ ] `frari / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 4. Campo Santa Margherita · `margherita` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Meydandaki eski Santa Margherita Kilisesi, 1921–1977 arasında sinema olarak kullanıldı. Daha sonra Ca’ Foscari’nin etkinlik salonuna dönüştü. | The former Santa Margherita church served as a cinema from 1921 to 1977. It later became a Ca’ Foscari auditorium. |
+| İlginç bilgi | Çan kulesinin üst bölümü, güvenli olmadığı için 1808’de söküldü. | The upper part of the bell tower was removed in 1808 because it was unsafe. |
+
+Çıkarılan: “işçi dayanışmasının önemli merkezlerinden biri” genellemesi. Kaynak 1910’da binadaki Camera del Lavoro’yu doğrulasa da meydanın önemine ilişkin daha geniş yorum kısa metne alınmadı.
+
+Kaynak: [Ca’ Foscari — yapının tarihçe notları, s. 1](https://www.unive.it/pag/fileadmin/user_upload/ateneo/spazi/schede-storiche/scheda_cenni_storici_smargherita_eng.pdf).
+
+- [ ] `margherita / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 5. Campo San Barnaba · `barnaba` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | San Barnaba Kilisesi’nin bugünkü yapısı, 18. yüzyılın ortalarında mimar Lorenzo Boschetti tarafından yapıldı. | The present San Barnaba church was built around the mid-18th century by architect Lorenzo Boschetti. |
+| İlginç bilgi | Klasik üsluptaki cephenin üstünde üçgen bir alınlık bulunur. | A triangular pediment crowns the classical façade. |
+
+Çıkarılan: Ponte dei Pugni’de rakipleri suya itme anlatısı ve bu turda doğrudan kaynak metni okunamayan 16. yüzyıl kuyu tarihi. Ayrıntı, aynı kaynakta açıkça betimlenen cepheyle sınırlandı. Aşağıdaki turizm rehberi belediye/bina sahibi kaynağı olarak sınıflandırılmıyor.
+
+Kaynak: [Tour Venice — Church of San Barnaba](https://tour.venice.it/venice/what-to-see/details/chiesa-di-san-barnaba).
+
+- [ ] `barnaba / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 6. San Trovaso · squero çevresi · `trovaso` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | San Trovaso’daki squero, geçmişi 17. yüzyıla uzanan bir tekne yapım ve onarım atölyesidir. | The San Trovaso squero is a boatbuilding and repair yard dating back to the 17th century. |
+| İlginç bilgi | Burada yapılan geleneksel lagün tekneleri arasında gondol, sandolo ve pupparino bulunur. | Traditional lagoon boats made here include gondolas, sandoli and pupparini. |
+
+Çıkarılan: ahşap binanın biçimini ustaların ve kerestenin Cadore kökenine bağlayan cümle. Sandolo/pupparino bu turda belediyenin doğrudan açılan metninde doğrulandı; önceki erişim açığı bu dar iddia için giderildi. Belirli kuruluş yılı verilmedi.
+
+Kaynak: [Comune di Venezia — Campo San Trovaso](https://live.comune.venezia.it/it/node/136817).
+
+- [ ] `trovaso / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 7. Zattere · Gesuati · `zattere` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Zattere kıyısındaki Gesuati Kilisesi, 1726–1735 arasında Dominikenler için Giorgio Massari’nin tasarımıyla inşa edildi. | The Gesuati church on the Zattere was built for the Dominicans between 1726 and 1735, to Giorgio Massari’s design. |
+| İlginç bilgi | Gesuati adı, burada daha önce bulunan dinî topluluktan kaldı. Dominikenler onların yerini 1668’de aldı. | The name Gesuati comes from the religious community previously based here. The Dominicans replaced them in 1668. |
+
+Çıkarılan: Zattere’yi 16. yüzyıldaki geniş kent planına bağlayan, kitap pasajı yeniden okunamayan cümle.
+
+Kaynak: [Chorus — Gesuati, Cenni Storici](https://chorusvenezia.org/visita/chiesa-di-santa-maria-del-rosario-gesuati/).
+
+- [ ] `zattere / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 8. Punta della Dogana · `dogana` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Eski deniz gümrüğü, Giuseppe Benoni’nin tasarımıyla 1682’de tamamlandı. Tadao Ando’nun yenilemesinden sonra 2009’da çağdaş sanat merkezi olarak açıldı. | The former maritime customs house was completed in 1682 to Giuseppe Benoni’s design. After renovation by Tadao Ando, it opened as a contemporary art centre in 2009. |
+| İlginç bilgi | Kulenin tepesindeki Fortuna heykeli, rüzgârın yönüne göre döner. | The statue of Fortuna on top of the tower turns with the wind. |
+
+Kaynak açığı nedeniyle çıkarılan cümle yok; doğrulanmış bilgiler daha kısa verildi. Genel “17. yüzyıl” yerine kurumun verdiği 1682 tarihi kullanıldı.
+
+Kaynak: [Pinault Collection — Punta della Dogana](https://www.pinaultcollection.com/palazzograssi/it/punta-della-dogana).
+
+- [ ] `dogana / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 9. Ponte dell’Accademia · `accademia` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Eugenio Miozzi’nin tasarladığı ahşap Accademia Köprüsü, 1933’te açıldı. | The wooden Accademia Bridge designed by Eugenio Miozzi opened in 1933. |
+| İlginç bilgi | Köprü, kalıcı bir taş köprü yapılana kadar kullanılacak geçici bir geçit olarak düşünülmüştü. | It was intended as a temporary crossing until a permanent stone bridge could be built. |
+
+Çıkarılan: önceki demir köprünün 1854 tarihi, Neville firması ve parçaların İngiltere’de döküldüğü anlatısı; bu kısa sürüm yalnız yeniden doğrulanan 1933 köprüsüne odaklanıyor. 1933 ile geçicilik bu turda belediyenin iki haberinde yeniden doğrulandı. Günümüzdeki yapının tümünün 1933’ten kalan ahşap olduğu söylenmiyor; sonraki onarımlar bu kısa metnin dışında.
+
+Kaynak: [Comune — 2018 açılış haberi](https://live.comune.venezia.it/it/node/124284); [Comune — 2017 restorasyon ve geçici köprü açıklaması](https://live.comune.venezia.it/it/node/120506).
+
+- [ ] `accademia / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 10. Ponte dei Tre Archi · `trearchi` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Cannaregio Kanalı üzerindeki Ponte dei Tre Archi, Andrea Tirali tarafından 1688’de yapıldı. | Ponte dei Tre Archi, spanning the Cannaregio Canal, was built by Andrea Tirali in 1688. |
+| İlginç bilgi | Köprü eskiden Ponte di San Giobbe adıyla biliniyordu. | The bridge was formerly known as Ponte di San Giobbe. |
+
+Çıkarılan: “tarihî kent merkezindeki çok kemerli köprülerin tek kalan örneği” iddiası; kaynak yalnız üç kemerli köprülerden söz ediyor. Kanalın kuzey lagünüyle bağlantısı kısa sürümde kullanılmadı. Üç temel bilgi (yer, mimar/tarih, eski ad) bu turda açık kültürel miras kaydında doğrulandı. Kaynak, Associazione Aliusmodi’nin kültürel miras projesidir; belediyenin yapı sicili değildir.
+
+Kaynak: [Venezia e le sue lagune — Ponte dei Tre Archi](https://www.venicethefuture.com/schede/it/048-aliusid=048.htm).
+
+- [ ] `trearchi / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### 11. Vino Vero · `vino` · kısa-v1
+
+| Alan | TR · öneri | EN · proposal |
+|---|---|---|
+| Kısa tarihçe | Fondamenta della Misericordia’daki Vino Vero, 2014’te açıldı. | Vino Vero on Fondamenta della Misericordia opened in 2014. |
+| İlginç bilgi | Üç kurucusu Matteo Bartoli, Mara Sartore ve Matteo’nun kardeşi Massimiliano’dur. | Its three founders are Matteo Bartoli, Mara Sartore and Matteo’s brother Massimiliano. |
+
+Düzeltilen: kurucuların yalnız Matteo ve Mara olarak verilmesi. İşletmenin kendi sayfası **üç kurucu** sayıyor. Kaynak Massimiliano’nun soyadını açıkça yazmadığı için eklenmedi. Çıkarılan: bu işletmenin kısa hikâyesinden ayrı kalan Misericordia kardeşliği anlatısı ve kurucuların önceki şarapçılık deneyiminin ayrıntıları.
+
+Kaynak: [Vino Vero — Venezia, The Origin](https://vinovero.wine/luoghi/venezia/).
+
+- [ ] `vino / kısa-v1` TR + EN birlikte onaylandı. Onaylayan / tarih: __________
+
+### Bu ekin yayın sınırı
+
+Bu 11 öneri onaylanmadan kaynak JSON’a/admin taslağına taşınmaz. Kutular boş bırakıldı. Diğer 19 yer için yeni kısa sürüm üretilmedi. Koordinat, sıra ve kimlik farklarına ilişkin PUBLISH-CHECKLIST kapısı ayrıca geçerlidir; metin onayı coğrafi farkları onaylamaz.
