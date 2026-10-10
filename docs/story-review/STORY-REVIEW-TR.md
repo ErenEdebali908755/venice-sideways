@@ -1068,3 +1068,60 @@ Kaynak: [Vino Vero — Venezia, The Origin](https://vinovero.wine/luoghi/venezia
 ### Bu ekin yayın sınırı
 
 Bu 11 öneri onaylanmadan kaynak JSON’a/admin taslağına taşınmaz. Kutular boş bırakıldı. Diğer 19 yer için yeni kısa sürüm üretilmedi. Koordinat, sıra ve kimlik farklarına ilişkin PUBLISH-CHECKLIST kapısı ayrıca geçerlidir; metin onayı coğrafi farkları onaylamaz.
+
+## Main Walk · kısa-v1 ikinci tur · yalnız üç ilginç bilgi önerisi
+
+**Onay bekleyen belge önerisi.** Bu bölüm yalnız `barnaba`, `vino` ve `trearchi` için önceki kısa-v1 **ilginç bilgi** satırlarının yerine önerilir. Üç durağın kısa tarihçeleri ve diğer sekiz durağın bütün metinleri aynı kalır. Özgün metinler ve ilk tur önerileri yukarıda korunur; bu bölüm onları yayımlamaz veya onaylamaz. Her yeni çiftin kutusu boştur.
+
+Bu turdaki seçim ölçütü: ilginç bilgi mümkünse durakta bakılarak fark edilebilen bir nesneye veya biçime bağlansın. Araştırma tarihi: 10 Ekim 2026. Genel dil/onay ve yayın sınırları geçerlidir.
+
+### Barnaba · ikinci tur
+
+| Alan | TR · yeni öneri | EN · new proposal |
+|---|---|---|
+| İlginç bilgi | Yakındaki Ponte dei Pugni’de, Castellani ve Nicolotti arasındaki yumruk dövüşlerinin başlangıç noktalarını gösteren, Istria taşından dört ayak izi bulunur. | On nearby Ponte dei Pugni, four footprints in Istrian stone mark the starting positions for fist fights between the Castellani and Nicolotti. |
+
+**Görsel odak:** köprünün döşemesindeki dört ayak izi. Bunlar meydandaki kilisenin üzerinde değil, yakındaki Ponte dei Pugni’dedir.
+
+**Birincil kurumsal kaynak:** Fondazione Musei Civici di Venezia, eğitim birimi, Elena Borghello ve Cristina Gazzola, *Dalla casa di Carlo Goldoni a Ca’ Rezzonico — Caccia alla Venezia nascosta*, **PDF s. 6 / Tappa 5**. [Belge](https://www.visitmuve.it/wp-content/uploads/2013/10/Dalla-Casa-di-Carlo-Goldoni-a-Ca-Rezzonico.pdf#page=6).
+
+Kaynak dövüşen iki grubu, yumruk dövüşlerini, dört ayak izini ve başlangıç konumlarını açıklar. Görsel alt yazısı malzemeyi “pietra d’Istria” olarak tanımlar; bu yüzden kullanıcının “mermer” ifadesi ziyaretçi önerisinde **Istria taşı** olarak kesinleştirildi. Yasaklanma yılı yeni metne eklenmedi. Robert C. Davis’in kitabı bu turda okunmadığı için okunmuş kaynak gibi gösterilmiyor; belediye müzelerinin doğrudan erişilen eğitim yayını yeterli dayanak sağlıyor.
+
+İlk turdaki cephe/alınlık ayrıntısı bu çift onaylanırsa bununla değişir; kısa tarihçe aynen kalır. Yukarıdaki ilk tur “doğrudan kaynak okunamadı” notu önceki araştırmanın kaydıdır; bu özel kaynak açığı şimdi giderildi.
+
+- [ ] `barnaba / kısa-v1 / ikinci tur` TR + EN ilginç bilgi çiftini birlikte onaylıyorum. Onaylayan / tarih: __________
+
+### Vino Vero · ikinci tur
+
+| Alan | TR · yeni öneri | EN · new proposal |
+|---|---|---|
+| İlginç bilgi | Vino Vero, içerideki raflarda sergilediği şarapları kadehle de sunduğunu belirtiyor. | Vino Vero says the wines displayed on its shelves inside are also available by the glass. |
+
+**Görsel odak:** işletmenin içindeki şişe rafları. Ayrıntı, kurucuların biyografisinden gözle görülebilen bir nesneye taşındı.
+
+**Birincil kaynak:** [Vino Vero’nun kendi Venezia sayfası — About](https://vinovero.wine/luoghi/venezia/). İşletme raflarında sergilenen şişelerin kadehle tadılabildiğini açıkça söylüyor. Bu öneri o açıklamayı işletmeye atfeder; belirli bir şişenin ziyaret günü mutlaka açık veya stokta olduğu söylenmez.
+
+**Görünürlük sınırı:** iç mekân ayrıntısıdır; kapalı kepenkten veya yürüyüşün kıyıdaki duruş noktasından rafların mutlaka görülebildiği doğrulanmadı. Yalnız dışarıdan ve işletmeye girmeden görülen ayrıntı isteniyorsa, alternatif öneri **ilginç bilgi alanını boş bırakmak**tır. Bu alternatif ziyaretçi metnine “bilgi bulunamadı” yazmak anlamına gelmez ve bu belge uygulamanın boş alan davranışını değiştirmez.
+
+İlk turdaki üç kurucu düzeltmesi kaynak notu olarak korunur; yeni görünür bilgi olarak önerilmez. 2014 açılışını anlatan kısa tarihçe aynı kalır.
+
+- [ ] `vino / kısa-v1 / ikinci tur` TR + EN raf ayrıntısını birlikte onaylıyorum. Onaylayan / tarih: __________
+- [ ] Alternatif olarak `vino` ilginç bilgi alanının iki dilde de boş bırakılmasını seçiyorum. Onaylayan / tarih: __________
+
+Yukarıdaki iki seçenekten yalnız biri seçilmelidir; bu belgede ikisi de boş bırakıldı.
+
+### Tre Archi · ikinci tur
+
+| Alan | TR · yeni öneri | EN · new proposal |
+|---|---|---|
+| İlginç bilgi | Kıyıdan bakınca köprünün altındaki üç ayrı kemer açıklığını görebilirsin; Tre Archi adı da “üç kemer” demektir. | From the canal bank, you can see three separate arched openings beneath the bridge; Tre Archi means “three arches”. |
+
+**Görsel odak:** köprünün yandan görülen üç açıklığı. Eski San Giobbe adından, köprünün gözle karşılaştırılabilir biçimine geçiş öneriliyor.
+
+**Kaynak:** [Venezia e le sue lagune — Ponte dei Tre Archi](https://www.venicethefuture.com/schede/it/048-aliusid=048.htm), Associazione Aliusmodi kültürel miras projesi. Metin köprüyü açıkça üç kemerli olarak tanımlar. “Tre Archi = üç kemer” adın doğrudan çevirisidir. Kıyıdan bakma cümlesi gözlem yönlendirmesidir; kaynakta birebir yer alan bir alıntı değildir.
+
+Bu dar görsel öneri için “Venedik’te tek”, kemer ölçüleri, merkez açıklığının büyüklüğü veya su yansımasının her koşulda görüneceği iddiaları eklenmedi. Kaynak belediye yapı sicili olarak sunulmuyor. 1688/Tirali kısa tarihçesi değişmedi; ilk turdaki San Giobbe bilgisi yukarıdaki eski sürümde korunuyor.
+
+- [ ] `trearchi / kısa-v1 / ikinci tur` TR + EN ilginç bilgi çiftini birlikte onaylıyorum. Onaylayan / tarih: __________
+
+**Kapsam kontrolü:** `lucia`, `giacomo`, `frari`, `margherita`, `trovaso`, `zattere`, `dogana`, `accademia` değiştirilmedi. Kaynak JSON, admin taslağı, review bayrakları, koordinatlar, kod ve canlı yayın değiştirilmedi. Bu ikinci tur yalnız belge önerisidir.
