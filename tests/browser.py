@@ -164,10 +164,11 @@ with sync_playwright() as playwright:
                   and progress(page) == before,
                   f"{language}/{width}: future-photo inspection preserves walking progress")
             trearchi_photo = next(visit for visit in MAIN["visits"] if visit['key'] == 'trearchi')['gallery'][0]
-            check(page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
+            check(trearchi_photo['contentKind'] == 'stop-view'
+                  and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
                   and next(row['caption'] for row in trearchi_photo['copy'] if row['locale'] == language)
                       in page.locator('.fg-stop-copy .fg-stop-preview figcaption').inner_text()
-                  and page.locator('.fg-stop-copy .fg-photo-kind').count() == 0,
+                  and page.locator('.fg-stop-copy .fg-photo-kind').is_visible(),
                   f"{language}/{width}: Tre Archi photograph is a verified stop view")
             photo_opener = page.locator('.fg-stop-copy [data-open-stop-photo]')
             photo_opener.click()

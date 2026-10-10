@@ -164,7 +164,7 @@ try:
         page.locator('[data-photo-stop]').select_option('trearchi')
         check(page.locator('.fg-inspiration > p').is_visible()
               and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
-              and page.locator('.fg-stop-copy .fg-photo-kind').count() == 0
+              and page.locator('.fg-stop-copy .fg-photo-kind').is_visible()
               and page.locator('.fg-walking-dock').inner_text() == before,
               "Tre Archi stop photo and separate archive inspiration preserve walking progress")
         route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
