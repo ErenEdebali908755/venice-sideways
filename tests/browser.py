@@ -124,7 +124,7 @@ with sync_playwright() as playwright:
                   and bool(dock_action.inner_text().strip()),
                   f"{language}/{width}: singleton named walking action")
             check(stop_title("lucia", language) in progress(page)
-                  and "1 / 11" in progress(page) and "/ 12" not in progress(page),
+                  and "1 / 10" in progress(page) and "/ 12" not in progress(page),
                   f"{language}/{width}: Santa Lucia start and eleven-photo progress")
             check(page.locator(".fg-stop-copy .fg-compact-empty").count() == 0
                   and page.locator(".fg-stop-copy .fg-stop-preview img").is_visible(),
@@ -159,24 +159,24 @@ with sync_playwright() as playwright:
                       f"{language}/{width}: {visit['placeKey']} loads its exact licensed photograph with alt and credits")
                 check(progress(page) == before,
                       f"{language}/{width}: {visit['placeKey']} photo inspection does not change target")
-            page.locator('[data-photo-stop]').select_option("vino")
-            check(stop_title("vino", language) in page.locator('.fg-stop-copy h1').inner_text()
+            page.locator('[data-photo-stop]').select_option("trearchi")
+            check(stop_title("trearchi", language) in page.locator('.fg-stop-copy h1').inner_text()
                   and progress(page) == before,
                   f"{language}/{width}: future-photo inspection preserves walking progress")
-            vino_photo = next(visit for visit in MAIN["visits"] if visit['key'] == 'vino')['gallery'][0]
+            trearchi_photo = next(visit for visit in MAIN["visits"] if visit['key'] == 'trearchi')['gallery'][0]
             check(page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
-                  and next(row['caption'] for row in vino_photo['copy'] if row['locale'] == language)
+                  and next(row['caption'] for row in trearchi_photo['copy'] if row['locale'] == language)
                       in page.locator('.fg-stop-copy .fg-stop-preview figcaption').inner_text()
-                  and page.locator('.fg-stop-copy .fg-photo-kind').is_visible(),
-                  f"{language}/{width}: Vino photograph is honestly labelled as surroundings")
+                  and page.locator('.fg-stop-copy .fg-photo-kind').count() == 0,
+                  f"{language}/{width}: Tre Archi photograph is a verified stop view")
             photo_opener = page.locator('.fg-stop-copy [data-open-stop-photo]')
             photo_opener.click()
             page.locator('.fg-dialog[open] .fg-photo-full img').wait_for()
             full_photo = page.locator('.fg-dialog[open] .fg-photo-full img').evaluate("""image=>({
                 fit:getComputedStyle(image).objectFit,source:image.getAttribute('src'),
                 credit:image.closest('figure').querySelector('figcaption')?.textContent})""")
-            check(full_photo['fit'] == 'contain' and urlparse(full_photo['source']).path == vino_photo['derivatives'][0]['url']
-                  and vino_photo['credit'] in full_photo['credit'],
+            check(full_photo['fit'] == 'contain' and urlparse(full_photo['source']).path == trearchi_photo['derivatives'][0]['url']
+                  and trearchi_photo['credit'] in full_photo['credit'],
                   f"{language}/{width}: real stop photo opens uncropped with its credit")
             page.keyboard.press('Escape')
             page.wait_for_function("()=>document.querySelector('.fg-dialog')?.open && !document.querySelector('.fg-dialog').classList.contains('fg-lightbox')")
@@ -211,25 +211,25 @@ with sync_playwright() as playwright:
                   f"{language}/{width}: inspiration close returns focus without advancing walk")
 
             page.locator('[data-panel="stops"]').click()
-            check(page.locator('.fg-stop-list [data-inspect]').count() == 11
+            check(page.locator('.fg-stop-list [data-inspect]').count() == 10
                   and page.locator('.fg-stop-list [data-inspect-transfer]').count() == 1,
-                  f"{language}/{width}: eleven photo stops and one separate transfer inspectable")
+                  f"{language}/{width}: ten photo stops and one separate transfer inspectable")
             last = page.locator('.fg-stop-list [data-inspect]').last
             last.click()
-            check(stop_title("vino", language) in page.locator('.fg-dialog h1').inner_text()
+            check(stop_title("trearchi", language) in page.locator('.fg-dialog h1').inner_text()
                   and progress(page) == before,
-                  f"{language}/{width}: stop list inspects Vino without changing walking target")
+                  f"{language}/{width}: stop list inspects Tre Archi without changing walking target")
             page.keyboard.press("Escape")
             page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
             check(last.evaluate("b=>document.activeElement===b"),
                   f"{language}/{width}: stop inspection restores opening control focus")
             # Allow the deliberately bounded double-tap guard before a distinct resume action.
             page.wait_for_timeout(660)
-            page.locator('.fg-stop-list [data-resume="vino"]').click()
+            page.locator('.fg-stop-list [data-resume="trearchi"]').click()
             check(root.get_attribute("data-panel") == "map"
                   and root.get_attribute("data-walking-phase") == "walking"
-                  and stop_title("vino", language) in progress(page),
-                  f"{language}/{width}: only explicit resume changes target to Vino")
+                  and stop_title("trearchi", language) in progress(page),
+                  f"{language}/{width}: only explicit resume changes target to Tre Archi")
             check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
                   f"{language}/{width}: inspection and resume leave one walking action")
 

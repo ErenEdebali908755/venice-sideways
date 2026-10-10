@@ -359,26 +359,6 @@
       "calibrationStatus": "architectural-anchor-unresolved; route-visit callout only"
     },
     {
-      "route": "main",
-      "visitKey": "vino",
-      "placeKey": "vino",
-      "visitCoordinate": [
-        12.33309,
-        45.44405
-      ],
-      "artAnchor": [
-        12.3330905,
-        45.4440492
-      ],
-      "imageGroundPointPx": [
-        170.27634660421546,
-        228.10091379310344
-      ],
-      "groundPointSpace": "map2x raster pixels before sprite pixelRatio",
-      "placementMode": "bounded-callout",
-      "calibrationStatus": "geographic-reference-checked; optical annotation reviewed"
-    },
-    {
       "route": "full",
       "visitKey": "guglie",
       "placeKey": "guglie",

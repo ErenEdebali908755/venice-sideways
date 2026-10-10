@@ -1,5 +1,5 @@
 /* Original Venice Sideways illustrations over OpenFreeMap / OpenStreetMap vectors. */
-import { ILLUSTRATIONS } from "./illustrations.js?v=20261009-main";
+import { ILLUSTRATIONS } from "./illustrations.js?v=20261010-main-ten";
 
 export const BASE_STYLE = "https://tiles.openfreemap.org/styles/positron";
 
