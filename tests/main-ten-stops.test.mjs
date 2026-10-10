@@ -35,12 +35,12 @@ test('complete Main walk has ten stops and two separately acknowledged boat legs
  while(state.phase!=='complete'&&actions++<40){if(state.phase==='transit')transitActions++;state=advanceWalkingState(main,state);}
  assert.equal(state.targetKey,'trearchi');assert.equal(state.phase,'complete');assert.deepEqual(state.completedVisitKeys,keys);assert.equal(transitActions,2);
 });
-test('all ten reviewed short stories show TR and EN, and explicitly fall back to EN in the other locales',()=>{
+test('all ten reviewed short stories show reviewed text in all eight locales',()=>{
  for(const visit of main.visits){
-  assert.equal(visit.story.review.status,'reviewed');assert.equal(visit.story.copy.length,2);
+  assert.equal(visit.story.review.status,'reviewed');assert.equal(visit.story.copy.length,8);
   for(const locale of ['tr','en','it','fr','ru','zh','ja','ko']){
    const story=storyFor(visit,main,locale);assert.ok(story);assert.equal(story.pending,false);
-   assert.equal(story.copy.locale,locale==='tr'?'tr':'en');assert.ok(story.copy.shortHistory.length<=280);assert.ok(story.copy.interestingDetail);
+   assert.equal(story.copy.locale,locale);assert.ok(story.copy.shortHistory.length<=280);assert.ok(story.copy.interestingDetail);
   }
   assert.ok(visit.story.sources.length);assert.ok(visit.story.sources.every(s=>s.url.startsWith('https://')&&s.checkedAt==='2026-10-10'));
   assert.equal(visit.story.review.humanReviewedBy,undefined);assert.equal(visit.story.review.notes,undefined);

@@ -1,5 +1,4 @@
-"""Main Walk visitor acceptance with the actual local photo files and explicit
-synthetic archive inspiration geometry fixtures. Real MapLibre/geography and
+"""Main Walk visitor acceptance with the actual local photo files. Real MapLibre/geography and
 walking behavior are checked separately; no production data is written."""
 from pathlib import Path
 from urllib.parse import urlparse
@@ -31,17 +30,9 @@ checks = 0
 
 def serve(route):
     url = urlparse(route.request.url)
-    # Deliberately synthetic geometry, not an archive photograph or stop assignment.
-    # These permitted archive samples remain separate inspiration, not stop covers.
-    if url.netloc == "erenedebali.com" and url.path in {
-            f"/image/{photo}/{variant}" for photo in (3, 6, 18) for variant in ("web", "thumb")}:
-        width = 1373 if url.path.split("/")[2] == "18" else 1238
-        body = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="2200">
-          <rect width="100%" height="100%" fill="#eee"/>
-          <rect x="6" y="6" width="{width-12}" height="2188" fill="none" stroke="#222" stroke-width="12"/>
-          <text x="30" y="100" font-size="50">QA portrait geometry fixture, not a photograph</text>
-        </svg>'''
-        route.fulfill(status=200, body=body, content_type="image/svg+xml")
+    if url.netloc == "erenedebali.com" and url.path.startswith("/image/"):
+        issues.append("Unrelated archive photograph was requested: " + url.path)
+        route.abort()
         return
     if url.netloc != "venicesideways.test":
         route.abort()
@@ -186,30 +177,10 @@ with sync_playwright() as playwright:
             page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
             check(photo_opener.evaluate('button=>document.activeElement===button') and progress(page) == before,
                   f"{language}/{width}: real photo close restores opener and target")
-            check(page.locator('.fg-inspiration [data-inspiration]').count() == 3
-                  and page.locator('.fg-inspiration > p').is_visible(),
-                  f"{language}/{width}: archive examples live in explicitly explained inspiration")
-            opener = page.locator('.fg-inspiration [data-inspiration]').first
-            opener.focus()
-            page.keyboard.press("Enter")
-            page.locator('.fg-dialog[open] .fg-reference-note').wait_for()
-            page.wait_for_function("""()=>{const i=document.querySelector('.fg-dialog .fg-photo-full img');
-                return i?.complete&&i.naturalWidth>0}""")
-            portrait = page.locator('.fg-dialog .fg-photo-full img').evaluate("""i=>({
-                width:i.getAttribute('width'),height:i.getAttribute('height'),
-                naturalPortrait:i.naturalHeight>i.naturalWidth,fit:getComputedStyle(i).objectFit,
-                filter:getComputedStyle(i).filter,alt:i.getAttribute('alt'),
-                credit:i.closest('figure').querySelector('figcaption')?.textContent})""")
-            check(portrait["width"] == "1238" and portrait["height"] == "2200"
-                  and portrait["naturalPortrait"] and bool(portrait["alt"]),
-                  f"{language}/{width}: separate inspiration retains dimensions and natural alt")
-            check(portrait["fit"] == "contain" and portrait["filter"] == "none"
-                  and portrait["credit"] == "Eren Edebali",
-                  f"{language}/{width}: inspiration full frame and credit preserved")
-            page.keyboard.press("Escape")
-            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
-            check(opener.evaluate("b=>document.activeElement===b") and progress(page) == before,
-                  f"{language}/{width}: inspiration close returns focus without advancing walk")
+            check(page.locator('.fg-inspiration,[data-inspiration],.fg-reference-note').count() == 0,
+                  f"{language}/{width}: unrelated archive examples and their opener are absent")
+            check(progress(page) == before,
+                  f"{language}/{width}: gallery close preserves walking progress")
 
             page.locator('[data-panel="stops"]').click()
             check(page.locator('.fg-stop-list [data-inspect]').count() == 10

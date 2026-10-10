@@ -162,11 +162,11 @@ try:
               "Inspection close returns to the same walking target")
         page.locator('[data-panel="photos"]').click()
         page.locator('[data-photo-stop]').select_option('trearchi')
-        check(page.locator('.fg-inspiration > p').is_visible()
+        check(page.locator('.fg-inspiration,[data-inspiration]').count() == 0
               and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
               and page.locator('.fg-stop-copy .fg-photo-kind').is_visible()
               and page.locator('.fg-walking-dock').inner_text() == before,
-              "Tre Archi stop photo and separate archive inspiration preserve walking progress")
+              "Tre Archi verified photo retains progress without archive inspiration")
         route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
         main = next(route for route in route_data['routes'] if route['key'] == 'main')
         for visit in main['visits']:

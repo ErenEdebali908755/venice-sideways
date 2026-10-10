@@ -20,10 +20,10 @@ test('the 38 bundled visits use only explicitly verified place photographs; all 
   if(expected)assigned++;
  }
  assert.equal(assigned,19);
- // Main endpoint change reviewed 10 October 2026; includes identities, order, every
+ // Main translations approved by delegation 10 October 2026; includes identities, order, every
  // coordinate, all stop/idea copy and segment geometry, not presentation metadata.
  const critical=routes.map(route=>({key:route.key,sourceLanguage:route.sourceLanguage,visits:route.visits.map(visit=>Object.fromEntries(['key','placeKey','order','longitude','latitude','segmentKey','copy','ideas'].map(key=>[key,visit[key]]))),segments:route.segments}));
- assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'e5a0719d342ca6dea72df7455779ff49f42838f568c5172179b24c895600079e');
+ assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'f2061eb934fd8c24d430c6e05dab28bb677dc2c1ce35c103faf2fe49a09337c9');
 });
 
 test('book sources and private assessment material are not reachable through the real anonymous visitor server',async()=>{

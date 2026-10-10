@@ -5,6 +5,7 @@ const spriteNames = new Set([
   "check", "warning", "boat",
 ]);
 const paths = {
+  camera: '<path d="M8 6l2-3h4l2 3h4a2 2 0 0 1 2 2v11H2V8a2 2 0 0 1 2-2z"/><circle cx="12" cy="12" r="4"/>',
   "arrow-left": '<path d="m10 5-7 7 7 7M3 12h18"/>',
   "arrow-right": '<path d="m14 5 7 7-7 7M3 12h18"/>',
   "chevron-down": '<path d="m6 9 6 6 6-6"/>',
@@ -17,5 +18,5 @@ const paths = {
 export const icon = (name) => {
   const shape = paths[name];
   if (shape) return `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${shape}</svg>`;
-  return spriteNames.has(name) ? `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/field-guide/icons.svg?v=20261009-main#${name}"></use></svg>` : "";
+  return spriteNames.has(name) ? `<svg class="fg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="/field-guide/icons.svg?v=20261010-evening-eight#${name}"></use></svg>` : "";
 };

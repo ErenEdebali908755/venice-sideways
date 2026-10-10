@@ -1,6 +1,12 @@
 export const UI_LANGUAGES = ["en", "tr", "it", "fr", "ru", "zh", "ja", "ko"];
-// Controls use the existing eight locales. Editorial content keeps reviewed fallback.
+// Visitor controls in all eight supported locales.
 const rows = {
+  "Illustration": ["Çizim", "Illustrazione", "Dessin", "Иллюстрация", "插画", "イラスト", "그림"],
+  "5 photo ideas to try at this stop": ["Bu durakta deneyebileceğin 5 fotoğraf fikri", "5 idee fotografiche da provare qui", "5 idées photo à essayer ici", "5 идей для фото на этой остановке", "在此站试试这5个拍摄点子", "このスポットで試したい5つの撮影アイデア", "이 장소에서 시도할 사진 아이디어 5가지"],
+  "Composition, light and phone tips · tap to open": ["Kompozisyon, ışık ve telefon ipuçları · açmak için dokun", "Composizione, luce e consigli per il telefono · tocca per aprire", "Composition, lumière et conseils pour le téléphone · touchez pour ouvrir", "Композиция, свет и советы для телефона · нажмите, чтобы открыть", "构图、光线与手机拍摄技巧 · 点击展开", "構図・光・スマホ撮影のヒント · タップして開く", "구도, 빛, 휴대폰 촬영 팁 · 눌러서 열기"],
+  "Wikimedia reduced-size JPEG; original framing retained. No retouching.": ["Wikimedia’dan küçültülmüş JPEG; özgün kadraj korundu. Rötuş yapılmadı.", "JPEG ridimensionato da Wikimedia; inquadratura originale conservata. Nessun ritocco.", "JPEG réduit de Wikimedia ; cadrage original conservé. Aucune retouche.", "Уменьшенный JPEG из Wikimedia; исходное кадрирование сохранено. Без ретуши.", "来自Wikimedia的缩小版JPEG，保留原始构图，未作修饰。", "Wikimediaの縮小版JPEG。元の構図を保持し、レタッチはしていません。", "Wikimedia의 축소 JPEG입니다. 원래 구도를 유지했고 보정하지 않았습니다."],
+  "OpenStreetMap contributors": ["OpenStreetMap katkıcıları", "Collaboratori di OpenStreetMap", "Contributeurs d’OpenStreetMap", "Участники OpenStreetMap", "OpenStreetMap贡献者", "OpenStreetMapへの貢献者", "OpenStreetMap 기여자"],
+
   "License": ["Lisans", "Licenza", "Licence", "Лицензия", "许可", "ライセンス", "라이선스"],
   "Photo source": ["Görsel kaynağı", "Fonte dell’immagine", "Source de l’image", "Источник изображения", "图像来源", "画像の出典", "이미지 출처"],
   "My location": ["Konumum", "Dove sono", "Ma position", "Где я", "我的位置", "現在地", "내 위치"],
@@ -22,7 +28,6 @@ const rows = {
   "One detail to notice": ["Fark edilecek bir ayrıntı", "Un dettaglio da osservare", "Un détail à remarquer", "Деталь, которую стоит заметить", "值得留意的细节", "注目したい細部", "눈여겨볼 디테일"],
   "Sources": ["Kaynaklar", "Fonti", "Sources utilisées", "Источники", "资料来源", "出典", "자료 출처"],
   "Private draft · story awaiting review": ["Özel taslak · anlatı inceleme bekliyor", "Bozza privata · storia da verificare", "Brouillon privé · récit à vérifier", "Частный черновик · история на проверке", "私有草稿 · 故事待审核", "非公開の下書き・物語は確認待ち", "비공개 초안 · 이야기 검토 대기"],
-  "Description in English": ["İngilizce açıklama", "Descrizione in inglese", "Description en anglais", "Описание на английском", "英文说明", "英語の説明", "영어 설명"],
   "Illustration awaiting identity review.": ["Çizimin yer kimliği kontrol bekliyor.", "Illustrazione in attesa di verifica del luogo raffigurato.", "Illustration en attente de vérification du lieu représenté.", "Иллюстрация ожидает проверки изображённого места.", "插画所描绘的地点待核实。", "イラストに描かれた場所は確認待ちです。", "그림에 묘사된 장소를 확인 중입니다."],
   "Illustration unavailable": ["Çizim yüklenemedi", "Illustrazione non disponibile", "Illustration indisponible", "Иллюстрация недоступна", "插画无法显示", "イラストを表示できません", "그림을 표시할 수 없습니다"],
   "stops": ["durak", "tappe", "étapes", "остановок", "个站点", "スポット", "개 장소"],
@@ -69,8 +74,6 @@ const rows = {
   "Show on map": ["Haritada göster", "Mostra sulla mappa", "Afficher sur la carte", "Показать на карте", "在地图上显示", "地図で表示", "지도에서 보기"],
   "Mapped boundary": ["Haritalanmış sınır", "Confine mappato", "Limite cartographiée", "Граница на карте", "已标绘边界", "地図上の境界", "지도에 표시된 경계"],
   "City garden information": ["Şehir bahçesi bilgileri", "Informazioni sui giardini della città", "Informations sur les jardins de la ville", "Информация о городских садах", "城市花园信息", "市内の庭園の情報", "도시 정원 정보"],
-  "Translation awaiting review. Source text:": ["Çeviri kontrol bekliyor. Kaynak metin:", "Traduzione in revisione. Testo originale:", "Traduction en attente de vérification. Texte source :", "Перевод ожидает проверки. Исходный текст:", "译文待审核。原文：", "翻訳を確認中。原文：", "번역 검토 대기 중. 원문:"],
-  "AI illustration · not a photograph": ["Yapay zekâ çizimi · fotoğraf değildir", "Illustrazione IA · non una fotografia", "Illustration IA · pas une photographie", "ИИ-иллюстрация · не фотография", "AI插画 · 非照片", "AIイラスト · 写真ではありません", "AI 일러스트 · 사진 아님"],
 
   "Original Venice Sideways drawing; approximate map position follows this walk’s verified stop coordinates.": ["Özgün Venice Sideways çizimi; haritadaki yaklaşık konum bu rotanın doğrulanmış durak koordinatlarını izler.", "Disegno originale di Venice Sideways; la posizione approssimativa segue le coordinate verificate della tappa di questo percorso.", "Dessin original de Venice Sideways ; la position approximative suit les coordonnées vérifiées de l’étape de ce parcours.", "Оригинальный рисунок Venice Sideways; примерная позиция следует проверенным координатам остановки этого маршрута.", "Venice Sideways 原创插画；地图上的大致位置依据此路线已核实的站点坐标。", "Venice Sidewaysのオリジナル画です。地図上の位置は、このルートの確認済みスポット座標に基づきます。", "Venice Sideways의 원본 그림이며 지도상의 대략적인 위치는 이 경로의 확인된 장소 좌표를 따릅니다."],
   "Compact panel": ["Kompakt panel","Pannello compatto","Panneau compact","Компактная панель","紧凑面板","コンパクト表示","간단 패널"],
@@ -111,8 +114,6 @@ const rows = {
   "You are outside Venice. Your real position is available with Return to my location; the route stays here.": ["Venedik dışındasın. Konumuma dön ile gerçek konumunu görebilirsin; rota burada kalır.", "Sei fuori Venezia. Torna alla mia posizione mostra il punto reale; il percorso resta qui.", "Vous êtes hors de Venise. Revenir à ma position affiche votre position réelle ; le parcours reste ici.", "Вы за пределами Венеции. Кнопка возврата к позиции покажет реальное место; маршрут остаётся здесь.", "你在威尼斯之外。可选择返回我的位置查看实际位置；路线保留在此处。", "ベネチアの外にいます。「現在地に戻る」で実際の位置を表示できます。ルートはここに残ります。", "베네치아 밖에 있습니다. 내 위치로 돌아가기로 실제 위치를 볼 수 있으며 경로는 여기에 유지됩니다."],
   "Accuracy": ["Doğruluk", "Precisione", "Précision", "Точность", "精度", "精度", "정확도"],
   "Photos at this stop": ["Bu durakta çekilenler", "Foto di questa tappa", "Photos à cette étape", "Фото этой остановки", "此站照片", "このスポットの写真", "이 장소의 사진"],
-  "Temporary photo selection": ["Geçici fotoğraf seçkisi", "Selezione fotografica temporanea", "Sélection photographique temporaire", "Временная подборка фотографий", "临时照片选集", "仮の写真セレクション", "임시 사진 모음"],
-  "Temporary photographs by Eren Edebali; their connection to this stop has not been verified.": ["Eren Edebali’nin geçici fotoğraf seçkisi; bu durakla ilişkisi doğrulanmadı.", "Fotografie temporanee di Eren Edebali; il legame con questa tappa non è stato verificato.", "Photographies temporaires d'Eren Edebali ; leur lien avec cette étape n'a pas été vérifié.", "Временные фотографии Эрен Эдебали; связь с этой остановкой не подтверждена.", "Eren Edebali 的临时照片；尚未确认与此站的关联。", "Eren Edebaliによる仮の写真です。このスポットとの関連は未確認です。", "Eren Edebali의 임시 사진이며 이 장소와의 관련성은 확인되지 않았습니다."],
   "No photographs at this stop yet.": ["Bu durakta henüz fotoğraf yok.", "Ancora nessuna foto di questa tappa.", "Pas encore de photos à cette étape.", "Для этой остановки пока нет фотографий.", "此站暂无照片。", "このスポットの写真はまだありません。", "이 장소의 사진이 아직 없습니다."],
   "Photograph unavailable": ["Fotoğraf yüklenemedi", "Fotografia non disponibile", "Photographie indisponible", "Фотография недоступна", "照片无法显示", "写真を表示できません", "사진을 표시할 수 없습니다"],
   "Open full photograph": ["Fotoğrafı tam aç", "Apri la fotografia intera", "Ouvrir la photographie entière", "Открыть фотографию целиком", "打开完整照片", "写真全体を開く", "사진 전체 열기"],
@@ -127,7 +128,6 @@ const rows = {
   "Active stop": ["Aktif durak", "Tappa attiva", "Étape active", "Текущая остановка", "当前站点", "現在のスポット", "현재 장소"],
   "All stops": ["Duraklar", "Tutte le tappe", "Toutes les étapes", "Все остановки", "所有站点", "すべてのスポット", "모든 장소"],
   "Your walk": ["Yürüyüşün", "La tua passeggiata", "Votre promenade", "Ваша прогулка", "你的漫步", "あなたの散歩", "나의 산책"],
-  "Five ways to look": ["Bakmanın beş yolu", "Cinque modi di guardare", "Cinq façons de regarder", "Пять способов взглянуть", "五种观察方式", "五つの見方", "다섯 가지 시선"],
   "Read the place & photo ideas": ["Durak anlatısı ve fotoğraf fikirleri", "Luogo e idee fotografiche", "Le lieu et les idées photo", "Место и идеи для фото", "地点介绍与摄影灵感", "スポットと撮影のヒント", "장소 이야기와 사진 아이디어"],
   "Choose a walk": ["Rota seç", "Scegli una passeggiata", "Choisir une promenade", "Выбрать прогулку", "选择漫步路线", "散歩を選ぶ", "산책 선택"],
   "Explore this walk": ["Rotayı keşfet", "Esplora questa passeggiata", "Explorer cette promenade", "Открыть прогулку", "探索此路线", "この散歩を探る", "산책 둘러보기"],
@@ -176,12 +176,9 @@ const rows = {
   "4–4½ hours for longer photos and site testing": ["Uzun fotoğraf molaları ve site denemesiyle 4–4,5 saat", "4–4½ ore per foto più lunghe e prove del sito", "4 à 4½ heures pour photos prolongées et test du site", "4–4½ часа для длительной съёмки и проверки сайта", "较长拍摄和网站测试约4–4.5小时", "長めの撮影とサイトのテストでは4〜4.5時間", "긴 촬영과 사이트 테스트 포함 4–4.5시간"],
   "Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded.": ["Tahmini · henüz sahada doğrulanmadı. Başlangıca ulaşım, uzun yemek molası ve dönüş dahil değil.", "Stima · non ancora verificata sul campo. Sono esclusi l’arrivo alla partenza, i pasti lunghi e il ritorno.", "Estimation · pas encore vérifiée sur le terrain. L’accès au départ, les longs repas et le retour sont exclus.", "Оценка · пока не проверена на месте. Дорога к старту, долгие обеды и возвращение не входят.", "估计值 · 尚未经实地验证。不含抵达起点、长时间用餐和返程。", "推定・現地では未検証です。出発点への移動、長い食事休憩、帰路は含みません。", "추정 · 현장 검증 전입니다. 출발점까지 이동, 긴 식사, 귀가는 제외됩니다."],
   "This stop’s appearance": ["Bu durağın görünümü", "Aspetto di questa tappa", "Vue de cette étape", "Вид этой остановки", "此站实景", "このスポットの外観", "이 장소의 모습"],
-  "Photo examples": ["Fotoğraf örnekleri", "Esempi fotografici", "Exemples de photos", "Примеры фотографий", "摄影示例", "写真の例", "사진 예시"],
   "Historical image": ["Tarihî görsel", "Immagine storica", "Image historique", "Историческое изображение", "历史图像", "歴史的な画像", "역사 이미지"],
   "Nearby surroundings": ["Yakın çevre", "Dintorni", "Environs", "Окрестности", "周边环境", "近くの様子", "주변 환경"],
   "Photo being prepared for this stop": ["Bu durak için fotoğraf hazırlanıyor", "Foto in preparazione per questa tappa", "Photo en préparation pour cette étape", "Фото этой остановки готовится", "此站照片准备中", "このスポットの写真を準備中", "이 장소의 사진 준비 중"],
-  "Inspiration · these photographs do not identify the stop": ["İlham · bu fotoğraflar durağı tanıtmaz", "Ispirazione · queste foto non identificano la tappa", "Inspiration · ces photos ne représentent pas l’étape", "Вдохновение · эти фото не показывают остановку", "灵感 · 这些照片不用于识别此站", "撮影のヒント・これらはスポットを示す写真ではありません", "영감 · 이 사진들은 해당 장소를 보여주지 않습니다."],
-  "Back to photographs": ["Fotoğraflara dön", "Torna alle fotografie", "Revenir aux photographies", "Вернуться к фотографиям", "返回照片", "写真に戻る", "사진으로 돌아가기"],
   "Location & map privacy": ["Konum ve harita gizliliği", "Privacy di posizione e mappa", "Confidentialité de la position et carte", "Приватность позиции и карты", "定位与地图隐私", "現在地と地図のプライバシー", "위치·지도 개인정보"],
 };
 export function uiCopy(english, language, turkish = english) {
