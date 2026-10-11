@@ -71,9 +71,20 @@ try:
         page.on("dialog", lambda dialog: dialog.accept())
         requests = []
         page.on("request", lambda request: requests.append(request.method)
-                if urlparse(request.url).netloc == urlparse(base).netloc else None)
+                if urlparse(request.url).netloc == urlparse(base).netloc
+                and urlparse(request.url).path != "/api/community/statistics" else None)
+        statistics = []
+
+        def count(route):
+            # Default-on anonymous counts are answered in the browser; tests never add real counts.
+            if route.request.method == "POST":
+                statistics.append(json.loads(route.request.post_data or "{}"))
+                route.fulfill(json={"ok": True})
+            else:
+                route.fallback()
         if not remote:
             page.route("**/*", fixture)
+        page.route("**/api/community/statistics", count)
         response = page.goto(base + ("/?lang=tr" if remote else "/?lang=tr&gps-test=1"), wait_until="domcontentloaded", timeout=45000)
         check(response.status == 200, "Main document returns 200")
         page.locator(".fg-main-summary h1").wait_for()
@@ -189,6 +200,8 @@ try:
             check(context.request.get(base + asset).status == 200, "Icon served: " + asset)
         check(all(method in ("GET", "HEAD") for method in requests),
               "No same-origin location upload or write request")
+        check(all(sorted(event) == ["consent", "device", "event", "language", "metric", "route"]
+                  for event in statistics), "Anonymous counts carry no location or new fields")
         context.close()
         browser.close()
 except Exception:

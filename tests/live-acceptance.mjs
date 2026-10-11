@@ -13,7 +13,7 @@ const plan={target, cases:32, languages:locales, widths:[390,1440], routes:['mai
   reads:['cold public pages','real provider style/tiles','route and event projections','owned public photo derivatives','draft event QR target'],
   interactions:['native mobile map tools','3D and 2D','fit route and return to active stop','manual gallery','browser Back','Escape and focus','native browser geolocation denial'],
   performance:'Observed startup requests, JS/image wire transfer and cache flags, gallery derivative loading, and any LCP entry; headless Chrome desktop lab, with no speed threshold or physical-mobile claim.',
-  writes:'All browser methods except GET/HEAD are aborted; no form is filled or submitted.',
+  writes:'All browser methods except GET/HEAD are aborted, and anonymous count POSTs are answered in the browser; no form is filled or submitted.',
   gates:['SIDEWAYS_LIVE_ACCEPTANCE=approved-read-only','SIDEWAYS_EVENT_GET_VERIFIED_READ_ONLY=1'],
   limitation:'Physical-device location, battery use, and protected admin/media rights revocation require separate acceptance.'};
 if(process.argv.includes('--describe')) {console.log(JSON.stringify(plan,null,2));process.exit(0)}
@@ -67,6 +67,8 @@ async function newPage(language,width,height) {
   await context.addInitScript(observe);
   await context.route('**/*',async route=>{
     const request=route.request(),method=request.method();
+    // Default-on anonymous counts are answered inside the browser so live checks never add counts.
+    if(method==='POST'&&new URL(request.url()).pathname==='/api/community/statistics'){await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});return}
     if(!['GET','HEAD'].includes(method)) {methodsBlocked.push({method,...publicResource(request.url())});await route.abort();return}
     const u=new URL(request.url());
     if(u.origin===target&&[...u.searchParams.keys()].some(key=>/^(lat|latitude|lng|lon|longitude|accuracy|coords|position)$/i.test(key))) {

@@ -14,6 +14,7 @@ let checks=0;const issues=[],pageErrors=[],mapErrors=[],records=[];
 const check=(condition,message)=>{checks++;if(!condition)issues.push(message);};
 async function serve(route) {
  const url=new URL(route.request().url());
+ if(route.request().method()==='POST'&&url.pathname==='/api/community/statistics'){await route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});return;}
  if(route.request().method()!=='GET'){issues.push('Unexpected write '+url.pathname);await route.abort();return;}
  if(url.href.includes('tiles.openfreemap.org/styles/positron')) {
   if(liveTiles){await route.continue();return;}
