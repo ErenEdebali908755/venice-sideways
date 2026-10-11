@@ -101,13 +101,10 @@ try:
               "The mobile walking panel opens compactly")
         page.locator('[data-sheet="standard"]').click()
         check(page.locator(".fg-stop-copy h1").is_visible(), "User can expand the sheet to read the active stop")
-        cover = page.locator('.fg-stop-copy .fg-stop-preview img')
-        cover.scroll_into_view_if_needed()
-        check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
-              "The actual Santa Lucia photograph loads in the expanded sheet")
-        check('/field-guide/photos/main-20261009/lucia-' in cover.get_attribute('src')
-              and page.locator('.fg-stop-copy .fg-compact-empty').count() == 0,
-              "Santa Lucia uses its place-specific licensed photograph")
+        check(page.locator('.fg-stop-preview,.fg-photo-kind,.fg-gallery-link').count() == 0,
+              "Stop-photo cover, credit and gallery link are absent")
+        check(page.locator('.fg-stop-copy h1 + .fg-story-button').is_visible(),
+              "Story button is directly below the stop title")
         check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
               "Map, Stops and Photographs share one navigation level")
         check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
@@ -162,28 +159,21 @@ try:
               "Inspection close returns to the same walking target")
         page.locator('[data-panel="photos"]').click()
         page.locator('[data-photo-stop]').select_option('trearchi')
-        check(page.locator('.fg-inspiration,[data-inspiration]').count() == 0
-              and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
-              and page.locator('.fg-stop-copy .fg-photo-kind').is_visible()
+        check(page.locator('.fg-inspiration,[data-inspiration],.fg-stop-preview,.fg-photo-kind').count() == 0
               and page.locator('.fg-walking-dock').inner_text() == before,
-              "Tre Archi verified photo retains progress without archive inspiration")
+              "Tre Archi inspection has no photo set and preserves walking progress")
         route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
         main = next(route for route in route_data['routes'] if route['key'] == 'main')
         for visit in main['visits']:
             page.locator('[data-photo-stop]').select_option(visit['key'])
-            image = page.locator('.fg-stop-copy .fg-stop-preview img')
-            image.scroll_into_view_if_needed()
-            check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
-                  f"Stop photograph loads: {visit['placeKey']}")
-            photo = visit['gallery'][0]
-            caption = page.locator('.fg-stop-copy .fg-stop-preview figcaption')
-            links = caption.locator('a').evaluate_all('(links)=>links.map(link=>link.getAttribute("href"))')
-            check(urlparse(image.get_attribute('src')).path == photo['derivatives'][0]['url']
-                  and photo['credit'] in caption.inner_text()
-                  and photo['sourceURL'] in links and photo['licenseURL'] in links,
-                  f"Exact photograph, photographer, source and license: {visit['placeKey']}")
+            page.locator('.fg-stop-copy .fg-story-button').click()
+            page.locator('.fg-dialog[open] .fg-place-story').wait_for()
+            check(page.locator('.fg-gallery,.fg-stop-preview,.fg-photo-full').count() == 0,
+                  f"No retired stop photographs: {visit['placeKey']}")
+            page.keyboard.press('Escape')
+            check(poll(page, "() => !document.querySelector('.fg-dialog')?.open"), "Story closes")
             check(page.locator('.fg-walking-dock').inner_text() == before,
-                  f"Photo browsing retains walking target: {visit['placeKey']}")
+                  f"Story inspection retains walking target: {visit['placeKey']}")
         page.locator('[data-panel="map"]').click()
         check(page.locator('.fg-pin.selected').count() == 1
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',

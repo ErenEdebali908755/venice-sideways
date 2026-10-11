@@ -1,4 +1,4 @@
-"""Main Walk visitor acceptance with the actual local photo files. Real MapLibre/geography and
+"""Main Walk visitor acceptance without the retired stop-photo set. Real MapLibre/geography and
 walking behavior are checked separately; no production data is written."""
 from pathlib import Path
 from urllib.parse import urlparse
@@ -117,12 +117,17 @@ with sync_playwright() as playwright:
             check(stop_title("lucia", language) in progress(page)
                   and "1 / 10" in progress(page) and "/ 12" not in progress(page),
                   f"{language}/{width}: Santa Lucia start and eleven-photo progress")
-            check(page.locator(".fg-stop-copy .fg-compact-empty").count() == 0
-                  and page.locator(".fg-stop-copy .fg-stop-preview img").is_visible(),
-                  f"{language}/{width}: Santa Lucia has an actual visible stop photograph")
-            check('/field-guide/photos/main-20261009/lucia-' in page.locator(
-                  '.fg-stop-copy .fg-stop-preview img').get_attribute('src'),
-                  f"{language}/{width}: stop cover is its verified local photograph")
+            check(page.locator(".fg-stop-preview,.fg-photo-kind,.fg-gallery-link,.fg-compact-empty").count() == 0,
+                  f"{language}/{width}: removed stop-photo set leaves no cover, credit or gap")
+            story_button = page.locator('.fg-stop-copy h1 + .fg-story-button')
+            check(story_button.is_visible() and story_button.bounding_box()['height'] >= 44,
+                  f"{language}/{width}: full-width story button directly follows stop title")
+            story_button.click()
+            page.locator('.fg-dialog[open] .fg-photo-ideas').wait_for()
+            check(page.locator('.fg-dialog[open] .fg-photo-ideas article').count() == 5,
+                  f"{language}/{width}: active-stop story button opens all five ideas")
+            page.keyboard.press('Escape')
+            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
             check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
                   f"{language}/{width}: Map, Stops and Photographs are separate views")
             dock_action.click()
@@ -136,51 +141,19 @@ with sync_playwright() as playwright:
                   f"{language}/{width}: photographs view reachable")
             for visit in MAIN["visits"]:
                 page.locator('[data-photo-stop]').select_option(visit["key"])
-                cover = page.locator('.fg-stop-copy .fg-stop-preview img')
-                cover.scroll_into_view_if_needed()
-                page.wait_for_function("""()=>{const image=document.querySelector('.fg-stop-copy .fg-stop-preview img');
-                    return image?.complete && image.naturalWidth > 0}""")
-                expected = visit["gallery"][0]
-                caption = page.locator('.fg-stop-copy .fg-stop-preview figcaption')
-                links = caption.locator('a').evaluate_all('(links)=>links.map(link=>link.getAttribute("href"))')
-                check(urlparse(cover.get_attribute('src')).path == expected['derivatives'][0]['url']
-                      and cover.get_attribute('alt') == next(row['alt'] for row in expected['copy'] if row['locale'] == language)
-                      and expected['credit'] in caption.inner_text()
-                      and expected['sourceURL'] in links and expected['licenseURL'] in links,
-                      f"{language}/{width}: {visit['placeKey']} loads its exact licensed photograph with alt and credits")
-                check(progress(page) == before,
-                      f"{language}/{width}: {visit['placeKey']} photo inspection does not change target")
-            page.locator('[data-photo-stop]').select_option("trearchi")
-            check(stop_title("trearchi", language) in page.locator('.fg-stop-copy h1').inner_text()
-                  and progress(page) == before,
-                  f"{language}/{width}: future-photo inspection preserves walking progress")
-            trearchi_photo = next(visit for visit in MAIN["visits"] if visit['key'] == 'trearchi')['gallery'][0]
-            check(trearchi_photo['contentKind'] == 'stop-view'
-                  and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
-                  and next(row['caption'] for row in trearchi_photo['copy'] if row['locale'] == language)
-                      in page.locator('.fg-stop-copy .fg-stop-preview figcaption').inner_text()
-                  and page.locator('.fg-stop-copy .fg-photo-kind').is_visible(),
-                  f"{language}/{width}: Tre Archi photograph is a verified stop view")
-            photo_opener = page.locator('.fg-stop-copy [data-open-stop-photo]')
-            photo_opener.click()
-            page.locator('.fg-dialog[open] .fg-photo-full img').wait_for()
-            full_photo = page.locator('.fg-dialog[open] .fg-photo-full img').evaluate("""image=>({
-                fit:getComputedStyle(image).objectFit,source:image.getAttribute('src'),
-                credit:image.closest('figure').querySelector('figcaption')?.textContent})""")
-            check(full_photo['fit'] == 'contain' and urlparse(full_photo['source']).path == trearchi_photo['derivatives'][0]['url']
-                  and trearchi_photo['credit'] in full_photo['credit'],
-                  f"{language}/{width}: real stop photo opens uncropped with its credit")
-            page.keyboard.press('Escape')
-            page.wait_for_function("()=>document.querySelector('.fg-dialog')?.open && !document.querySelector('.fg-dialog').classList.contains('fg-lightbox')")
-            check(progress(page) == before, f"{language}/{width}: leaving the full photograph restores stop details without advancing")
-            page.keyboard.press('Escape')
-            page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
-            check(photo_opener.evaluate('button=>document.activeElement===button') and progress(page) == before,
-                  f"{language}/{width}: real photo close restores opener and target")
+                opener = page.locator('.fg-stop-copy .fg-story-button')
+                opener.click()
+                page.locator('.fg-dialog[open] .fg-place-story').wait_for()
+                check(page.locator('.fg-gallery,.fg-stop-preview,.fg-photo-kind,.fg-photo-full').count() == 0,
+                      f"{language}/{width}: {visit['key']} has stories and ideas without the retired gallery")
+                check(page.locator('.fg-dialog[open] .fg-photo-ideas').count() == 1,
+                      f"{language}/{width}: five photo ideas retained")
+                page.keyboard.press('Escape')
+                page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
+                check(progress(page) == before and opener.evaluate('b=>document.activeElement===b'),
+                      f"{language}/{width}: inspection close restores focus and walking progress")
             check(page.locator('.fg-inspiration,[data-inspiration],.fg-reference-note').count() == 0,
-                  f"{language}/{width}: unrelated archive examples and their opener are absent")
-            check(progress(page) == before,
-                  f"{language}/{width}: gallery close preserves walking progress")
+                  f"{language}/{width}: unrelated archive examples remain absent")
 
             page.locator('[data-panel="stops"]').click()
             check(page.locator('.fg-stop-list [data-inspect]').count() == 10

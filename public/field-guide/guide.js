@@ -347,7 +347,7 @@ export class FieldGuide {
   }
   named(key, name) { return this.t(key).replace("{name}", name || ""); }
   durationSummary(route = this.route) {
-    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About {distance} on foot + 2 vaporetti").replace("{distance}", distanceLabel(4.6, this.lang)))}<br><strong>${escape(this.t("Plan {range} hours with photo stops").replace("{range}", rangeLabel(3,4,this.lang)))}</strong><br>${escape(this.t("{range} hours for longer photos and site testing").replace("{range}", rangeLabel(4,4.5,this.lang)))}<br><small>${escape(this.t("Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded."))}</small></p>`;
+    if (route?.key === "main") return `<p class="fg-duration">${escape(this.t("About {distance} on foot + 2 vaporetti").replace("{distance}", distanceLabel(4.6, this.lang)))}<br><strong>${escape(this.t("Plan {range} hours with photo stops").replace("{range}", rangeLabel(3,4,this.lang)))}</strong><br>${escape(this.t("{range} hours for longer photos and site testing").replace("{range}", rangeLabel(4,4.5,this.lang)))}</p>`;
     return `<p class="fg-muted">${escape(this.t("Distance and duration awaiting verification"))}</p>`;
   }
   walkingDock() {
@@ -430,12 +430,12 @@ export class FieldGuide {
     else if (this.activePanel === "photos") {
       const inspected = this.steps().find(item => !item.boat && item.key === this.inspectedVisit) || this.steps().find(item => !item.boat && item.key === step?.key) || this.steps().find(item => !item.boat);
       this.inspectedVisit = inspected?.key || null;
-      panel.innerHTML = `<div class="fg-panel-head"><h2>${t("Photographs")}</h2></div><label class="fg-photo-stop-select">${t("Choose a stop to inspect")}<span class="fg-select-wrap"><select data-photo-stop>${this.steps().filter(item => !item.boat).map(item => `<option value="${escape(item.key)}" ${item.key === inspected?.key ? "selected" : ""}>${item.n || "·"} · ${escape(this.text(item.copy).title)}</option>`).join("")}</select>${icon("chevron-down")}</span></label>${inspected ? `<div class="fg-stop-copy"><span class="fg-kicker">${t("Inspecting · walking progress stays unchanged")}</span><h1>${escape(this.text(inspected.copy).title)}</h1>${this.cover(inspected)}<button data-inspect="${escape(inspected.key)}">${escape(this.galleryLabel(inspected))} ${icon("external-link")}</button><button class="fg-text-link" data-resume="${escape(inspected.key)}">${t("Continue the walk from here")}</button></div>` : ""}`;
+      panel.innerHTML = `<div class="fg-panel-head"><h2>${t("Photographs")}</h2></div><label class="fg-photo-stop-select">${t("Choose a stop to inspect")}<span class="fg-select-wrap"><select data-photo-stop>${this.steps().filter(item => !item.boat).map(item => `<option value="${escape(item.key)}" ${item.key === inspected?.key ? "selected" : ""}>${item.n || "·"} · ${escape(this.text(item.copy).title)}</option>`).join("")}</select>${icon("chevron-down")}</span></label>${inspected ? `<div class="fg-stop-copy"><span class="fg-kicker">${t("Inspecting · walking progress stays unchanged")}</span><h1>${escape(this.text(inspected.copy).title)}</h1><button class="fg-story-button" data-inspect="${escape(inspected.key)}">${t("Read the place & photo ideas")} ${icon("external-link")}</button><button class="fg-text-link" data-resume="${escape(inspected.key)}">${t("Continue the walk from here")}</button></div>` : ""}`;
     } else if (!step) panel.innerHTML = `<h2>${t("No stops yet")}</h2>`;
     else if (this.completed)
       panel.innerHTML = `<div class="fg-stop-copy fg-completion"><span class="fg-kicker">${escape(this.photoProgress())}</span><h1>${t("Walk completed")}</h1><p>${t("You have manually completed the final step.")}</p><p>${escape(this.text(step.copy).title || step.key)}</p><button data-inspect="${escape(step.key)}">${t("Inspect the final stop")}</button></div>`;
     else if (step.boat) panel.innerHTML = this.transfer(step);
-    else panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${escape(this.photoProgress(step))}</span></div><div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1>${this.cover(step)}${this.storyIntroduction(step)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p><button class="fg-text-link" data-action="detail">${t("Read the place & photo ideas")} ${icon("external-link")}</button><button class="fg-text-link fg-gallery-link" data-inspect="${escape(step.key)}">${escape(this.galleryLabel(step))} ${icon("external-link")}</button>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop")} ${icon("external-link")}</button>` : ""}${this.index === 0 ? this.durationSummary() : ""}</div>`;
+    else panel.innerHTML = `<div class="fg-panel-head"><span class="fg-kicker">${escape(this.photoProgress(step))}</span></div><div class="fg-stop-copy"><h1>${escape(this.text(step.copy).title || step.key)}</h1><button class="fg-story-button" data-action="detail">${t("Read the place & photo ideas")} ${icon("external-link")}</button>${this.storyIntroduction(step)}<p lang="${this.text(step.copy).locale || this.lang}">${escape(this.text(step.copy).text?.split(/(?<=[.!?])\s/)[0] || "")}</p>${this.preview ? `<button class="fg-text-link" data-action="edit">${t("Edit this stop")} ${icon("external-link")}</button>` : ""}${this.index === 0 ? this.durationSummary() : ""}</div>`;
     if (this.view === "walk" || this.mainFocus) {
       const controls = document.createElement("div"); controls.className = "fg-sheet-controls";
       controls.innerHTML = `<button class="fg-sheet-handle" data-sheet-drag aria-label="${escape(t("Drag or use arrow keys to resize the stop panel"))}"><span aria-hidden="true"></span></button><span role="status">${t({collapsed:"Compact panel",standard:"Standard panel",expanded:"Expanded panel"}[this.sheet])}</span>${[["collapsed", "Collapse stop panel", "chevron-down"], ["standard", "Standard stop panel", "resize"], ["expanded", "Expand stop panel", "chevron-up"]].map(([state,label,symbol]) => `<button data-sheet="${state}" aria-label="${escape(t(label))}" aria-pressed="${state === this.sheet}" aria-controls="fg-sheet-content">${icon(symbol)}<small>${escape(t({collapsed:"More map",standard:"Balanced",expanded:"More stop"}[state]))}</small></button>`).join("")}`;
@@ -675,7 +675,7 @@ export class FieldGuide {
     const wasOpen = !!this.modalMode;
     this.beginOverlay(opener);
     this.inspectedVisit = visit.key;
-    this.selectedPhoto = coverPhoto(this.visitPhotos(visit))?.assetID || null;
+    this.selectedPhoto = null;
     this.modalMode = "detail";
     if (!wasOpen) this.pushOverlay("detail");
     else history.replaceState({ ...history.state, sidewaysOverlay: this.overlayState("detail") }, "");
@@ -733,35 +733,15 @@ export class FieldGuide {
   renderOverlay() {
     const visit = this.steps().find(item => item.key === this.inspectedVisit && !item.boat);
     if (!visit) { this.restoreOverlay(null); return; }
-    const photos = this.visitPhotos(visit);
-    const photo = photos.find(item => item.assetID === this.selectedPhoto) || coverPhoto(photos);
-    this.selectedPhoto = photo?.assetID || null;
-    const index = photos.indexOf(photo), dialog = this.el(".fg-dialog"), lightbox = this.modalMode === "lightbox";
-    const t = value => this.t(value);
-    dialog.classList.toggle("fg-lightbox", lightbox);
-    dialog.classList.toggle("fg-photo-zoomed", lightbox && !!this.photoZoom);
+    this.selectedPhoto = null;
+    const dialog = this.el(".fg-dialog"), t = value => this.t(value);
+    // Stop inspection is editorial only; even an old lightbox history entry
+    // must not bring the retired stop-photo set back onto a visitor screen.
+    dialog.classList.remove("fg-lightbox", "fg-photo-zoomed");
+    dialog.onkeydown = null;
     dialog.setAttribute("aria-labelledby", "fg-dialog-title");
-    const gallery = photo ? `<section class="fg-gallery" aria-label="${escape(this.galleryLabel(visit))}"><div class="fg-gallery-stage">${this.galleryImage(photo, { full: lightbox, interactive: true })}</div><div class="fg-gallery-controls"><button data-photo-previous aria-label="${escape(t("Previous photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("previous")}</button><span role="status">${t("Photograph")} ${index + 1} / ${photos.length}</span><button data-photo-next aria-label="${escape(t("Next photograph"))}" ${photos.length < 2 ? "disabled" : ""}>${icon("next")}</button>${lightbox ? `<button data-photo-zoom aria-pressed="${!!this.photoZoom}">${icon(this.photoZoom ? "zoom-out" : "zoom-in")} ${escape(t(this.photoZoom ? "Reset photograph zoom" : "Zoom photograph"))}</button>` : ""}</div><div class="fg-thumbnails">${photos.map((item, number) => `<button data-photo-id="${escape(item.assetID)}" aria-pressed="${item === photo}" aria-label="${escape(t("Select photograph"))} ${number + 1}">${this.galleryImage(item, { thumbnail: true })}</button>`).join("")}</div></section>` : `<p class="fg-photo-missing">${t("No photographs at this stop yet.")}</p>`;
-    const editorial = lightbox ? "" : this.story(visit);
-    dialog.innerHTML = `<p class="fg-dialog-target">${escape(this.photoProgress())} · ${escape(this.steps()[this.index]?.boat ? this.t("Vaporetto transfer") : this.text(this.steps()[this.index]?.copy).title || "")}</p><button class="fg-close">${icon("back")} ${t(lightbox ? "Back to stop" : "Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${t("Stop")} ${visit.n || "·"} / ${this.steps().filter(step => step.isPhotoStop).length}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${editorial}${gallery}`;
+    dialog.innerHTML = `<p class="fg-dialog-target">${escape(this.photoProgress())} · ${escape(this.steps()[this.index]?.boat ? this.t("Vaporetto transfer") : this.text(this.steps()[this.index]?.copy).title || "")}</p><button class="fg-close">${icon("back")} ${t("Back to map")}</button><span class="fg-kicker">${escape(this.title())} · ${t("Stop")} ${visit.n || "·"} / ${this.steps().filter(step => step.isPhotoStop).length}</span><h1 id="fg-dialog-title">${escape(this.text(visit.copy).title)}</h1>${this.story(visit)}`;
     dialog.querySelector(".fg-close").onclick = () => this.closeOverlay();
-    dialog.querySelector("[data-open-photo]")?.addEventListener("click", () => { if (performance.now() < (this.ignorePhotoClickUntil || 0)) return; lightbox ? this.togglePhotoZoom() : this.openLightbox(); });
-    dialog.querySelector("[data-photo-zoom]")?.addEventListener("click", () => this.togglePhotoZoom());
-    dialog.querySelector("[data-photo-previous]")?.addEventListener("click", () => this.selectPhoto(-1));
-    dialog.querySelector("[data-photo-next]")?.addEventListener("click", () => this.selectPhoto(1));
-    dialog.querySelectorAll("[data-photo-id]").forEach(button => { button.onclick = () => this.selectPhoto(button.dataset.photoId); });
-    dialog.onkeydown = event => {
-      if (event.target.matches("input,select,textarea")) return;
-      if (!this.photoZoom && (event.key === "ArrowLeft" || event.key === "ArrowRight")) { event.preventDefault(); this.selectPhoto(event.key === "ArrowLeft" ? -1 : 1); }
-    };
-    let touch;
-    const stage = dialog.querySelector(".fg-gallery-stage");
-    stage?.addEventListener("touchstart", event => { if (event.touches.length === 1 && !this.photoZoom) touch = [event.touches[0].clientX, event.touches[0].clientY]; }, { passive: true });
-    stage?.addEventListener("touchend", event => {
-      if (!touch || !event.changedTouches.length || this.photoZoom) return;
-      const deltaX = event.changedTouches[0].clientX - touch[0], deltaY = event.changedTouches[0].clientY - touch[1]; touch = null;
-      if (Math.abs(deltaX) > 55 && Math.abs(deltaX) > Math.abs(deltaY) * 1.5) { this.ignorePhotoClickUntil = performance.now() + 400; this.selectPhoto(deltaX > 0 ? -1 : 1); }
-    }, { passive: true });
     this.bindPhotoErrors(dialog);
     this.showDialog(dialog);
     dialog.querySelector(".fg-close").focus({ preventScroll: true });

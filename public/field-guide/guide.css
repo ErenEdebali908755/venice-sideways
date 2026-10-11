@@ -458,6 +458,25 @@ body {
   background: var(--action-hover);
   border-color: var(--action-hover);
 }
+.fg .fg-story-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 48px;
+  margin: 0 0 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font: 600 14px / 1.4 "Guide Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  text-align: left;
+  white-space: normal;
+}
+.fg .fg-story-button:hover { background: var(--surface); }
+.fg .fg-story-button svg { flex-shrink: 0; }
 .fg .fg-text-link {
   display: inline-block;
   min-height: 44px;
@@ -846,11 +865,7 @@ body {
 .fg[data-view="walk"] .fg-dialog .fg-photo-missing { display:block; font-size:14px; }
 .fg-photo-full img { width:auto; max-width:100%; margin-inline:auto; aspect-ratio: auto; height: auto; max-height: 62dvh; object-fit: contain; }
 .fg-photo-cover img { aspect-ratio: 4 / 3; object-fit: cover; }
-/* A stop preview has its own size contract; full photos and explicit zoom stay separate.
-   Only stretched walk panels are size containers. Compact panels keep intrinsic sizing. */
-.fg[data-view="walk"]:not([data-sheet="collapsed"]) .fg-editorial {
-  container-type: size;
-}
+/* Retired stop-photo styles do not impose size containment on editorial panels. */
 .fg-stop-preview {
   --fg-stop-preview-height: min(240px, max(44px, calc(33cqh - 28px)));
   margin-bottom: 14px;
@@ -1160,6 +1175,10 @@ body {
   .fg[data-main-focus="true"][data-view="explore"][data-sheet="collapsed"] .fg-editorial { max-height:min(34dvh,285px); }
   .fg[data-main-focus="true"][data-view="explore"][data-sheet="standard"] .fg-editorial { max-height:min(46dvh,400px); }
   .fg[data-main-focus="true"][data-view="explore"][data-sheet="expanded"] .fg-editorial { max-height:min(70dvh,650px); }
+  /* Use a viewport bound: the old percentage bound sized an auto grid row
+     from its unbounded content, leaving a blank gap after removing photos. */
+  .fg[data-main-focus="true"][data-view="walk"][data-panel="map"][data-sheet="standard"] .fg-editorial { max-height:min(36dvh,310px); }
+  .fg[data-main-focus="true"] .fg-editorial { scroll-padding-top:64px; }
   .fg[data-main-focus="true"][data-view="walk"][data-panel="map"][data-sheet="collapsed"] .fg-editorial { max-height:52px; height:52px; }
   .fg[data-main-focus="true"][data-view="walk"][data-panel="map"][data-sheet="collapsed"] .fg-sheet-content { display:none; }
   .fg[data-main-focus="true"][data-view="walk"][data-panel="map"][data-sheet="expanded"] .fg-editorial,
