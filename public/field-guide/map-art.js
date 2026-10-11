@@ -423,7 +423,7 @@ export function mapDOMObstacles(map) {
   const shell=container.closest?.('.fg-map-shell') || container.parentElement || container;
   // The floating toolbar wrapper is transparent and can span unused space.
   // Reserve the actual controls and only the open disclosure surfaces instead.
-  const selector = '.fg-pin,.fg-location-dot,.fg-map-tools > button,.fg-location-controls > button,.fg-map-tools summary,.fg-map-options[open] > .fg-map-option-actions,.fg-location-copy[open] > .fg-privacy-panel,.fg-map-legend,.maplibregl-ctrl-top-right,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-attrib';
+  const selector = '.fg-pin,.fg-endpoint-label,.fg-location-dot,.fg-map-tools > button,.fg-location-controls > button,.fg-map-tools summary,.fg-map-options[open] > .fg-map-option-actions,.fg-location-copy[open] > .fg-privacy-panel,.fg-map-legend,.maplibregl-ctrl-top-right,.maplibregl-ctrl-bottom-right,.maplibregl-ctrl-attrib';
   return [...(shell.querySelectorAll?.(selector) || [])]
     .map(element=>element.getBoundingClientRect()).filter(box=>box.width>0&&box.height>0)
     .map(box=>({left:box.left-origin.left-5,top:box.top-origin.top-5,right:box.right-origin.left+5,bottom:box.bottom-origin.top+5}));

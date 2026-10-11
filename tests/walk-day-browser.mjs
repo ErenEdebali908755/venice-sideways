@@ -10,7 +10,7 @@ const routes=JSON.parse(await readFile(new URL('../public/field-guide/routes.jso
 const visits=routes.routes.find(r=>r.key==='main').visits,keys=visits.map(v=>v.key);
 const langs=['en','tr','it','fr','ru','zh','ja','ko'],storage='sideways-walking-progress-v1';
 const removed=['Estimate · not yet verified in the field. Getting to the start, long meals and the return trip are excluded.','Photos at this stop'];
-const retired='.fg-stop-preview,.fg-photo-kind,.fg-gallery,.fg-gallery-link,.fg-photo-full,[data-open-stop-photo],.fg-compact-empty';
+const retired='[data-photo-stop],.fg-stop-preview,.fg-photo-kind,.fg-gallery,.fg-gallery-link,.fg-photo-full,[data-open-stop-photo],.fg-compact-empty';
 const all=[],only=process.env.WALK_DAY_ONLY||'';
 const delay=ms=>new Promise(r=>setTimeout(r,ms));
 for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:844},'tr'],[chromium,'Pixel 7',{width:412,height:915},'en']]){
@@ -20,6 +20,9 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
   const viewport=mode==='small'?{width:360,height:640}:mode==='landscape'?{width:normal.height,height:normal.width}:normal;
   const name=`${engine.name()}-${mode}`,r={name,viewport,base,checks:[],errors:[],consoleErrors:[],nonGetBlocked:[],retiredRequests:[],screenshots:[],tiles:0};all.push(r);
   const context=await browser.newContext({...devices[device],viewport,locale:lang,serviceWorkers:'block',permissions:mode==='granted'?['geolocation']:[],...(mode==='granted'?{geolocation:{latitude:45.44085,longitude:12.32145,accuracy:15}}:{})});
+  await context.addInitScript(()=>{
+   let library;Object.defineProperty(window,'maplibregl',{configurable:true,get:()=>library,set:value=>{library=value;const Original=value.Map;value.Map=class extends Original{constructor(...args){super(...args);(window.__walkMaps||=[]).push(this);}};}});
+  });
   let offline=false;
   await context.route('**/*',async route=>{
    const req=route.request(),url=new URL(req.url());
@@ -46,7 +49,7 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
    check(!langs.some(l=>removed.some(key=>text.includes(uiCopy(key,l)))),label+': removed notes absent in every language');
    const problems=await page.evaluate(()=>{
     const bad=[];if(document.documentElement.scrollWidth>innerWidth+1)bad.push('document horizontal overflow');
-    for(const e of document.querySelectorAll('.fg-stop-copy,.fg-stop-copy h1,.fg-story-button,.fg-walking-dock button,.fg-view-tabs button,.fg-dialog[open] h1,.fg-dialog[open] p,.fg-dialog[open] summary')){
+    for(const e of document.querySelectorAll('.fg-stop-copy,.fg-stop-copy h1,.fg-story-button,.fg-walking-dock button,.fg-view-tabs button,.fg-dialog[open] h1,.fg-dialog[open] p,.fg-dialog[open] summary,.fg-direct-ideas h2,.fg-direct-ideas h3,.fg-direct-ideas p,.fg-direct-ideas small')){
      const s=getComputedStyle(e),b=e.getBoundingClientRect();if(!b.width||!b.height||s.visibility==='hidden'||s.display==='none'||b.bottom<0||b.top>innerHeight)continue;
      if(b.left< -1||b.right>innerWidth+1)bad.push(e.className+': outside viewport');
      if(e.scrollWidth>e.clientWidth+2)bad.push(e.className+': clipped text');
@@ -57,7 +60,7 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
   };
   const story=async label=>{
    const before=await signature(),button=page.locator('.fg-stop-copy h1 + .fg-story-button');
-   if(await page.locator('#field-guide').getAttribute('data-panel')==='map' && await page.locator('#field-guide').getAttribute('data-sheet')==='collapsed' && await page.locator('[data-sheet="standard"]').isVisible())await page.locator('[data-sheet="standard"]').click();
+   if(await page.locator('#field-guide').getAttribute('data-panel')==='map' && await page.locator('#field-guide').getAttribute('data-sheet')==='collapsed' && await page.locator('button[data-sheet="standard"]').isVisible())await page.locator('button[data-sheet="standard"]').click();
    await button.waitFor({state:'visible'});check(await button.isVisible(),label+': story button visible');
    const size=await button.evaluate(e=>{const b=e.getBoundingClientRect(),p=e.parentElement.getBoundingClientRect(),s=getComputedStyle(e);return {height:b.height,width:b.width,parent:p.width,fg:s.color,bg:s.backgroundColor};});
    check(size.height>=44&&Math.abs(size.width-size.parent)<2,label+': full-width touch target');
@@ -73,25 +76,63 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
    await page.locator('[data-route="main"]').waitFor({timeout:60000});await clean('overview');
    check((await page.locator('.fg-duration').innerText()).length>30,'distance and duration retained');
    await page.locator('[data-route="main"]').click();await page.locator('.fg-walking-dock').waitFor();
-   if(await page.locator('[data-sheet="standard"]').isVisible())await page.locator('[data-sheet="standard"]').click();await page.waitForTimeout(300);
+   if(await page.locator('button[data-sheet="standard"]').isVisible())await page.locator('button[data-sheet="standard"]').click();await page.waitForTimeout(300);
+  };
+  const attribution=async label=>{
+   const control=page.locator('.maplibregl-ctrl-attrib'),toggle=control.locator('summary');
+   check(await control.count()===1 && await toggle.count()===1,label+': one attribution button');
+   check(!(await control.evaluate(e=>e.open)) && !(await control.locator('.maplibregl-ctrl-attrib-inner').isVisible()),label+': attribution starts closed');
+   check(await toggle.evaluate(e=>{const s=getComputedStyle(e);return s.backgroundRepeat==='no-repeat'&&e.getBoundingClientRect().height>=44;}),label+': single icon and touch-sized control');
+   await toggle.click();check(await control.evaluate(e=>e.open),label+': attribution opens');
+   check(await control.locator('a[href*="openstreetmap.org/copyright"]').count()>0 && await control.locator('.maplibregl-ctrl-attrib-inner').isVisible(),label+': provider credits accessible');
+   await toggle.click();check(!(await control.evaluate(e=>e.open)),label+': attribution closes');
+  };
+  const ideas=async(key,language)=>{
+   const before=await signature();await page.locator('.fg-view-tabs [data-panel="photos"]').click();
+   const panel=page.locator(`[data-ideas-stop="${key}"]`),expected=visits.find(v=>v.key===key).ideas.sort((a,b)=>a.order-b.order).map(i=>i.copy.find(c=>c.locale===language).title);
+   check(await panel.count()===1,language+' '+key+': ideas belong to walking target');
+   check(JSON.stringify(await panel.locator('.fg-direct-ideas article h3').allTextContents())===JSON.stringify(expected),language+' '+key+': exact five ideas in original order');
+   check(await panel.locator('.fg-direct-ideas article').first().isVisible()&&await page.locator('.fg-dialog[open]').count()===0,language+' '+key+': ideas need only one tap');
+   const tabs=await page.locator('.fg-view-tabs button').evaluateAll(es=>es.map(e=>{const b=e.getBoundingClientRect();return {top:b.top,bottom:b.bottom,clip:e.scrollWidth>e.clientWidth+1};}));
+   check(tabs.every(t=>t.top===tabs[0].top&&t.bottom===tabs[0].bottom&&!t.clip),language+': three tabs fit one row');
+   check(await page.locator('.fg-view-tabs [data-panel="photos"]').innerText()===uiCopy('Photo ideas',language),language+': short translated tab');
+   await clean(language+' '+key+' ideas');check(await signature()===before,'ideas preserve progress');
+  };
+  const endpoints=async()=>{
+   await page.locator('[data-action="fit"]').click();await page.waitForTimeout(650);
+   check(await page.locator('[data-endpoint]').count()===2,'start and finish are present');
+   for(const [kind,key,label] of [['start','lucia','Start'],['finish','trearchi','Finish']]){
+    const pin=page.locator(`[data-endpoint="${kind}"]`);
+    check(await pin.getAttribute('data-visit-key')===key && (await pin.innerText())===uiCopy(label,lang),kind+': correct place and translated label');
+    check(await pin.locator('svg').count()===1,kind+': label and icon');
+    check(await pin.locator('button').evaluate(e=>{const b=e.getBoundingClientRect(),m=e.closest('.fg-map').getBoundingClientRect();const hit=document.elementFromPoint(b.x+b.width/2,b.y+b.height/2);return b.left>=m.left-1&&b.right<=m.right+1&&b.top>=m.top-1&&b.bottom<=m.bottom+1&&(hit===e||e.contains(hit));}),kind+': complete label visible in whole route');
+   }
+   await shot('whole-route-start');
+   // Zoom around each genuine coordinate: no clustering, displacement or zoom cutoff.
+   for(const visit of [visits[0],visits.at(-1)]){
+    await page.evaluate(v=>window.__walkMaps.at(-1).jumpTo({center:[v.longitude,v.latitude],zoom:18}),visit);
+    check(await page.locator(`[data-endpoint][data-visit-key="${visit.key}"] button`).isVisible(),visit.key+': endpoint remains at close zoom');
+   }
+   await page.locator('[data-action="fit"]').click();
   };
   const usable=async()=>check(await page.locator('.fg-walking-dock [data-action="walk-advance"]').evaluate(e=>{const b=e.getBoundingClientRect(),hit=document.elementFromPoint(b.x+b.width/2,b.y+b.height/2);return b.top>=0&&b.bottom<=innerHeight+1&&b.height>=44&&(hit===e||e.contains(hit));}),'walking action unobscured and touch sized');
   const advance=async()=>{await usable();await page.locator('.fg-walking-dock [data-action="walk-advance"]').click();await page.waitForTimeout(660);};
   try{
    await open();await clean('first stop');await shot('stop-1');
+   if(mode!=='map-unavailable'){
+    await page.waitForFunction(()=>!document.querySelector('[data-action="dimension"]')?.disabled,null,{timeout:60000});
+    await attribution('initial');
+    if(await page.locator('button[data-sheet="collapsed"]').isVisible())await page.locator('button[data-sheet="collapsed"]').click();
+    await endpoints();
+    if(await page.locator('button[data-sheet="standard"]').isVisible())await page.locator('button[data-sheet="standard"]').click();
+   }
    if(mode==='portrait'){
     await page.waitForFunction(()=>!document.querySelector('[data-action="dimension"]')?.disabled,null,{timeout:45000});
     const initial=await signature();
-    for(const panel of ['stops','photos','map']){await page.locator(`[data-panel="${panel}"]`).click();await clean(panel);check(await signature()===initial,panel+': progress retained');if(panel==='stops')check(await page.locator('.fg-stop-list [data-inspect]').count()===10,'all ten stops listed');}
-    // Independently inspect every stop in every language, without moving the walking target.
-    await page.locator('[data-panel="photos"]').click();
-    for(const language of langs){
-     await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(language);
-     await page.locator('.fg-preferences > summary').click();
-     for(const visit of visits){await page.locator('[data-photo-stop]').selectOption(visit.key);await story(language+' '+visit.key);}
-     await shot(language+'-photos');check(await signature()===initial,language+': language switch retained progress');
-    }
-    await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(lang);
+    for(const panel of ['stops','photos','map']){await page.locator(`.fg-view-tabs [data-panel="${panel}"]`).click();await clean(panel);check(await signature()===initial,panel+': progress retained');if(panel==='stops')check(await page.locator('.fg-stop-list [data-inspect]').count()===10,'all ten stops listed');}
+    await page.locator('.fg-view-tabs [data-panel="map"]').click();
+    if(await page.locator('button[data-sheet="standard"]').isVisible())await page.locator('button[data-sheet="standard"]').click();
+    await page.locator('.fg-preferences > summary').click();
     for(const theme of ['dark','light','system']){
      await page.locator('.fg-theme').selectOption(theme);await clean('theme '+theme);check(await signature()===initial,theme+': theme switch retained progress');
      const contrast=await page.locator('.fg-story-button').evaluate(e=>{
@@ -99,7 +140,7 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
       const s=getComputedStyle(e),a=l(s.color),b=l(s.backgroundColor);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
      });check(contrast>=4.5,theme+': story contrast '+contrast.toFixed(2));
     }
-    await page.locator('.fg-preferences > summary').click();await page.locator('[data-panel="map"]').click();
+    await page.locator('.fg-preferences > summary').click();await page.locator('.fg-view-tabs [data-panel="map"]').click();
    }
    if(['denied','granted'].includes(mode)){
     await page.waitForFunction(()=>!document.querySelector('[data-action="location"]')?.disabled,null,{timeout:45000});
@@ -110,12 +151,12 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
     await clean('location '+mode);
    }
    if(['slow','map-unavailable'].includes(mode)){
-    await page.locator('[data-panel="stops"]').click();check(await page.locator('.fg-stop-list [data-inspect]').count()===10,'stop list usable without fast map');
+    await page.locator('.fg-view-tabs [data-panel="stops"]').click();check(await page.locator('.fg-stop-list [data-inspect]').count()===10,'stop list usable without fast map');
     offline=true;await context.setOffline(true);
     await page.locator('.fg-stop-list [data-inspect="barnaba"]').click();await page.locator('.fg-dialog[open]').waitFor();await clean('offline story');
     await page.goBack();await page.locator('.fg-dialog[open]').waitFor({state:'hidden'});
     await page.waitForTimeout(1500);check((await page.locator('body').innerText()).length>200,'brief disconnect never blanks loaded page');
-    await context.setOffline(false);offline=false;await page.locator('[data-panel="map"]').click();
+    await context.setOffline(false);offline=false;await page.locator('.fg-view-tabs [data-panel="map"]').click();
    }
    const seen=new Set();let transit=0,previousChecked=false,refreshChecked=false;
    for(let n=0;n<30;n++){
@@ -124,6 +165,18 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
     if(state.phase==='transit')transit++;
     else if(!seen.has(state.targetKey)){
      seen.add(state.targetKey);await story('walk '+state.targetKey);
+     for(const language of (['portrait','small','landscape'].includes(mode)?langs:[lang])){
+      await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(language);await page.keyboard.press('Escape');
+      await ideas(state.targetKey,language);
+      if(mode!=='map-unavailable'){
+       check(!(await page.locator('.maplibregl-ctrl-attrib').evaluate(e=>e.open)),language+': new screen keeps attribution closed');
+       check(await page.locator('[data-endpoint="start"]').innerText()===uiCopy('Start',language)&&await page.locator('[data-endpoint="finish"]').innerText()===uiCopy('Finish',language),language+': translated endpoints');
+      }
+      if(state.targetKey===keys[0]&&language===lang)await shot('photo-ideas');
+     }
+     await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(lang);await page.keyboard.press('Escape');
+     await page.locator('.fg-view-tabs [data-panel="map"]').click();
+     if(await page.locator('button[data-sheet="standard"]').isVisible())await page.locator('button[data-sheet="standard"]').click();
      if(state.targetKey===keys[4]){await shot('stop-5');if(['portrait','progress'].includes(mode)&&!refreshChecked){const before=await signature();await open();check(await signature()===before,'refresh preserves mid-walk progress');
       for(const language of langs){await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(language);await page.keyboard.press('Escape');await clean('mid-walk '+language);check(await signature()===before,'mid-walk '+language+': progress retained');}
       await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(lang);

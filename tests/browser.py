@@ -129,7 +129,7 @@ with sync_playwright() as playwright:
             page.keyboard.press('Escape')
             page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
             check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
-                  f"{language}/{width}: Map, Stops and Photographs are separate views")
+                  f"{language}/{width}: Map, Stops and Photo ideas are separate views")
             dock_action.click()
             check(root.get_attribute("data-walking-phase") == "walking"
                   and stop_title("giacomo", language) in progress(page),
@@ -138,20 +138,13 @@ with sync_playwright() as playwright:
 
             page.locator('[data-panel="photos"]').click()
             check(root.get_attribute("data-panel") == "photos",
-                  f"{language}/{width}: photographs view reachable")
-            for visit in MAIN["visits"]:
-                page.locator('[data-photo-stop]').select_option(visit["key"])
-                opener = page.locator('.fg-stop-copy .fg-story-button')
-                opener.click()
-                page.locator('.fg-dialog[open] .fg-place-story').wait_for()
-                check(page.locator('.fg-gallery,.fg-stop-preview,.fg-photo-kind,.fg-photo-full').count() == 0,
-                      f"{language}/{width}: {visit['key']} has stories and ideas without the retired gallery")
-                check(page.locator('.fg-dialog[open] .fg-photo-ideas').count() == 1,
-                      f"{language}/{width}: five photo ideas retained")
-                page.keyboard.press('Escape')
-                page.wait_for_function("()=>!document.querySelector('.fg-dialog')?.open")
-                check(progress(page) == before and opener.evaluate('b=>document.activeElement===b'),
-                      f"{language}/{width}: inspection close restores focus and walking progress")
+                  f"{language}/{width}: photo ideas view reachable")
+            check(page.locator('[data-ideas-stop="giacomo"] .fg-direct-ideas article').count() == 5
+                  and page.locator('[data-photo-stop]').count() == 0,
+                  f"{language}/{width}: one tap directly opens current stop's five ideas")
+            check(page.locator('.fg-direct-ideas article').first.is_visible()
+                  and progress(page) == before,
+                  f"{language}/{width}: ideas are expanded without changing walking progress")
             check(page.locator('.fg-inspiration,[data-inspiration],.fg-reference-note').count() == 0,
                   f"{language}/{width}: unrelated archive examples remain absent")
 
