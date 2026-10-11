@@ -124,9 +124,13 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
     if(state.phase==='transit')transit++;
     else if(!seen.has(state.targetKey)){
      seen.add(state.targetKey);await story('walk '+state.targetKey);
-     if(state.targetKey===keys[4]){await shot('stop-5');if(mode==='portrait'&&!refreshChecked){const before=await signature();await open();check(await signature()===before,'refresh preserves mid-walk progress');
+     if(state.targetKey===keys[4]){await shot('stop-5');if(['portrait','progress'].includes(mode)&&!refreshChecked){const before=await signature();await open();check(await signature()===before,'refresh preserves mid-walk progress');
       for(const language of langs){await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(language);await page.keyboard.press('Escape');await clean('mid-walk '+language);check(await signature()===before,'mid-walk '+language+': progress retained');}
-      await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(lang);await page.keyboard.press('Escape');refreshChecked=true;}}
+      await page.locator('.fg-preferences > summary').click();await page.locator('.fg-language').selectOption(lang);
+      for(const theme of ['dark','light','system']){await page.locator('.fg-theme').selectOption(theme);check(await signature()===before,'mid-walk '+theme+': progress retained');}
+      await page.keyboard.press('Escape');
+      for(const scheme of ['dark','light']){await page.emulateMedia({colorScheme:scheme});await page.waitForTimeout(150);check(await page.locator('#field-guide').getAttribute('data-theme')===scheme,'system '+scheme+': theme followed');check(await signature()===before,'system theme retains mid-walk progress');}
+      refreshChecked=true;}}
     }
     const direction=page.locator('.fg-dock-secondary a'),url=new URL(await direction.getAttribute('href'));check(url.origin==='https://www.google.com'&&url.searchParams.get('api')==='1'&&url.searchParams.get('travelmode')==='walking','external walking directions remain linked');
     const target=visits.find(v=>v.key===state.targetKey);if(target)check(url.searchParams.get('destination')===`${target.latitude},${target.longitude}`,'directions target the actual stop');
