@@ -1251,3 +1251,38 @@ body {
 .fg:lang(ko) :is(p,h1,h2,h3,button,summary,label,figcaption,li,small,strong,span) { word-break:keep-all; overflow-wrap:break-word; }
 .fg:lang(zh),.fg:lang(ja) { line-break:strict; }
 .fg:lang(ja) .fg-photo-ideas > summary strong { text-wrap:balance; }
+
+/* One native attribution disclosure; preserve every provider credit/link.
+   The global 44px summary rule formerly repeated MapLibre's 24px background. */
+.fg .maplibregl-ctrl-bottom-right { max-width:100%; }
+.fg .maplibregl-ctrl-attrib.maplibregl-compact { box-sizing:border-box; width:44px; min-height:44px; margin:6px; padding:0; border-radius:22px; background:#fff; color:#172a2a; box-shadow:0 1px 5px #0002; }
+.fg .maplibregl-ctrl-attrib.maplibregl-compact-show { width:auto; max-width:calc(100% - 12px); min-height:44px; padding:8px 48px 8px 12px; border-radius:12px; }
+.fg .maplibregl-ctrl-attrib summary.maplibregl-ctrl-attrib-button { width:44px; height:44px; min-height:44px; padding:0; border:0; border-radius:50%; background-color:transparent; background-repeat:no-repeat; background-position:center; background-size:24px; }
+.fg .maplibregl-ctrl-attrib-inner { max-height:100px; overflow:auto; font:11px/1.4 Arial,sans-serif; white-space:normal; overflow-wrap:anywhere; }
+.fg .maplibregl-ctrl-attrib-inner a { color:#172a2a; }
+.fg-endpoint-anchor { width:0; height:0; z-index:2; }
+.fg-endpoint-dot { position:absolute; width:10px; height:10px; left:-5px; top:-5px; border:2px solid #fff; border-radius:50%; background:#2454d4; box-shadow:0 0 0 1px #172a2a; }
+.fg .fg-endpoint-label { position:absolute; left:0; display:flex; align-items:center; gap:5px; width:max-content; max-width:125px; min-height:44px; padding:6px 9px; border:2px solid #2454d4; background:#fff; color:#172a2a; box-shadow:0 1px 5px #0002; font-size:12px; font-weight:700; line-height:1.2; white-space:nowrap; }
+.fg-endpoint-start .fg-endpoint-label { top:0; left:28px; transform:translateY(-50%); }
+.fg-endpoint-finish .fg-endpoint-label { top:0; left:-28px; transform:translate(-100%,-50%); }
+.fg-endpoint-label::before { content:""; position:absolute; top:calc(50% - 1px); width:26px; height:2px; background:#2454d4; pointer-events:none; }
+.fg-endpoint-start .fg-endpoint-label::before { right:100%; }
+.fg-endpoint-finish .fg-endpoint-label::before { left:100%; }
+.fg-endpoint-anchor[data-active="true"] .fg-endpoint-dot { display:none; }
+.fg-endpoint-anchor[data-active="true"] .fg-endpoint-label::before { width:5px; }
+.fg-endpoint-label .fg-icon { width:16px; height:16px; flex:none; }
+.fg .fg-direct-ideas { margin-top:16px; }
+.fg .fg-direct-ideas > h2 { display:flex; gap:10px; align-items:flex-start; font:650 18px/1.35 "Guide Sans",Arial,sans-serif; }
+.fg-direct-ideas > h2 .fg-icon { flex:none; margin-top:2px; }
+.fg[data-panel="photos"] .fg-ideas-panel > h1 { font-size:24px; margin:6px 0; }
+@media(max-width:767px) { .fg-view-tabs { gap:5px; } .fg-view-tabs button { padding:7px 4px; font-size:12px; line-height:1.2; } }
+
+/* The ideas tab is a reading view. Give it the available phone space instead
+   of squeezing the map and its floating controls above five expanded ideas. */
+@media(max-width:767px) {
+  .fg[data-main-focus="true"][data-panel="photos"] { grid-template-rows:56px auto minmax(0,1fr) auto; }
+  .fg[data-main-focus="true"][data-panel="photos"] .fg-map-shell { display:none; }
+  .fg[data-main-focus="true"][data-panel="photos"] .fg-view-tabs { grid-row:2; }
+  .fg[data-main-focus="true"][data-panel="photos"] .fg-editorial { grid-row:3; height:100%; max-height:none; padding-top:14px; }
+  .fg[data-main-focus="true"][data-panel="photos"] .fg-walking-dock { grid-row:4; }
+}

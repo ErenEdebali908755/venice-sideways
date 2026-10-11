@@ -1,5 +1,5 @@
 import {createMeasurementCollector} from './measurement.js?v=20261010-third-review';
-import {FieldGuide} from './guide.js?v=20261011-walk-day';
+import {FieldGuide} from './guide.js?v=20261011-walk-day-r2';
 import {MAIN_WALK_PRESENTATION, replacePublishedRoutes} from './presentation.js?v=20261010-third-review';
 
 const languages = ['en','tr','it','fr','ru','zh','ja','ko'];

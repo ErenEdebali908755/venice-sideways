@@ -106,7 +106,7 @@ try:
         check(page.locator('.fg-stop-copy h1 + .fg-story-button').is_visible(),
               "Story button is directly below the stop title")
         check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
-              "Map, Stops and Photographs share one navigation level")
+              "Map, Stops and Photo ideas share one navigation level")
         check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
               "A singleton named walking action is available independently of panels")
         map_options = page.locator('.fg-map-options')
@@ -158,22 +158,12 @@ try:
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',
               "Inspection close returns to the same walking target")
         page.locator('[data-panel="photos"]').click()
-        page.locator('[data-photo-stop]').select_option('trearchi')
+        check(page.locator('[data-ideas-stop="giacomo"] .fg-direct-ideas article').count() == 5
+              and page.locator('[data-photo-stop]').count() == 0,
+              "Photo ideas opens all five ideas for the walking target directly")
         check(page.locator('.fg-inspiration,[data-inspiration],.fg-stop-preview,.fg-photo-kind').count() == 0
               and page.locator('.fg-walking-dock').inner_text() == before,
-              "Tre Archi inspection has no photo set and preserves walking progress")
-        route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
-        main = next(route for route in route_data['routes'] if route['key'] == 'main')
-        for visit in main['visits']:
-            page.locator('[data-photo-stop]').select_option(visit['key'])
-            page.locator('.fg-stop-copy .fg-story-button').click()
-            page.locator('.fg-dialog[open] .fg-place-story').wait_for()
-            check(page.locator('.fg-gallery,.fg-stop-preview,.fg-photo-full').count() == 0,
-                  f"No retired stop photographs: {visit['placeKey']}")
-            page.keyboard.press('Escape')
-            check(poll(page, "() => !document.querySelector('.fg-dialog')?.open"), "Story closes")
-            check(page.locator('.fg-walking-dock').inner_text() == before,
-                  f"Story inspection retains walking target: {visit['placeKey']}")
+              "Ideas retain the current walking target and contain no retired photos")
         page.locator('[data-panel="map"]').click()
         check(page.locator('.fg-pin.selected').count() == 1
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',
