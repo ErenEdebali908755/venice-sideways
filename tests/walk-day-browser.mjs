@@ -80,6 +80,9 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
   };
   const attribution=async label=>{
    const control=page.locator('.maplibregl-ctrl-attrib'),toggle=control.locator('summary');
+   // style.load can precede provider/source metadata on 3G. MapLibre hides
+   // its empty control until the first legal credit arrives; measure it then.
+   await toggle.waitFor({state:'visible',timeout:60000});
    check(await control.count()===1 && await toggle.count()===1,label+': one attribution button');
    check(!(await control.evaluate(e=>e.open)) && !(await control.locator('.maplibregl-ctrl-attrib-inner').isVisible()),label+': attribution starts closed');
    check(await toggle.evaluate(e=>{const s=getComputedStyle(e);return s.backgroundRepeat==='no-repeat'&&e.getBoundingClientRect().height>=44;}),label+': single icon and touch-sized control');
