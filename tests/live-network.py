@@ -101,15 +101,12 @@ try:
               "The mobile walking panel opens compactly")
         page.locator('[data-sheet="standard"]').click()
         check(page.locator(".fg-stop-copy h1").is_visible(), "User can expand the sheet to read the active stop")
-        cover = page.locator('.fg-stop-copy .fg-stop-preview img')
-        cover.scroll_into_view_if_needed()
-        check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
-              "The actual Santa Lucia photograph loads in the expanded sheet")
-        check('/field-guide/photos/main-20261009/lucia-' in cover.get_attribute('src')
-              and page.locator('.fg-stop-copy .fg-compact-empty').count() == 0,
-              "Santa Lucia uses its place-specific licensed photograph")
+        check(page.locator('.fg-stop-preview,.fg-photo-kind,.fg-gallery-link').count() == 0,
+              "Stop-photo cover, credit and gallery link are absent")
+        check(page.locator('.fg-stop-copy h1 + .fg-story-button').is_visible(),
+              "Story button is directly below the stop title")
         check(page.locator('.fg-view-tabs [data-panel]').count() == 3,
-              "Map, Stops and Photographs share one navigation level")
+              "Map, Stops and Photo ideas share one navigation level")
         check(page.locator('.fg-walking-dock [data-action="walk-advance"]').count() == 1,
               "A singleton named walking action is available independently of panels")
         map_options = page.locator('.fg-map-options')
@@ -144,13 +141,13 @@ try:
               "Walking phase is explicit after the manual start")
         before = page.locator('.fg-walking-dock').inner_text()
         page.locator('[data-panel="stops"]').click()
-        check(page.locator(".fg-stop-list [data-inspect]").count() == 11
+        check(page.locator(".fg-stop-list [data-inspect]").count() == 10
               and page.locator(".fg-stop-list [data-inspect-transfer]").count() == 1,
-              "Eleven photo stops and the transfer are separately inspectable")
-        page.locator('.fg-stop-list [data-inspect="vino"]').click()
+              "Ten photo stops and the transfer are separately inspectable")
+        page.locator('.fg-stop-list [data-inspect="trearchi"]').click()
         check(page.locator('.fg-dialog[open]').count() == 1
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo'
-              and page.locator('.fg-pin-inspected').get_attribute('data-visit-key') == 'vino',
+              and page.locator('.fg-pin-inspected').get_attribute('data-visit-key') == 'trearchi',
               "Future-stop inspection uses a separate marker without moving the walking target")
         check(page.locator('.fg-walking-dock').inner_text() == before,
               "Inspection preserves the named target and photo progress")
@@ -161,29 +158,12 @@ try:
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',
               "Inspection close returns to the same walking target")
         page.locator('[data-panel="photos"]').click()
-        page.locator('[data-photo-stop]').select_option('vino')
-        check(page.locator('.fg-inspiration > p').is_visible()
-              and page.locator('.fg-stop-copy .fg-stop-preview img').count() == 1
-              and page.locator('.fg-stop-copy .fg-photo-kind').is_visible()
+        check(page.locator('[data-ideas-stop="giacomo"] .fg-direct-ideas article').count() == 5
+              and page.locator('[data-photo-stop]').count() == 0,
+              "Photo ideas opens all five ideas for the walking target directly")
+        check(page.locator('.fg-inspiration,[data-inspiration],.fg-stop-preview,.fg-photo-kind').count() == 0
               and page.locator('.fg-walking-dock').inner_text() == before,
-              "Vino surroundings photo and separate archive inspiration preserve walking progress")
-        route_data = json.loads((ROOT/'public/field-guide/routes.json').read_text())
-        main = next(route for route in route_data['routes'] if route['key'] == 'main')
-        for visit in main['visits']:
-            page.locator('[data-photo-stop]').select_option(visit['key'])
-            image = page.locator('.fg-stop-copy .fg-stop-preview img')
-            image.scroll_into_view_if_needed()
-            check(poll(page, "() => {const i=document.querySelector('.fg-stop-copy .fg-stop-preview img');return i?.complete&&i.naturalWidth>0}"),
-                  f"Stop photograph loads: {visit['placeKey']}")
-            photo = visit['gallery'][0]
-            caption = page.locator('.fg-stop-copy .fg-stop-preview figcaption')
-            links = caption.locator('a').evaluate_all('(links)=>links.map(link=>link.getAttribute("href"))')
-            check(urlparse(image.get_attribute('src')).path == photo['derivatives'][0]['url']
-                  and photo['credit'] in caption.inner_text()
-                  and photo['sourceURL'] in links and photo['licenseURL'] in links,
-                  f"Exact photograph, photographer, source and license: {visit['placeKey']}")
-            check(page.locator('.fg-walking-dock').inner_text() == before,
-                  f"Photo browsing retains walking target: {visit['placeKey']}")
+              "Ideas retain the current walking target and contain no retired photos")
         page.locator('[data-panel="map"]').click()
         check(page.locator('.fg-pin.selected').count() == 1
               and page.locator('.fg-pin.selected').get_attribute('data-visit-key') == 'giacomo',
@@ -191,9 +171,9 @@ try:
         page.locator('[data-panel="stops"]').click()
         # This is a distinct user decision after inspection, not the preceding double tap.
         page.wait_for_timeout(660)
-        page.locator('.fg-stop-list [data-resume="vino"]').click()
-        check(poll(page, "() => document.querySelector('.fg-pin.selected')?.dataset.visitKey === 'vino'"),
-              "Only the explicit continue-from-here action changes the target to Vino")
+        page.locator('.fg-stop-list [data-resume="trearchi"]').click()
+        check(poll(page, "() => document.querySelector('.fg-pin.selected')?.dataset.visitKey === 'trearchi'"),
+              "Only the explicit continue-from-here action changes the target to Tre Archi")
         check(page.locator('#field-guide').get_attribute('data-panel') == 'map'
               and page.locator('.fg-pin.selected').count() == 1,
               "Explicit resume returns to Map with one target marker")

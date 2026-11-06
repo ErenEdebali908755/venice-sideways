@@ -5,25 +5,28 @@ import {createHash} from 'node:crypto';
 import {createServer} from '../server.mjs';
 import {photosForVisit} from '../public/field-guide/gallery.js';
 import {temporarySelection} from '../public/field-guide/temporary-selection.js';
+import {mainGalleryForPlace} from '../public/field-guide/main-photo-additions.js';
 import {photosByPlace} from '../public/field-guide/stop-photos.js';
 
-test('the 39 bundled visits use only explicitly verified place photographs; all route content and geography are retained',async()=>{
+test('the 38 bundled visits use only explicitly verified place photographs; all route content and geography are retained',async()=>{
  const {routes}=JSON.parse(await readFile(new URL('../public/field-guide/routes.json',import.meta.url),'utf8'));
- assert.deepEqual(routes.map(route=>[route.key,route.visits.length]),[['main',11],['full',28]]);
- assert.equal(new Set(routes.flatMap(route=>route.visits.map(visit=>visit.placeKey))).size,30);
- assert.equal(routes.reduce((count,route)=>count+route.visits.reduce((n,visit)=>n+visit.ideas.length,0),0),195);
+ assert.deepEqual(routes.map(route=>[route.key,route.visits.length]),[['main',10],['full',28]]);
+ assert.equal(new Set(routes.flatMap(route=>route.visits.map(visit=>visit.placeKey))).size,29);
+ assert.equal(routes.reduce((count,route)=>count+route.visits.reduce((n,visit)=>n+visit.ideas.length,0),0),190);
  let assigned=0;
  for(const route of routes)for(const visit of route.visits){
   const expected=photosByPlace[visit.placeKey];
-  assert.deepEqual(visit.gallery,expected?[expected]:[]);
-  assert.deepEqual(photosForVisit(visit,temporarySelection),expected?[expected]:[]);
+  // Full retains its already-packaged localized captions; photo identity/rights/bytes stay exact.
+  const identity = photo => { const {copy,...asset}=photo; return asset; };
+  assert.deepEqual(route.key==="main"?visit.gallery:visit.gallery.map(identity),expected?(route.key==="main"?mainGalleryForPlace(visit.placeKey):[identity(expected)]):[]);
+  assert.deepEqual(photosForVisit(visit,temporarySelection),visit.gallery);
   if(expected)assigned++;
  }
- assert.equal(assigned,20);
- // Captured before the explicit empty-gallery edit; includes identities, order, every
+ assert.equal(assigned,19);
+ // Main translations approved by delegation 10 October 2026; includes identities, order, every
  // coordinate, all stop/idea copy and segment geometry, not presentation metadata.
  const critical=routes.map(route=>({key:route.key,sourceLanguage:route.sourceLanguage,visits:route.visits.map(visit=>Object.fromEntries(['key','placeKey','order','longitude','latitude','segmentKey','copy','ideas'].map(key=>[key,visit[key]]))),segments:route.segments}));
- assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'799ef8168f2fe16f679cd7488a5c7c15ada741c1c5974d2d4eda4a780bd0ba2a');
+ assert.equal(createHash('sha256').update(JSON.stringify(critical)).digest('hex'),'2a45d4787bc3fb909a6144af08ca4adceb0263439141d7eb41535523b931e43c');
 });
 
 test('book sources and private assessment material are not reachable through the real anonymous visitor server',async()=>{

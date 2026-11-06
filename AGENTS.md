@@ -10,3 +10,4 @@
 
 - Public Main-only visibility belongs to the explicit presentation setting. Keep all route records when saving progress; private Full previews and saved Full progress must remain intact.
 - Bundled stop photos have explicit gallery relations and source/license metadata. Never fill administrator-empty or revoked galleries automatically from a static catalog.
+- Keep README and CURRENT-STATE free of verification counts, commit SHAs and deployment IDs; record those in `docs/history/`.
