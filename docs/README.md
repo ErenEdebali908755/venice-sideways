@@ -1,6 +1,6 @@
 # Venice Sideways documentation
 
-- [Project overview and local commands](../README.md)
+- [Project overview, current state (6 November 2026) and local commands](../README.md)
 - [Release, compatibility and rollback procedure](MIGRATION.md)
 - [Map, artwork, photography and source provenance](watercolor-map-sources.md)
 - [Shared renderer proposal](history/shared-renderer-proposal-2026-10.md) — analysis only, no automation installed
