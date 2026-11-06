@@ -1,7 +1,7 @@
 # Venice Sideways maintenance rules
 
 - Standalone static browser application; Node server is a deployment option, not a data backend.
-- Do not embed personal gallery data, database credentials or upstream Git history. User-authorized Sideways aggregate statistics use a fixed server endpoint only.
+- Do not embed personal gallery data, database credentials or upstream Git history. Anonymous Sideways aggregate statistics (on by default; a stored "no" turns them off on that device) use a fixed server endpoint only.
 - Canonical domain: https://venicesideways.com/. Server-side calls to the owned Sideways API are authorized; do not forward browser credentials or expose private archive data.
 - Preserve all route IDs/order, five prompts per stop, eight locales, transit split and light basemap when changing presentation.
 - Own-device location remains opt-in and local to the browser. Never send device coordinates to admins or a server. Denial must not block browsing.

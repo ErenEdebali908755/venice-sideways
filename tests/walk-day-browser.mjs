@@ -18,7 +18,7 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
  const browser=await engine.launch({headless:true});
  for(const mode of (process.env.WALK_DAY_MODES?process.env.WALK_DAY_MODES.split(','):['portrait','small','landscape','denied','granted','slow','map-unavailable'])){
   const viewport=mode==='small'?{width:360,height:640}:mode==='landscape'?{width:normal.height,height:normal.width}:normal;
-  const name=`${engine.name()}-${mode}`,r={name,viewport,base,checks:[],errors:[],consoleErrors:[],nonGetBlocked:[],retiredRequests:[],screenshots:[],tiles:0};all.push(r);
+  const name=`${engine.name()}-${mode}`,r={name,viewport,base,checks:[],errors:[],consoleErrors:[],nonGetBlocked:[],statistics:[],retiredRequests:[],screenshots:[],tiles:0};all.push(r);
   const context=await browser.newContext({...devices[device],viewport,locale:lang,serviceWorkers:'block',permissions:mode==='granted'?['geolocation']:[],...(mode==='granted'?{geolocation:{latitude:45.44085,longitude:12.32145,accuracy:15}}:{})});
   await context.addInitScript(()=>{
    let library;Object.defineProperty(window,'maplibregl',{configurable:true,get:()=>library,set:value=>{library=value;const Original=value.Map;value.Map=class extends Original{constructor(...args){super(...args);(window.__walkMaps||=[]).push(this);}};}});
@@ -26,6 +26,8 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
   let offline=false;
   await context.route('**/*',async route=>{
    const req=route.request(),url=new URL(req.url());
+   // Default-on anonymous counts are answered inside the browser and never reach a server.
+   if(req.method()==='POST'&&url.pathname==='/api/community/statistics'){r.statistics.push(JSON.parse(req.postData()||'{}'));return route.fulfill({status:200,contentType:'application/json',body:'{"ok":true}'});}
    if(req.method()!=='GET'){r.nonGetBlocked.push(req.method()+' '+url.pathname);return route.abort();}
    if(/\/field-guide\/photos\//.test(url.pathname))r.retiredRequests.push(url.pathname);
    if(mode==='map-unavailable'&&(/tiles\.openfreemap\.org/.test(url.hostname)||/maplibre\.js$/.test(url.pathname)))return route.abort();
@@ -200,6 +202,9 @@ for(const [engine,device,normal,lang] of [[webkit,'iPhone 13',{width:390,height:
    check(JSON.stringify(final.completedVisitKeys)===JSON.stringify(keys),'all ten stops completed in order');check(seen.size===10,'all ten story buttons opened');check(transit===2,'both vaporetto legs acknowledged');
    await clean('finish');await shot('finish');
    if(mode==='portrait'){await open();check((await saved()).phase==='complete','completion survives refresh');check(r.tiles>0,'real map tiles loaded');}
+   check(r.nonGetBlocked.length===0,'no write requests other than anonymous counts');
+   check(r.statistics.some(e=>e.metric==='page_view'),'anonymous page count is on by default');
+   check(r.statistics.every(e=>JSON.stringify(Object.keys(e).sort())==='["consent","device","event","language","metric","route"]'),'anonymous counts carry no new fields');
    check(r.retiredRequests.length===0,'removed stop-photo bytes never requested');check(r.errors.length===0,'zero JavaScript errors throughout');
   }catch(e){r.failure=String(e);await shot('failure').catch(()=>{});}
   finally{await context.close();await writeFile(resolve(out,'results.json'),JSON.stringify(all,null,2));console.log(JSON.stringify({name,checks:r.checks.length,passed:!r.failure,failure:r.failure,errors:r.errors}));}

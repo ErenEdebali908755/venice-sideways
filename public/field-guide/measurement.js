@@ -1,27 +1,28 @@
-/* First-party opt-in anonymous event counts. Imported only by the public entry.
+/* First-party anonymous event counts, on unless this device stored 'no'. Imported only by the public entry.
  * No geolocation, participant fields, cookies, archive IDs or persistent person ID. */
 const collectors = new WeakMap();
 const locales = ['en','tr','it','ru','fr','zh','ja','ko'];
 export const measurementCopy = {
-  en: {title:'Anonymous statistics',allow:'Allow anonymous usage counts',detail:'Counts page views and opened walks by language and screen size. No GPS, names, persistent visitor ID or browsing history. Aggregates are kept for 180 days. Turn off to stop future measurement.',blocked:'Your browser privacy preference disables measurement.'},
-  tr: {title:'Anonim istatistikler',allow:'Anonim kullanım sayımına izin ver',detail:'Sayfa görüntülemelerini ve açılan rotaları dil ve ekran boyutuna göre sayar. GPS, isim, kalıcı ziyaretçi kimliği veya gezinme geçmişi içermez. Toplu sayılar 180 gün tutulur. Kapatmak sonraki ölçümleri durdurur.',blocked:'Tarayıcının gizlilik tercihi nedeniyle ölçüm kapalı.'},
-  it: {title:'Statistiche anonime',allow:'Consenti il conteggio anonimo dell’uso',detail:'Conta le visualizzazioni e i percorsi aperti per lingua e dimensione dello schermo. Nessun GPS, nome, identificatore persistente o cronologia. I conteggi aggregati sono conservati per 180 giorni. Disattiva per interrompere le misurazioni future.',blocked:'La preferenza di privacy del browser disattiva la misurazione.'},
-  fr: {title:'Statistiques anonymes',allow:'Autoriser les comptages anonymes',detail:'Compte les pages vues et les parcours ouverts par langue et taille d’écran. Sans GPS, nom, identifiant persistant ni historique. Les totaux sont conservés pendant 180 jours. Désactivez pour arrêter les mesures futures.',blocked:'La préférence de confidentialité du navigateur désactive la mesure.'},
-  ru: {title:'Анонимная статистика',allow:'Разрешить анонимный подсчёт использования',detail:'Подсчитывает просмотры страниц и открытые маршруты по языку и размеру экрана. Без GPS, имён, постоянного идентификатора и истории. Общие показатели хранятся 180 дней. Отключение прекращает будущие измерения.',blocked:'Настройки конфиденциальности браузера отключают измерения.'},
-  zh: {title:'匿名统计',allow:'允许匿名使用统计',detail:'按语言和屏幕大小统计页面浏览和打开的路线。不收集 GPS、姓名、永久访客标识或浏览历史。汇总数据保留 180 天。关闭后停止后续统计。',blocked:'浏览器隐私设置已禁用统计。'},
-  ja: {title:'匿名統計',allow:'匿名の利用回数の計測を許可',detail:'言語と画面サイズ別にページ閲覧と開いたコースを数えます。GPS、氏名、永続的な識別子、閲覧履歴は収集しません。集計は180日間保存されます。オフにすると今後の計測を停止します。',blocked:'ブラウザーのプライバシー設定により計測は無効です。'},
-  ko: {title:'익명 통계',allow:'익명 이용 횟수 집계 허용',detail:'언어와 화면 크기별로 페이지 조회 및 연 코스를 집계합니다. GPS, 이름, 영구 방문자 ID 또는 방문 기록은 수집하지 않습니다. 집계는 180일 동안 보관됩니다. 끄면 이후 측정이 중단됩니다.',blocked:'브라우저 개인정보 설정으로 측정이 비활성화되었습니다.'}
+  en: {title:'Anonymous statistics',allow:'Anonymous usage counts',detail:'Counts page views and opened walks by language and screen size. No GPS, names, persistent visitor ID or browsing history; no cookies are used. Aggregate counts are kept for 180 days. On by default; if you turn it off, this device is not counted.'},
+  tr: {title:'Anonim istatistikler',allow:'Anonim kullanım sayımı',detail:'Sayfa görüntülemelerini ve açılan rotaları dil ve ekran boyutuna göre sayar. GPS, isim, kalıcı ziyaretçi kimliği veya gezinme geçmişi yok; çerez kullanılmaz. Toplu sayılar 180 gün tutulur. Varsayılan olarak açıktır; kapatırsan bu cihazdan sayım yapılmaz.'},
+  it: {title:'Statistiche anonime',allow:'Conteggio anonimo dell’uso',detail:'Conta le visualizzazioni delle pagine e i percorsi aperti per lingua e dimensione dello schermo. Nessun GPS, nome, identificativo persistente del visitatore o cronologia di navigazione; non usa cookie. I conteggi aggregati sono conservati per 180 giorni. È attivo per impostazione predefinita; se lo disattivi, questo dispositivo non viene conteggiato.'},
+  fr: {title:'Statistiques anonymes',allow:'Comptage anonyme de l’utilisation',detail:'Compte les pages vues et les parcours ouverts par langue et taille d’écran. Pas de GPS, de nom, d’identifiant de visiteur persistant ni d’historique de navigation ; aucun cookie n’est utilisé. Les totaux sont conservés pendant 180 jours. Activé par défaut ; si vous le désactivez, cet appareil n’est plus compté.'},
+  ru: {title:'Анонимная статистика',allow:'Анонимный подсчёт использования',detail:'Подсчитывает просмотры страниц и открытые маршруты по языку и размеру экрана. Без GPS, имён, постоянного идентификатора посетителя и истории просмотров; файлы cookie не используются. Общие показатели хранятся 180 дней. Включено по умолчанию; если выключить, с этого устройства подсчёт не ведётся.'},
+  zh: {title:'匿名统计',allow:'匿名使用统计',detail:'按语言和屏幕大小统计页面浏览和打开的路线。不收集 GPS、姓名、永久访客标识或浏览历史，也不使用 Cookie。汇总数据保留 180 天。默认开启；关闭后，此设备将不再计入统计。'},
+  ja: {title:'匿名統計',allow:'匿名の利用回数の計測',detail:'言語と画面サイズ別にページ閲覧と開いたコースを数えます。GPS、氏名、永続的な訪問者ID、閲覧履歴は収集せず、Cookieも使用しません。集計は180日間保存されます。初期設定はオンです。オフにすると、この端末からは計測されません。'},
+  ko: {title:'익명 통계',allow:'익명 이용 횟수 집계',detail:'언어와 화면 크기별로 페이지 조회와 연 코스를 집계합니다. GPS, 이름, 영구 방문자 ID, 방문 기록은 수집하지 않으며 쿠키도 사용하지 않습니다. 집계는 180일 동안 보관됩니다. 기본으로 켜져 있으며, 끄면 이 기기에서는 집계하지 않습니다.'}
 };
 export function createMeasurementCollector(options = {}) {
-  const doc = options.document || document, win = options.window || window, nav = options.navigator || navigator;
+  const doc = options.document || document, win = options.window || window;
   if (collectors.has(doc)) return collectors.get(doc);
   const request = options.request || win.fetch.bind(win), random = options.crypto || win.crypto;
   let storage = options.storage; if (!storage) { try { storage = win.localStorage; } catch {} }
   let consent = false, ready = false, pageClaimed = false, language = 'en', current = null, sequence = 0, disposed = false, generation = 0;
   const claimed = new Set(), pending = new Set(), widgets = new Set();
-  const privacy = () => nav.doNotTrack === '1' || nav.doNotTrack === 'yes' || nav.globalPrivacyControl === true || win.doNotTrack === '1';
-  const allowed = () => !disposed && consent && !privacy() && !doc.hidden;
-  try { consent = storage?.getItem('sideways-measurement') === 'yes' && !privacy(); } catch {}
+  const allowed = () => !disposed && consent && !doc.hidden;
+  // No stored choice means counting is on; only an explicit 'no' (including earlier refusals) turns it off.
+  const fromStorage = value => value !== 'no';
+  consent = true; try { consent = fromStorage(storage?.getItem('sideways-measurement')); } catch {}
   const locale = value => locales.includes(value) ? value : 'other';
   const id = () => Array.from(random.getRandomValues(new Uint8Array(16)), value => value.toString(16).padStart(2,'0')).join('');
   function stop() { generation++; for (const item of pending) { item.abort.abort(); clearTimeout(item.timer); item.resume?.(); } pending.clear(); }
@@ -56,12 +57,11 @@ export function createMeasurementCollector(options = {}) {
   function updateWidgets() {
     for (const widget of widgets) {
       if (!widget.host.isConnected) { widgets.delete(widget); continue; }
-      widget.input.checked = consent && !privacy(); widget.input.disabled = privacy();
-      widget.detail.textContent = privacy() ? widget.copy.blocked : widget.copy.detail;
+      widget.input.checked = consent;
     }
   }
   function setConsent(value) {
-    consent = value === true && !privacy();
+    consent = value === true;
     try { storage?.setItem('sideways-measurement',consent?'yes':'no'); } catch {}
     if (!consent) stop(); else flush();
     updateWidgets();
@@ -70,14 +70,14 @@ export function createMeasurementCollector(options = {}) {
     widgets.clear();
     for (const container of containers || []) {
       const copy = measurementCopy[lang] || measurementCopy.en, details = doc.createElement('details'), summary = doc.createElement('summary'), label = doc.createElement('label'), input = doc.createElement('input'), text = doc.createElement('span'), explanation = doc.createElement('p');
-      details.className = 'fg-measurement'; summary.textContent = copy.title; input.type = 'checkbox'; input.checked = consent && !privacy(); input.disabled = privacy(); text.textContent = copy.allow;
-      explanation.className = 'fg-muted'; explanation.textContent = privacy() ? copy.blocked : copy.detail;
+      details.className = 'fg-measurement'; summary.textContent = copy.title; input.type = 'checkbox'; input.checked = consent; text.textContent = copy.allow;
+      explanation.className = 'fg-muted'; explanation.textContent = copy.detail;
       input.addEventListener('change',() => setConsent(input.checked)); label.append(input,text); details.append(summary,label,explanation); container.replaceChildren(details);
       widgets.add({host:container,input,detail:explanation,copy});
     }
   }
   const visibility = () => { if (doc.hidden) stop(); else { updateWidgets(); flush(); } };
-  const storageChange = event => { if (event.key === 'sideways-measurement') { consent = event.newValue === 'yes' && !privacy(); if (!consent) stop(); updateWidgets(); flush(); } };
+  const storageChange = event => { if (event.key === 'sideways-measurement') { consent = fromStorage(event.newValue); if (!consent) stop(); updateWidgets(); flush(); } };
   doc.addEventListener('visibilitychange',visibility); win.addEventListener('storage',storageChange);
   const api = {
     pageReady(lang) { if (disposed) return; ready = true; language = lang || language; flush(); },

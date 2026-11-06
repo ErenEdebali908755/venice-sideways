@@ -11,6 +11,7 @@ The public experience focuses on Main Walk; saved route data and private Full Wa
 - **Bilinen eksikler:** 38 ziyaretin 19'unda durak galerisi boş; `routes.json` yürüyüş geometrisi `routingStatus: stale` (sahada doğrulanmamış); harita aktarım işaretleri üst üste binebilir; gerçek iPhone/Android saha testi yapılmadı; 40 kitap dosyasının kullanım hakkı doğrulanmadı.
 - **CI:** GitHub Actions 21 Ekim 2026'dan beri hesap faturalandırma engeli yüzünden çalışmıyor; testler yerelde koşulur (`npm test && npm run check`).
 - **Ortak renderer:** admin kopyası 11 Ekim'den beri geride kalmıştı; eşitleme PR'ı admin deposunda açıldı (`node tools/sync-field-guide.mjs <admin> --check`).
+- **Anonim sayım (PR #32):** varsayılan açık; ziyaretçi Tercihler bölümünden kendi cihazında kapatabilir. Tarayıcı DNT/GPC sinyalleri artık sayımı tek başına kapatmaz.
 - **Yayın kuralı:** değişiklikler yalnız 14:00 Europe/Rome öncesinde ve sahibin açık onayıyla yayına alınır.
 
 ## Stack
