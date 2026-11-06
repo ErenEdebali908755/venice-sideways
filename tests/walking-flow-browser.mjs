@@ -38,7 +38,7 @@ try{
   const {page,context}=await open(lang,width,height),label=`${lang}/${width}x${height}`;
   check(await visibleDock(page),label+': named walking target and primary action fit viewport');
   check(await page.evaluate(()=>guide.walking.phase==='reaching-start'&&guide.walkingStep==='lucia'),label+': starts at Santa Lucia');
-  check(await page.locator('.fg-walking-dock').innerText().then(text=>text.includes('1 / 11')&&!text.includes('/ 12')),label+': separate eleven-photo progress');
+  check(await page.locator('.fg-walking-dock').innerText().then(text=>text.includes('1 / 10')&&!text.includes('/ 12')),label+': separate ten-photo progress');
   check(await page.evaluate(()=>__gpsCalls===0),label+': no initial location permission');
   if(lang==='tr'&&width===390&&height===844){await page.waitForTimeout(280);await page.screenshot({path:resolve(output,'01-start-390-tr.png')});}
   await page.locator('[data-action="walk-advance"]').dblclick();
@@ -80,7 +80,7 @@ try{
     check(await page.locator('.fg-walking-dock').innerText().then(text=>text.includes('ACTV 5.2')&&text.includes('Tre Archi')),label+': second transit target names correct landing');
     await page.waitForTimeout(660);await page.evaluate(()=>guide.resumeWalking(guide.steps().at(-1).key));
     await page.waitForTimeout(660);await page.locator('[data-action="walk-advance"]').click();await page.waitForTimeout(660);await page.locator('[data-action="walk-advance"]').click();
-    check(await page.evaluate(()=>guide.walking.phase==='complete'&&guide.walkingStep==='vino'),label+': explicit completion at Vino Vero');
+    check(await page.evaluate(()=>guide.walking.phase==='complete'&&guide.walkingStep==='trearchi'),label+': explicit completion at Ponte dei Tre Archi');
     await page.waitForTimeout(280);await page.screenshot({path:resolve(output,'05-finish-390-tr.png')});
   }
   await context.close();

@@ -5,8 +5,8 @@ import {walkingSteps, restoreWalkingState, advanceWalkingState, continueWalkingA
 import {FieldGuide} from '../public/field-guide/guide.js';
 const {routes} = JSON.parse(await readFile(new URL('../public/field-guide/routes.json',import.meta.url),'utf8'));
 const main=routes.find(route=>route.key==='main'), full=routes.find(route=>route.key==='full');
-test('Main has eleven photo stops and one separate transfer; Full keeps twenty-eight',()=>{
-  assert.equal(walkingSteps(main).filter(step=>step.isPhotoStop).length,11);
+test('Main has ten photo stops and one separate transfer; Full keeps twenty-eight',()=>{
+  assert.equal(walkingSteps(main).filter(step=>step.isPhotoStop).length,10);
   assert.equal(walkingSteps(main).filter(step=>step.boat).length,1);
   assert.equal(walkingSteps(full).filter(step=>step.isPhotoStop).length,28);
 });

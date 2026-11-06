@@ -26,9 +26,9 @@ test('all thirty optical points survive strict crop, independent derivative roun
     }
   }
 });
-test('separate sourced references keep all thirty-nine visit coordinates intact, and unresolved architecture stays explicit', () => {
+test('separate sourced references keep all thirty-eight visit coordinates intact, and unresolved architecture stays explicit', () => {
   assert.deepEqual(manifest.opticalCalibration.verifiedGeographicReferences,['lucia','frari','dogana','accademia','vino']);
-  assert.equal(manifest.routePlacements.length,39);
+  assert.equal(manifest.routePlacements.length,38);
   for(const row of manifest.routePlacements) {
     const visit=routes.find(route=>route.key===row.route).visits.find(visit=>visit.key===row.visitKey);
     const asset=manifest.assets.find(asset=>asset.placeKey===row.placeKey);
@@ -68,16 +68,16 @@ test('floating artwork obstacles reserve control and open panel boxes without co
 test('collision culling preserves anchors, avoids opaque art boxes and retains accepted positions during small pan jitter', () => {
   let jitter=0;const map={getContainer:()=>({clientWidth:390,clientHeight:500}),getZoom:()=>16.5,getPitch:()=>0,project:()=>({x:195+jitter,y:300})};
   const obstacles=[{left:168,top:273,right:222,bottom:327}];
-  const first=visibleLandmarks(map,routes[0],'vino',{obstacles,protectRoute:false});
-  assert.ok(first.length>0&&first.length<=3);assert.equal(first[0].properties.key,'vino');
+  const first=visibleLandmarks(map,routes[0],'accademia',{obstacles,protectRoute:false});
+  assert.ok(first.length>0&&first.length<=3);assert.equal(first[0].properties.key,'accademia');
   for(const feature of first) {
     assert.equal(obstacles.some(box=>boxesOverlap(feature.properties.visibleBoundsCSS,box,4)),false);
     assert.ok(Math.hypot(...feature.properties.screenDisplacement)<=72);
   }
   for(let i=0;i<first.length;i++)for(let j=i+1;j<first.length;j++)assert.equal(boxesOverlap(first[i].properties.visibleBoundsCSS,first[j].properties.visibleBoundsCSS,8),false);
-  jitter=1;const next=visibleLandmarks(map,routes[0],'vino',{obstacles,protectRoute:false});
+  jitter=1;const next=visibleLandmarks(map,routes[0],'accademia',{obstacles,protectRoute:false});
   assert.deepEqual(next.map(feature=>[feature.properties.key,feature.properties.screenDisplacement]),first.map(feature=>[feature.properties.key,feature.properties.screenDisplacement]));
-  map.project=()=>({x:-1,y:300});assert.deepEqual(visibleLandmarks(map,routes[0],'vino',{obstacles,protectRoute:false}),[],'offscreen true anchors are never clamped into the viewport');
+  map.project=()=>({x:-1,y:300});assert.deepEqual(visibleLandmarks(map,routes[0],'accademia',{obstacles,protectRoute:false}),[],'offscreen true anchors are never clamped into the viewport');
 });
 test('line labels retain line placement and point labels gain alternatives without changing provider geometry', () => {
   const base={sources:{openmaptiles:{type:'vector'}},layers:[{id:'water_name_line_label',type:'symbol',layout:{'symbol-placement':'line','text-field':['get','name']}},{id:'poi',type:'symbol',layout:{'text-field':['get','name']}}]};

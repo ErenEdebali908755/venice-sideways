@@ -43,7 +43,7 @@ test('Thirty illustrated places retain alpha and route mappings; five Main repla
   assert.equal(manifest.assets.filter(asset => asset.approved).length, 30);
   assert.deepEqual(manifest.assets.filter(asset => !asset.approved).map(asset => asset.placeKey), []);
   assert.equal(ILLUSTRATIONS.find(asset => asset.key === 'trearchi').humanSpecificReviewRequired, false);
-  assert.equal(ILLUSTRATION_PLACEMENTS.length, 39);
+  assert.equal(ILLUSTRATION_PLACEMENTS.length, 38);
   for (const route of routes.filter(route => ['main', 'full'].includes(route.key))) {
     const mapped = ILLUSTRATION_PLACEMENTS.filter(row => row.route === route.key);
     assert.equal(mapped.length, route.visits.filter(visit => visit.isPhotoStop && visit.visible).length);
