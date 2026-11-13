@@ -3,3 +3,7 @@ node_modules/
 qa-output/
 docs/qa-gallery/
 __pycache__/
+
+# Agent tools (docs/agent-tools.md): Graphify writes a local code graph; it is rebuilt, never committed
+graphify-out/
+.claude/settings.local.json

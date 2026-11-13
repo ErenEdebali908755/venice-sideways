@@ -11,3 +11,5 @@
 - Public Main-only visibility belongs to the explicit presentation setting. Keep all route records when saving progress; private Full previews and saved Full progress must remain intact.
 - Bundled stop photos have explicit gallery relations and source/license metadata. Never fill administrator-empty or revoked galleries automatically from a static catalog.
 - Keep README and CURRENT-STATE free of verification counts, commit SHAs and deployment IDs; record those in `docs/history/`.
+
+Agent tools (docs/agent-tools.md). Before searching or reading widely, query the code map first (graphify query "<question>") and open only the files it points to; before changing a function, check what depends on it. Refresh the map after every merge to main (graphify update .). Use only free Graphify commands; anything that calls a model needs the owner's approval with the price first. If the map and the code disagree, the code wins: refresh the map.

@@ -1,0 +1,21 @@
+# Graphify (docs/agent-tools.md) reads .gitignore first; this file only excludes more.
+# Build output, dependencies and the graph itself.
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+.vercel/
+graphify-out/
+.claude/skills/
+# Secrets: local env files.
+.env*
+# Local QA output and screenshot gallery.
+qa-output/
+docs/qa-gallery/
+# Field-guide media: stop photos and watercolour art (the field-guide code in public/field-guide/*.js stays in the
+# graph).
+public/field-guide/photos/
+public/field-guide/art/
+*.log
