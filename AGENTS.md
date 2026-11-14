@@ -12,4 +12,12 @@
 - Bundled stop photos have explicit gallery relations and source/license metadata. Never fill administrator-empty or revoked galleries automatically from a static catalog.
 - Keep README and CURRENT-STATE free of verification counts, commit SHAs and deployment IDs; record those in `docs/history/`.
 
-Agent tools (docs/agent-tools.md). Before searching or reading widely, query the code map first (graphify query "<question>") and open only the files it points to; before changing a function, check what depends on it. Refresh the map after every merge to main (graphify update .). Use only free Graphify commands; anything that calls a model needs the owner's approval with the price first. If the map and the code disagree, the code wins: refresh the map.
+Agent tools (docs/agent-tools.md). The code map is local and never committed, so a fresh checkout or a cloud sandbox starts without one.
+
+- Start of every session: run `graphify update .` (free, local, no model call, takes seconds here). If the command is missing, install it first with `uv tool install --python 3.12 graphifyy==0.9.108`.
+- Before searching or reading widely, ask the map and open only the files it points to: `graphify query "<one to three words from file, function or feature names>"` (full sentences match poorly) or `graphify explain "<name>"`.
+- Before changing a function, check what depends on it with `graphify affected "<name>"`.
+- Run `graphify update .` again after your own code changes and after every merge to main.
+- Use only free Graphify commands (update, query, explain, path, affected, god-nodes). Anything that calls a model (`/graphify`, extract, label, cluster-only without `--no-label`) needs the owner's approval with the price first.
+- If the map and the code disagree, the code wins: refresh the map.
+- In every pull request, add a "Code map" line with the commit the map was built from and the queries you ran, or the reason the map was not used.

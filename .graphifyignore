@@ -18,4 +18,9 @@ docs/qa-gallery/
 # graph).
 public/field-guide/photos/
 public/field-guide/art/
+# Vendored third-party bundle (MapLibre GL JS, minified). Its thousands of minified symbols bury the project's own
+# code in query results, so it stays out of the graph.
+public/field-guide/maplibre.js
+# Translation review inventories: editorial review tables, not code.
+docs/i18n/review-inventories/
 *.log
